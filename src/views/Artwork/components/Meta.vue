@@ -1,173 +1,510 @@
 /* eslint-disable vue/no-template-key */
 <template>
-  <div class="artwork-meta" v-if="artwork.author">
+  <div v-if="artwork.author" class="artwork-meta">
     <div class="mask">
-      <canvas class="mask-text" ref="mask"></canvas>
+      <canvas ref="mask" class="mask-text"></canvas>
     </div>
-    <div class="author-info">
-      <router-link
-        :to="{
-          name: 'Users',
-          params: { id: artwork.author.id },
-        }"
+    <div class="author-info" :class="{ is_novel: isNovel }">
+      <img
+        v-if="!isNovel"
+        class="avatar"
+        :src="artwork.author.avatar"
+        :alt="artwork.author.name"
+        @click="toAuthor(artwork.author.id)"
       >
-        <img
-          class="avatar"
-          :src="artwork.author.avatar"
-          :alt="artwork.author.name"
-          :title="artwork.author.name"
-        />
-      </router-link>
       <div class="name-box">
-        <h2 class="title" :title="artwork.title">{{ artwork.title }}</h2>
-        <div class="author" :title="artwork.author.name">
-          {{ artwork.author.name }}
+        <div v-if="isNovel && artwork.series && artwork.series.id" class="series">
+          <router-link :to="`/novel/series/${artwork.series.id}`">{{ artwork.series.title }}</router-link>
         </div>
+        <h2 class="title">{{ artwork.title }}</h2>
+        <div v-if="!isNovel && artwork.series && artwork.series.id" class="series is_illust" :title="artwork.series.title">
+          <router-link :to="`/user/${artwork.author.id}/series/${artwork.series.id}`">{{ artwork.series.title }}</router-link>
+        </div>
+        <div class="author" @click="toAuthor(artwork.author.id)">{{ artwork.author.name }}</div>
       </div>
     </div>
     <div class="date">
-      <span class="created">{{
-        artwork.created | dayjs("YYYY-MM-DD hh:mm")
-      }}</span>
+      <span v-if="isNovel" class="view" style="margin-left: 0;">
+        {{ artwork.text_length | convertToK }}{{ $t('common.words') }}
+      </span>
       <span class="view">
-        <Icon name="view" class="icon"></Icon>
+        <Icon name="view" class="icon" />
         {{ artwork.view | convertToK }}
       </span>
       <span class="like">
-        <Icon name="like" class="icon"></Icon>
+        <Icon name="like" class="icon" />
         {{ artwork.like | convertToK }}
       </span>
-      <span class="pixiv">
-        <a
-          :href="`https://www.pixiv.net/artworks/${artwork.id}`"
-          target="_blank"
-          rel="noreferrer"
-          title="前往Pixiv查看作品"
-        >
-          <Icon name="pixiv" class="icon"></Icon>
-        </a>
-      </span>
+      <span class="created" :class="{ is_novel: isNovel }">{{ artwork.created | formatDate(isNovel) }}</span>
+    </div>
+    <div class="pid_link">
+      <a
+        v-if="isNovel"
+        target="_blank"
+        rel="noreferrer"
+        :href="'https://www.pixiv.net/novel/show.php?id=' + artwork.id"
+      >
+        https://pixiv.net/n/{{ artwork.id }}
+      </a>
+      <a
+        v-else
+        target="_blank"
+        rel="noreferrer"
+        :href="'https://www.pixiv.net/artworks/' + artwork.id"
+      >
+        https://pixiv.net/i/{{ artwork.id }}
+      </a>
+    </div>
+    <div class="whid">
+      <span v-if="!isNovel">{{ artwork.width }}×{{ artwork.height }}</span>
+      <span @click="copyId(artwork.id)">{{ isNovel?'': 'P' }}ID:{{ artwork.id }}<Icon name="copy" style="margin-left: 1px;" /></span>
+      <span
+        v-longpress="() => onUidLongpress(artwork.author)"
+        @click="copyId(artwork.author.id)"
+        @contextmenu="preventContext"
+      >UID:{{ artwork.author.id }}<Icon name="copy" style="margin-left: 1px;" /></span>
     </div>
     <ul class="tag-list" :class="{ censored: isCensored(artwork) }">
-      <template v-for="(tag, index) in artwork.tags">
-        <router-link
-          class="tag"
-          :to="{ name: 'Search', query: { keyword: tag.name } }"
-          :key="`tag_${index}`"
+      <li v-if="artwork.illust_ai_type == 2">
+        <van-tag class="x_tag" size="large" color="#FFB11B">{{ $t('common.ai_gen') }}</van-tag>
+      </li>
+      <li v-if="artwork.x_restrict">
+        <van-tag class="x_tag" size="large" type="danger">NSFW</van-tag>
+      </li>
+      <template v-for="(tag, ti) in artwork.tags">
+        <li
+          :key="ti + '_1'"
+          v-longpress="() => onTagLongpress(tag.name)"
+          class="tag name"
+          @click="toSearch(tag.name)"
+          @contextmenu="preventContext"
         >
           #{{ tag.name }}
-          <span v-if="tag.translated_name">{{ tag.translated_name }}</span>
-        </router-link>
+        </li>
+        <li v-if="showTranslatedTags && tag.translated_name" :key="ti + '_2'" class="tag translated" @click="toSearch(tag.translated_name)">
+          {{ tag.translated_name }}
+        </li>
       </template>
     </ul>
-    <div
-      class="caption"
-      :class="{ censored: isCensored(artwork) }"
-      @click.stop.prevent="handleClick($event)"
-      v-html="artwork.caption"
-    ></div>
+    <div :class="{ shrink: isShrink }" @click="isShrink = false">
+      <div
+        class="caption"
+        :class="{ censored: isCensored(artwork) }"
+        @click.stop.prevent="handleClick($event)"
+        v-html="artwork.caption"
+      ></div>
+      <Icon v-if="isShrink" class="dropdown" name="dropdown" scale="4" />
+    </div>
+    <div v-if="!isNovel " class="meta_btns" :class="{ censored: isCensored(artwork) }">
+      <van-button
+        v-if="isLoggedIn"
+        size="small"
+        :loading="favLoading"
+        :icon="bookmarkId ? 'like' : 'like-o'"
+        plain
+        color="#E87A90"
+        style="margin-right: 0.15rem;"
+        @click="toggleBookmark"
+      >
+        {{ bookmarkId ? $t('user.faved'): $t('user.fav') }}
+      </van-button>
+      <van-button
+        type="info"
+        icon="down"
+        size="small"
+        plain
+        color="#5DAC81"
+        style="margin-right: 0.15rem;"
+        @click="downloadArtwork()"
+      >
+        {{ $t('common.download') }}
+      </van-button>
+      <van-button
+        type="info"
+        icon="comment-o"
+        size="small"
+        plain
+        color="#005CAF"
+        @click="showComments = true"
+      >
+        <span>{{ $t('user.view_comments') }}</span>
+      </van-button>
+      <van-popup
+        v-model="showComments"
+        class="comments-popup"
+        position="right"
+        get-container="body"
+        closeable
+        :overlay="false"
+      >
+        <iframe
+          v-if="showComments"
+          class="comments-iframe"
+          :src="`https://now.pixiv.pics/#/comments/${artwork.id}`"
+        ></iframe>
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
-let maskFont = null;
+import { mapGetters } from 'vuex'
+import FileSaver from 'file-saver'
+import dayjs from 'dayjs'
+import { Dialog } from 'vant'
+import { copyText, sleep } from '@/utils'
+import { i18n } from '@/i18n'
+import { isIllustBookmarked, addBookmark, removeBookmark } from '@/api/user'
+import { localApi } from '@/api'
+import { toggleBookmarkCache } from '@/utils/storage/siteCache'
 
 export default {
+  filters: {
+    convertToK(val) {
+      if (!val) return '-'
+      val = +val
+      if (val > 10000) {
+        return (val / 1000).toFixed(1) + 'K'
+      } else {
+        return val
+      }
+    },
+    formatDate(val, isNovel) {
+      if (isNovel) {
+        return dayjs(val)
+          .format('YYYY年MM月DD日Ahh点mm分')
+          .replace('AM', '上午')
+          .replace('PM', '下午')
+      }
+      return dayjs(val).format('YYYY-MM-DD HH:mm')
+    },
+  },
   props: {
     artwork: {
       type: Object,
       required: true,
     },
+    isNovel: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
-    return {};
+    return {
+      isShrink: false,
+      bookmarkId: null,
+      favLoading: false,
+      showComments: false,
+    }
   },
   computed: {
-    ...mapGetters(["isCensored"]),
-  },
-  filters: {
-    convertToK(val) {
-      if (!val) return "";
-      val = +val;
-      if (val > 10000) {
-        return (val / 1000).toFixed(1) + "K";
-      } else {
-        return val;
-      }
+    ...mapGetters(['isCensored', 'isLoggedIn']),
+    showTranslatedTags() {
+      return i18n.locale.includes('zh')
     },
   },
-  methods: {
-    async drawMask() {
-      await this.loadMaskFont();
-
-      let canvas = this.$refs.mask;
-      if (!canvas) return;
-
-      let { width, height } = canvas.getBoundingClientRect();
-      canvas.width = width * 2;
-      canvas.height = height * 2;
-      canvas.style.width = width;
-      canvas.style.height = height;
-
-      let ctx = canvas.getContext("2d"),
-        txt = `${this.artwork.id}  `;
-
-      ctx.rotate((-20 * Math.PI) / 180);
-      ctx.font = "bold 72px Dosis";
-      let txtHeight = 85;
-      let w = Math.ceil(ctx.measureText(txt).width);
-      // txt = new Array(w * 2).join(txt + " ");
-      let h = Math.sqrt(width ** 2 + height ** 2) * 2;
-      console.log(w, Math.ceil(h / txtHeight));
-      for (let i = 0; i < h / txtHeight; i++) {
-        for (let j = 0; j < w; j++) {
-          if (i === Math.floor(h / txtHeight / 2) && j === 2) {
-            ctx.fillStyle = "rgba(0,0,0,.13)";
-          } else {
-            ctx.fillStyle = "rgba(0,0,0,.03)";
-          }
-          ctx.fillText(txt, (j - 1) * w, i * txtHeight);
-        }
-      }
+  watch: {
+    artwork: {
+      immediate: true,
+      handler() {
+        this.isShrink = this.artwork?.caption?.length > 500
+        this.isLoggedIn && this.checkBookmarked()
+      },
     },
-    loadMaskFont() {
-      return new Promise((resolve, reject) => {
-        if (maskFont) {
-          resolve();
-        } else {
-          new FontFace(
-            "Dosis",
-            `url(${require("@/assets/css/dosis-v7-latin-ext_latin-regular.woff")})`
-          )
-            .load()
-            .then((font) => {
-              document.fonts.add(font);
-              maskFont = font;
-              resolve();
-            })
-            .catch(reject);
-        }
-      });
+    isLoggedIn: {
+      immediate: true,
+      handler(val) {
+        val && this.checkBookmarked()
+      },
     },
-    handleClick(e) {
-      if (e.target.tagName === "A") {
-        window.open(e.target.href);
-      }
+    showComments(val) {
+      document.documentElement.style.overflowY = val ? 'hidden' : ''
     },
   },
   mounted() {
-    this.drawMask();
+    const ua = navigator.userAgent
+    if (!/Chrome/i.test(ua) && /Safari/i.test(ua)) return
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.drawMask()
+      }, 500)
+    })
   },
-};
+  methods: {
+    checkBookmarked() {
+      if (!this.artwork.id) return
+      if (window.APP_CONFIG.useLocalAppApi) {
+        this.bookmarkId = this.artwork.is_bookmarked
+        return
+      }
+      this.favLoading = true
+      isIllustBookmarked(this.artwork.id).then(id => {
+        this.favLoading = false
+        this.bookmarkId = id
+      })
+    },
+    toggleBookmark() {
+      this.favLoading = true
+      if (this.bookmarkId) {
+        window.APP_CONFIG.useLocalAppApi
+          ? localApi.illustBookmarkDelete(this.artwork.id).then(isOk => {
+            this.favLoading = false
+            if (isOk) {
+              this.bookmarkId = null
+              toggleBookmarkCache(this.artwork, false)
+            } else {
+              this.$toast(this.$t('artwork.unfav_fail'))
+            }
+          })
+          : removeBookmark(this.bookmarkId).then(({ error }) => {
+            this.favLoading = false
+            if (error) {
+              this.$toast(this.$t('artwork.unfav_fail'))
+            } else {
+              this.bookmarkId = null
+            }
+          })
+      } else {
+        window.APP_CONFIG.useLocalAppApi
+          ? localApi.illustBookmarkAdd(this.artwork.id).then(isOk => {
+            this.favLoading = false
+            if (isOk) {
+              this.bookmarkId = true
+              toggleBookmarkCache(this.artwork, true)
+            } else {
+              this.$toast(this.$t('artwork.fav_fail'))
+            }
+          })
+          : addBookmark(this.artwork.id).then(({ data, error }) => {
+            this.favLoading = false
+            if (error) {
+              this.$toast(this.$t('artwork.fav_fail'))
+            } else {
+              this.bookmarkId = data?.last_bookmark_id || null
+            }
+          })
+      }
+    },
+    drawMask() {
+      if (this.isNovel) return
+      const canvas = this.$refs.mask
+      if (!canvas) return
+
+      const { width, height } = canvas.getBoundingClientRect()
+      canvas.width = width * 2
+      canvas.height = height * 2
+      canvas.style.width = width
+      canvas.style.height = height
+
+      const ctx = canvas.getContext('2d')
+      const txt = `${this.artwork.id}  `
+
+      ctx.rotate((-20 * Math.PI) / 180)
+      ctx.font = 'bold 72px Dosis'
+      const txtHeight = 85
+      const w = Math.ceil(ctx.measureText(txt).width)
+      // txt = new Array(w * 2).join(txt + " ");
+      const h = Math.sqrt(width ** 2 + height ** 2) * 2
+      console.log(w, Math.ceil(h / txtHeight))
+      for (let i = 0; i < h / txtHeight; i++) {
+        for (let j = 0; j < w; j++) {
+          if (i === Math.floor(h / txtHeight / 2) && j === 2) {
+            ctx.fillStyle = 'rgba(0,0,0,.13)'
+          } else {
+            ctx.fillStyle = 'rgba(0,0,0,.05)'
+          }
+          ctx.fillText(txt, (j - 1) * w, i * txtHeight)
+        }
+      }
+    },
+    handleClick(e) {
+      if (e.target.tagName === 'A') {
+        let url = e.target.href
+        if (url.startsWith('pixiv://users')) {
+          url = url.replace('pixiv:/', '')
+        }
+        if (url.startsWith('pixiv://illusts')) {
+          url = url.replace('pixiv://illusts', '/artworks')
+        }
+        if (url.startsWith('pixiv://novels')) {
+          url = url.replace('pixiv://novels', '/novel')
+        }
+        window.open(url, '_blank', 'noreferrer')
+      }
+    },
+    toAuthor(id) {
+      this.$router.push({
+        name: 'Users',
+        params: { id },
+      })
+    },
+    toSearch(keyword) {
+      keyword = encodeURIComponent(keyword)
+      this.$router.push(this.isNovel ? `/search_novel/${keyword}` : `/search/${keyword}`)
+    },
+    preventContext(event) {
+      event.preventDefault()
+      return false
+    },
+    onTagLongpress(tag) {
+      Dialog.confirm({
+        title: this.$t('LEaBJrLF0DUhyTe6-fKYT'),
+        message: tag,
+        lockScroll: false,
+        closeOnPopstate: true,
+        cancelButtonText: this.$t('common.cancel'),
+        confirmButtonText: this.$t('common.confirm'),
+      }).then(res => {
+        if (res == 'confirm') {
+          this.$store.dispatch('appendBlockTags', [tag])
+        }
+      }).catch(() => {})
+
+      return false
+    },
+    onUidLongpress(author) {
+      Dialog.confirm({
+        title: this.$t('w73XEmHradtum3SQ9IjBq'),
+        message: `${author.name}(${author.id})`,
+        lockScroll: false,
+        closeOnPopstate: true,
+        cancelButtonText: this.$t('common.cancel'),
+        confirmButtonText: this.$t('common.confirm'),
+      }).then(res => {
+        if (res == 'confirm') {
+          this.$store.dispatch('appendBlockUids', [author.id])
+        }
+      }).catch(() => {})
+    },
+    async downloadArtwork() {
+      if (this.artwork.type == 'ugoira') {
+        this.$emit('ugoira-download')
+        return
+      }
+      // window.umami?.track('download_artwork')
+      this.$toast(this.$t('tips.download_wait'))
+      for (let index = 0; index < this.artwork.images.length; index++) {
+        const item = this.artwork.images[index]
+        FileSaver.saveAs(
+          item.o,
+          `${this.artwork.author.name}_${this.artwork.title}_${this.artwork.id}_p${index}.${item.o.split('.').pop()}`
+        )
+        await sleep(1000)
+      }
+    },
+    async copyId(text) {
+      copyText(
+        text,
+        () => this.$toast(this.$t('tips.copylink.succ')),
+        () => {}
+      )
+    },
+  },
+}
 </script>
 
 <style lang="stylus" scoped>
+.shrink {
+  position relative
+  max-height: 600px;
+  overflow: hidden;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to top, rgb(255, 255, 255), rgba(#fff, 0));
+  }
+  .dropdown {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: #fafafa;
+    filter: drop-shadow(1px 4px 8px rgba(0, 0, 0, 0.2));
+    animation: ani-dropdown 2s ease-in-out infinite;
+  }
+  @keyframes ani-dropdown {
+    0%, 100% {
+      transform: translate(-50%, 0);
+    }
+    50% {
+      transform: translate(-50%, 6px);
+    }
+  }
+}
+
+.meta_btns {
+  display flex
+  margin-top 16px
+  ::v-deep button {
+    flex 1
+    padding 0 5px
+
+    &:nth-child(1) {
+      transition 0.2s
+      filter: none;
+      &:hover {
+        color: #e74767 !important;
+        border-color: #e74767 !important;
+        background: #FEDFE1;
+        filter: brightness(1.05);
+      }
+    }
+
+    &:nth-child(2) {
+      transition 0.2s
+      filter: none;
+      &:hover {
+        background: #e2ffef;
+        filter: brightness(1.05);
+      }
+    }
+
+    &:nth-child(3) {
+      transition 0.2s
+      filter: none;
+      &:hover {
+        background: #d4ebff
+        filter: brightness(1.05);
+      }
+    }
+  }
+}
+
+.comments-popup {
+  top 0
+  transform none
+  overflow-y hidden
+}
+.comments-iframe {
+  width 750px
+  height 100vh
+  border 0
+}
+
 .artwork-meta {
   position: relative;
   padding: 12px 20px;
-  margin: 24px 0;
+  margin: 20px 0;
+
+  .pid_link {
+    position relative
+    font-size: 22px;
+    padding-left 30px
+    a {
+      color #0066FF
+    }
+    &:before {
+      content:'🔗'
+      position absolute
+      left 0
+      top 0
+    }
+  }
 
   .mask {
     position: absolute;
@@ -177,6 +514,7 @@ export default {
     bottom: 0;
     z-index: -1;
     overflow: hidden;
+    font-family Dosis
 
     .mask-text {
       width: 100%;
@@ -184,74 +522,117 @@ export default {
     }
   }
 
+  .series {
+    margin-bottom 8px
+    font-size 20px
+    &,& a {
+      color: #faa200 !important
+    }
+    &.is_illust {
+      margin-top 5px
+      // margin-left 105px
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   .author-info {
-    height: 86px;
+    display flex
+    // height: 86px;
     margin: 10px 0 20px 0;
 
     .avatar {
-      float: left;
       width: 86px;
+      min-width: 86px;
       height: 86px;
       border-radius: 50%;
       overflow: hidden;
       margin-right: 18px;
     }
 
+    &:not(.is_novel) .name-box {
+      max-width calc(100% - 90px)
+    }
+
     .name-box {
       height: 100%;
-      white-space: nowrap;
+      // white-space: nowrap;
 
       .title {
         padding-top: 4px;
         margin-bottom: 8px;
         font-size: 32px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
       }
 
       .author {
         font-size: 22px;
         color: #9b9b9b;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        cursor pointer
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+      }
+
+    }
+
+    &.is_novel {
+      height auto
+      .name-box {
+        white-space normal
+      }
+      .author {
+        margin-top 20px
+        font-size 24px
+        line-height 1.2
+        color #666
+        &::before {
+          content: 'by '
+          color #999
+        }
       }
     }
   }
 
   .date {
+    display flex
+    align-items center
+    flex-wrap wrap
+    gap 16px
     font-size: 24px;
-    color: #303030;
+    color: #7c8f99;
     margin: 16px 0;
+    line-height 1.5
 
     .view {
-      margin-left: 24px;
-      color: #0096fa;
+      min-width 100px
+      // margin-right: 16px;
+      color: #3366FF
 
       .icon {
         font-size: 1em;
         margin-right: 0px;
         vertical-align: -0.14em;
+        color #8A6BBE
       }
+    }
+
+    .created.is_novel {
+      display block
+      // margin-top 16px
     }
 
     .like {
-      margin-left: 24px;
-      color: #36a8f5;
+      min-width 100px
+      // margin-right: 16px;
+      color: #0099FF
 
       .icon {
+        width 1.1em
         font-size: 0.8em;
         margin-right: 0px;
         vertical-align: baseline;
-      }
-    }
-
-    .pixiv {
-      margin-left: 20px;
-      cursor: pointer;
-
-      .icon {
-        width: auto;
-        height: 28px;
       }
     }
 
@@ -260,30 +641,57 @@ export default {
     }
   }
 
+  .whid {
+    display flex
+    align-items center
+    flex-wrap wrap
+    margin 16px 0 -4px
+    font-size 20px
+    color #7c8f99
+    span {
+      display inline-block
+      margin-right 10px
+      padding 6px 4px
+    }
+  }
+
   .tag-list {
+    display flex
+    align-items center
+    flex-wrap wrap
+    color: #6633FF
     margin: 16px 0;
     overflow: hidden;
 
+    .x_tag {
+      margin-right 10px
+      font-weight bold
+      cursor auto !important
+    }
+
     .tag {
-      display: inline-block;
       line-height: 42px;
       font-size: 26px;
-      margin-right: 20px;
-      color: #0096fa;
-      cursor: pointer;
-
-      span {
+      margin-right: 10px;
+      cursor pointer
+      background transparent
+      border-radius 5px
+      transition 0.2s
+      &:not(.translated):hover {
+        background #e1d7ff
+      }
+      &.translated {
         font-size: 22px;
         color: #adadad;
+        margin-right: 20px;
       }
     }
   }
 
   .caption {
     font-size: 24px;
-    line-height: 1.5;
+    line-height: 32px;
     word-break: break-all;
-    user-select: text;
 
     ::v-deep a {
       color: #36a8f5;

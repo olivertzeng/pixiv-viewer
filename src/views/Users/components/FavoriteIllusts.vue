@@ -1,57 +1,42 @@
 <template>
   <div class="favorite">
-    <van-cell
-      class="cell"
-      :border="false"
-      is-link
-      @click="onClick()"
-      v-if="once"
-    >
-      <template #title>
-        <span class="title">
-          用户收藏
-          <span class="num" v-if="num">{{ num }}件作品</span>
-        </span>
-      </template>
-    </van-cell>
+    <template v-if="showTitle">
+      <van-cell v-if="once" class="cell" :border="false" is-link @click="onClick()">
+        <template #title>
+          <span class="title">
+            {{ $t('user.fav_title') }}
+            <span v-if="num" class="num">{{ $t('user.art_num', [num]) }}</span>
+          </span>
+        </template>
+      </van-cell>
+      <h3 v-else class="af_title">{{ $t('user.fav_title') }}</h3>
+    </template>
     <van-list
       v-model="loading"
+      :loading-text="$t('tips.loading')"
       :finished="finished"
-      :finished-text="!once || !artList.length ? '没有更多了' : ''"
+      :finished-text="!once ? $t('tips.no_more') : ''"
       :error.sync="error"
-      error-text="网络异常，点击重新加载"
+      :offset="800"
+      :error-text="$t('tips.net_err')"
       @load="getMemberFavorite()"
     >
-      <div class="card-box__wrapper" ref="cardBox">
-        <waterfall
-          :col="col"
-          :width="itemWidth"
-          :gutterWidth="0"
-          :data="artList"
-        >
-          <router-link
-            :to="{
-              name: 'Artwork',
-              params: { id: art.id, list: artList },
-            }"
-            v-for="art in artList"
-            :key="art.id"
-          >
-            <ImageCard mode="meta" :artwork="art" />
-          </router-link>
-        </waterfall>
-      </div>
+      <wf-cont v-bind="$store.getters.wfProps">
+        <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
+      </wf-cont>
     </van-list>
   </div>
 </template>
 
 <script>
-import { Cell, Swipe, SwipeItem, Icon, List, PullRefresh } from "vant";
-import ImageCard from "@/components/ImageCard";
-import api from "@/api";
-import { throttle, uniqBy } from "lodash-es";
+import ImageCard from '@/components/ImageCard'
+import api from '@/api'
+import _ from 'lodash'
 export default {
-  name: "FavoriteIllusts",
+  name: 'FavoriteIllusts',
+  components: {
+    ImageCard,
+  },
   props: {
     id: {
       type: Number,
@@ -64,103 +49,86 @@ export default {
       type: Boolean,
       default: false,
     },
+    notFromArtwork: {
+      type: Boolean,
+      default: true,
+    },
+    showTitle: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
-      col: 2,
-      itemWidth: 0,
       next: 0,
       artList: [],
       error: false,
       loading: false,
       finished: false,
-    };
+    }
+  },
+  mounted() {
+    this.reset()
+    this.getMemberFavorite()
+  },
+  activated() {
+    if (this.notFromArtwork) {
+      this.reset()
+      this.getMemberFavorite()
+    }
   },
   methods: {
     reset() {
-      this.next = 0;
-      this.artList = [];
+      this.next = 0
+      this.artList = []
+      this.loading = false
+      this.finished = false
     },
-    getMemberFavorite: throttle(async function () {
-      if (!this.id) return;
-      let newList;
-      let res = await api.getMemberFavorite(this.id, this.next);
+    getMemberFavorite: _.throttle(async function () {
+      if (!this.id) return
+      if (this.next == null) return
+      this.loading = true
+      let newList
+      const res = await api.getMemberFavorite(this.id, this.next)
       if (res.status === 0) {
-        this.next = res.data.next;
-        newList = res.data.illusts;
-        if (this.once) newList = newList.slice(0, 10);
-        let artList = JSON.parse(JSON.stringify(this.artList));
-
-        artList.push(...newList);
-        artList = uniqBy(artList, "id");
-
-        this.artList = artList;
-        this.loading = false;
-        if (this.once || !this.next) this.finished = true;
-        this.$nextTick(this.resize);
+        this.next = res.data.next
+        newList = res.data.illusts
+        if (this.once) newList = newList.slice(0, 10)
+        this.artList = _.uniqBy([
+          ...this.artList,
+          ...newList,
+        ], 'id')
+        this.loading = false
+        if (this.once || !this.next) this.finished = true
       } else {
         this.$toast({
           message: res.msg,
-        });
-        this.loading = false;
-        this.error = true;
+        })
+        this.loading = false
+        this.error = true
       }
-    }, 5000),
-    odd(list) {
-      return list.filter((_, index) => (index + 1) % 2);
-    },
-    even(list) {
-      return list.filter((_, index) => !((index + 1) % 2));
-    },
+    }, 2500),
     toArtwork(id) {
+      this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
-        name: "Artwork",
-        params: { id, list: this.artList },
-      });
+        name: 'Artwork',
+        params: { id },
+      })
     },
     onClick() {
-      this.$emit("onCilck");
-    },
-    resize() {
-      if (!this.$refs.cardBox) return;
-      const clientWidth = document.documentElement.clientWidth;
-
-      if (clientWidth < 375) {
-        this.col = 1;
-      } else if (clientWidth <= 768) {
-        this.col = 2;
-      } else if (clientWidth <= 1600) {
-        this.col = 3;
-      } else {
-        this.col = 4;
-      }
-
-      this.itemWidth = Math.floor(
-        this.$refs.cardBox.firstChild.clientWidth / this.col
-      );
+      this.$emit('onCilck')
     },
   },
-  mounted() {
-    this.reset();
-    this.getMemberFavorite();
-    window.addEventListener("resize", this.resize);
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.resize);
-  },
-  components: {
-    [Cell.name]: Cell,
-    [Swipe.name]: Swipe,
-    [SwipeItem.name]: SwipeItem,
-    [Icon.name]: Icon,
-    [List.name]: List,
-    [PullRefresh.name]: PullRefresh,
-    ImageCard,
-  },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
+.af_title
+  margin-top 30px
+  margin-bottom 40px
+  text-align center
+  font-size 28px
+
 .favorite {
   .cell {
     padding: 10px 20px;
@@ -172,18 +140,18 @@ export default {
     color: #888;
   }
 
-  .card-box__wrapper {
-    width: 100%;
+  .card-box {
+    padding: 0 12px;
+    display: flex;
+    flex-direction: row;
 
-    .card-box {
-      display: flex;
-      flex-direction: row;
-    }
+    .column {
+      width: 50%;
 
-    .image-card {
-      max-height: 500px;
-      margin: 14px 6px;
-      border: 1px solid #ebebeb;
+      .image-card {
+        max-height: 360px;
+        margin: 4px 2px;
+      }
     }
   }
 }

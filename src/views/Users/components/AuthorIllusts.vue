@@ -1,57 +1,42 @@
 <template>
   <div class="illusts">
-    <van-cell
-      class="cell"
-      :border="false"
-      is-link
-      @click="onClick()"
-      v-if="once"
-    >
-      <template #title>
-        <span class="title">
-          插画作品
-          <span class="num" v-if="num">{{ num }}件作品</span>
-        </span>
-      </template>
-    </van-cell>
+    <template v-if="showTitle">
+      <van-cell v-if="once" class="cell" :border="false" is-link @click="onClick()">
+        <template #title>
+          <span class="title">
+            {{ $t('user.art_title', [iTypeText]) }}
+            <span v-if="num" class="num">{{ $t('user.art_num', [num]) }}</span>
+          </span>
+        </template>
+      </van-cell>
+      <h3 v-else class="af_title">{{ $t('user.art_title', [authorName + iTypeText]) }}</h3>
+    </template>
     <van-list
       v-model="loading"
+      :loading-text="$t('tips.loading')"
       :finished="finished"
-      :finished-text="!once || !artList.length ? '没有更多了' : ''"
+      :finished-text="!once ? $t('tips.no_more') : ''"
       :error.sync="error"
-      error-text="网络异常，点击重新加载"
+      :offset="800"
+      :error-text="$t('tips.net_err')"
       @load="getMemberArtwork()"
     >
-      <div class="card-box__wrapper" ref="cardBox">
-        <waterfall
-          :col="col"
-          :width="itemWidth"
-          :gutterWidth="0"
-          :data="artList"
-        >
-          <router-link
-            :to="{
-              name: 'Artwork',
-              params: { id: art.id, list: artList },
-            }"
-            v-for="art in artList"
-            :key="art.id"
-          >
-            <ImageCard mode="meta" :artwork="art" />
-          </router-link>
-        </waterfall>
-      </div>
+      <wf-cont v-bind="$store.getters.wfProps">
+        <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
+      </wf-cont>
     </van-list>
   </div>
 </template>
 
 <script>
-import { Cell, Swipe, SwipeItem, Icon, List, PullRefresh } from "vant";
-import ImageCard from "@/components/ImageCard";
-import api from "@/api";
-import { throttle, uniqBy } from "lodash-es";
+import ImageCard from '@/components/ImageCard'
+import api from '@/api'
+import _ from 'lodash'
 export default {
-  name: "AuthorIllusts",
+  name: 'AuthorIllusts',
+  components: {
+    ImageCard,
+  },
   props: {
     id: {
       type: Number,
@@ -64,109 +49,103 @@ export default {
       type: Boolean,
       default: false,
     },
+    iType: {
+      type: String,
+      default: 'illust',
+    },
+    notFromArtwork: {
+      type: Boolean,
+      default: true,
+    },
+    showTitle: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
-      col: 2,
-      itemWidth: 0,
       curPage: 1,
       artList: [],
       error: false,
       loading: false,
       finished: false,
-    };
+    }
   },
-  methods: {
-    reset() {
-      this.curPage = 1;
-      this.artList = [];
+  computed: {
+    authorName() {
+      const n = this.artList[0]?.author.name
+      return n ? `${n} ${this.$t('user.of')}` : ''
     },
-    getMemberArtwork: throttle(async function () {
-      if (!this.id) return;
-      let newList;
-      let res = await api.getMemberArtwork(this.id, this.curPage);
-      if (res.status === 0) {
-        if (res.finished) {
-          this.finished = true;
-          this.loading = false;
-          return;
-        }
-
-        newList = res.data;
-        if (this.once) newList = newList.slice(0, 10);
-        let artList = JSON.parse(JSON.stringify(this.artList));
-
-        artList.push(...newList);
-        artList = uniqBy(artList, "id");
-
-        this.artList = artList;
-        this.loading = false;
-        this.curPage++;
-        if (this.once || this.curPage > 20) this.finished = true;
-        this.$nextTick(this.resize);
-      } else {
-        this.$toast({
-          message: res.msg,
-        });
-        this.loading = false;
-        this.error = true;
+    iTypeText() {
+      const map = {
+        illust: this.$t('common.illust'),
+        manga: this.$t('common.manga'),
       }
-    }, 500),
-    odd(list) {
-      return list.filter((_, index) => (index + 1) % 2);
-    },
-    even(list) {
-      return list.filter((_, index) => !((index + 1) % 2));
-    },
-    toArtwork(id) {
-      this.$router.push({
-        name: "Artwork",
-        params: { id, list: this.artList },
-      });
-    },
-    onClick() {
-      this.$emit("onCilck");
-    },
-    resize() {
-      if (!this.$refs.cardBox) return;
-      const clientWidth = document.documentElement.clientWidth;
-
-      if (clientWidth < 375) {
-        this.col = 1;
-      } else if (clientWidth <= 768) {
-        this.col = 2;
-      } else if (clientWidth <= 1600) {
-        this.col = 3;
-      } else {
-        this.col = 4;
-      }
-
-      this.itemWidth = Math.floor(
-        this.$refs.cardBox.firstChild.clientWidth / this.col
-      );
+      return map[this.iType]
     },
   },
   mounted() {
-    this.reset();
-    this.getMemberArtwork();
-    window.addEventListener("resize", this.resize);
+    console.log('AuthorIllusts mounted:', this.iType)
+    this.reset()
+    this.getMemberArtwork()
   },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.resize);
+  activated() {
+    console.log('this.notFromArtwork: ', this.notFromArtwork)
+    if (this.notFromArtwork) {
+      this.reset()
+      this.getMemberArtwork()
+    }
   },
-  components: {
-    [Cell.name]: Cell,
-    [Swipe.name]: Swipe,
-    [SwipeItem.name]: SwipeItem,
-    [Icon.name]: Icon,
-    [List.name]: List,
-    [PullRefresh.name]: PullRefresh,
-    ImageCard,
+  methods: {
+    reset() {
+      this.curPage = 1
+      this.artList = []
+    },
+    getMemberArtwork: _.throttle(async function () {
+      if (!this.id) return
+      this.loading = true
+      let newList
+      const res = await api.getMemberArtwork(this.id, this.curPage, this.iType)
+      if (res.status === 0) {
+        newList = res.data
+        if (this.once) newList = newList.slice(0, 10)
+        this.artList = _.uniqBy([
+          ...this.artList,
+          ...newList,
+        ], 'id')
+
+        this.loading = false
+        this.curPage++
+        if (this.once || !newList.length) this.finished = true
+      } else {
+        this.$toast({
+          message: res.msg,
+        })
+        this.loading = false
+        this.error = true
+      }
+    }, 2500),
+    toArtwork(id) {
+      this.$store.dispatch('setGalleryList', this.artList)
+      this.$router.push({
+        name: 'Artwork',
+        params: { id },
+      })
+    },
+    onClick() {
+      this.$emit('onCilck')
+    },
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
+.af_title
+  margin-top 30px
+  margin-bottom 40px
+  text-align center
+  font-size 28px
+
 .illusts {
   .cell {
     padding: 10px 20px;
@@ -178,18 +157,18 @@ export default {
     color: #888;
   }
 
-  .card-box__wrapper {
-    width: 100%;
+  .card-box {
+    padding: 0 12px;
+    display: flex;
+    flex-direction: row;
 
-    .card-box {
-      display: flex;
-      flex-direction: row;
-    }
+    .column {
+      width: 50%;
 
-    .image-card {
-      max-height: 500px;
-      margin: 14px 6px;
-      border: 1px solid #ebebeb;
+      .image-card {
+        max-height: 360px;
+        margin: 4px 2px;
+      }
     }
   }
 }

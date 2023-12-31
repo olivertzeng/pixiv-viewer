@@ -1,157 +1,165 @@
 <template>
   <div class="search">
-    <form class="search-bar-wrap" :class="{ dropdown: focus }" action="/">
+    <div class="search-bar-wrap" :class="{ dropdown: focus }">
       <van-search
-        class="search-bar"
         v-model="keywords"
+        class="search-bar"
         shape="round"
-        placeholder="请输入搜索关键词"
+        :placeholder="$t('search.placeholder')"
         maxlength="50"
-        @search="onBlur(true)"
-        @cancel="onCancel"
+        :clearable="false"
+        @input="onSearchInput"
         @focus="onFocus"
-        @blur="onBlur(false)"
-      ></van-search>
-      <div
-        class="search-bar-word"
-        @click="handleWordsClick($event)"
-        ref="words"
-      >
-        <span class="placeholder" v-if="keywordsList.length === 0 && !lastWord"
-          >请输入搜索关键词</span
-        >
-        <div class="word" v-for="(keyword, index) in keywordsList" :key="index">
-          <span class="text">{{ keyword }}</span>
-          <span class="close" :data-index="index">
-            <Icon name="close"></Icon>
-          </span>
+        @search="onSearch"
+      />
+      <div ref="words" class="search-bar-word" @click="handleWordsClick($event)">
+        <span v-if="keywordsList.length === 0 && !lastWord" class="placeholder">{{ $t('search.placeholder') }}</span>
+        <div v-for="(word, index) in keywordsList" :key="index" class="word">
+          <span class="text">{{ word }}</span>
+          <span class="close" :data-index="index"></span>
         </div>
-        <div class="word" v-if="lastWord">
+        <div v-if="lastWord && keywords.trim()" class="word">
           <span class="text no-line">{{ lastWord }}</span>
         </div>
       </div>
-      <div class="search-type" v-show="focus">
-        <div
-          class="seacch-type__item"
-          :class="{ active: searchType === item.type }"
-          @click="changeSearchType(item.type)"
-          v-for="item in searchTypeMap"
-          :key="item.type"
-        >
-          {{ item.name }}
+      <div
+        v-if="(isSelfHibi && keywords.trim() && artList.length)"
+        class="show_pop_icon"
+        @click="(showPopPreview = !showPopPreview)"
+      >
+        <Icon class="icon" name="popular" />
+      </div>
+    </div>
+    <div v-if="focus" class="search-dropdown">
+      <div v-if="keywords.trim()" class="pid-n-uid">
+        <div class="keyword" @click="onSearch">{{ $t('search.seach_tag') }} {{ keywords.trim() }} </div>
+        <div v-if="isSelfHibi" class="keyword" @click="searchUser">
+          {{ $t('search.search_user') }} {{ keywords.trim() }}
         </div>
       </div>
-      <div class="search-history" v-show="searchHistory.length > 0 && focus">
+      <div v-if="pidOrUidList.length" class="pid-n-uid">
+        <template v-for="n in pidOrUidList">
+          <div :key="'p_' + n" class="keyword" @click="toPidPage(n)">→ {{ $t('common.artwork') }} ID: {{ n }} </div>
+          <div :key="'u_' + n" class="keyword" @click="toUidPage(n)">→ {{ $t('common.user') }} ID: {{ n }} </div>
+          <!-- <div :key="'s_' + n" class="keyword" @click="toSpotlightPage(n)">→ 特辑 ID: {{ n }} </div> -->
+        </template>
+      </div>
+      <div v-if="keywords.trim() && autoCompleteTagList.length" class="search-history">
+        <div class="title-bar">{{ $t('search.autocomplete') }}</div>
+        <div v-for="tag in autoCompleteTagList" :key="tag" class="keyword" @click="searchTag(tag)">
+          {{ tag }}
+        </div>
+      </div>
+      <div v-if="!keywords.trim() && searchHistory.length > 0" class="search-history">
         <div class="title-bar">
-          历史搜索
+          {{ $t('search.history') }}
           <div @click="clearHistory">
-            <Icon name="del" scale="2"></Icon>
+            <Icon name="del" scale="2" />
           </div>
         </div>
-        <div
-          class="keyword"
-          @click="searchTag(keyword)"
-          v-for="(keyword, index) in searchHistory"
-          :key="index"
-        >
-          {{ keyword }}
+        <div v-for="(word, index) in searchHistory" :key="index" class="keyword" @click="searchTag(word)">
+          {{ word }}
         </div>
       </div>
-      <transition-group name="fade">
-        <ImageSearch
-          v-show="!focus && imageSearchShow"
-          @show="switchImageSearchShow(true)"
-          ref="imageSearch"
-          key="container"
-        ></ImageSearch>
-        <div
-          class="image-search-mask"
-          @click="switchImageSearchShow(false)"
-          v-show="!focus && maskShow"
-          key="mask"
-        ></div>
-      </transition-group>
-    </form>
-    <div class="list-wrap" :class="{ focus: focus }">
+    </div>
+    <ImageSearch v-show="!focus && !keywords.trim()" ref="imageSearch" key="container" />
+    <div v-show="!focus && !keywords.trim()" class="com_sel_tabs">
+      <div class="com_sel_tab cur">{{ $t('common.illust_manga') }}</div>
+      <div class="com_sel_tab" @click="$router.replace('/search_novel')">{{ $t('common.novel') }}</div>
+      <div class="com_sel_tab" @click="$router.replace('/search_user')">{{ $t('common.user') }}</div>
+    </div>
+    <div class="list-wrap" :class="{ focus: focus }" :style="{ paddingTop: keywords.trim() ? '1.6rem' : '2.6rem' }">
+      <div v-show="keywords.trim()" class="search_params">
+        <van-dropdown-menu class="search_param_sel" active-color="#f2c358">
+          <template v-if="!showPopPreview">
+            <van-dropdown-item v-model="searchParams.mode" :options="searchModes" />
+            <van-dropdown-item v-model="searchParams.order" :options="searchOrders" />
+            <van-dropdown-item v-model="searchParams.duration" :options="searchDuration" />
+            <van-dropdown-item v-model="usersIriTag" :options="usersIriTags" />
+          </template>
+          <van-dropdown-item ref="s_date" :title="$t('common.date')" :lazy-render="false" @open="onSelDateOpen">
+            <van-calendar
+              ref="selDate"
+              color="#f2c358"
+              class="sel_search_date"
+              type="range"
+              :confirm-text="$t('common.confirm')"
+              :confirm-disabled-text="$t('common.confirm')"
+              :default-date="searchDateVals"
+              :poppable="false"
+              :show-title="false"
+              :min-date="minDate"
+              :max-date="maxDate"
+              @confirm="v => { searchDateVals = v; $refs.s_date.toggle() }"
+            />
+            <div style="width: 9.4rem;margin: 5px auto 10px">
+              <van-button
+                style="height: 36px;"
+                block
+                round
+                @click="() => { searchDateVals = [null, null]; $refs.s_date.toggle() }"
+              >
+                {{ $t('common.reset') }}
+              </van-button>
+            </div>
+          </van-dropdown-item>
+        </van-dropdown-menu>
+      </div>
+      <PopularPreview v-if="showPopPreview && keywords.trim()" ref="popPreview" :word="keywords" :params="searchParams" />
       <van-list
-        v-if="artList.length > 0"
-        class="result-list"
+        v-else-if="keywords.trim()"
         v-model="loading"
+        class="result-list"
+        :loading-text="$t('tips.loading')"
         :finished="finished"
-        finished-text="没有更多了"
         :error.sync="error"
-        error-text="网络异常，点击重新加载"
-        @load="search"
+        :immediate-check="false"
+        :offset="800"
+        :finished-text="$t('tips.no_more')"
+        :error-text="$t('tips.net_err')"
+        @load="doSearch"
       >
-        <div class="card-box__wrapper" ref="cardBox">
-          <waterfall
-            :col="col"
-            :width="itemWidth"
-            :gutterWidth="0"
-            :data="artList"
-          >
-            <router-link
-              :to="{
-                name: { illust: 'Artwork', novel: 'Novel' }[searchType],
-                params: { id: art.id, list: artList },
-              }"
-              v-for="art in artList"
-              :key="art.id"
-            >
-              <ImageCard
-                mode="meta"
-                :artwork="art"
-                v-if="searchType === 'illust'"
-              />
-              <NovelCard
-                mode="meta"
-                :artwork="art"
-                v-if="searchType === 'novel'"
-              />
-            </router-link>
-          </waterfall>
-        </div>
+        <wf-cont v-bind="$store.getters.wfProps">
+          <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
+        </wf-cont>
       </van-list>
-      <Tags v-if="keywords.trim() === ''" @search="searchTag" />
-      <van-loading
-        v-show="keywords.trim() !== '' && artList.length === 0"
-        class="loading"
-        :size="'50px'"
-      />
-      <div class="mask" @click="onBlur(true)"></div>
+      <Tags v-if="!keywords.trim()" @search="searchTag" />
+      <van-loading v-show="keywords.trim() && artList.length == 0 && !finished" class="loading" :size="'50px'" />
+      <div class="mask" @click="focus = false"></div>
     </div>
   </div>
 </template>
 
 <script>
-import { Search, List, Loading, Empty, Icon } from "vant";
-import ImageCard from "@/components/ImageCard";
-import NovelCard from "@/components/NovelCard";
-import Tags from "./components/Tags";
-import ImageSearch from "./components/ImageSearch";
-import { mapState, mapActions } from "vuex";
-import { throttle, uniqBy } from "lodash-es";
-import api from "@/api";
+import ImageCard from '@/components/ImageCard'
+import Tags from './components/Tags'
+import ImageSearch from './components/ImageSearch'
+import { mapState, mapActions } from 'vuex'
+import _ from 'lodash'
+import dayjs from 'dayjs'
+import api from '@/api'
+import { notSelfHibiApi } from '@/api/http'
+import PopularPreview from './components/PopularPreview.vue'
+import { mintVerify } from '@/utils/filter'
+import { i18n } from '@/i18n'
+
+const BLOCK_WORDS = [/r-?18/i, /18-?r/i, /^黄?色情?图$/, /^ero$/i, /工口/, /エロ/]
+
 export default {
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      document.documentElement.scrollTo(0, vm.scrollTop);
-    });
-  },
-  beforeRouteLeave(to, from, next) {
-    this.scrollTop = document.documentElement.scrollTop;
-    next();
+  name: 'Search',
+  components: {
+    Tags,
+    ImageSearch,
+    ImageCard,
+    PopularPreview,
   },
   data() {
     return {
-      col: 2,
-      itemWidth: 0,
       scrollTop: 0,
-      searchType: "illust",
-      keywords__: "",
-      keywords: "", // 关键词搜索框真实搜索内容
+      keywords__: '',
+      keywords: '', // 关键词搜索框真实搜索内容
       keywordsList: [], // 关键词搜索框分词列表（空格分割）
-      lastWord: "", // 正在输入的关键词
+      lastWord: '', // 正在输入的关键词
       focus: false, // 编辑框是否获取焦点
       curPage: 1,
       artList: [], // 作品列表
@@ -160,247 +168,342 @@ export default {
       finished: false,
       maskShow: false,
       imageSearchShow: true,
-      searchTypeMap: [
-        { name: "插画", type: "illust" },
-        { name: "小说", type: "novel" },
+      autoCompleteTagList: [],
+      usersIriTag: '',
+      usersIriTags: [
+        { text: 'users入り', value: '' },
+        { text: '30000users入り', value: '30000users入り' },
+        { text: '20000users入り', value: '20000users入り' },
+        { text: '10000users入り', value: '10000users入り' },
+        { text: '7500users入り', value: '7500users入り' },
+        { text: '5000users入り', value: '5000users入り' },
+        { text: '1000users入り', value: '1000users入り' },
+        { text: '500users入り', value: '500users入り' },
+        { text: '250users入り', value: '250users入り' },
+        { text: '100users入り', value: '100users入り' },
       ],
-    };
+      minDate: new Date('2007/09/13'),
+      maxDate: new Date(),
+      searchParams: {
+        mode: 'partial_match_for_tags',
+        order: 'date_desc',
+        duration: '',
+        start_date: '',
+        end_date: '',
+      },
+      searchDateVals: [null, null],
+      searchModes: [
+        { text: this.$t('search.mode.partial'), value: 'partial_match_for_tags' },
+        { text: this.$t('search.mode.exact'), value: 'exact_match_for_tags' },
+        { text: this.$t('search.mode.title'), value: 'title_and_caption' },
+      ],
+      searchOrders: [
+        { text: this.$t('search.date.desc'), value: 'date_desc' },
+        { text: this.$t('search.date.asc'), value: 'date_asc' },
+      ],
+      searchDuration: [
+        { text: this.$t('search.dura.ph'), value: '' },
+        { text: this.$t('search.dura.day'), value: 'within_last_day' },
+        { text: this.$t('search.dura.week'), value: 'within_last_week' },
+        { text: this.$t('search.dura.month'), value: 'within_last_month' },
+      ],
+      showPopPreview: false,
+      isSelfHibi: !notSelfHibiApi,
+    }
+  },
+  head: {
+    title: i18n.t('search.search'),
+  },
+  computed: {
+    ...mapState(['searchHistory']),
+    pidOrUidList() {
+      return this.keywords.match(/(\d+)/g) || []
+    },
   },
   watch: {
     $route() {
-      // console.log(this.$route.query);
-      const { type, keyword } = this.$route.query;
-      if (!keyword || this.keywords.trim() === keyword.trim()) return;
+      if (!['Search', 'SearchKeyword'].includes(this.$route.name)) {
+        return
+      }
+      const keyword = this.$route.params.keyword || ''
 
-      this.keywords = keyword + " ";
-      this.reset();
-      this.searchType = type || "illust";
-      this.search(this.keywords);
-    },
-    keywords() {
-      // 当关键词内容发生变化
-      let keywordsList = this.keywords
-        .replace(/\s\s+/g, " ") // 去除多余空格（'abc   ' => 'abc '）
-        .trimLeft() // 去除开头空白字符
-        .split(" "); // 按空格分割
-
-      if (keywordsList.length === 1 && keywordsList[0] === "") {
-        // 只输入空格的情况清空关键词列表并返回
-        this.keywordsList = [];
-        this.reset();
-        return;
+      if (this.keywords.trim() != keyword.trim()) {
+        this.showPopPreview = false
+        this.keywords = keyword + ' '
+        this.reset()
+        this.doSearch(this.keywords)
       }
 
-      this.lastWord = keywordsList.pop(); // 最顶部的元素即为正在输入的关键词
+      if (keyword == '') {
+        this.showPopPreview = false
+        // document.querySelector('.app-main')?.scrollTo(0, 0)
+      }
+    },
+    usersIriTag() {
+      this.reset()
+      this.doSearch(this.keywords)
+    },
+    searchParams: {
+      deep: true,
+      handler(val) {
+        console.log('val: ', val)
+        if (this.showPopPreview) {
+          this.$refs.popPreview.getList()
+        } else {
+          this.reset()
+          this.doSearch(this.keywords)
+        }
+      },
+    },
+    searchDateVals(vals) {
+      console.log('vals: ', vals)
+      Object.assign(this.searchParams, {
+        start_date: vals[0] && dayjs(vals[0]).format('YYYY-MM-DD'),
+        end_date: vals[1] && dayjs(vals[1]).format('YYYY-MM-DD'),
+      })
+    },
+    keywords() {
+      console.log('watch keywords: ', this.keywords)
+      // 当关键词内容发生变化
+      const keywordsList = this.keywords
+        .replace(/\s\s+/g, ' ') // 去除多余空格（'abc   ' => 'abc '）
+        .trimStart() // 去除开头空白字符
+        .split(' ') // 按空格分割
 
-      this.keywordsList = keywordsList; // 设置关键词组
+      if (keywordsList.length === 1 && keywordsList[0] === '') {
+        // 只输入空格的情况清空关键词列表并返回
+        this.keywordsList = []
+        this.reset()
+        return
+      }
+
+      this.lastWord = keywordsList.pop() // 最顶部的元素即为正在输入的关键词
+
+      this.keywordsList = keywordsList // 设置关键词组
 
       this.$nextTick(() => {
         // 保持滚动条在尾部，使用nextTick确保及时更新
-        this.$refs.words.scrollLeft = this.$refs.words.clientWidth;
-        let listWrap = document.querySelector(".list-wrap");
-        listWrap && listWrap.scrollTo({ top: 0 });
-      });
+        this.$refs.words.scrollLeft = this.$refs.words.clientWidth
+        const listWrap = document.querySelector('.list-wrap')
+        listWrap && listWrap.scrollTo({ top: 0 })
+      })
     },
   },
-  computed: {
-    ...mapState(["searchHistory"]),
+  mounted() {
+    console.log('mounted: search')
+    // document.querySelector('.app-main')?.scrollTo(0, 0)
+
+    const input = document.querySelector('input[type="search"]')
+    document.addEventListener('selectionchange', () => {
+      if (this.focus) { input.setSelectionRange(input.value.length, input.value.length) }
+    })
+
+    const keyword = this.$route.params.keyword
+    if (['Search', 'SearchKeyword'].includes(this.$route.name) && keyword) {
+      this.keywords = keyword + ' '
+      this.reset()
+      this.doSearch(this.keywords)
+    }
   },
   methods: {
     reset() {
-      this.curPage = 1;
-      this.artList = [];
-      this.loading = false;
-      this.finished = false;
+      this.curPage = 1
+      this.artList = []
+      this.loading = false
+      this.finished = false
     },
     handleWordsClick(e) {
       // 处理点击事件
-      let target = e.target;
-      if (target.className !== "close") {
+      const target = e.target
+      if (target.className !== 'close') {
         // 点击对象不为关闭按钮则输入框获取焦点
-        document.querySelector('input[type="search"]').focus();
-        return;
+        document.querySelector('input[type="search"]').focus()
       } else {
-        let keywordsList = this.keywords.trim().split(" "); // 关键词按空格分割
-        keywordsList.splice(target.dataset.index, 1); // 移除点击对象对应索引的关键词
-        this.keywords = keywordsList.join(" ") + " "; // 赋值回去
-        this.reset();
-        this.search(this.keywords);
+        const keywordsList = this.keywords.trim().split(' ') // 关键词按空格分割
+        keywordsList.splice(target.dataset.index, 1) // 移除点击对象对应索引的关键词
+        const keywords = keywordsList.join(' ') + ' ' // 赋值回去
+        this.reset()
+        this.search(keywords)
       }
     },
-    changeSearchType(type) {
-      if (this.searchType === type) return;
-
-      this.reset();
-      this.searchType = type;
-      this.resize();
-      this.search(this.keywords);
+    onSelDateOpen() {
+      // this.$nextTick(() => {
+      this.$refs.selDate.scrollToDate(this.searchDateVals[0] || this.maxDate)
+      // })
     },
-    search: throttle(async function (val) {
-      val = val || this.keywords;
-      this.keywords__ = val;
-      val = val.trim();
-      if (val === "") {
-        this.keywords = "";
-        this.reset();
-        return;
+    async search(keywords) {
+      keywords = keywords.trim()
+      console.log('search keywords: ', keywords)
+
+      const param = this.$route.params.keyword?.trim() || ''
+      if (param == keywords) {
+        return
       }
-      console.log(val);
+      if (keywords == '') {
+        this.$router.push('/search')
+        // document.querySelector('.app-main')?.scrollTo(0, 0)
+        return
+      }
 
-      this.setSearchHistory(val);
+      this.$router.push(`/search/${encodeURIComponent(keywords)}`)
+      this.showPopPreview = false
+    },
+    doSearch: _.throttle(async function (val) {
+      val = val || this.keywords
+      this.keywords__ = val
+      val = val.trim()
+      if (val === '') {
+        this.keywords = ''
+        this.reset()
+        return
+      }
+      console.log(`doSearch: ${val}`)
 
-      let res = await api.search(val, this.curPage, this.searchType);
-      if (res.status === 0) {
-        let newList = res.data;
-        let artList = JSON.parse(JSON.stringify(this.artList));
+      if (
+        /スカラマシュ|散兵|スカ蛍|スカ空|スカナヒ|散荧|荧散|散空|空散|枫散|散枫|草散|散草|放浪者(原神)|流浪者(原神)|阿散|阿帽/i.test(val) ||
+        !(await mintVerify(val))
+      ) {
+        this.artList = []
+        this.finished = true
+        this.curPage = 1
+        return
+      }
 
-        artList.push(...newList);
-        artList = uniqBy(artList, "id");
+      this.setSearchHistory(val)
 
-        this.artList = artList;
-        this.loading = false;
-        this.curPage++;
-        if (this.curPage > 5) this.finished = true;
-
-        if (
-          this.$route.query.keyword !== val ||
-          this.$route.query.type !== this.searchType
-        ) {
-          this.$router.replace({
-            name: "Search",
-            query: {
-              type: this.searchType,
-              keyword: val,
-            },
-          });
+      if (!(this.$store.state.SETTING.r18 || this.$store.state.SETTING.r18g)) {
+        if (BLOCK_WORDS.some(e => e.test(val))) {
+          this.artList = []
+          this.finished = true
+          this.curPage = 1
+          return
         }
+        val += ' -R-18 -R18 -18+'
+      }
+      if (!this.$store.state.SETTING.ai) val += ' -AI'
+      if (this.usersIriTag) val += ' ' + this.usersIriTag
+      this.loading = true
+      const res = await api.search(val, this.curPage, _.pickBy(this.searchParams, Boolean))
+      if (res.status === 0) {
+        if (res.data.length) {
+          let artList = _.uniqBy([
+            ...this.artList,
+            ...res.data,
+          ], 'id')
 
-        this.$nextTick(this.resize);
+          if (!artList.length) {
+            this.finished = true
+            return
+          }
+
+          if (this.usersIriTag) {
+            const match = this.usersIriTag.match(/(\d+)/)
+            artList = artList.filter(e => e.like > Number(match && match[0]))
+          }
+
+          artList = artList.filter(e => {
+            return !(
+              e.like < 5 ||
+              /恋童|ペド|幼女|スカラマシュ|散兵/.test(JSON.stringify(e.tags)) ||
+              /恋童|幼女|进群|加好友|度盘|スカラマシュ|散兵/.test(e.title) ||
+              /恋童|幼女|进群|加好友|度盘|スカラマシュ|散兵/.test(e.caption)
+            )
+          })
+
+          this.artList = artList
+
+          this.curPage++
+          // if (this.curPage > 9) this.finished = true
+        } else {
+          this.finished = true
+        }
+        this.loading = false
       } else {
         this.$toast({
           message: res.msg,
-        });
-        this.loading = false;
-        this.error = true;
+        })
+        this.loading = false
+        this.error = true
       }
-      this.isLoading = false;
-    }, 5000),
-    odd(list) {
-      return list.filter((_, index) => (index + 1) % 2);
-    },
-    even(list) {
-      return list.filter((_, index) => !((index + 1) % 2));
-    },
+    }, 2500),
     toArtwork(id) {
+      this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
-        name: "Artwork",
-        params: { id, list: this.artList },
-      });
+        name: 'Artwork',
+        params: { id },
+      })
     },
-    onCancel() {},
+    onSearchInput: _.debounce(async function () {
+      if (notSelfHibiApi) return
+      if (!this.lastWord || !this.keywords.trim()) {
+        this.autoCompleteTagList = []
+        return
+      }
+      const id = this.lastWord.match(/https?:\/\/.+\/artworks\/(\d+)/i)?.[1]
+      if (id) {
+        this.toPidPage(id)
+        return
+      }
+      if (/スカラマシュ|散|(^\d+$)/i.test(this.lastWord)) {
+        return
+      }
+      const res = await api.getTagsAutocomplete(this.lastWord)
+      if (res.status == 0) {
+        this.autoCompleteTagList = res.data
+      }
+    }, 500),
     onFocus() {
-      this.focus = true; // 获取焦点
+      this.focus = true // 获取焦点
     },
-    onBlur(flag) {
-      let keywords = `${this.keywords} `.replace(/\s\s+/g, " "); // 去除多余空格
-
-      this.keywords = keywords;
-      this.$nextTick(() => {
-        this.$refs.words.scrollLeft = this.$refs.words.clientWidth; // 滚动至最后
-      });
-
-      if (/^\d+$/.test(keywords.trim())) {
-        this.$router.push({
-          name: "Artwork",
-          params: {
-            id: keywords.trim(),
-          },
-        });
-        this.keywords = "";
-        this.keywordsList = [];
-        this.lastWord = "";
-        return;
-      }
-
-      if (flag) {
-        this.focus = false; // 失去焦点
-
-        if (this.keywords__ === keywords) {
-          return false;
-        } else {
-          this.reset();
-          this.search(this.keywords);
-        }
-      }
+    async onSearch() {
+      console.log('onSearch: ', this.keywords)
+      this.focus = false
+      // document.querySelector('.app-main')?.scrollTo(0, 0)
+      this.keywords += ' '
+      this.$router.push(`/search/${encodeURIComponent(this.keywords.trim())}`)
+      this.reset()
+      this.doSearch(this.keywords)
     },
     searchTag(keywords) {
-      this.keywords = keywords + " ";
-      this.onBlur(true);
+      console.log('------- searchTag: ', keywords)
+      this.focus = false
+      // document.querySelector('.app-main')?.scrollTo(0, 0)
+      if (this.$route.params.keyword?.trim() != keywords.trim()) {
+        this.reset()
+        this.search(keywords + ' ')
+      }
+    },
+    async searchUser() {
+      this.$router.push(`/search_user/${encodeURIComponent(this.keywords.trim())}`)
+    },
+    toPidPage(id) {
+      this.keywords = ''
+      this.keywordsList = []
+      this.lastWord = ''
+      this.$router.push(`/artworks/${id}`)
+    },
+    toUidPage(id) {
+      this.keywords = ''
+      this.keywordsList = []
+      this.lastWord = ''
+      this.$router.push(`/users/${id}`)
+    },
+    toSpotlightPage(id) {
+      this.keywords = ''
+      this.keywordsList = []
+      this.lastWord = ''
+      this.$router.push(`/spotlight/${id}`)
     },
     clearHistory() {
-      this.setSearchHistory(null);
+      this.setSearchHistory(null)
     },
     switchImageSearchShow(flag) {
-      if (!flag) this.$refs.imageSearch.reset();
-      this.maskShow = flag;
+      if (!flag) this.$refs.imageSearch.reset()
+      this.maskShow = flag
     },
-    resize() {
-      if (!this.$refs.cardBox) return;
-      const clientWidth = document.documentElement.clientWidth;
-
-      if (this.searchType == "novel") {
-        this.col = 1;
-      } else {
-        if (clientWidth < 375) {
-          this.col = 1;
-        } else if (clientWidth <= 768) {
-          this.col = 2;
-        } else if (clientWidth <= 1600) {
-          this.col = 3;
-        } else {
-          this.col = 4;
-        }
-      }
-
-      this.itemWidth = Math.floor(
-        this.$refs.cardBox.firstChild.clientWidth / this.col
-      );
-    },
-    ...mapActions(["setSearchHistory"]),
+    ...mapActions(['setSearchHistory']),
   },
-  mounted() {
-    let input = document.querySelector('input[type="search"]');
-    document.addEventListener("selectionchange", () => {
-      if (this.focus)
-        input.setSelectionRange(input.value.length, input.value.length);
-    });
-
-    const { type, keyword } = this.$route.query;
-    if (this.$route.name === "Search" && keyword) {
-      if (!keyword || this.keywords.trim() === keyword.trim()) return;
-
-      this.keywords = keyword + " ";
-      this.reset();
-      this.searchType = type || "illust";
-      this.search(this.keywords);
-    }
-    window.addEventListener("resize", this.resize);
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.resize);
-  },
-  components: {
-    Tags,
-    ImageSearch,
-    [Search.name]: Search,
-    [List.name]: List,
-    [Loading.name]: Loading,
-    [Empty.name]: Empty,
-    [Icon.name]: Icon,
-    ImageCard,
-    NovelCard,
-  },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -417,45 +520,44 @@ export default {
 
   .search-bar-wrap {
     position: fixed;
-    top: 60px;
-    top: env(safe-area-inset-top);
+    top: 0;
+    left 0
     width: 100%;
-    max-width: 10rem;
-    padding: 20px 10px;
-    padding-top: 124px;
-    background: #fff;
-    z-index: 20;
+    z-index: 3;
     transition: all 0.2s;
-    box-sizing: border-box;
 
-    &.dropdown {
-      // height: 500px;
-    }
+    // &.dropdown {
+    //   height: 500px;
+    // }
 
     ::v-deep {
       .van-icon-search {
         margin-top: 2px;
         margin-left: 4px;
-        font-size: 20px;
+        font-size: 0.4rem;
       }
 
       .van-icon-clear {
         margin-top: 2px;
         margin-right: -2px;
-        font-size: 20px;
+        font-size: 0.4rem;
+      }
+
+      .van-search__content {
+        background #f5f5f5
       }
     }
 
     .search-bar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 128px;
+      width: 100vw;
+      height: 120px;
+      padding-top 0.133rem
+      padding-bottom 0
+      backdrop-filter: saturate(200%) blur(6px);
+      background: rgba(255, 255, 255, 0.8);
 
-      // top: 26px;
       ::v-deep .van-cell {
-        line-height: 32px;
+        line-height: 0.6rem;
 
         input {
           display: inline-block;
@@ -466,158 +568,127 @@ export default {
 
     .search-bar-word {
       position: absolute;
-      top: 40px;
-      left: 94px;
+      left: 1.5rem;
+      top 50%
+      margin-top -0.21334rem
       font-size: 0;
       width: 100%;
       max-width: 580px;
       height: 52px;
       border-radius: 8px;
-      overflow-x: scroll;
+      // overflow-x: scroll;
       white-space: nowrap;
 
-      &::-webkit-scrollbar {
-        display: none;
-      }
-
       .placeholder {
-        font-size: 28px;
-        line-height: 52px;
+        font-size: 0.3rem;
+        line-height: 0.6rem;
         color: #adadad;
       }
 
       // box-sizing: border-box;
       ::v-deep .word {
-        position: relative;
         display: inline-block;
         color: #fff;
-        background: #0096fa;
+        background: #7bb7e7;
         padding: 10px 8px;
-        padding-right: 30px;
-        margin: 0 8px;
+        margin: -3px 8px 0;
         border-radius: 8px;
         font-size: 24px;
         overflow: hidden;
 
         .text {
+          border-right: 1px solid #acd9fd;
+          padding-right: 8px;
+
           &.no-line {
             border-color: rgba(#fff, 0);
           }
         }
 
         .close {
-          position: absolute;
-          top: 6px;
-          right: 4px;
-          width: 22px;
-          height: 22px;
-          font-size: 0;
-          cursor: pointer;
-
-          .svg-icon {
-            width: 100%;
-            height: 100%;
-            color: #fff;
-            fill: #999;
-            pointer-events: none;
-          }
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          background: url('~@/icons/close.svg');
+          background-size: 100%;
         }
       }
     }
 
     .image-search-mask {
-      position: absolute;
-      top: 128px;
-      top: env(safe-area-inset-top);
+      position: fixed;
+      // top: 128px;
+      // top: env(safe-area-inset-top);
+      top: 1.72rem;
       width: 100%;
-      height: calc(100% - 128px);
-      height: calc(100% - env(safe-area-inset-top));
+      // max-width: 10rem;
+      // height: calc(100% - 128px);
+      // height: calc(100% - env(safe-area-inset-top));
+      height: 100%;
       box-sizing: border-box;
       // pointer-events: none;
       background: rgba(0, 0, 0, 0.6);
       transition: all 0.2s;
     }
+  }
 
-    .search-type {
-      margin: 8px 20px;
+  .search-history {
+    // position: absolute;
+    // margin-top: 150px;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 0 6px;
+    box-sizing: border-box;
+    overflow: hidden;
+    .title-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-radius: 999px;
-      overflow: hidden;
-      outline: 1PX solid #eee;
-
-      .seacch-type__item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 50%;
-        padding: 18px 0;
-        font-size: 26px;
-        border-right: 1px solid #eee;
-        transition: all 0.12s;
-        cursor: pointer;
-
-        &:hover {
-          filter: brightness(1.1);
-        }
-
-        &:last-child {
-          border-right: none;
-        }
-
-        &.active {
-          color: #fff;
-          background: #0096fa;
-        }
-      }
+      height: 40px;
+      font-size: 26px;
+      margin: 8px 20px;
     }
+  }
 
-    .search-history {
-      // position: absolute;
-      width: 100%;
-      box-sizing: border-box;
-      overflow: hidden;
+  .keyword {
+    float: left;
+    font-size: 24px;
+    padding: 12px 20px;
+    background: #eaeaea;
+    border-radius: 26px;
+    margin: 12px 12px;
+    user-select: none;
+    white-space: nowrap;
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-      .title-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 40px;
-        font-size: 26px;
-        margin: 8px 20px;
-      }
+  .image-search {
+    position: fixed;
+    top: 48px;
+    right 50px
+    z-index: 5;
+  }
 
-      .keyword {
-        float: left;
-        font-size: 24px;
-        padding: 12px 20px;
-        background: #eaeaea;
-        border-radius: 26px;
-        margin: 12px 12px;
-        user-select: none;
-        white-space: nowrap;
-        max-width: 50%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-
-    .image-search {
-      position: absolute;
-      top: 28px;
-      width: 100%;
-      z-index: 1;
-    }
+  .com_sel_tabs {
+    position fixed
+    z-index 3
+    left 50%
+    width 100%
+    transform translateX(-50%)
+    top 120px
+    margin-bottom 0
+    padding 0px 0px 20px
+    backdrop-filter: saturate(200%) blur(6px);
+    background: rgba(255, 255, 255, 0.8);
   }
 
   .list-wrap {
     position: relative;
+    z-index 1
     min-height: 100vh;
-    // overflow-y: scroll;
-    padding-top: 128px;
-    padding-bottom: 100px;
-    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+    padding-bottom: 120px;
     box-sizing: border-box;
 
     >.mask {
@@ -627,15 +698,15 @@ export default {
     &.focus {
       >.mask {
         display: block;
-        position: absolute;
+        position: fixed;
         top: 122px;
         width: 100%;
+        // max-width: 10rem;
         height: calc(100% - 122px);
         box-sizing: border-box;
         // pointer-events: none;
         background: rgba(0, 0, 0, 0.6);
         transition: all 0.2s;
-        z-index: 10;
       }
     }
   }
@@ -649,31 +720,69 @@ export default {
 }
 
 .result-list {
-  margin: 0 2px;
+  margin: 10px;
 
-  .card-box__wrapper {
-    .card-box {
-      display: flex;
-      flex-direction: row;
+  .card-box {
+    display: flex;
+    flex-direction: row;
+
+    .column {
+      width: 50%;
+
+      .image-card {
+        max-height: 360px;
+        margin: 4px 2px;
+      }
     }
-
-    .image-card, .novel-card {
-      max-height: 500px;
-      margin: 14px 6px;
-      border: 1px solid #ebebeb;
-    }
   }
 }
 
-@media screen and (min-width: 768px) {
-  .search .search-bar-wrap {
-    max-width: 1200px;
-  }
-}
+.show_pop_icon
+  position absolute
+  top: 22px;
+  right: 40px;
+  font-size 36px
+  padding 20px
 
-@media screen and (min-width: 1700px) {
-  .search .search-bar-wrap {
-    max-width: 1600px;
-  }
-}
+.search_params
+  position relative
+  top -24px
+
+.search_param_sel
+  height 70px
+
+  ::v-deep .van-dropdown-menu__title
+    font-size 0.24rem
+  ::v-deep .van-dropdown-menu__bar
+    background none
+    height 100% !important
+    .van-dropdown-menu__item:first-child,
+    .van-dropdown-menu__item:nth-child(2)
+      flex 1.3
+
+.sel_search_date
+  width 750px !important
+  height 455PX
+  margin: 0 auto;
+
+.dropdown
+  &.search-bar-wrap .search-bar
+    background #fff
+
+.search-dropdown
+  position: fixed;
+  top: 120px;
+  z-index: 4;
+  width 100%
+  background: #fff
+
+  .pid-n-uid
+    display flex
+    flex-wrap wrap
+    margin 0 20px 10px
+    .keyword
+      float none !important
+      width fit-content
+      margin: 0px 12px 12px 0
+
 </style>

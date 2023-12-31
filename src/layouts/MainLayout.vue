@@ -1,23 +1,28 @@
 <template>
-  <div
-    class="main-layout"
-    :class="{ 'safe-area': safeArea }"
-    :style="{ height: '100%' }"
-  >
+  <div class="main-layout" :class="{'safe-area': safeArea}">
     <div class="app-main">
-      <keep-alive>
-        <router-view></router-view>
+      <transition v-if="isPageEffectOn" :name="transitionName" mode="out-in">
+        <keep-alive :max="10">
+          <router-view />
+        </keep-alive>
+      </transition>
+      <keep-alive v-else :max="10">
+        <router-view />
       </keep-alive>
     </div>
-    <Nav v-if="showNav" />
+    <my-nav v-if="showNav" />
   </div>
 </template>
 
 <script>
-import Nav from "@/components/Nav";
+import Nav from '@/components/Nav'
+import { LocalStorage } from '@/utils/storage'
+
+const isPageEffectOn = LocalStorage.get('PXV_PAGE_EFFECT', false)
+
 export default {
-  data() {
-    return {};
+  components: {
+    'my-nav': Nav,
   },
   props: {
     safeArea: {
@@ -29,44 +34,40 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      isPageEffectOn,
+      transitionName: isPageEffectOn ? 'fade' : '',
+    }
+  },
   watch: {
-    showNav: {
-      handler(val) {
-        this.$nextTick(() => {
-          this.$root.$el.classList[val ? "add" : "remove"]("show-nav");
-        });
-      },
-      immediate: true,
+    '$route'(to, from) {
+      if (!isPageEffectOn) return
+      const toDepth = to.meta.__depth
+      const fromDepth = from.meta.__depth
+      if (toDepth == fromDepth) {
+        this.transitionName = 'fade'
+      } else {
+        this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+      }
+      console.log('this.transitionName: ', this.transitionName)
     },
   },
-  components: {
-    Nav,
-  },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
-.main-layout {
-  height: 100%;
-  box-sizing: border-box;
+.main-layout
+  box-sizing border-box
 
-  &.safe-area {
-    padding-top: 60px;
-    height: calc(100vh - 60px);
-    padding-top: env(safe-area-inset-top);
-    height: calc(100vh - env(safe-area-inset-top));
-  }
-}
+  &.safe-area
+    // height 100vh
+    padding-top 0
 
-.app-main {
-  position: relative;
-
-  // height: calc(100vh - 100px);
-  // padding-bottom: 100px;
-  // height: calc(100vh - env(safe-area-inset-bottom));
-  // padding-bottom: env(safe-area-inset-bottom);
-  &::-webkit-scrollbar {
-    width: 0;
-  }
-}
+.app-main
+  position relative
+  // height 100vh
+  padding 10px 8px 0
+  box-sizing border-box
+  // overflow-y auto
 </style>

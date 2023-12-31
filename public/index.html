@@ -1,48 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="icon"
-        href="<%= BASE_URL %>favicon.ico">
-  <title><%= htmlWebpackPlugin.options.title %></title>
-  <link rel="stylesheet"
-        type="text/css"
-        href="<%= BASE_URL %>static/css/normalize.css">
-  <link rel="stylesheet"
-        type="text/css"
-        href="<%= BASE_URL %>static/css/flexible.css">
-  <script src="<%= BASE_URL %>static/js/flexible.js"></script>
-  <script type="text/javascript">
-    document.addEventListener('plusready', function () {
-      plus.navigator.setStatusBarStyle('dark');
-      plus.navigator.setFullscreen(false);
-
-      var webview = plus.webview.currentWebview();
-      plus.key.addEventListener('backbutton', function () {
-        webview.canBack(function (e) {
-          if (e.canBack) {
-            webview.back();
-          } else {
-            //webview.close(); //hide,quit
-          }
-        })
-      });
-    });
-
-  </script>
-  <!--<script src="//cdn.jsdelivr.net/npm/eruda"></script>
-    <script>eruda.init();</script>-->
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <title>Pixiv Viewer - Yet Another Pixiv Illustration & Novel Viewer</title>
+  <meta name="keywords" content="pixiv,pixiv-viewer,p站,p站镜像,pixiv第三方,pixiv镜像,pixiv每日排行,pixiv漫画,pixiv小说" />
+  <meta name="description" itemprop="description" content="又一个Pixiv插画小说阅览工具，适配多端展示，支持PWA安装。" />
+  <meta property="og:title" content="Pixiv Viewer" />
+  <meta property="og:description" content="又一个Pixiv插画小说阅览工具，适配多端展示，支持PWA安装。" />
+  <meta property="og:url" content="https://pixiv.pics" />
+  <meta property="og:image" content="https://pixiv.pics/img/icons/256.png" />
+  <meta property="og:site_name" content="Pixiv Viewer" />
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="x-dns-prefetch-control" content="on" />
+  <link rel="shortcut icon" href="<%= BASE_URL %>favicon.ico" type="image/x-icon">
+  <link rel="dns-prefetch" href="https://cdn.bootcdn.net">
+  <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin="anonymous" />
+  <link rel="stylesheet" href="<%= BASE_URL %>static/css/flexible.css">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/vant/2.12.54/index.min.css">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/Swiper/5.4.5/css/swiper.min.css">
+  <link rel="stylesheet" href="https://lib.baomitu.com/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Pixiv Viewer","alternateName":"Pxve","url":"https://pixiv.pics/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://pixiv.pics/","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pixiv.pics/search/{search_term_string}"},"query-input":"required name=search_term_string"}}</script>
+  <script src="<%= BASE_URL %>static/js/flexible.min.js"></script>
+  <% if (process.env.NODE_ENV === 'production' && process.env.VUE_APP_GA_ID) { %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= process.env.VUE_APP_GA_ID %>"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','<%= process.env.VUE_APP_GA_ID %>',{transport_type:'beacon'});</script>
+  <% } %>
+  <% if (process.env.NODE_ENV === 'production' && process.env.VUE_APP_UMAMI_SRC) { %>
+  <script async defer src="<%= process.env.VUE_APP_UMAMI_SRC %>" data-website-id="<%= process.env.VUE_APP_UMAMI_ID %>" data-cache="true"></script>
+  <% } %>
 </head>
 
 <body>
   <noscript>
-    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
-      Please enable it to continue.</strong>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
   <div id="app"></div>
+  <div id="ldio-loading">
+    <div class="ldio-content">
+      <img src="<%= BASE_URL %>img/icons/192.png" width="120" height="120" alt="">
+      <div class="ldio-title">Pixiv Viewer</div>
+    </div>
+  </div>
+  <script>if(!!localStorage.PXV_DARK)document.body.classList.add('dark');</script>
+  <% if (process.env.NODE_ENV === 'production') { %>
+  <% for (let it of htmlWebpackPlugin.options.cdn.js) { %>
+  <script src="<%= it %>"></script>
+  <% } %>
+  <% } %>
   <!-- built files will be auto injected -->
 </body>
 

@@ -1,40 +1,111 @@
-export const setThemeColor = (color) => {
-  if (!color) return
+import axios from 'axios'
 
-  let metaThemeColor = document.querySelector('meta[name="theme-color"]')
+function fallbackCopyTextToClipboard(text, cb, errCb) {
+  const textArea = document.createElement('textarea')
+  textArea.value = text
+  textArea.style.top = '0'
+  textArea.style.left = '0'
+  textArea.style.position = 'fixed'
 
-  if (!metaThemeColor) {
-    metaThemeColor = document.createElement('meta')
-    metaThemeColor.setAttribute('name', 'theme-color')
-    document.head.appendChild(metaThemeColor)
+  document.body.appendChild(textArea)
+  textArea.focus()
+  textArea.select()
+
+  try {
+    const successful = document.execCommand('copy')
+    successful ? cb?.() : errCb?.()
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err)
+    errCb?.(err)
   }
 
-  metaThemeColor.setAttribute('content', color)
+  document.body.removeChild(textArea)
 }
 
-export const dateFormat = (ts, fmt = 'yyyy-MM-dd hh:mm:ss') => {
-  if (!ts) ts = new Date()
+export function copyText(text, cb, errCb) {
+  try {
+    navigator.clipboard.writeText(text).then(cb, errCb)
+  } catch (error) {
+    fallbackCopyTextToClipboard(text, cb, errCb)
+  }
+}
 
-  if (typeof ts === 'number' && ts.toString().length === 10) {
-    ts *= 1000
-  }
+export function setCookieOnce(key, val) {
+  document.cookie = `${key}=${val}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/;Secure`
+}
 
-  const date = ts instanceof Date ? ts : new Date(ts)
-  if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, `${date.getFullYear()}`)
+export function resetCookieOnce(key) {
+  document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure`
+}
+
+export function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+export function setCookie(name, value, days) {
+  let expires = ''
+  if (days) {
+    const date = new Date()
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000))
+    expires = '; expires=' + date.toUTCString()
   }
-  const o = {
-    'M+': date.getMonth() + 1,
-    'd+': date.getDate(),
-    'h+': date.getHours(),
-    'm+': date.getMinutes(),
-    's+': date.getSeconds()
-  }
-  for (const k in o) {
-    if (new RegExp(`(${k})`).test(fmt)) {
-      const str = o[k] + ''
-      fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : `00${str}`.substr(str.length))
+  document.cookie = name + '=' + (value || '') + expires + '; path=/;Secure'
+}
+
+export function getCookie(cname) {
+  const name = cname + '='
+  const ca = document.cookie.split(';')
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i]
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1)
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length)
     }
   }
-  return fmt
+  return ''
+}
+
+export function removeCookie(key) {
+  document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure`
+}
+
+export function objectToQueryString(queryParameters) {
+  return queryParameters
+    ? Object.entries(queryParameters).reduce(
+      (queryString, [key, val]) => {
+        const symbol = queryString.length === 0 ? '?' : '&'
+        queryString += `${symbol}${key}=${val}`
+        return queryString
+      },
+      ''
+    )
+    : ''
+}
+
+export function isURL(s) {
+  return /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/i.test(s)
+}
+
+export async function checkImgAvailable(src) {
+  return new Promise((resolve, reject) => {
+    let img = document.createElement('img')
+    img.referrerPolicy = 'no-referrer'
+    img.src = src
+    img.onload = () => {
+      resolve(true)
+      img = null
+    }
+    img.onerror = () => {
+      reject(new Error('Network error.'))
+      img = null
+    }
+  })
+}
+
+export async function checkUrlAvailable(url) {
+  const res = await axios.get(url, { timeout: 5000 })
+  if (res.data) return true
+  throw new Error('Resp not ok.')
 }

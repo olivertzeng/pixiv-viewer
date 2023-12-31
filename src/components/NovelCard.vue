@@ -1,226 +1,161 @@
 <template>
-  <div @click.stop="click(artwork.id)" class="novel-card">
-    <div class="image-wrap">
-      <van-tag
-        class="tag-r18"
-        round
-        :color="tagText === 'R-18' ? '#fb7299' : '#ff3f3f'"
-        v-if="tagText"
-        >{{ tagText }}</van-tag
-      >
-      <img
-        v-lazy="artwork.images.m"
-        :alt="artwork.title"
-        class="image"
-        :class="{ censored: isCensored(artwork) }"
-      />
+  <div class="novel-card" @click.stop="click(artwork.id)">
+    <div class="img-cont">
+      <img v-lazy="imgSrc" :alt="artwork.title" class="image" :class="{ censored: isCensored(artwork) }">
     </div>
-    <div class="meta">
-      <div class="title__wrapper">
-        <h4 class="series-title">{{ artwork.series.title }}</h4>
+    <div class="meta" :class="{ censored: isCensored(artwork) }">
+      <div v-if="artwork.series && artwork.series.id" class="series">{{ artwork.series.title }}</div>
+      <div class="content">
         <h2 class="title">{{ artwork.title }}</h2>
+        <div class="author"><span style="color:#999">by</span>&nbsp;{{ artwork.author.name }}</div>
       </div>
-      <div class="info-box">
-        <span class="info words">
-          <Icon name="novel" class="icon" scale="1.1"></Icon
-          >{{ artwork.text_length.toLocaleString("en-US") }}字
-        </span>
-        <span class="info like">
-          <Icon name="like" class="icon"></Icon>
-          {{ artwork.total_bookmarks }}
-        </span>
+      <div class="novel_tags ispx">
+        <span v-for="t in novelTagsText" :key="t">{{ t }}</span>
       </div>
-      <div class="tag-box">
-        <span class="tag" v-for="tag in artwork.tags" :key="tag.name"
-          >#{{ tag.name }}</span
-        >
-      </div>
-      <div class="author__wrapper">
-        <img
-          :src="artwork.author.avatar"
-          :alt="artwork.author.name"
-          class="avatar"
-        />
-        <div class="author">{{ artwork.author.name }}</div>
+      <div class="novel_tips">
+        <van-tag v-if="index">#{{ index }}</van-tag>
+        <van-tag v-if="tagText" :color="tagText === 'R-18' ? '#fb7299' : '#ff3f3f'">{{ tagText }}</van-tag>
+        <van-tag v-if="isAiIllust" color="#536cb8">&nbsp;AI&nbsp;</van-tag>
+        <van-tag color="#cdeefe" text-color="#0b6aaf">{{ artwork.text_length }}{{ $t('common.words') }}</van-tag>
+        <van-tag color="#ffe1e1" text-color="#ad0000">
+          <van-icon name="like-o" style="margin-right: 2px;" />
+          {{ artwork.like }}
+        </van-tag>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Tag } from "vant";
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
-  data() {
-    return {};
-  },
+  name: 'NovelCard',
   props: {
     artwork: {
       type: Object,
       required: true,
     },
-    mode: {
-      type: String,
-      required: false,
-      default: "cover",
-    },
-    column: {
+    index: {
       type: Number,
-      required: false,
-      default: 2,
+    },
+    square: {
+      type: Boolean,
+      default: false,
     },
   },
+  data() {
+    return {}
+  },
   computed: {
+    ...mapGetters(['isCensored']),
+    imgSrc() {
+      return this.artwork.images[0][this.square ? 's' : 'm']
+    },
+    isAiIllust() {
+      return this.artwork.illust_ai_type == 2
+    },
     tagText() {
-      if (this.artwork.x_restrict === 1) {
-        return "R-18";
-      } else if (this.artwork.x_restrict === 2) {
-        return "R-18G";
+      if (this.artwork.x_restrict == 1) {
+        return 'R-18'
+      } else if (this.artwork.x_restrict == 2) {
+        return 'R-18G'
       } else {
-        return false;
+        return false
       }
     },
-    ...mapGetters(["isCensored"]),
+    novelTagsText() {
+      return this.artwork.tags?.map(e => `#${e.name}`)
+    },
   },
   methods: {
     click(id) {
       if (
         !id ||
-        (this.$route.name === "Artwork" && +this.$route.params.id === id)
-      )
-        return false;
+        (this.$route.name === 'Artwork' && this.$route.params.id == id)
+      ) { return false }
 
-      this.$emit("click-card", id);
+      this.$emit('click-card', id)
     },
   },
-  components: {
-    [Tag.name]: Tag,
-  },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
 .novel-card {
   position: relative;
   display: flex;
-  align-items: center;
-  height: 220px;
+  align-items flex-start
   overflow: hidden;
-  background: #fafafa;
-  border-radius: 12px;
-  cursor: pointer;
+  background: #f5f5f5;
+  padding 20px
+  margin-bottom: 15px;
+  border-radius: 20px;
+  border-bottom 1px solid #ccc
+  cursor pointer
 
-  .image-wrap {
-    flex: none;
-    width: 190px;
-    height: 220px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .img-cont {
+    position relative
+    width: 2rem;
+    min-width 2rem;
+    min-height 3rem
+  }
 
-    &:hover {
-      .image {
-        transform: scale(1.05);
-      }
-    }
+  .image {
+    width: 100%;
+    height: auto;
 
-    .tag-r18 {
-      position: absolute;
-      top: 8px;
-      left: 6px;
-      font-size: 20px;
-      padding: 2px 8px;
-      z-index: 10;
-    }
-
-    .image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform-origin: center;
-      transition: transform 0.2s ease-in-out;
-
-      &[lazy='loading'] {
-        width: 100px;
-        height: 100px;
-      }
+    &[lazy="loading"] {
+      position absolute
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 
+  .novel_tags {
+    margin-top 0px
+    padding 0 20px
+    color #858585
+    &.ispx {
+      font-size 13px
+    }
+    span {
+      margin-right 16px
+    }
+  }
+
+  .novel_tips {
+    margin-top 20px
+    padding 0 20px
+  }
+
+  .series {
+    margin-bottom 8px
+    padding 0 16px
+    font-size 20px
+    color: #faa200;
+  }
+
   .meta {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: calc(100% - 190px);
-    padding: 12px 14px;
-    box-sizing: border-box;
-    color: #444;
-
-    .series-title {
-      font-size: 20px;
-      margin-bottom: 8px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: #666;
-    }
-
-    .title {
-      font-size: 24px;
-      // margin: 10px 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      color: #444;
-    }
-
-    .info-box {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      font-size: 20px;
-      color: #666;
-
-      .info {
-        margin-right: 12px;
-      }
-    }
-
-    .tag-box {
-      line-height: 1.2;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 2;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-
-      .tag {
-        display: inline-block;
-        margin-right: 10px;
-        font-size: 20px;
-        color: #0096fa;
-      }
-    }
-
-    .author__wrapper {
-      color: #444;
-      margin-top: auto;
-
-      .avatar {
-        width: 28px;
-        height: 28px;
-        margin-right: 4px;
-        vertical-align: bottom;
-        border-radius: 50%;
-        overflow: hidden;
-      }
+    .content {
+      width: 100%;
+      padding: 0 14px 18px;
+      box-sizing: border-box;
 
       .author {
-        display: inline-block;
-        font-size: 20px;
-        font-weight: 200;
+        display: flex;
+        align-items: center;
+        font-size: 23px;
+        font-weight: 400;
+      }
+
+      .title {
+        line-height: normal;
+        font-size: 28px;
+        margin-bottom: 10px;
+        font-weight 600
       }
     }
   }

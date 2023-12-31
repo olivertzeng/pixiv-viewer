@@ -1,153 +1,206 @@
 <template>
-  <div class="setting">
-    <van-cell center title="缓存数据" :label="size | bytes">
-      <template #right-icon>
-        <van-button type="primary" size="small" @click="clearCache('local')"
-          >清理</van-button
-        >
+  <div class="setting" :class="{isNY}" :style="isNY?`background-image:url(${nybg})`:''">
+    <div v-if="isNY" class="app-title">
+      <img src="@/assets/images/12000518.png" alt="" style="width: auto;height: 3rem;margin-right: 0;">
+      <!-- <div class="app-title-desc">Happy New Year</div> -->
+    </div>
+    <h1 v-else class="app-title">
+      <img v-if="!isLoggedIn" src="/app-icon.png" alt="">
+      <div class="app-title-desc">
+        <span class="title-font">Pixiv Viewer<sup style="margin-left: 5px;font-size: 0.3rem;">Kai</sup></span>
+        <small>{{ $t('setting.app_desc') }}</small>
+      </div>
+    </h1>
+    <van-cell v-if="isLoggedIn" size="large" center is-link :to="`/u/${user.id}`">
+      <template #title>
+        <div class="user_data">
+          <img v-lazy="user.profileImg" width="50" height="50" alt="">
+          <div>
+            <div>{{ user.name }}</div>
+            <div style="color: #999">@{{ user.pixivId }}</div>
+          </div>
+        </div>
       </template>
     </van-cell>
-    <van-cell center title="R-18作品显示" label="包含裸露内容或性描写">
-      <template #right-icon>
-        <van-switch
-          :value="currentSETTING.r18"
-          @input="onR18Change($event, 1)"
-          size="24"
-        />
-      </template>
-    </van-cell>
-    <van-cell center title="R-18G作品显示" label="包含血腥或恶心内容">
-      <template #right-icon>
-        <van-switch
-          :value="currentSETTING.r18g"
-          @input="onR18Change($event, 2)"
-          size="24"
-        />
-      </template>
-    </van-cell>
-    <van-field
-      v-model.trim="currentSETTING.api"
-      label="API地址"
-      placeholder="填写一个可用的API地址"
-    />
-    <van-cell
-      center
-      title="Pixiv Viewer"
-      label="https://github.com/journey-ad/pixiv-viewer"
-      url="https://github.com/journey-ad/pixiv-viewer"
-    ></van-cell>
-    <van-cell center title="构建日期" :label="buildDate"></van-cell>
+    <van-cell v-if="isLoggedIn&&isNY" size="large" center :title="$t('user.sess.out')" icon="user-circle-o" is-link @click="logoutApp" />
+    <van-cell v-if="isLoggedIn" size="large" center :title="$t('user.sess.my_fav')" icon="star-o" is-link :to="`/users/${user.id}/favorites`" />
+    <van-cell v-else size="large" center :title="$t('user.sess.login')" icon="user-circle-o" is-link to="/account/login" />
+    <van-cell size="large" center :title="$t('common.history')" icon="underway-o" is-link to="/setting/history" />
+    <van-cell size="large" center :title="$t('display.title')" icon="eye-o" is-link to="/setting/contents_display" />
+    <van-cell size="large" center :title="$t('cache.title')" icon="delete-o" is-link to="/setting/clearcache" />
+    <van-cell size="large" center :title="$t('setting.other.title')" icon="setting-o" is-link to="/setting/others" />
+    <van-cell size="large" center :title="$t('setting.down_app')" icon="apps-o" is-link to="/setting/down_app" />
+    <van-cell size="large" center :title="$t('setting.recomm.title')" icon="bookmark-o" is-link to="/setting/recommend" />
+    <van-cell size="large" center :title="$t('setting.about')" icon="info-o" is-link to="/setting/about" />
+    <div v-if="isLoggedIn&&!isNY" style="width: 60%;margin: 1rem auto 0;">
+      <van-button round plain block type="danger" size="small" @click="logoutApp">{{ $t('user.sess.out') }}</van-button>
+    </div>
   </div>
 </template>
 
 <script>
-import { Cell, Switch, Button, Dialog, Field } from "vant";
-import { mapState, mapActions } from "vuex";
-import { dateFormat } from "@/utils";
-import { DBStorage, SessionStorage } from "@/utils/storage";
+import { mapGetters, mapState } from 'vuex'
+import { Dialog } from 'vant'
+import PixivAuth from '@/api/client/pixiv-auth'
+import { logout } from '@/api/user'
+
+// const isXmas = (() => {
+//   const d = new Date()
+//   return d.getMonth() == 11 && (d.getDate() >= 21 && d.getDate() <= 25)
+// })()
+
+// const xmasbgs = [
+//   '696D67_333034303439373030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303439373030305F30325F66756C6C2E706E67.png',
+//   '696D67_333033303235393030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303036373030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303234393030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303330363030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303330363030305F30325F66756C6C2E706E67.png',
+//   '696D67_333034303331313030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303331313030305F30325F66756C6C2E706E67.png',
+//   '696D67_333034303336393030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303337323030305F30325F66756C6C2E706E67.png',
+//   '696D67_333034303433343030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303433373030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303433373030305F30325F66756C6C2E706E67.png',
+//   '696D67_333034303439353030305F30315F66756C6C2E706E67.png',
+//   '696D67_333034303439363030305F30315F66756C6C2E706E67.png',
+//   '696D67_333731303037393030305F30312E706E67.png',
+// ]
+
+const isNY = (() => {
+  const d = new Date()
+  return d.getMonth() == 0 && (d.getDate() >= 1 && d.getDate() <= 5)
+})()
+
+const nybgs = [
+  '696D67_333034303530323030305F30315F66756C6C2E706E67.png',
+  '696D67_333034303530323030305F30325F66756C6C2E706E67.png',
+]
+
 export default {
-  name: "Setting",
+  name: 'Setting',
   data() {
     return {
-      buildDate: dateFormat(__BUILD_TIMESTAMP__, "yyyy-MM-dd"),
-      currentSETTING: {
-        api: "https://hibiapi.journeyad.repl.co/api/",
-        r18: false,
-        r18g: false,
-      },
-      size: 0,
-    };
+      // isXmas,
+      // xmasbg: '',
+      isNY,
+      nybg: '',
+    }
+  },
+  head() {
+    return {
+      title: this.$t('nav.setting'),
+    }
   },
   computed: {
-    ...mapState(["SETTING"]),
+    ...mapState(['user']),
+    ...mapGetters(['isLoggedIn']),
   },
-  watch: {
-    $route() {
-      this.calcCacheSize();
-    },
+  activated() {
+    // this.xmasbg = `/img/gbf/${xmasbg[parseInt(Math.random() * xmasbg.length, 10)]}`
+    this.nybg = `/img/gbf/${nybgs[parseInt(Math.random() * nybgs.length, 10)]}`
   },
   methods: {
-    onR18Change(checked, type) {
-      let name;
-      if (type === 1) name = "R-18";
-      if (type === 2) name = "R-18G";
-
-      if (checked) {
-        Dialog.confirm({
-          message: `确定要开启${name}作品显示吗？请确保您的年龄已满18岁，且未违反当地法律法规所规定的内容`,
-          confirmButtonColor: "black",
-          cancelButtonColor: "#1989fa",
-          closeOnPopstate: true,
-        })
-          .then(() => {
-            if (type === 1) this.currentSETTING.r18 = checked;
-            if (type === 2) {
-              this.currentSETTING.r18g = checked;
-              setTimeout(() => {
-                Dialog.alert({
-                  message: `请注意，开启${name}开关可能会对您的身心健康造成不可逆的影响，如若感到不适，请立即关闭应用并寻求医学帮助`,
-                });
-              }, 200);
-            }
-          })
-          .catch(() => {
-            console.log("操作取消");
-          });
+    async logoutApp() {
+      if (window.APP_CONFIG.useLocalAppApi) {
+        const res = await Dialog.confirm({ message: this.$t('login.logout_tip') })
+        if (res != 'confirm') return
+        window.APP_CONFIG.useLocalAppApi = false
+        PixivAuth.writeConfig(window.APP_CONFIG)
+        setTimeout(() => {
+          location.reload()
+        }, 500)
       } else {
-        if (type === 1) this.currentSETTING.r18 = checked;
-        if (type === 2) this.currentSETTING.r18g = checked;
+        logout()
       }
     },
-    async calcCacheSize() {
-      this.size = await DBStorage.size;
-    },
-    clearCache(type) {
-      Dialog.confirm({
-        message: `确定要清理缓存数据吗？清理后将重新从网络加载相关内容`,
-        confirmButtonColor: "black",
-        cancelButtonColor: "#1989fa",
-        closeOnPopstate: true,
-      }).then(async () => {
-        if (type === "local") await DBStorage.clear();
-        if (type === "session") SessionStorage.clear();
-
-        this.calcCacheSize();
-        this.$toast.success("清理完成");
-      });
-    },
-    ...mapActions(["saveSETTING"]),
   },
-  filters: {
-    bytes(bytes) {
-      bytes = Number(bytes);
-      if (bytes === 0) return "0 B";
-
-      const k = 1024;
-      const dm = 0;
-      const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
-    },
-  },
-  mounted() {
-    this.currentSETTING = JSON.parse(JSON.stringify(this.SETTING));
-    this.calcCacheSize();
-  },
-  updated() {
-    this.saveSETTING(JSON.parse(JSON.stringify(this.currentSETTING)));
-  },
-  components: {
-    [Cell.name]: Cell,
-    [Button.name]: Button,
-    [Switch.name]: Switch,
-    [Field.name]: Field,
-  },
-};
+}
 </script>
 
+<style lang="stylus">
+.dark #app .setting.isXmas,.dark #app .setting.isNY
+  .app-title-desc
+    text-shadow: 1PX 1PX 2PX #fff;
+  .van-cell:hover
+    .van-cell__title,
+    .van-icon
+      color: #d53643
+</style>
+
 <style lang="stylus" scoped>
-.setting {
-}
+.setting
+  max-width 750px
+  margin 0 auto 160px
+
+  &.isXmas,&.isNY
+    position relative
+    min-height 66vh
+    margin 0 auto
+    padding-bottom 160px
+    background transparent no-repeat right -1rem bottom / 9rem
+    &::after
+      content 'Background © Cygames, Inc.'
+      position absolute
+      right 1rem
+      bottom -0.5rem
+      font-size 0.1rem
+      color #999
+      font-family sans-serif
+    .app-title
+      color: #d53643;
+      margin: 0.7rem 0;
+      font-size 0.64rem
+      font-family: Lucida Handwriting,"LXGW WenKai Screen",Georgia Pro,Georgia,Times New Roman,serif;font-weight: bold;
+      img
+        display block !important
+    ::v-deep .van-cell
+      color: #ba2d38;
+      background-color transparent !important
+      border-radius: 0.2rem;
+      transition background-color 0.2s
+      &:hover
+        background-color: #FEDFE1 !important;
+      &::after
+        opacity 0
+
+  ::v-deep .van-cell__left-icon
+    margin-right 0.4rem
+    font-size 24px
+    transform: translateY(1px);
+
+.app-title
+  display flex
+  justify-content center
+  align-items center
+  margin 40px 0 50px
+  padding-right 10px
+  font-size 40px
+  text-align center
+
+  .title-font
+    font-family "Georgia Pro", Georgia, "Times New Roman", serif
+    font-weight bold
+
+  &-desc
+    display flex
+    flex-direction column
+    max-width 6rem
+    small
+      margin-top 0.2rem
+      font-size 0.24rem
+
+  img
+    width 64px
+    height 64px
+    margin-right 20px
+
+.user_data
+  display flex
+  align-items center
+  img
+    margin-right 20px
+    border-radius 50%
 </style>

@@ -1,57 +1,42 @@
 <template>
-  <div class="novels">
-    <van-cell
-      class="cell"
-      :border="false"
-      is-link
-      @click="onClick()"
-      v-if="once"
-    >
-      <template #title>
-        <span class="title">
-          小说作品
-          <span class="num" v-if="num">{{ num }}件作品</span>
-        </span>
-      </template>
-    </van-cell>
+  <div class="illusts">
+    <template v-if="showTitle">
+      <van-cell v-if="once" class="cell" :border="false" is-link @click="onClick()">
+        <template #title>
+          <span class="title">
+            {{ $t('user.novel_art') }}
+            <span v-if="num" class="num">{{ $t('user.art_num', [num]) }}</span>
+          </span>
+        </template>
+      </van-cell>
+      <h3 v-else class="af_title">{{ $t('user.novel_art_title', [authorName]) }}</h3>
+    </template>
     <van-list
       v-model="loading"
+      :loading-text="$t('tips.loading')"
       :finished="finished"
-      :finished-text="!once || !artList.length ? '没有更多了' : ''"
+      :finished-text="!once ? $t('tips.no_more') : ''"
       :error.sync="error"
-      error-text="网络异常，点击重新加载"
-      @load="getMemberNovel()"
+      :offset="800"
+      :error-text="$t('tips.net_err')"
+      @load="getMemberArtwork()"
     >
-      <div class="card-box__wrapper" ref="cardBox">
-        <waterfall
-          :col="col"
-          :width="itemWidth"
-          :gutterWidth="0"
-          :data="artList"
-        >
-          <router-link
-            :to="{
-              name: 'Novel',
-              params: { id: art.id, list: artList },
-            }"
-            v-for="art in artList"
-            :key="art.id"
-          >
-            <NovelCard mode="meta" :artwork="art" />
-          </router-link>
-        </waterfall>
-      </div>
+      <masonry v-bind="masonryProps">
+        <NovelCard v-for="art in artList" :key="art.id" :artwork="art" @click-card="toArtwork($event)" />
+      </masonry>
     </van-list>
   </div>
 </template>
 
 <script>
-import { Cell, Swipe, SwipeItem, Icon, List, PullRefresh } from "vant";
-import NovelCard from "@/components/NovelCard";
-import api from "@/api";
-import { throttle, uniqBy } from "lodash-es";
+import api from '@/api'
+import _ from 'lodash'
+import NovelCard from '@/components/NovelCard.vue'
 export default {
-  name: "AuthorNovels",
+  name: 'AuthorNovels',
+  components: {
+    NovelCard,
+  },
   props: {
     id: {
       type: Number,
@@ -64,99 +49,99 @@ export default {
       type: Boolean,
       default: false,
     },
+    notFromArtwork: {
+      type: Boolean,
+      default: true,
+    },
+    showTitle: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
-      col: 1,
-      itemWidth: 0,
       curPage: 1,
       artList: [],
       error: false,
       loading: false,
       finished: false,
-    };
+      masonryProps: {
+        gutter: '8px',
+        cols: {
+          600: 1,
+          1200: 2,
+          1600: 3,
+          default: 4,
+        },
+      },
+    }
   },
-  methods: {
-    reset() {
-      this.curPage = 1;
-      this.artList = [];
-    },
-    getMemberNovel: throttle(async function () {
-      if (!this.id) return;
-      let newList;
-      let res = await api.getMemberNovel(this.id, this.curPage);
-      if (res.status === 0) {
-        if (res.finished) {
-          this.finished = true;
-          this.loading = false;
-          return;
-        }
-
-        newList = res.data;
-        if (this.once) newList = newList.slice(0, 10);
-        let artList = JSON.parse(JSON.stringify(this.artList));
-
-        artList.push(...newList);
-        artList = uniqBy(artList, "id");
-
-        this.artList = artList;
-        this.loading = false;
-        this.curPage++;
-        if (this.once || this.curPage > 20) this.finished = true;
-        this.$nextTick(this.resize);
-      } else {
-        this.$toast({
-          message: res.msg,
-        });
-        this.loading = false;
-        this.error = true;
-      }
-    }, 500),
-    odd(list) {
-      return list.filter((_, index) => (index + 1) % 2);
-    },
-    even(list) {
-      return list.filter((_, index) => !((index + 1) % 2));
-    },
-    toArtwork(id) {
-      this.$router.push({
-        name: "Artwork",
-        params: { id, list: this.artList },
-      });
-    },
-    onClick() {
-      this.$emit("onCilck");
-    },
-    resize() {
-      if (!this.$refs.cardBox) return;
-
-      this.itemWidth = Math.floor(
-        this.$refs.cardBox.firstChild.clientWidth / this.col
-      );
+  computed: {
+    authorName() {
+      const n = this.artList[0]?.author.name
+      return n ? `${n} ${this.$t('user.of')}` : ''
     },
   },
   mounted() {
-    this.reset();
-    this.getMemberNovel();
-    window.addEventListener("resize", this.resize);
+    this.reset()
+    this.getMemberArtwork()
   },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.resize);
+  activated() {
+    if (this.notFromArtwork) {
+      this.reset()
+      this.getMemberArtwork()
+    }
   },
-  components: {
-    [Cell.name]: Cell,
-    [Swipe.name]: Swipe,
-    [SwipeItem.name]: SwipeItem,
-    [Icon.name]: Icon,
-    [List.name]: List,
-    [PullRefresh.name]: PullRefresh,
-    NovelCard,
+  methods: {
+    reset() {
+      this.curPage = 1
+      this.artList = []
+    },
+    getMemberArtwork: _.throttle(async function () {
+      if (!this.id) return
+      this.loading = true
+      let newList
+      const res = await api.getMemberNovel(this.id, this.curPage)
+      if (res.status === 0) {
+        newList = res.data
+        if (this.once) newList = newList.slice(0, 10)
+        this.artList = _.uniqBy([
+          ...this.artList,
+          ...newList,
+        ], 'id')
+
+        this.loading = false
+        this.curPage++
+        if (this.once || !newList.length) this.finished = true
+      } else {
+        this.$toast({
+          message: res.msg,
+        })
+        this.loading = false
+        this.error = true
+      }
+    }, 2500),
+    toArtwork(id) {
+      this.$router.push({
+        name: 'NovelDetail',
+        params: { id },
+      })
+    },
+    onClick() {
+      this.$emit('onCilck')
+    },
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
-.novels {
+.af_title
+  margin-top 30px
+  margin-bottom 40px
+  text-align center
+  font-size 28px
+
+.illusts {
   .cell {
     padding: 10px 20px;
   }
@@ -167,18 +152,18 @@ export default {
     color: #888;
   }
 
-  .card-box__wrapper {
-    width: 100%;
+  .card-box {
+    padding: 0 12px;
+    display: flex;
+    flex-direction: row;
 
-    .card-box {
-      display: flex;
-      flex-direction: row;
-    }
+    .column {
+      width: 50%;
 
-    .novel-card {
-      max-height: 500px;
-      margin: 14px 6px;
-      border: 1px solid #ebebeb;
+      .image-card {
+        max-height: 360px;
+        margin: 4px 2px;
+      }
     }
   }
 }

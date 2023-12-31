@@ -1,0 +1,68 @@
+<template>
+  <div class="Home">
+    <div class="com_sel_tabs">
+      <div class="com_sel_tab" @click="$router.replace('/')">{{ $t('common.illust') }}</div>
+      <div class="com_sel_tab cur">{{ $t('common.manga') }}</div>
+      <div class="com_sel_tab" @click="$router.replace('/home_novel')">{{ $t('common.novel') }}</div>
+    </div>
+    <div class="home-m">
+      <MangaRankCard />
+      <MangaRecommendCard v-if="isSelfHibi" />
+      <lazy-component>
+        <RandomManga />
+      </lazy-component>
+      <lazy-component v-if="isSelfHibi">
+        <LatestMangaCard />
+      </lazy-component>
+    </div>
+  </div>
+</template>
+
+<script>
+import { notSelfHibiApi } from '@/api/http'
+import LatestMangaCard from './components/LatestMangaCard.vue'
+import MangaRankCard from './components/MangaRankCard.vue'
+import MangaRecommendCard from './components/MangaRecommendCard.vue'
+import RandomManga from './components/RandomManga.vue'
+import { i18n } from '@/i18n'
+
+export default {
+  name: 'HomeIllust',
+  components: {
+    MangaRankCard,
+    MangaRecommendCard,
+    RandomManga,
+    LatestMangaCard,
+  },
+  data() {
+    return {
+      isSelfHibi: !notSelfHibiApi,
+    }
+  },
+  head: {
+    title: i18n.t('common.manga'),
+  },
+}
+</script>
+
+<style lang="stylus" scoped>
+.home-m
+  position relative
+  z-index 2
+  padding-bottom 100px
+  background #fff
+
+  ::v-deep .cell .title
+    font-size 36px
+
+  ::v-deep .image-slide
+    background #f9ba48
+
+  ::v-deep .image-slide:not(:has(.d-loading))
+    background none
+
+  ::v-deep .svg-icon
+    margin-right 10px
+    vertical-align -0.15rem
+
+</style>

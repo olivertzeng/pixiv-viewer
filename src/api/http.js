@@ -1,53 +1,46 @@
 import axios from 'axios'
-import store from '@/store'
+import nprogress from 'nprogress'
+import { LocalStorage } from '@/utils/storage'
 
-const baseURL = 'https://hibiapi.journeyad.repl.co/api/'
+export const BASE_API_URL = LocalStorage.get('HIBIAPI_BASE', process.env.VUE_APP_DEF_HIBIAPI_MAIN)
+export const notSelfHibiApi = !/hibi\w{0,}\.(cocomi\..+)|(pixiv\.pics)/.test(BASE_API_URL)
 
-axios.defaults.timeout = 10000
+axios.defaults.baseURL = BASE_API_URL
+axios.defaults.timeout = 20000
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-const get = async (url, params) => {
+axios.interceptors.request.use(config => {
+  nprogress.start()
+  return config
+})
+
+axios.interceptors.response.use(
+  res => {
+    nprogress.done()
+    return res
+  },
+  err => {
+    nprogress.done()
+    return Promise.reject(err)
+  }
+)
+
+const get = async (url, params = {}, config = {}) => {
+  console.log('url: ', url)
+  console.log('params: ', params)
   try {
-    const { SETTING } = store.state
+    let res
+    if (/^\/(?!prks).*/.test(url) && window.APP_CONFIG.useLocalAppApi) {
+      res = await window.__localApiMap__[url]?.({ query: params, ...config })
+    } else {
+      res = (await axios.get(url, { params, ...config })).data
+    }
 
-    const res = await axios.get(url, {
-      baseURL: SETTING.api || baseURL,
-      params
-    })
-
-    return new Promise((resolve, reject) => {
-      let data = res.data
-      if (typeof data === 'object') {
-        resolve(data)
-      } else {
-        reject(data)
-      }
-    })
-  } catch (ex) {
-    console.error(ex)
+    return res
+  } catch (error) {
+    console.error(error)
+    return { error }
   }
 }
 
-const post = async (url, data) => {
-  try {
-
-    const { SETTING } = store.state
-    const res = await axios.post(url,
-      data,
-      { baseURL: SETTING.api || baseURL }
-    ).data
-
-    return new Promise((resolve, reject) => {
-      let data = res.data
-      if (typeof res === 'object') {
-        resolve(data)
-      } else {
-        reject(data)
-      }
-    })
-  } catch (ex) {
-    console.error(ex)
-  }
-}
-
-export { get, post }
+export { get }

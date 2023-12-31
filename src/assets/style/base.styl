@@ -1,0 +1,478 @@
+html, body
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Source Han Sans SC, Source Han Sans CN, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  color: #333;
+  overscroll-behavior: none;
+  user-select: none;
+
+html[lang^="zh"],
+html[lang="ja"]
+  &, & body
+    font-family: "LXGW WenKai Screen", -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Source Han Sans SC, Source Han Sans CN, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+
+.flex
+  display flex
+  align-items center
+
+.flex-c
+  display flex
+  justify-content center
+  align-items center
+
+.icon
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+
+.cell
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 28px;
+
+  .icon
+    font-size: 50px;
+    margin-top: -10px;
+    margin-right: 4px;
+    vertical-align: middle;
+
+  .title
+    font-size: 32px;
+
+.artwork
+  .title,.author,.caption
+    user-select text
+.users
+  .detail,.name
+    user-select text
+
+.image-preview
+  background: #333;
+
+.censored
+  position: relative
+  filter: blur(60PX)
+  pointer-events none
+
+.image-card:has(.censored)
+  pointer-events none
+
+.van-list .image-card
+  box-shadow: 0 3PX 1PX -2PX rgba(0,0,0,.2), 0 2PX 2PX 0 rgba(0,0,0,.14), 0 1PX 5PX 0 rgba(0,0,0,.12)
+
+.wf-grid .image-card:has(.censored),
+.flexbin .image-card:has(.censored),
+.image-card:has(.censored) .meta,
+.ia-left .censored
+  display none !important
+
+#app
+  .van-button
+    border-radius 4px
+  .top-bar .van-nav-bar__left
+    padding 0 0.35rem
+
+.com_sel
+  &_tabs
+    display flex
+    justify-content center
+    width 100%
+    padding-bottom 20px
+    text-align center
+    box-sizing border-box
+    .com_sel_tab:not(:last-child)
+      margin-right 18px
+  &_tab
+    display flex
+    justify-content center
+    align-items center
+    height 60px
+    font-size 28px
+    padding 0 16px
+    border-radius 10px
+    color #333
+    background #eee
+    box-sizing border-box
+    cursor pointer
+    &.cur
+      cursor: auto
+      background: #f2c358;
+
+.user_avatar,
+.avatar,
+.avatar img,
+.author-card .cell .icon
+  object-fit: cover
+
+.setting-page
+  max-width 750px
+  margin 0 auto 160px
+
+  #top-bar-wrap
+    width 1.6rem
+    height auto
+    padding-top 0.3rem
+    background transparent
+
+  .hibiapi-actions .van-action-sheet__name
+    display inline-block
+    width 100%
+    white-space nowrap
+    text-overflow ellipsis
+    overflow hidden
+
+  .van-button
+    padding 0 0.3rem
+
+  .van-popup--bottom
+    width 10rem
+    left 50%
+    margin-left -5rem
+
+  .af_title
+    position relative
+    margin-top 40px
+    margin-bottom 60px
+    text-align center
+    font-size 28px
+
+  .api-chk .van-action-sheet__item, .img-chk .van-action-sheet__item
+    padding: 7px 16px
+  .api-chk .van-action-sheet__name, .img-chk .van-action-sheet__name
+    color #323233 !important
+  .api-chk .van-action-sheet__subname, .img-chk .van-action-sheet__subname
+    margin-top -3px
+    color inherit !important
+
+.swiper-container
+  --swiper-theme-color: #fcb93e
+
+.swiper-container-horizontal>.swiper-scrollbar
+  bottom: .04rem;
+  height: .06667rem;
+
+.swiper-container-initialized
+  .swiper-button-prev, .swiper-button-next
+    opacity: 1
+
+.swiper-button-prev, .swiper-button-next
+  top: 0
+  right: 0
+  width: 2rem
+  height: 97%
+  margin-top: 0
+  border-radius: 20px
+  color: #ffd745
+  background-image: linear-gradient(270deg, rgba(0,0,0,0.6) 0%, rgba(255,255,255,0) 100%)
+  transition: opacity 0.2s
+  opacity: 0
+  &.swiper-button-disabled
+    opacity: 0
+  &:after
+    filter: drop-shadow(0.02667rem 0.05333rem 0.05333rem rgba(0,0,0,0.8));
+
+.swiper-button-prev
+  left: 0
+  right: auto
+  background-image: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(255,255,255,0) 100%)
+
+@media screen and (max-width: 600px)
+  .swiper-button-prev, .swiper-button-next, .swiper-scrollbar
+    display none
+
+@font-face
+  font-family: 'Dosis';
+  src: local('Dosis Regular'), local('Dosis-Regular'), url('../fonts/dosis-v7-latin-ext_latin-regular.woff') format('woff');
+
+::-webkit-scrollbar
+  width: 13px;
+  height: 13px;
+
+::-webkit-scrollbar-track
+  background: #e6e6e6;
+  border-left: 1px solid #dadada;
+
+::-webkit-scrollbar-thumb
+  background: #b0b0b0;
+  border: solid 3px #e6e6e6;
+  border-radius: 7px;
+
+::-webkit-scrollbar-thumb:hover
+  background: black;
+
+@media screen and (max-width: 500px)
+  ::-webkit-scrollbar
+    width: 0;
+
+  .image-card
+    .title, .author
+      user-select none
+
+
+html:has(.dark)
+  ::-webkit-scrollbar
+    width: 10px;
+    height: 5px;
+  ::-webkit-scrollbar-thumb
+    border-color: transparent
+  ::-webkit-scrollbar-track
+    background #16161a
+    border-color: transparent
+  ::-webkit-scrollbar-thumb:hover
+    background: #e6e6e6;
+
+.dark
+  background #16161a
+  color #fff
+  .van-dialog,
+  .van-button
+    background #333
+    color #fff !important
+  .van-dialog__message--has-title
+    color #fff
+  a
+   color #dba5ff
+
+.dark #app
+  min-height 100vh
+  &,
+  .app-main,
+  .home-i,
+  .home-m,
+  .home-n,
+  .van-cell,
+  .image-card,
+  .users,
+  .illusts,
+  .van-popup,
+  .van-calendar,
+  .van-tabs__nav,
+  .van-tab,
+  .van-button,
+  .van-collapse-item__content,
+  .van-share-sheet__cancel,
+  .van-action-sheet__cancel,
+  .van-action-sheet__item
+    background #16161a
+    color #fff
+
+  .user-wrap,
+  .user-illusts
+    height auto
+
+  .sup_tags .van-tag
+    background none
+
+  .rank-card .spec_wp,
+  .image-card
+    // border 1px solid #aaa
+    border 0
+    border-radius: 0.26667rem;
+
+  .nav-container .nav-bar
+    box-shadow 0 0 0.26667rem #222
+    background rgba(0,0,0,0.8)
+    li
+      display flex
+      justify-content center
+      align-items center
+      flex-direction column
+      color #fff
+    .icon
+      display none
+    .van-icon
+      margin-bottom 0.1rem
+      font-size 0.36rem
+      &.active,
+      &.active + span
+        color: #f2c358
+    span
+      display inline-block
+
+  .com_sel_tab,
+  .rank .nav a,
+  .Following .van-tab:not(.van-tab--active) .van-tab__text
+    background #777
+    color #fff
+    &.cur
+      background: #f2c358;
+      color #333
+
+  .van-cell::after,
+  .van-action-sheet__description::after
+    border-bottom: 1px solid #555;
+
+  .setting-page .api-chk .van-action-sheet__name,
+  .setting-page .img-chk .van-action-sheet__name
+    color #eee !important
+
+  .van-button--plain
+    background rgba(0,0,0,0)
+    border-color #aaa
+    color #fff
+
+  .van-share-sheet__cancel::before,
+  .van-action-sheet__gap
+    background #555
+    height 1px
+
+  .van-share-sheet__title,
+  .van-share-sheet__name,
+  .van-field__label
+    color #fff
+
+  .novel-card,
+  .series-cont,
+  .search .keyword
+    background #333
+
+  .rank .top
+    background rgba(0,0,0,0.8)
+
+  .search .search-bar-wrap .search-bar,
+  .search .search-bar-wrap .van-search__content,
+  .search .com_sel_tabs,
+  .Home .com_sel_tabs
+    background #16161a
+    backdrop-filter: none
+
+  .show_pop_icon,
+  .search_popular_icon
+    .icon
+      position relative
+      z-index 2
+    &::before
+      content ''
+      position absolute
+      z-index 1
+      top 50%
+      left 50%
+      transform translate(-50%, -50%)
+      width 1.25em
+      height 1.25em
+      border-radius 50%
+      background #ddd
+
+  .search_popular_icon
+    position relative
+    text-align center
+    display inline-block
+    margin-top 0.2rem
+    margin-right 0.2rem
+    .icon
+      margin-right 0
+      vertical-align: -0.25em;
+    &::before
+      width 2em
+      height 2em
+
+  .search-dropdown
+    background #16161a
+
+  .search_params
+    .van-dropdown-menu__bar
+      box-shadow none
+    .van-dropdown-menu__title
+      color #fff
+
+  .van-calendar__header
+    box-shadow none
+
+  .van-search__content
+    border 1px solid #aaa
+    &,
+    .van-cell
+      background-color: transparent !important
+
+  .rank .top
+    left 0
+    .calendar .date
+      color #fff
+
+  .image-card .meta::before
+    height 100%
+
+  .setting .app-title img
+    display none
+
+  .van-switch
+    background #aaa
+  .van-switch--on
+    background #8ca8ff
+
+  .van-dialog
+    .van-cell,
+    .van-button
+      background #333 !important
+    .van-cell__value
+      color #fff
+
+  .van-radio__label,
+  .van-field__control
+      color #fff
+
+  .ia-cont .ia-right .artwork-meta
+    background none
+  .artwork-meta .tag-list
+    color #b79ffd
+  .artwork-meta .date .view
+    color #8ca8ff
+  .novel-view
+    background #16161a !important
+  .novel_text
+    color #b6b6b6 !important
+  .novel-view.shrink::after,
+  .image-view.shrink::after
+    background: linear-gradient(to top, #16161a, rgba(0,0,0,0));
+  .ia-right .shrink::after
+    background: linear-gradient(to top, #16161a, rgba(0,0,0,0));
+  .users
+    .info-container .detail .content
+      color #ccc
+      & + .more
+        color #fff
+      &::after
+        background: linear-gradient(to top, #16161a, rgba(0,0,0,0));
+
+    .info-container .num
+      color #bbb
+
+  .image-slide
+      border 1px solid #16161a
+
+  .ss-title, .ss-author
+    color #fff
+
+.user-container .user-tabs .van-tag--mark
+  font-weight bold
+
+.user-container .user_id,
+.user-container .user-tabs .van-tag--mark,
+.artwork-meta .date,
+.artwork-meta .whid
+  font-family Bahnschrift,Dosis,Arial,Helvetica,sans-serif
+
+.user-container .user_account
+  font-family Bahnschrift, Helvetica, Arial, sans-serif
+
+.user-container .user_link,
+.artwork-meta .pid_link
+  font-family Georgia, Helvetica, Arial, sans-serif
+
+.artwork .conf-inp
+  .van-radio--horizontal
+    margin-right 0
+  .van-radio-group--horizontal
+    gap 6px 12px
+
+.setting-actions .conf-fcont
+  align-items flex-start !important
+
+#sel_block_dialog
+  display flex
+  flex-direction column
+  margin-top: -0.9rem
+  .sel_block_chks
+    display flex
+    align-items center
+    gap .15rem

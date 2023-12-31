@@ -1,44 +1,39 @@
 <template>
-  <div class="related">
+  <div ref="related" class="related">
     <van-cell class="cell" :border="false">
       <template #title>
-        <Icon class="icon heart" name="heart"></Icon>
-        <span class="title">相关作品</span>
+        <Icon class="icon heart" name="heart" />
+        <span class="title">{{ $t('common.related') }}</span>
       </template>
     </van-cell>
     <van-list
+      v-if="showList"
       v-model="loading"
+      :loading-text="$t('tips.loading')"
       :finished="finished"
-      finished-text="没有更多了"
+      :finished-text="$t('tips.no_more')"
       :error.sync="error"
-      error-text="网络异常，点击重新加载"
+      :offset="800"
+      :error-text="$t('tips.net_err')"
       @load="getRelated()"
     >
-      <div class="card-box__wrapper" ref="cardBox">
-        <waterfall :col="col" :width="itemWidth" :gutterWidth="0" :data="artList">
-          <router-link
-            :to="{
-              name: 'Artwork',
-              params: { id: art.id, list: artList },
-            }"
-            v-for="art in artList"
-            :key="art.id"
-          >
-            <ImageCard mode="meta" :artwork="art" :column="col" />
-          </router-link>
-        </waterfall>
-      </div>
+      <wf-cont v-bind="$store.getters.wfProps">
+        <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
+      </wf-cont>
     </van-list>
+    <van-loading v-else size="64px" style="width: 64px;margin: 20px auto;" />
   </div>
 </template>
 
 <script>
-import { Cell, Swipe, SwipeItem, Icon, List, PullRefresh } from "vant";
-import ImageCard from "@/components/ImageCard";
-import api from "@/api";
-import { throttle, uniqBy } from "lodash-es";
+import ImageCard from '@/components/ImageCard'
+import api from '@/api'
+import _ from 'lodash'
 export default {
-  name: "Related",
+  name: 'Related',
+  components: {
+    ImageCard,
+  },
   props: {
     artwork: {
       type: Object,
@@ -47,96 +42,86 @@ export default {
   },
   data() {
     return {
-      col: 2,
-      itemWidth: 0,
+      showList: false,
       curPage: 1,
       artList: [],
       error: false,
       loading: false,
       finished: false,
-    };
+    }
+  },
+  mounted() {
+    this.setObserver()
   },
   methods: {
+    setObserver() {
+      const options = {
+        // root: document.querySelector('.app-main'),
+        rootMargin: '0px 0px 0px 0px',
+        threshold: [0.99],
+      }
+      const ob = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          this.init()
+          ob.disconnect()
+        }
+      }, options)
+      ob.observe(this.$refs.related)
+    },
     url(id, index) {
-      return api.url(id, index);
+      return api.url(id, index)
     },
     reset() {
-      this.curPage = 1;
-      this.artList = [];
+      this.curPage = 1
+      this.artList = []
     },
-    getRelated: throttle(async function () {
-      if (!this.artwork.id) return;
-      let newList;
-      let res = await api.getRelated(this.artwork.id, this.curPage);
+    getRelated: _.throttle(async function () {
+      if (!this.artwork.id) return
+      this.loading = true
+      let newList
+      const res = await api.getRelated(this.artwork.id, this.curPage)
       if (res.status === 0) {
-        newList = res.data;
-        let artList = JSON.parse(JSON.stringify(this.artList));
-
-        artList = artList.concat(newList);
-        artList = uniqBy(artList, "id");
-
-        this.artList = artList;
-        this.loading = false;
-        this.curPage++;
-        if (this.curPage > 5) this.finished = true;
-        this.$nextTick(this.resize);
+        newList = res.data
+        if (newList.length) {
+          this.artList = _.uniqBy([
+            ...this.artList,
+            ...newList,
+          ], 'id')
+          this.curPage++
+          if (this.curPage > 4) this.finished = true
+        } else {
+          this.finished = true
+        }
+        this.loading = false
       } else {
         this.$toast({
           message: res.msg,
-        });
-        this.loading = false;
-        this.error = true;
+        })
+        this.loading = false
+        this.error = true
       }
-    }, 5000),
+    }, 1500),
     toArtwork(id) {
+      this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
-        name: "Artwork",
-        params: { id, list: this.artList },
-      });
+        name: 'Artwork',
+        params: { id },
+      })
     },
-    resize() {
-      const clientWidth = document.documentElement.clientWidth;
-
-      if (clientWidth < 375) {
-        this.col = 1;
-      } else if (clientWidth <= 768) {
-        this.col = 2;
-      } else if (clientWidth <= 1600) {
-        this.col = 3;
-      } else {
-        this.col = 4;
-      }
-
-      this.itemWidth = Math.floor(
-        this.$refs.cardBox.firstChild.clientWidth / this.col
-      );
+    init() {
+      this.reset()
+      this.showList = true
+      this.getRelated()
     },
   },
-  mounted() {
-    this.reset();
-    this.getRelated();
-
-    window.addEventListener("resize", this.resize);
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.resize);
-  },
-  components: {
-    [Cell.name]: Cell,
-    [Swipe.name]: Swipe,
-    [SwipeItem.name]: SwipeItem,
-    [Icon.name]: Icon,
-    [List.name]: List,
-    [PullRefresh.name]: PullRefresh,
-    ImageCard,
-  },
-};
+}
 </script>
 
 <style lang="stylus" scoped>
 .related {
+  min-height: 72vh;
   .cell {
-    padding: 10px 8px 10px 8px;
+    padding: 0 8px 20px 8px;
   }
 
   .card-box {
@@ -223,16 +208,17 @@ export default {
 }
 
 .related {
-  .card-box__wrapper {
-    .card-box {
-      display: flex;
-      flex-direction: row;
-    }
+  .card-box {
+    display: flex;
+    flex-direction: row;
 
-    .image-card {
-      max-height: 500px;
-      margin: 14px 6px;
-      border: 1px solid #ebebeb;
+    .column {
+      width: 50%;
+
+      .image-card {
+        max-height: 360px;
+        margin: 4px 2px;
+      }
     }
   }
 }

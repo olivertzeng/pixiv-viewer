@@ -1,0 +1,406 @@
+{
+  "common": {
+    "illust": "Illusts",
+    "manga": "Mangas",
+    "novel": "Novels",
+    "ai_gen": "AI-generated",
+    "artwork": "Artwork",
+    "cancel": "Cancel",
+    "content": {
+      "hide": "Based on current settings, this content will not be displayed"
+    },
+    "discovery": "Discovery",
+    "download": "Download",
+    "history": "History",
+    "illust_manga": "Illusts&Mangas",
+    "new_art": "New Artworks",
+    "overall": "Overall",
+    "random_view": "Random Artworks",
+    "rank": "Ranking",
+    "recomm": "Recommended",
+    "recomm_art": "Recommended Artworks",
+    "related": "Related Artworks",
+    "ugoira": "Ugoira",
+    "user": "User",
+    "view_more": "See more",
+    "words": "Words",
+    "confirm": "Confirm",
+    "date": "date",
+    "reset": "Reset",
+    "save": "Save"
+  },
+  "about": {
+    "disclaimer": "Disclaimer",
+    "disclaimer_text": "<b>NSFW-related</b><br>This site does not display NSFW resources (such as R-18 illustrations) by default, any access to such resources is set by the user in the settings, and the user has ensured that \nThose who are over 18 years old and do not violate the content stipulated by local laws and regulations. \nWe have clearly marked NSFW resources as they may appear, and we discourage accessing or distributing such resources. \n<br><b>User Comments</b><br>\"User Comments\" refer to the comments posted by users of the Pixiv source site through functions such as self-introduction, illustration introduction, and comment area. \nThis part belongs to the publisher's own behavior, and we cannot effectively control it. \nWe do not post or encourage the dissemination of inappropriate speech. \nIf you find inappropriate content during browsing, we strongly encourage you to report it to the source site. \n<br><b>Copyright Statement</b><br>This site has no relationship with pixiv.net (ピクシブ Co., Ltd.).All data and media resources requested are copyrighted by Pixiv or its original authors. \n<br>The Pixiv Viewer program is licensed under the MIT license. \n<br>Only for communication and learning.",
+    "feedback": "Feedback",
+    "from": "Modified from",
+    "origin_site": "Original Site",
+    "source": "Source Code",
+    "title": "About Site",
+    "version": "Version",
+    "about_site": "About this site",
+    "credits": "Acknowledgements"
+  },
+  "artwork": {
+    "download": {
+      "gif": "Low quality, best compatibility",
+      "placeholder": "Please select a download format",
+      "ugoira": {
+        "tip": "Please play the animation first"
+      },
+      "webm": "High quality, poor compatibility",
+      "zip": "Raw Sequence Frame Archive",
+      "mp4": "Go to ugoira.com to convert"
+    },
+    "share": {
+      "of_art": "'s Artworks",
+      "share": "Share",
+      "title": "Share with friends now",
+      "type": {
+        "copylink": "Copy Link",
+        "qrcode": "QR Code",
+        "qzone": "Qzone",
+        "web": "Web share",
+        "wechat": "WeChat",
+        "weibo": "Weibo"
+      }
+    },
+    "fav_fail": "Add to bookmarks failed",
+    "unfav_fail": "Remove bookmark failed"
+  },
+  "cache": {
+    "clear": "Clean up",
+    "confirm": {
+      "first": "Are you sure you want to clear {0}?",
+      "second": "Will reload relevant content from the network after cleaning"
+    },
+    "db": "Persistent cache",
+    "local": "Configuration item cache",
+    "records": "Record(s)",
+    "session": "Runtime cache",
+    "success_tip": "Cleanup completed",
+    "title": "Clear Cache",
+    "mem": "Memory Used"
+  },
+  "display": {
+    "ai": "AI generated work display",
+    "ai_label": "Showcasing AI-generated artwork in the image list",
+    "confirm": "Are you sure you want to enable {0} works display? Please ensure that you are over 18 years old, and do not violate the provisions of local laws and regulations.",
+    "confirm_g": "Please note that turning on the {0} switch may have irreversible effects on your physical and mental health. If you feel unwell, please close the application immediately and seek medical help",
+    "r18": "R-18 works display",
+    "r18_label": "Contains nudity or sexual descriptions",
+    "r18g": "R-18G works display",
+    "r18g_label": "Contains gore or disgusting content",
+    "title": "Artwork Display Settings",
+    "block_tags": "Tag Blacklist",
+    "block_tags_ph": "Please enter tags, separated by commas",
+    "block_uids": "Artist Blacklist",
+    "block_uids_ph": "Please enter artist IDs, separated by commas"
+  },
+  "history": {
+    "confirm": {
+      "i": "Are you sure you want to clear the illustration and manga history?",
+      "n": "Are you sure you want to clear the novel history",
+      "u": "Are you sure you want to clear user history"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "rank": "Ranking",
+    "search": "Search",
+    "setting": "Settings",
+    "follow": "Feed"
+  },
+  "novel": {
+    "series": {
+      "next": "Next Chapter:",
+      "prev": "Previous Chapter:"
+    },
+    "settings": {
+      "text": {
+        "bg": "Text background",
+        "color": "Text color",
+        "direct_h": "Horizontal",
+        "direct_v": "Vertical",
+        "direction": "Text direction",
+        "font": "Text font",
+        "height": "Text line height",
+        "sans": "Sans",
+        "serif": "Serif",
+        "size": "Font size",
+        "weight": "Text weight"
+      },
+      "title": "Novel Settings"
+    }
+  },
+  "rank": {
+    "day": "Daily",
+    "day_x": "R18 Daily",
+    "day_x_female": "R18 Female",
+    "day_x_male": "R18 Male",
+    "female": "Popular among female",
+    "male": "Popular among male",
+    "month": "Monthly",
+    "original": "Original",
+    "r18g": "R18G",
+    "rookie": "Rookie",
+    "week": "Weekly",
+    "week_x": "R18 Weekly"
+  },
+  "search": {
+    "autocomplete": "Search Suggestion",
+    "history": "Search History",
+    "img": {
+      "err": "Return result parsing failed",
+      "placeholder": "Please select an image file"
+    },
+    "of_user_res": "Search results for {0}",
+    "placeholder": "Enter keywords",
+    "pop_preview": "Popular preview",
+    "pop_preview_novel": "Popular Novel Preview",
+    "seach_tag": "Search tags",
+    "search": "Search",
+    "search_user": "Search user",
+    "date": {
+      "asc": "ascending order by date",
+      "desc": "descending order by date",
+      "end": "End",
+      "start": "Start"
+    },
+    "dura": {
+      "day": "in one day",
+      "month": "within a month",
+      "ph": "period of time",
+      "week": "within a week"
+    },
+    "mode": {
+      "exact": "exact match for tags",
+      "partial": "partial match for tags",
+      "title": "title and caption"
+    }
+  },
+  "setting": {
+    "about": "About",
+    "api": {
+      "desc": "Enter the HibiAPI instance address below, you need to add https://, and the path needs to be filled in the `/api/pixiv` part",
+      "desc2": "For example: https://hibiapi.getloli.com/api/pixiv, the local cache will be cleared after saving",
+      "desc3": "API instances can go to",
+      "desc4": "finding or building your own",
+      "desc5": "The API instance address needs to support cross-origin (CORS) access",
+      "ph": "Please select a HibiAPI instance (the local cache will be cleared after switching)",
+      "title": "HibiAPI Instance Setting",
+      "title2": "HibiAPI instance select",
+      "title3": "HibiAPI instance link",
+      "title4": "HibiAPI instance"
+    },
+    "dark": {
+      "title": "Dark Mode"
+    },
+    "img_proxy": {
+      "desc": "Enter the pixiv image proxy address below, no need to add https://",
+      "desc2": "For example: i.pixiv.re, the local cache will be cleared after saving",
+      "ph": "Please select pixiv image proxy (the local cache will be cleared after switching)",
+      "title": "pximg Proxy Setting",
+      "title2": "pximg image proxy select",
+      "title3": "Image Proxy",
+      "title4": "pixiv image agency"
+    },
+    "img_res": {
+      "l": "Slow loading",
+      "m": "Load slightly faster",
+      "o": "Load slower",
+      "ph": "Please select image details quality",
+      "title": "Image Details Quality Select"
+    },
+    "input": "Enter:",
+    "lab": {
+      "title": "Experimental"
+    },
+    "layout": {
+      "g": "Equal width and height",
+      "j": "Equal height and different width",
+      "m": "Equal width and different height",
+      "ph": "Please select a picture list layout",
+      "title": "Picture List Layout Selection"
+    },
+    "other": {
+      "title": "Other Settings",
+      "lang": "Language",
+      "lang_ph": "Please select language",
+      "manual_input": "Manually enter the proxy/API link",
+      "manual_input_label": "Whether the proxy and API instance addresses of the images below are entered manually",
+      "api_proxy": {
+        "def_ph": "If the default proxy cannot be used, you can try another proxy",
+        "sel_desc": "Please select AppApi Proxy",
+        "title": "Select AppApi Proxy"
+      },
+      "cp_token_label": "Copy the current RefreshToken to the clipboard",
+      "cp_token_title": "Export RefreshToken",
+      "direct_mode": {
+        "confirm": {
+          "msg": "The direct connection mode only supports the Firefox browser, and you need to ensure that Tampermonkey and Helper userscript are installed, and the speed is slow and the stability is not guaranteed. \nIt cannot be enabled at the same time as the AppApi proxy. \nIf you encounter a network error after enabling direct connection, please manually open the link below, click \"Advanced\" - \"Accept the risk and continue\", and return to this site to refresh the page after 421 appears.",
+          "proxy_msg": "Forwarding local AppApi requests through third-party cloud services cannot guarantee stability and security. \nIt cannot be turned on at the same time as the direct connection mode.",
+          "proxy_title": "Are you sure to enable AppApi proxy?",
+          "title": "Are you sure to enable direct mode?"
+        },
+        "host": {
+          "label": "Will re-pass DoH queries after clearing",
+          "title": "Clear direct hosts cache"
+        },
+        "host_msg": "Are you sure to clear the hosts cache records in direct connection mode?",
+        "label": "Whether to bypass SNI via domain fronting",
+        "proxy": {
+          "label": "Whether to proxy local AppApi requests through cloud services",
+          "title": "Enable AppApi Proxy"
+        },
+        "title": "Enable direct mode"
+      },
+      "swipe_toggle": "Swipe left or right on the details page to toggle artworks"
+    },
+    "recomm": {
+      "app": "Apps",
+      "site": "Website",
+      "title": "Recommended Links",
+      "tm": "UserScript"
+    },
+    "down_app": "Download App",
+    "app_desc": "Another Pixiv illustration/novel browser tool"
+  },
+  "sp": {
+    "all": "Overview",
+    "of_new": " Latest",
+    "of_recomm": " Related",
+    "rank": "Monthy Ranking",
+    "recomm_4u": "Recommended to You",
+    "title": "Pixivision",
+    "column": "Column",
+    "interview": "Interview",
+    "recomm": "Recommend"
+  },
+  "tips": {
+    "click_view": "Click to view",
+    "copylink": {
+      "error": "Failed to copy link:",
+      "succ": "Copied",
+      "success": "Link copied"
+    },
+    "current_value": "The current value:",
+    "download_wait": "It may take a long time to download, please be patient",
+    "ios_webm": "iOS devices do not currently support WebM format downloads",
+    "loading": "Loading...",
+    "net_err": "Network exception, click to reload",
+    "no_data": "No data",
+    "no_more": "No more",
+    "copy_err": "Copy failed",
+    "tip": "Tips"
+  },
+  "user": {
+    "art_num": "{0} works",
+    "art_title": "{0} Artwork",
+    "fav": "Bookmark",
+    "fav_novel_title": "Novel Bookmark",
+    "fav_title": "Illusts&Mangas Bookmark",
+    "following": "Following",
+    "friend": "MyPixiv",
+    "novel_art": "Novels",
+    "novel_art_title": "{0} 's Novels",
+    "of": "'s ",
+    "of_other_art": "'s other works",
+    "sess": {
+      "logout": "Are you sure to remove session?",
+      "login": "Login",
+      "my_fav": "My Bookmarks",
+      "out": "Logout"
+    },
+    "related": "Related users",
+    "faved": "Bookmarked",
+    "view_comments": "View Comments",
+    "follow": "Follow",
+    "follow_fail": "Follow failed",
+    "followed": "Followed",
+    "unfollow_fail": "Unfollow failed"
+  },
+  "tip": {
+    "rate_limit": "API limit exceeded, please try again later",
+    "unknown_err": "Unknown Error",
+    "down_wait": "Processing, please be patient",
+    "downloaded": "Download complete",
+    "downloading": "Downloading",
+    "connect_err": "Connection failed, this item is not available.",
+    "browser_latest": "Please try to use the latest Chrome/Edge browser to visit this site",
+    "browser_tip": "Please use Chrome/Edge browser to visit this site"
+  },
+  "sess": {
+    "example": "Session ID looks like (invalid, for demo):",
+    "input": {
+      "msg": "Session ID format is incorrect",
+      "ph": "Please enter Session ID"
+    },
+    "mobile_tip": "Find the method by yourself on the mobile terminal or obtain it on the computer terminal",
+    "q1": {
+      "p1": "1. Visit the {0} origin site and log in",
+      "p2": "2. Click the lock in the address bar",
+      "p3": "3. In the pop-up interface, select \"Cookie (0 cookies are being used)\"",
+      "p4": "4. Expand `pixiv.net` → `Cookies` to find the {0} item",
+      "p5": "5. Copy its \"content\" and fill it here"
+    },
+    "q2": {
+      "p2": "2. Press F12 to open the browser console",
+      "p3": "3. Click the \"storage\" column",
+      "p4": "4. Find the column whose \"key\" is {0} in the cookie list",
+      "p5": "5. Copy its \"value\" and fill it here"
+    },
+    "que2": {
+      "p1": "We will not store or transfer your personal information and cookies.",
+      "p2": "However, we recommend keeping your cookies safe. \nIf the information you save here is obtained by others, there is a risk of account theft."
+    },
+    "ques1": "How to get Pixiv Session ID?",
+    "ques2": "Will Pixiv Viewer steal my personal information?",
+    "save": "save",
+    "succ_msg": "Session ID authentication succeeded",
+    "title": "Set Pixiv Cookie",
+    "warn": {
+      "text": "This function is an abnormal way to log in, and there may be a risk of banning the account. Using this function is deemed to be the user's own consent and clear use of the risk. If the account is banned, etc., the author of this project has nothing to do with it. \nIt is recommended to use alt account for testing.",
+      "title": "Risk Notice"
+    }
+  },
+  "follow": {
+    "fav": "Bookmarks",
+    "latest": "New",
+    "timeline": "Feed",
+    "user": "Following"
+  },
+  "login": {
+    "fail_tip": "Login failed",
+    "logout_tip": "Confirm exit?",
+    "o": {
+      "desc1": "The Pixiv source site is about to open to log in, please make sure you can access Pixiv",
+      "desc2": "Please make sure you have installed the URLRedirector browser plugin and imported the configuration, otherwise you will not be able to log in",
+      "desc3": "URLRedirector install link:",
+      "desc4": "Click to copy URLRedirector online rule address",
+      "desc5": "Make sure you have the Tampermonkey browser plugin installed and the Helper user script installed, otherwise API requests will not work",
+      "desc6": "Tampermonkey install link:",
+      "desc7": "Click Install Helper UserScript"
+    },
+    "succ_tip": "Login success",
+    "t": {
+      "d1": "Make sure you have the Tampermonkey browser plugin installed and install the Helper userscript, otherwise turn on the AppApi proxy",
+      "d2": "Please fill in the RefreshToken, refer to the link below for how to obtain it",
+      "d3": "Please fill in RefreshToken",
+      "d4": "RefreshToken is malformed"
+    }
+  },
+  "iAH7adsXaqWMXEi3TOuwS": "Series",
+  "eioSClGw9BqryzojTwr8j": "Page transition effect",
+  "3HnNTIScyvd1cNc2qAh7X": "Hide mangas in Ranking",
+  "qmd5JADeSGtrvucK3TnGb": "Hide mangas in the overall ranking list page according to the type of work, there may be some omissions",
+  "wuh4SsMnuqgjHpaOVp2rB": "Do you want to download this work?",
+  "5syY7l774noiN5LHKUnqF": "Long press to download the picture in the list or details page",
+  "VhMNSWrg03-_ryN7nRBJ3": "Guestbook",
+  "9H-9VJU67Fuabl8OgbhOr": "Click to post a comment",
+  "p56suIhQbLp-UUYtYjQoa": "Do you want to view this artwork?",
+  "kFOiZTwKWwXy-sxaspqSD": "Block tags when long pressing on list images",
+  "1a1meIFthYyv_s7C4M4L0": "Do you want to mute the artist of this artwork or some tags only?",
+  "LEaBJrLF0DUhyTe6-fKYT": "Do you want to block this tag?",
+  "w73XEmHradtum3SQ9IjBq": "Do you want to block this author?"
+}

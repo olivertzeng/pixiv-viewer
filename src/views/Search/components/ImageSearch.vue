@@ -37,7 +37,7 @@
 
 <script>
 import _ from 'lodash'
-import { BASE_API_URL } from '@/api/http'
+
 export default {
   filters: {
     hostname(val) {
@@ -110,8 +110,7 @@ export default {
 
       const formData = new FormData()
       formData.append('file', file.file, file.file.name)
-      const base = BASE_API_URL.replace('/api/pixiv', '')
-      fetch(`${base}/api/sauce/`, {
+      fetch('https://hibiapi.pixiv.pics/api/sauce/', {
         method: 'POST',
         body: formData,
       }).then(res => {

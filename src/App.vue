@@ -119,8 +119,11 @@ html,body
 
 @media screen and (max-width: 600px)
   .Home .home-i-tabs
+    justify-content center
+    padding-left 0.18rem
+    padding-right 0
     .app-title
-      font-size 0.39rem
+      display none
 
 @media screen and (min-width: 1000px)
   #app

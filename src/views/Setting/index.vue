@@ -1,10 +1,6 @@
 <template>
-  <div class="setting" :class="{isNY}" :style="isNY?`background-image:url(${nybg})`:''">
-    <div v-if="isNY" class="app-title">
-      <img src="@/assets/images/12000518.png" alt="" style="width: auto;height: 3rem;margin-right: 0;">
-      <!-- <div class="app-title-desc">Happy New Year</div> -->
-    </div>
-    <h1 v-else class="app-title">
+  <div class="setting">
+    <h1 class="app-title">
       <img v-if="!isLoggedIn" src="/app-icon.png" alt="">
       <div class="app-title-desc">
         <span class="title-font">Pixiv Viewer<sup style="margin-left: 5px;font-size: 0.3rem;">Kai</sup></span>
@@ -22,7 +18,6 @@
         </div>
       </template>
     </van-cell>
-    <van-cell v-if="isLoggedIn&&isNY" size="large" center :title="$t('user.sess.out')" icon="user-circle-o" is-link @click="logoutApp" />
     <van-cell v-if="isLoggedIn" size="large" center :title="$t('user.sess.my_fav')" icon="star-o" is-link :to="`/users/${user.id}/favorites`" />
     <van-cell v-else size="large" center :title="$t('user.sess.login')" icon="user-circle-o" is-link to="/account/login" />
     <van-cell size="large" center :title="$t('common.history')" icon="underway-o" is-link to="/setting/history" />
@@ -32,7 +27,7 @@
     <van-cell size="large" center :title="$t('setting.down_app')" icon="apps-o" is-link to="/setting/down_app" />
     <van-cell size="large" center :title="$t('setting.recomm.title')" icon="bookmark-o" is-link to="/setting/recommend" />
     <van-cell size="large" center :title="$t('setting.about')" icon="info-o" is-link to="/setting/about" />
-    <div v-if="isLoggedIn&&!isNY" style="width: 60%;margin: 1rem auto 0;">
+    <div v-if="isLoggedIn" style="width: 60%;margin: 1rem auto 0;">
       <van-button round plain block type="danger" size="small" @click="logoutApp">{{ $t('user.sess.out') }}</van-button>
     </div>
   </div>
@@ -44,49 +39,11 @@ import { Dialog } from 'vant'
 import PixivAuth from '@/api/client/pixiv-auth'
 import { logout } from '@/api/user'
 
-// const isXmas = (() => {
-//   const d = new Date()
-//   return d.getMonth() == 11 && (d.getDate() >= 21 && d.getDate() <= 25)
-// })()
-
-// const xmasbgs = [
-//   '696D67_333034303439373030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303439373030305F30325F66756C6C2E706E67.png',
-//   '696D67_333033303235393030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303036373030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303234393030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303330363030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303330363030305F30325F66756C6C2E706E67.png',
-//   '696D67_333034303331313030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303331313030305F30325F66756C6C2E706E67.png',
-//   '696D67_333034303336393030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303337323030305F30325F66756C6C2E706E67.png',
-//   '696D67_333034303433343030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303433373030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303433373030305F30325F66756C6C2E706E67.png',
-//   '696D67_333034303439353030305F30315F66756C6C2E706E67.png',
-//   '696D67_333034303439363030305F30315F66756C6C2E706E67.png',
-//   '696D67_333731303037393030305F30312E706E67.png',
-// ]
-
-const isNY = (() => {
-  const d = new Date()
-  return d.getMonth() == 0 && (d.getDate() >= 1 && d.getDate() <= 5)
-})()
-
-const nybgs = [
-  '696D67_333034303530323030305F30315F66756C6C2E706E67.png',
-  '696D67_333034303530323030305F30325F66756C6C2E706E67.png',
-]
-
 export default {
   name: 'Setting',
   data() {
     return {
-      // isXmas,
-      // xmasbg: '',
-      isNY,
-      nybg: '',
+
     }
   },
   head() {
@@ -97,10 +54,6 @@ export default {
   computed: {
     ...mapState(['user']),
     ...mapGetters(['isLoggedIn']),
-  },
-  activated() {
-    // this.xmasbg = `/img/gbf/${xmasbg[parseInt(Math.random() * xmasbg.length, 10)]}`
-    this.nybg = `/img/gbf/${nybgs[parseInt(Math.random() * nybgs.length, 10)]}`
   },
   methods: {
     async logoutApp() {
@@ -120,51 +73,10 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.dark #app .setting.isXmas,.dark #app .setting.isNY
-  .app-title-desc
-    text-shadow: 1PX 1PX 2PX #fff;
-  .van-cell:hover
-    .van-cell__title,
-    .van-icon
-      color: #d53643
-</style>
-
 <style lang="stylus" scoped>
 .setting
   max-width 750px
   margin 0 auto 160px
-
-  &.isXmas,&.isNY
-    position relative
-    min-height 66vh
-    margin 0 auto
-    padding-bottom 160px
-    background transparent no-repeat right -1rem bottom / 9rem
-    &::after
-      content 'Background © Cygames, Inc.'
-      position absolute
-      right 1rem
-      bottom -0.5rem
-      font-size 0.1rem
-      color #999
-      font-family sans-serif
-    .app-title
-      color: #d53643;
-      margin: 0.7rem 0;
-      font-size 0.64rem
-      font-family: Lucida Handwriting,"LXGW WenKai Screen",Georgia Pro,Georgia,Times New Roman,serif;font-weight: bold;
-      img
-        display block !important
-    ::v-deep .van-cell
-      color: #ba2d38;
-      background-color transparent !important
-      border-radius: 0.2rem;
-      transition background-color 0.2s
-      &:hover
-        background-color: #FEDFE1 !important;
-      &::after
-        opacity 0
 
   ::v-deep .van-cell__left-icon
     margin-right 0.4rem

@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import TopBar from '@/components/TopBar'
 import api, { PXIMG_PROXY_BASE } from '@/api'
 import SpotlightsRecom from './SpotlightsRecom.vue'
@@ -99,7 +100,7 @@ export default {
     },
     async getDetail() {
       this.loading = true
-      const res = await api.getSpotlightTypeDetail(this.spid)
+      const res = _.cloneDeep(await api.getSpotlightTypeDetail(this.spid))
       if (res.status === 0) {
         res.data.content = res.data.content
           ?.replace(/i\.pximg\.net/g, PXIMG_PROXY_BASE)

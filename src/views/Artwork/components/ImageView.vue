@@ -493,15 +493,19 @@ export default {
       // min-height: 600px;
       // max-height: 1000px;
       object-fit: cover;
+      transition transform 0.5s
+      transform none
 
       &[lazy="loading"] {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
         width: 120px !important;
         height: 120px !important;
+        margin-left: -60px !important;
+        margin-top: -60px !important;
         min-height: auto;
+        transform: scale(0.9);
       }
     }
 

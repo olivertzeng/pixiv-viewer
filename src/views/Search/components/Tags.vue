@@ -113,6 +113,7 @@ export default {
     margin-bottom: 10px;
     padding-bottom: 100%;
     border-radius: 8px;
+    overflow hidden
 
     img {
       position: absolute;
@@ -123,6 +124,8 @@ export default {
       height: 100%;
       border-radius: 8px;
       object-fit: cover;
+      transition transform 0.5s
+      transform none
     }
 
     .meta {
@@ -141,6 +144,8 @@ export default {
         bottom: 10%;
         width: 100%;
         text-shadow: 0.05333rem 0.05333rem 0.05333rem #000;
+        transition 0.3s
+        transform: none
 
         .name {
           font-size: 36px;
@@ -163,6 +168,16 @@ export default {
         .s {
           font-size: 24px;
         }
+      }
+    }
+
+    &:hover {
+      img {
+        transform scale(1.1)
+      }
+      .meta .content {
+        bottom: 36%;
+        transform scale(1.1)
       }
     }
   }

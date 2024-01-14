@@ -15,6 +15,7 @@ import Spotlights from '@/views/Spotlights/Spotlights.vue'
 import Spotlight from '@/views/Spotlights/Spotlight.vue'
 import SpotlightDetail from '@/views/Spotlights/SpotlightDetail.vue'
 import Search from '@/views/Search/index.vue'
+import SearchRes from '@/views/Search/SearchRes.vue'
 import SearchNovel from '@/views/Search/SearchNovel.vue'
 import SearchUser from '@/views/Search/SearchUser.vue'
 import SearchUserRes from '@/views/Search/SearchUserRes.vue'
@@ -84,7 +85,7 @@ const routes = [
             path: '/search/:keyword',
             alias: ['/s/:keyword'],
             name: 'SearchKeyword',
-            component: Search,
+            component: SearchRes,
             meta: { __depth: 1 },
           },
           {
@@ -335,11 +336,17 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  if (!isPageEffectOn) document.body.classList.add('fadeIn')
   nprogress.start()
   next()
 })
 
 router.afterEach((to, from) => {
+  if (!isPageEffectOn) {
+    setTimeout(() => {
+      document.body.classList.remove('fadeIn')
+    }, 500)
+  }
   nprogress.done()
   console.log('afterEach to', to.fullPath)
   console.log('afterEach from', from.fullPath)

@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import TopBar from '@/components/TopBar'
 import ImageCard from '@/components/ImageCard'
 import api from '@/api'
@@ -104,7 +105,7 @@ export default {
     },
     async getDetail() {
       this.loading = true
-      const res = await api.getSpotlightDetail(this.spid)
+      const res = _.cloneDeep(await api.getSpotlightDetail(this.spid))
       if (res.status === 0) {
         res.data.cover = process.env.VUE_APP_COMMON_PROXY + res.data.cover
         res.data.items = res.data.items.map(e => ({

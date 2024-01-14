@@ -1,5 +1,5 @@
 <template>
-  <div class="top-bar-wrap">
+  <div v-longpress="backHome" class="top-bar-wrap">
     <van-nav-bar class="top-bar" left-arrow :border="false" @click-left="back">
       <template #left>
         <Icon name="left-arrow" />
@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { Dialog } from 'vant'
+
 export default {
   components: {
   },
@@ -18,6 +20,20 @@ export default {
     },
   },
   methods: {
+    backHome(ev) {
+      ev.preventDefault()
+      Dialog.confirm({
+        title: this.$t('ebHfHD4g4932R2m1gFtmn'),
+        lockScroll: false,
+        closeOnPopstate: true,
+        cancelButtonText: this.$t('common.cancel'),
+        confirmButtonText: this.$t('common.confirm'),
+      }).then(res => {
+        if (res == 'confirm') {
+          this.$router.push({ name: 'Home' })
+        }
+      }).catch(() => {})
+    },
     back() {
       if (this.action) {
         this.action()

@@ -30,6 +30,11 @@
         <van-switch :disabled="isLongpressDL" :value="isLongpressBlock" size="24" @change="changeLongpressBlock" />
       </template>
     </van-cell>
+    <van-cell center :title="$t('ZO7u4XT4flW6_nmyvmXt7')" :label="$t('setting.lab.title')">
+      <template #right-icon>
+        <van-switch :value="isImageCardOuterMeta" size="24" @change="changeImageCardOuterMeta" />
+      </template>
+    </van-cell>
     <van-cell center :title="$t('setting.other.manual_input')" :label="$t('setting.other.manual_input_label')">
       <template #right-icon>
         <van-switch v-model="hideApSelect" size="24" />
@@ -154,8 +159,6 @@ const APP_API_PROXYS = process.env.VUE_APP_APP_API_PROXYS || ''
 
 export default {
   name: 'SettingOthers',
-  components: {
-  },
   data() {
     return {
       appConfig: { ...window.APP_CONFIG },
@@ -234,6 +237,7 @@ export default {
       isPageEffectOn: LocalStorage.get('PXV_PAGE_EFFECT', false),
       isLongpressDL: LocalStorage.get('PXV_LONGPRESS_DL', false),
       isLongpressBlock: LocalStorage.get('PXV_LONGPRESS_BLOCK', false),
+      isImageCardOuterMeta: LocalStorage.get('PXV_IMG_META_OUTER', false),
     }
   },
   head() {
@@ -439,6 +443,15 @@ export default {
         }, 500)
       })
     },
+    changeImageCardOuterMeta(val) {
+      this.isImageCardOuterMeta = val
+      this.$nextTick(() => {
+        LocalStorage.set('PXV_IMG_META_OUTER', val)
+        setTimeout(() => {
+          location.reload()
+        }, 500)
+      })
+    },
     changeLang({ name }) {
       this.lang.value = name
       // i18n.locale = name
@@ -502,12 +515,12 @@ export default {
         try {
           const resp = await fetch(`${e._value}/rank?_t=${startTime}`)
           if (!resp.ok) throw new Error('Resp not ok.')
-          const duration = Date.now() - startTime
-          this.$set(e, 'subname', `${duration}ms`)
+          const duration = (Date.now() - startTime) / 1000
+          this.$set(e, 'subname', `${duration}s`)
           this.$set(e, 'loading', false)
-          if (duration > 1000) {
+          if (duration > 1) {
             this.$set(e, 'color', 'grey')
-          } else if (duration < 500) {
+          } else if (duration < 0.5) {
             this.$set(e, 'color', 'green')
           } else {
             this.$set(e, 'color', 'orange')
@@ -532,12 +545,12 @@ export default {
         img.referrerPolicy = 'no-referrer'
         img.src = `https://${e._value}/user-profile/img/2022/02/03/15/54/20/22159592_fce9f5c7a908c9b601dc7e9da7a412a3_50.jpg?_t=${startTime}`
         img.onload = () => {
-          const duration = Date.now() - startTime
-          this.$set(e, 'subname', `${duration}ms`)
+          const duration = (Date.now() - startTime) / 1000
+          this.$set(e, 'subname', `${duration}s`)
           this.$set(e, 'loading', false)
-          if (duration > 1000) {
+          if (duration > 1) {
             this.$set(e, 'color', '#969799')
-          } else if (duration < 500) {
+          } else if (duration < 0.5) {
             this.$set(e, 'color', 'green')
           } else {
             this.$set(e, 'color', 'orange')

@@ -515,6 +515,7 @@ export default {
       >.mask {
         display: block;
         position: fixed;
+        z-index 2
         top: 122px;
         width: 100%;
         // max-width: 10rem;

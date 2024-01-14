@@ -824,7 +824,7 @@ const api = {
         })
 
         spotlight = res
-        setCache(cacheKey, JSON.parse(JSON.stringify(res)), -1)
+        setCache(cacheKey, res, -1)
       } else {
         return {
           status: -1,
@@ -865,7 +865,7 @@ const api = {
         })
 
         spotlight = res
-        setCache(cacheKey, JSON.parse(JSON.stringify(res)), -1)
+        setCache(cacheKey, res, -1)
       } else {
         return {
           status: -1,

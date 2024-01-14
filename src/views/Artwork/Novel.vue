@@ -57,8 +57,8 @@
             <div class="conf-inp">
               <van-radio-group v-model="textConfig.font" direction="horizontal">
                 <van-radio name="inherit">LXGW</van-radio>
-                <van-radio name="sans-serif">{{ $t('novel.settings.text.sans') }}</van-radio>
-                <van-radio name="serif">{{ $t('novel.settings.text.serif') }}</van-radio>
+                <van-radio name="sans-serif" style="font-family: sans-serif;">{{ $t('novel.settings.text.sans') }}</van-radio>
+                <van-radio name="serif" style="font-family: serif;">{{ $t('novel.settings.text.serif') }}</van-radio>
               </van-radio-group>
             </div>
           </div>

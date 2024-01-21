@@ -137,10 +137,15 @@ import PopularPreview from './components/PopularPreview.vue'
 const BLOCK_WORDS = [/r-?18/i, /18-?r/i, /^黄?色情?图$/, /^ero$/i, /工口/, /エロ/]
 
 export default {
-  name: 'Search',
+  name: 'SearchRes',
   components: {
     ImageCard,
     PopularPreview,
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.isFromArtwork = from.name == 'Artwork'
+    })
   },
   data() {
     return {
@@ -195,6 +200,7 @@ export default {
       ],
       showPopPreview: false,
       isSelfHibi: !notSelfHibiApi,
+      isFromArtwork: false,
     }
   },
   head: {
@@ -207,24 +213,6 @@ export default {
     },
   },
   watch: {
-    $route() {
-      if (this.$route.name != 'SearchKeyword') {
-        return
-      }
-      const keyword = (this.$route.params.keyword || '').trim()
-
-      if (!keyword) {
-        this.showPopPreview = false
-        return
-      }
-
-      if (this.keywords.trim() != keyword) {
-        this.showPopPreview = false
-        this.keywords = keyword + ' '
-        this.reset()
-        this.doSearch(this.keywords)
-      }
-    },
     usersIriTag() {
       this.reset()
       this.doSearch(this.keywords)
@@ -275,21 +263,16 @@ export default {
       })
     },
   },
-  mounted() {
-    console.log('mounted: search')
-    // document.querySelector('.app-main')?.scrollTo(0, 0)
-
-    // const input = document.querySelector('.search-bar-wrap input[type="search"]')
-    // document.addEventListener('selectionchange', () => {
-    //   if (this.focus) { input.setSelectionRange(input.value.length, input.value.length) }
-    // })
-
-    const keyword = this.$route.params.keyword
-    if (this.$route.name == 'SearchKeyword' && keyword) {
-      this.keywords = keyword + ' '
-      this.reset()
-      this.doSearch(this.keywords)
-    }
+  activated() {
+    console.log('-------------activated: SearchKeyword')
+    if (this.$route.name != 'SearchKeyword') return
+    const keyword = (this.$route.params.keyword || '').trim()
+    if (!keyword || this.isFromArtwork) return
+    console.log('-------------------------11111111111111111')
+    this.showPopPreview = false
+    this.keywords = keyword + ' '
+    this.reset()
+    this.doSearch(this.keywords)
   },
   methods: {
     reset() {
@@ -752,6 +735,7 @@ export default {
 .search-dropdown
   position: fixed;
   top: 120px;
+  left 0
   z-index: 4;
   width 100%
   background: #fff

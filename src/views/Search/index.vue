@@ -373,8 +373,8 @@ export default {
 
   .image-search {
     position: fixed;
-    top: 48px;
-    right 50px
+    top: 28px;
+    right 30px
     z-index: 5;
   }
 
@@ -480,6 +480,7 @@ export default {
 .search-dropdown
   position: fixed;
   top: 120px;
+  left 0
   z-index: 4;
   width 100%
   background: #fff

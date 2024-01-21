@@ -144,6 +144,7 @@ export default {
 <style lang="stylus" scoped>
 .image-search {
   .open-dialog {
+    padding 20px
 
     ::v-deep .van-uploader__wrapper--disabled {
       opacity: 1;

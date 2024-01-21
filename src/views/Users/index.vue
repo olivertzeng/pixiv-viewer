@@ -664,7 +664,7 @@ export default {
 
 .share_btn
   position: fixed;
-  top: 0.9rem;
+  top: 0.99rem;
   right 0.5rem;
   z-index: 99;
   font-size 0.675rem

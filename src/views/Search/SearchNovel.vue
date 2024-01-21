@@ -582,6 +582,7 @@ export default {
 .search-dropdown
   position: fixed;
   top: 120px;
+  left 0
   z-index: 4;
   width 100%
   background: #fff

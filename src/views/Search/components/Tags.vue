@@ -171,15 +171,18 @@ export default {
       }
     }
 
-    &:hover {
-      img {
-        transform scale(1.1)
-      }
-      .meta .content {
-        bottom: 36%;
-        transform scale(1.1)
+    @media screen and (min-width: 1280px) {
+      &:hover {
+        img {
+          transform scale(1.1)
+        }
+        .meta .content {
+          bottom: 36%;
+          transform scale(1.1)
+        }
       }
     }
+
   }
 
   .top {

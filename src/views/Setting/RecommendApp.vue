@@ -142,7 +142,14 @@
     />
     <van-cell
       center
-      title="bili_you (Android)"
+      title="纯纯看番 (Android)"
+      is-link
+      label="纯纯看番，使用 Compose 开发的看番软件，支持多番剧源"
+      @click="openLink('https://easybangumi.org/')"
+    />
+    <van-cell
+      center
+      title="Bili You (Android)"
       is-link
       label="一个用flutter制作的第三方B站客户端."
       @click="openLink('https://github.com/lucinhu/bili_you')"

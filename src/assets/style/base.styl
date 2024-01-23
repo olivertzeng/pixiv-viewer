@@ -488,8 +488,9 @@ html:has(.dark)
   img[lazy="loaded"]
     transform none
     transition transform 0.5s
-  &:hover img
-    transform scale(1.1)
+  @media screen and (min-width: 1280px)
+    &:hover img
+      transform scale(1.1)
 
 .card-box .swipe-item .image-card-wrapper
   height 100%

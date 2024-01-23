@@ -16,7 +16,7 @@ import App from './App.vue'
 import { getActionMap } from './api/client/action'
 import ImageLayout from './components/ImageLayout.vue'
 import TopBar from './components/TopBar'
-import { i18n, DEFAULT_LANG, getSelectedLang, loadLanguageAsync } from './i18n'
+import { i18n, initLocale } from './i18n'
 import SvgIcon from './icons'
 import router from './router'
 import store from './store'
@@ -73,13 +73,6 @@ async function setupApp() {
   }
 }
 
-async function initLocale() {
-  const lang = getSelectedLang()
-  if (lang != DEFAULT_LANG) {
-    await loadLanguageAsync(lang)
-  }
-}
-
 async function initLocalApi() {
   const config = LocalStorage.get('PXV_CLIENT_CONFIG', {})
   window.APP_CONFIG = config
@@ -97,7 +90,7 @@ async function initSetting() {
     LocalStorage.set('PXV_NSFW_ON', 1)
   }
   try {
-    if (!isOn() || getSelectedLang() != 'zh-Hans') return true
+    if (!isOn() || !navigator.language.includes('zh')) return true
     document.documentElement.innerHTML = ''
     location.replace('/zq39i1hjru.html')
     flag = true

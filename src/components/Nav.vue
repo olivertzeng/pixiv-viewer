@@ -44,7 +44,7 @@
         <van-icon v-if="isDark" :class="{ active: isActive('Setting') }" name="setting-o" />
         <span>{{ $t('nav.setting') }}</span>
       </li>
-      <li v-if="notMobile" class="nav_to_top" @click="scrollToTop()">
+      <li v-if="!isListenScroll" class="nav_to_top" @click="scrollToTop()">
         <Icon class="icon" name="to_top" />
         <van-icon v-if="isDark" name="back-top" />
         <span>Top</span>
@@ -77,13 +77,13 @@ export default {
       isLogin: window.APP_CONFIG.useLocalAppApi || existsSessionId(),
       showNav: true,
       scrollFn: () => {},
-      notMobile: !/Mobile/i.test(navigator.userAgent),
+      isListenScroll: document.documentElement.clientWidth < 1280,
       isDark: !!localStorage.PXV_DARK,
     }
   },
   mounted() {
     console.log(this.$route)
-    if (this.notMobile) {
+    if (this.isListenScroll) {
       this.scrollFn = throttleScroll(document.documentElement, scroll => {
         if (scroll > 160) this.showNav = false
       }, () => {
@@ -93,7 +93,7 @@ export default {
     }
   },
   destroyed() {
-    this.notMobile && removeEventListener('scroll', this.scrollFn)
+    this.isListenScroll && removeEventListener('scroll', this.scrollFn)
   },
   methods: {
     isActive(name) {

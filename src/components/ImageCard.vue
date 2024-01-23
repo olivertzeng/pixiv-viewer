@@ -246,9 +246,10 @@ export default {
   margin-bottom: 10px;
   border-radius: 20px;
 
-  &:hover
-    .image[lazy="loaded"]
-      transform: scale(1.1);
+  @media screen and (min-width: 1280px)
+    &:hover
+      .image[lazy="loaded"]
+        transform: scale(1.1);
 
   .image
     position: absolute;

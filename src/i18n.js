@@ -73,3 +73,10 @@ export function loadLanguageAsync(lang) {
     }
   )
 }
+
+export async function initLocale() {
+  const lang = getSelectedLang()
+  if (lang != DEFAULT_LANG) {
+    await loadLanguageAsync(lang)
+  }
+}

@@ -42,7 +42,7 @@
     "clear": "Limpar",
     "confirm": {
       "first": "Tem certeza de que deseja limpar {0}?",
-      "second": "Recarregará o conteúdo relevante da rede após a limpeza"
+      "second": "Após a limpeza, o histórico de navegação será excluído e o conteúdo relevante será recarregado da rede."
     },
     "db": "Cache persistente",
     "local": "Cache de itens de configuração",
@@ -404,5 +404,6 @@
   "kFOiZTwKWwXy-sxaspqSD": "Bloquear tags ao pressionar longamente as imagens da lista",
   "w73XEmHradtum3SQ9IjBq": "Deseja bloquear este autor?",
   "ZO7u4XT4flW6_nmyvmXt7": "Coloque as meta informações abaixo da imagem da lista de cartas",
-  "ebHfHD4g4932R2m1gFtmn": "Retornar a página inicial?"
+  "ebHfHD4g4932R2m1gFtmn": "Retornar a página inicial?",
+  "a1HSQm-WYv6GDFwhKr9x_": "As configurações serão redefinidas após a limpeza"
 }

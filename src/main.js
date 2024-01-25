@@ -16,7 +16,7 @@ import App from './App.vue'
 import { getActionMap } from './api/client/action'
 import ImageLayout from './components/ImageLayout.vue'
 import TopBar from './components/TopBar'
-import { i18n, initLocale } from './i18n'
+import { getSelectedLang, i18n, initLocale } from './i18n'
 import SvgIcon from './icons'
 import router from './router'
 import store from './store'
@@ -40,6 +40,7 @@ async function setupApp() {
     // observer: true,
     lazyComponent: true,
     loading: require('@/icons/loading.svg'),
+    preload: 1.5,
     adapter: {
       error(evt) {
         const src = evt.src
@@ -85,12 +86,11 @@ async function initSetting() {
   let flag = false
   const setting = LocalStorage.get('PXV_CNT_SHOW', {})
   const isOn = () => LocalStorage.get('PXV_NSFW_ON', null)
-  // if (isOn() == null && (setting.r18 || setting.r18g)) {
-  if (isOn() == null && (setting.r18g)) {
+  if (isOn() == null && (setting.r18 || setting.r18g)) {
     LocalStorage.set('PXV_NSFW_ON', 1)
   }
   try {
-    if (!isOn() || !navigator.language.includes('zh')) return true
+    if (!isOn() || getSelectedLang() != 'zh-Hans') return true
     document.documentElement.innerHTML = ''
     location.replace('/zq39i1hjru.html')
     flag = true

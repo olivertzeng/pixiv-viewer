@@ -42,7 +42,7 @@
     "clear": "Limpiar",
     "confirm": {
       "first": "¿Está seguro de que desea borrar {0}?",
-      "second": "Recargará contenido relevante de la red después de la limpieza."
+      "second": "Después de la limpieza, se eliminará el historial de navegación y se recargará el contenido relevante de la red."
     },
     "db": "Caché persistente",
     "local": "Caché de elementos de configuración",
@@ -404,5 +404,6 @@
   "kFOiZTwKWwXy-sxaspqSD": "Bloquear etiquetas al presionar prolongadamente las imágenes de la lista",
   "w73XEmHradtum3SQ9IjBq": "¿Quieres bloquear a este autor?",
   "ZO7u4XT4flW6_nmyvmXt7": "Coloque la metainformación debajo de la imagen de la lista de tarjetas.",
-  "ebHfHD4g4932R2m1gFtmn": "¿Quieres volver a la página de inicio?"
+  "ebHfHD4g4932R2m1gFtmn": "¿Quieres volver a la página de inicio?",
+  "a1HSQm-WYv6GDFwhKr9x_": "La configuración se restablecerá después de la limpieza."
 }

@@ -42,7 +42,7 @@
     "clear": "Nettoyer",
     "confirm": {
       "first": "Voulez-vous vraiment effacer {0} ?",
-      "second": "Rechargera le contenu pertinent du réseau après le nettoyage"
+      "second": "Après le nettoyage, l'historique de navigation sera supprimé et le contenu pertinent sera rechargé depuis le réseau."
     },
     "db": "Cache persistant",
     "local": "Cache des éléments de configuration",
@@ -404,5 +404,6 @@
   "kFOiZTwKWwXy-sxaspqSD": "Bloquer les balises en appuyant longuement sur les images de la liste",
   "w73XEmHradtum3SQ9IjBq": "Voulez-vous bloquer cet auteur ?",
   "ZO7u4XT4flW6_nmyvmXt7": "Mettez les méta-informations sous l'image de la liste des cartes",
-  "ebHfHD4g4932R2m1gFtmn": "Voulez-vous revenir à la page d'accueil ?"
+  "ebHfHD4g4932R2m1gFtmn": "Voulez-vous revenir à la page d'accueil ?",
+  "a1HSQm-WYv6GDFwhKr9x_": "Les paramètres seront réinitialisés après le nettoyage"
 }

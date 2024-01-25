@@ -42,7 +42,7 @@
     "clear": "清理",
     "confirm": {
       "first": "確定要清理{0}嗎？",
-      "second": "清理後將重新從網路加載相關內容"
+      "second": "清理後瀏覽記錄將會被刪除，且將重新從網路載入相關內容"
     },
     "db": "持久化緩存",
     "local": "配置項緩存",
@@ -404,5 +404,6 @@
   "kFOiZTwKWwXy-sxaspqSD": "列表圖片長按屏蔽",
   "w73XEmHradtum3SQ9IjBq": "你想屏蔽這個作者嗎？",
   "ZO7u4XT4flW6_nmyvmXt7": "列表圖片資訊外置",
-  "ebHfHD4g4932R2m1gFtmn": "是否返回首頁？"
+  "ebHfHD4g4932R2m1gFtmn": "是否返回首頁？",
+  "a1HSQm-WYv6GDFwhKr9x_": "清理後設定項目將重置"
 }

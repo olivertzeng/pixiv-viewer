@@ -42,7 +42,7 @@
     "clear": "Aufräumen",
     "confirm": {
       "first": "Möchten Sie {0} wirklich löschen?",
-      "second": "Lädt nach der Bereinigung relevante Inhalte aus dem Netzwerk neu"
+      "second": "Nach der Bereinigung wird der Browserverlauf gelöscht und relevante Inhalte neu aus dem Netzwerk geladen."
     },
     "db": "Persistenter Cache",
     "local": "Cache für Konfigurationselemente",
@@ -404,5 +404,6 @@
   "kFOiZTwKWwXy-sxaspqSD": "Blockieren Sie Tags, wenn Sie lange auf Listenbilder drücken",
   "w73XEmHradtum3SQ9IjBq": "Möchten Sie diesen Autor blockieren?",
   "ZO7u4XT4flW6_nmyvmXt7": "Platzieren Sie die Metainformationen unter dem Bild der Kartenliste",
-  "ebHfHD4g4932R2m1gFtmn": "Zur Startseite zurückkehren?"
+  "ebHfHD4g4932R2m1gFtmn": "Zur Startseite zurückkehren?",
+  "a1HSQm-WYv6GDFwhKr9x_": "Die Einstellungen werden nach der Reinigung zurückgesetzt"
 }

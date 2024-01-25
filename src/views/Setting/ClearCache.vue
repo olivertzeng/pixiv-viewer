@@ -99,6 +99,7 @@ export default {
       }
       let message = this.$t('cache.confirm.first', [showName])
       if (type == 'db') message += this.$t('cache.confirm.second')
+      if (type == 'local') message += this.$t('a1HSQm-WYv6GDFwhKr9x_')
       Dialog.confirm({
         message,
         confirmButtonColor: 'black',

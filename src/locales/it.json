@@ -42,7 +42,7 @@
     "clear": "Ripulire",
     "confirm": {
       "first": "Sei sicuro di voler cancellare {0}?",
-      "second": "Ricaricherà i contenuti pertinenti dalla rete dopo la pulizia"
+      "second": "Dopo la pulizia, la cronologia di navigazione verrà eliminata e il contenuto pertinente verrà ricaricato dalla rete."
     },
     "db": "Cache persistente",
     "local": "Cache degli elementi di configurazione",
@@ -404,5 +404,6 @@
   "kFOiZTwKWwXy-sxaspqSD": "Blocca i tag quando premi a lungo sulle immagini dell'elenco",
   "w73XEmHradtum3SQ9IjBq": "Vuoi bloccare questo autore?",
   "ZO7u4XT4flW6_nmyvmXt7": "Inserisci le meta informazioni sotto l'immagine dell'elenco delle carte",
-  "ebHfHD4g4932R2m1gFtmn": "Vuoi tornare alla home page?"
+  "ebHfHD4g4932R2m1gFtmn": "Vuoi tornare alla home page?",
+  "a1HSQm-WYv6GDFwhKr9x_": "Le impostazioni verranno ripristinate dopo la pulizia"
 }

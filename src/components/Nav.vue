@@ -56,6 +56,8 @@
 <script>
 import { existsSessionId } from '@/api/user'
 
+const isWebLogin = existsSessionId()
+
 function throttleScroll(el, downFn, upFn) {
   let position = el.scrollTop
   let ticking = false
@@ -74,7 +76,7 @@ function throttleScroll(el, downFn, upFn) {
 export default {
   data() {
     return {
-      isLogin: window.APP_CONFIG.useLocalAppApi || existsSessionId(),
+      isLogin: window.APP_CONFIG.useLocalAppApi || isWebLogin,
       showNav: true,
       scrollFn: () => {},
       isListenScroll: document.documentElement.clientWidth < 1280,

@@ -142,11 +142,6 @@ export default {
     ImageCard,
     PopularPreview,
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.isFromArtwork = from.name == 'Artwork'
-    })
-  },
   data() {
     return {
       keywords__: '',
@@ -200,7 +195,6 @@ export default {
       ],
       showPopPreview: false,
       isSelfHibi: !notSelfHibiApi,
-      isFromArtwork: false,
     }
   },
   head: {
@@ -267,8 +261,9 @@ export default {
     console.log('-------------activated: SearchKeyword')
     if (this.$route.name != 'SearchKeyword') return
     const keyword = (this.$route.params.keyword || '').trim()
-    if (!keyword || this.isFromArtwork) return
-    console.log('-------------------------11111111111111111')
+    console.log('keyword: ', keyword)
+    console.log('this.keywords: ', this.keywords)
+    if (!keyword || keyword == this.keywords.trim()) return
     this.showPopPreview = false
     this.keywords = keyword + ' '
     this.reset()
@@ -309,8 +304,8 @@ export default {
         return
       }
       if (keywords == '') {
+        this.keywords = ''
         this.$router.push('/search')
-        // document.querySelector('.app-main')?.scrollTo(0, 0)
         return
       }
 

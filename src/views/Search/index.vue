@@ -373,7 +373,7 @@ export default {
 
   .image-search {
     position: fixed;
-    top: 28px;
+    top: 35px;
     right 30px
     z-index: 5;
   }

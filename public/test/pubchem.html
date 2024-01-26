@@ -33,7 +33,7 @@
         return resp.json()
       }).then(function (arr) {
         const el = arr[parseInt(Math.random() * arr.length, 10)]
-        q('#q_img').src = el.Picture
+        q('#q_img').src = 'https://kwc.cocomi.eu.org/' + el.Picture
         ans = el.Formula
       })
       q('#sub_btn').onclick = function() {

@@ -40,8 +40,9 @@
 <script>
 import _ from 'lodash'
 import TopBar from '@/components/TopBar'
-import api, { PXIMG_PROXY_BASE } from '@/api'
+import api from '@/api'
 import SpotlightsRecom from './SpotlightsRecom.vue'
+import { COMMON_PROXY, PXIMG_PROXY_BASE } from '@/consts'
 
 export default {
   name: 'Spotlight',
@@ -104,7 +105,7 @@ export default {
       if (res.status === 0) {
         res.data.content = res.data.content
           ?.replace(/i\.pximg\.net/g, PXIMG_PROXY_BASE)
-          ?.replace(/src="https:\/\/embed\.pixiv\.net\/(.*)"/i, `src="${process.env.VUE_APP_COMMON_PROXY || ''}https://embed.pixiv.net/$1"`)
+          ?.replace(/src="https:\/\/embed\.pixiv\.net\/(.*)"/i, `src="${COMMON_PROXY}https://embed.pixiv.net/$1"`)
         this.spotlight = res.data
       } else {
         this.$toast({

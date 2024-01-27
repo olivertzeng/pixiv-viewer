@@ -48,6 +48,7 @@ import TopBar from '@/components/TopBar'
 import ImageCard from '@/components/ImageCard'
 import api from '@/api'
 import SpotlightsRecom from './SpotlightsRecom.vue'
+import { COMMON_PROXY } from '@/consts'
 
 export default {
   name: 'Spotlight',
@@ -107,7 +108,7 @@ export default {
       this.loading = true
       const res = _.cloneDeep(await api.getSpotlightDetail(this.spid))
       if (res.status === 0) {
-        res.data.cover = (process.env.VUE_APP_COMMON_PROXY || '') + res.data.cover
+        res.data.cover = COMMON_PROXY + res.data.cover
         res.data.items = res.data.items.map(e => ({
           id: e.illust_id,
           title: e.title,

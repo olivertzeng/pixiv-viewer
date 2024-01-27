@@ -71,7 +71,7 @@
 <script>
 import _ from 'lodash'
 import { mapState, mapActions } from 'vuex'
-import { notSelfHibiApi } from '@/api/http'
+import { notSelfHibiApi } from '@/consts'
 import { i18n } from '@/i18n'
 import api from '@/api'
 import Tags from './components/Tags'

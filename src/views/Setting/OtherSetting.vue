@@ -152,10 +152,7 @@ import { mintVerify } from '@/utils/filter'
 import localDb from '@/utils/storage/localDb'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { LocalStorage, SessionStorage } from '@/utils/storage'
-
-const PXIMG_PROXYS = process.env.VUE_APP_PXIMG_PROXYS || ''
-const HIBIAPI_ALTS = process.env.VUE_APP_HIBIAPI_ALTS || ''
-const APP_API_PROXYS = process.env.VUE_APP_APP_API_PROXYS || ''
+import { APP_API_PROXYS, DEF_HIBIAPI_MAIN, DEF_PXIMG_MAIN, HIBIAPI_ALTS, PXIMG_PROXYS } from '@/consts'
 
 export default {
   name: 'SettingOthers',
@@ -171,11 +168,11 @@ export default {
       },
       pximgBed: {
         show: false,
-        value: LocalStorage.get('PXIMG_PROXY', process.env.VUE_APP_DEF_PXIMG_MAIN),
+        value: LocalStorage.get('PXIMG_PROXY', DEF_PXIMG_MAIN),
       },
       pximgBed_: {
         show: false,
-        value: LocalStorage.get('PXIMG_PROXY', process.env.VUE_APP_DEF_PXIMG_MAIN),
+        value: LocalStorage.get('PXIMG_PROXY', DEF_PXIMG_MAIN),
         actions: PXIMG_PROXYS.split(';').map(e => {
           const [name, _value] = e.split(',')
           return { name, _value }
@@ -183,11 +180,11 @@ export default {
       },
       hibiapi: {
         show: false,
-        value: LocalStorage.get('HIBIAPI_BASE', process.env.VUE_APP_DEF_HIBIAPI_MAIN),
+        value: LocalStorage.get('HIBIAPI_BASE', DEF_HIBIAPI_MAIN),
       },
       hibiapi_: {
         show: false,
-        value: LocalStorage.get('HIBIAPI_BASE', process.env.VUE_APP_DEF_HIBIAPI_MAIN),
+        value: LocalStorage.get('HIBIAPI_BASE', DEF_HIBIAPI_MAIN),
         actions: HIBIAPI_ALTS.split(';').map(e => {
           const [name, _value] = e.split(',')
           return { name, _value }
@@ -258,8 +255,8 @@ export default {
     hideApSelect(val) {
       LocalStorage.set('__HIDE_AP_SEL', val)
       if (val) {
-        LocalStorage.set('HIBIAPI_BASE', process.env.VUE_APP_DEF_HIBIAPI_MAIN)
-        LocalStorage.set('PXIMG_PROXY', process.env.VUE_APP_DEF_PXIMG_MAIN)
+        LocalStorage.set('HIBIAPI_BASE', DEF_HIBIAPI_MAIN)
+        LocalStorage.set('PXIMG_PROXY', DEF_PXIMG_MAIN)
       }
       setTimeout(() => {
         location.reload()

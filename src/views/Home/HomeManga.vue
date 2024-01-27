@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { notSelfHibiApi } from '@/api/http'
+import { notSelfHibiApi } from '@/consts'
 import LatestMangaCard from './components/LatestMangaCard.vue'
 import MangaRankCard from './components/MangaRankCard.vue'
 import MangaRecommendCard from './components/MangaRecommendCard.vue'

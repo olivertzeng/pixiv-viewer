@@ -41,7 +41,7 @@ import RecommendIllustCard from '../Discovery/RecommendIllustCard.vue'
 import RandomIllust from './components/RandomIllust.vue'
 import LatestIllustCard from '../Discovery/LatestIllustCard.vue'
 import Recomm4U from './components/Recomm4U.vue'
-import { notSelfHibiApi } from '@/api/http'
+import { notSelfHibiApi } from '@/consts'
 import { existsSessionId } from '@/api/user'
 import api from '@/api'
 

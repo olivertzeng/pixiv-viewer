@@ -1,4 +1,5 @@
 // import axios from 'axios'
+import { DEF_API_PROXY } from '@/consts'
 import PixivAuth from './pixiv-auth'
 
 const API_DOMAIN = 'app-api.pixiv.net'
@@ -7,7 +8,6 @@ const DEF_API_HOSTS = {
   [OAUTH_DOMAIN]: '210.140.92.180',
   [API_DOMAIN]: '210.140.92.180',
 }
-const DEF_API_PROXY = process.env.VUE_APP_DEF_APP_API_PROXY
 
 async function setApiHosts(config) {
   console.log('config: ', config)

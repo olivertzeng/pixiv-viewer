@@ -113,15 +113,12 @@ html,body
 @media screen and (max-width: 999px)
   .Home .home-i-tabs
     justify-content flex-end
-    padding-right 0.5rem
+    padding-right 0.3rem
     .home-search
       display none
 
-@media screen and (max-width: 600px)
+@media screen and (max-width: 400px)
   .Home .home-i-tabs
-    justify-content center
-    padding-left 0.18rem
-    padding-right 0
     .app-title
       display none
 

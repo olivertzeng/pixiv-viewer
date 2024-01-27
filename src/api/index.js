@@ -1,9 +1,10 @@
 import dayjs from 'dayjs'
 import { get } from './http'
-import { LocalStorage, SessionStorage } from '@/utils/storage'
+import { SessionStorage } from '@/utils/storage'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { i18n } from '@/i18n'
 import { filterCensoredIllusts } from '@/utils/filter'
+import { PXIMG_PROXY_BASE } from '@/consts'
 
 const isSupportWebP = (() => {
   const elem = document.createElement('canvas')
@@ -17,7 +18,6 @@ const isSupportWebP = (() => {
   return false
 })()
 
-export const PXIMG_PROXY_BASE = LocalStorage.get('PXIMG_PROXY', process.env.VUE_APP_DEF_PXIMG_MAIN)
 export const imgProxy = url => {
   let result = url.replace(/i\.pximg\.net/g, PXIMG_PROXY_BASE)
   if (url.startsWith('/-/')) {

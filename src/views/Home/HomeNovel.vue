@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { notSelfHibiApi } from '@/api/http'
+import { notSelfHibiApi } from '@/consts'
 import LatestNovelCard from './components/LatestNovelCard.vue'
 import NovelRankCard from './components/NovelRankCard.vue'
 import NovelRecommendCard from './components/NovelRecommendCard.vue'

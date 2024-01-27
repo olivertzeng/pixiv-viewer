@@ -320,6 +320,7 @@ export default {
         cancelButtonText: this.$t('common.cancel'),
       })
       if (res == 'cancel') return
+      window.umami?.track('clearApiHosts')
       delete this.appConfig.apiHosts
       await this.saveConfig()
     },
@@ -328,6 +329,15 @@ export default {
       window.umami?.track('set_api_proxy', { _value })
       await this.saveConfig()
     },
+    saveSetting(key, val) {
+      window.umami?.track(`set:${key}`, { val })
+      this.$nextTick(() => {
+        LocalStorage.set(key, val)
+        setTimeout(() => {
+          location.reload()
+        }, 500)
+      })
+    },
     async changePximgBed() {
       const url = `https://${this.pximgBed.value}`
       const res = await this.checkURL(url, () => {
@@ -335,23 +345,15 @@ export default {
         return checkImgAvailable(`${url}/user-profile/img/2022/02/03/15/54/20/22159592_fce9f5c7a908c9b601dc7e9da7a412a3_50.jpg?_t=${Date.now()}`)
       })
       if (!res) return
-      window.umami?.track('set_pximg', { set_pximg: this.pximgBed.value })
-      LocalStorage.set('PXIMG_PROXY', this.pximgBed.value)
       SessionStorage.clear()
       await localDb.clear()
-      setTimeout(() => {
-        location.reload()
-      }, 500)
+      this.saveSetting('PXIMG_PROXY', this.pximgBed.value)
     },
     async changePximgBed_({ _value }) {
       this.pximgBed_.value = _value
-      window.umami?.track('change_pximg', { change_pximg: _value })
-      LocalStorage.set('PXIMG_PROXY', _value)
       SessionStorage.clear()
       await localDb.clear()
-      setTimeout(() => {
-        location.reload()
-      }, 500)
+      this.saveSetting('PXIMG_PROXY', _value)
     },
     async changeHibiapi() {
       const url = this.hibiapi.value
@@ -359,39 +361,23 @@ export default {
         return checkUrlAvailable(`${url}/rank?_t=${Date.now()}`)
       })
       if (!res) return
-      window.umami?.track('set_hibiapi', { set_hibiapi: this.hibiapi.value })
-      LocalStorage.set('HIBIAPI_BASE', this.hibiapi.value)
       SessionStorage.clear()
       await localDb.clear()
-      setTimeout(() => {
-        location.reload()
-      }, 500)
+      this.saveSetting('HIBIAPI_BASE', this.hibiapi.value)
     },
     async changeHibiapi_({ _value }) {
       this.hibiapi_.value = _value
-      window.umami?.track('change_hibiapi', { change_hibiapi: _value })
-      LocalStorage.set('HIBIAPI_BASE', _value)
       SessionStorage.clear()
       await localDb.clear()
-      setTimeout(() => {
-        location.reload()
-      }, 500)
+      this.saveSetting('HIBIAPI_BASE', _value)
     },
     changeWfType({ name }) {
       this.wfType.value = name
-      window.umami?.track('set_wf_type', { wf_type: name })
-      LocalStorage.set('PXV_WF_TYPE', name)
-      setTimeout(() => {
-        location.reload()
-      }, 500)
+      this.saveSetting('PXV_WF_TYPE', name)
     },
     changeImgRes({ name }) {
       this.imgRes.value = name
-      window.umami?.track('set_img_res', { img_res: name })
-      LocalStorage.set('PXV_DTL_IMG_RES', name)
-      setTimeout(() => {
-        location.reload()
-      }, 500)
+      this.saveSetting('PXV_DTL_IMG_RES', name)
     },
     onDarkChange(val) {
       window.umami?.track(`set_dark_${val}`)
@@ -404,50 +390,24 @@ export default {
       })
     },
     changeEnableSwipe(val) {
-      window.umami?.track(`changeEnableSwipe_${val}`)
       this.enableSwipe = val
-      this.$nextTick(() => {
-        LocalStorage.set('PXV_IMG_DTL_SWIPE', val)
-        setTimeout(() => {
-          location.reload()
-        }, 500)
-      })
+      this.saveSetting('PXV_IMG_DTL_SWIPE', val)
     },
     changePageEffect(val) {
       this.isPageEffectOn = val
-      this.$nextTick(() => {
-        LocalStorage.set('PXV_PAGE_EFFECT', val)
-        setTimeout(() => {
-          location.reload()
-        }, 500)
-      })
+      this.saveSetting('PXV_PAGE_EFFECT', val)
     },
     changeLongpressDL(val) {
       this.isLongpressDL = val
-      this.$nextTick(() => {
-        LocalStorage.set('PXV_LONGPRESS_DL', val)
-        setTimeout(() => {
-          location.reload()
-        }, 500)
-      })
+      this.saveSetting('PXV_LONGPRESS_DL', val)
     },
     changeLongpressBlock(val) {
       this.isLongpressBlock = val
-      this.$nextTick(() => {
-        LocalStorage.set('PXV_LONGPRESS_BLOCK', val)
-        setTimeout(() => {
-          location.reload()
-        }, 500)
-      })
+      this.saveSetting('PXV_LONGPRESS_BLOCK', val)
     },
     changeImageCardOuterMeta(val) {
       this.isImageCardOuterMeta = val
-      this.$nextTick(() => {
-        LocalStorage.set('PXV_IMG_META_OUTER', val)
-        setTimeout(() => {
-          location.reload()
-        }, 500)
-      })
+      this.saveSetting('PXV_IMG_META_OUTER', val)
     },
     changeLang({ name }) {
       this.lang.value = name

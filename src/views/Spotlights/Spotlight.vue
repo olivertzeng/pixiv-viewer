@@ -280,6 +280,9 @@ export default {
       max-height: 360px
       margin: 4px 2px
 
+      .image[lazy="loading"]
+        margin 0 !important
+
 .ex_link
   position: fixed;
   top: 0;

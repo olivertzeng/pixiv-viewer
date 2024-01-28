@@ -656,6 +656,7 @@ export default {
 
 ::v-deep .top-bar-wrap
   background none
+  transition top 0.2s
 
 .follow_btn
   margin 20px 0
@@ -669,9 +670,18 @@ export default {
   z-index: 99;
   font-size 0.675rem
   cursor pointer
+  transition top 0.2s
   .svg-icon
     color: #fafafa;
     filter: drop-shadow(0.02667rem 0.05333rem 0.05333rem rgba(0,0,0,0.8));
+
+.users:has(.van-sticky--fixed)
+  ::v-deep .top-bar-wrap
+    top 0.5rem
+    z-index 98
+  .share_btn
+    top 1.5rem
+    z-index 98
 
 @media screen and (min-width 768px)
   .users .info-container .info .name

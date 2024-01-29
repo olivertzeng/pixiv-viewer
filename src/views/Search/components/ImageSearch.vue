@@ -4,8 +4,8 @@
       <Icon v-show="!loading&&!file" name="image" />
       <div v-show="loading" class="loading"></div>
     </van-uploader>
-    <span @click="reset">
-      <Icon v-show="!loading&&file" name="close" />
+    <span>
+      <Icon v-show="!loading&&file" class="image-search-close" name="close" @click="reset" />
     </span>
     <div v-if="file" class="container">
       <div class="thumb">
@@ -161,6 +161,10 @@ export default {
       background-size: 100%;
     }
 
+  }
+
+  &-close {
+    padding 0.2rem
   }
 
   .svg-icon {

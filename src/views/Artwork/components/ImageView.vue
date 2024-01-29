@@ -385,7 +385,14 @@ export default {
           break
 
         case 'MP4':
-          window.open(`https://ugoira.com/i/${this.artwork.id}`, '_blank', 'noopener')
+          FileSaver.saveAs(
+            `https://ugoira-mp4.cocomi.eu.org/${this.artwork.id}`,
+            `[${this.artwork.author.name}]_${this.artwork.title}_${this.artwork.id}.mp4`
+          )
+          break
+
+        case 'Other':
+          window.open(`https://ugoira.com/i/${this.artwork.id}`, '_blank', 'noopener noreferrer')
           break
 
         default:

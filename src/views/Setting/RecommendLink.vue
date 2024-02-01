@@ -86,6 +86,13 @@
     />
     <van-cell
       center
+      title="Ugoira Converter"
+      is-link
+      label="https://ugoira.pixiv.pics"
+      @click="openLink('https://ugoira.pixiv.pics')"
+    />
+    <van-cell
+      center
       title="Wotaku - The Otaku Index"
       is-link
       label="https://wotaku.moe/"

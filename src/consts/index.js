@@ -10,3 +10,4 @@ export const COMMON_PROXY = process.env.VUE_APP_COMMON_PROXY || ''
 export const PXIMG_PROXY_BASE = LocalStorage.get('PXIMG_PROXY', DEF_PXIMG_MAIN)
 export const BASE_API_URL = LocalStorage.get('HIBIAPI_BASE', DEF_HIBIAPI_MAIN)
 export const notSelfHibiApi = !/cocomi\..+|pixiv\.pics/.test(BASE_API_URL)
+export const NOTICES_JSON = process.env.VUE_APP_NOTICES_JSON

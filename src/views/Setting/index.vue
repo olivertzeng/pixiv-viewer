@@ -7,6 +7,15 @@
         <small>{{ $t('setting.app_desc') }}</small>
       </div>
     </h1>
+    <van-notice-bar
+      v-if="notice"
+      class="custom-notice"
+      color="#B5495B"
+      background="#FEDFE1"
+      :left-icon="notice.icon"
+    >
+      {{ notice.text }}
+    </van-notice-bar>
     <van-cell v-if="isLoggedIn" size="large" center is-link :to="`/u/${user.id}`">
       <template #title>
         <div class="user_data">
@@ -36,14 +45,16 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import { Dialog } from 'vant'
+import dayjs from 'dayjs'
 import PixivAuth from '@/api/client/pixiv-auth'
 import { logout } from '@/api/user'
+import { NOTICES_JSON } from '@/consts'
 
 export default {
   name: 'Setting',
   data() {
     return {
-
+      notice: null,
     }
   },
   head() {
@@ -54,6 +65,19 @@ export default {
   computed: {
     ...mapState(['user']),
     ...mapGetters(['isLoggedIn']),
+  },
+  created() {
+    try {
+      const notices = JSON.parse(NOTICES_JSON)
+      const today = dayjs().startOf('day')
+      this.notice = notices.find(e =>
+        today.isAfter(dayjs(e.start).startOf('day') - 1) &&
+        today.isBefore(dayjs(e.end).endOf('day'))
+      )
+      console.log('this.notice: ', this.notice)
+    } catch (err) {
+      console.log('err: ', err)
+    }
   },
   methods: {
     async logoutApp() {
@@ -115,4 +139,12 @@ export default {
   img
     margin-right 20px
     border-radius 50%
+
+.custom-notice
+  width 85%
+  margin -20px auto 10px
+  border-radius 8px
+  ::v-deep
+    .van-icon__image
+      border-radius 50%
 </style>

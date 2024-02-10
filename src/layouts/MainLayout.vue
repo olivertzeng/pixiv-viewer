@@ -1,5 +1,5 @@
 <template>
-  <div class="main-layout" :class="{'safe-area': safeArea}">
+  <div class="main-layout" :class="{ noImgFillScreen, 'safe-area': safeArea }">
     <div class="app-main">
       <transition v-if="isPageEffectOn" :name="transitionName" mode="out-in">
         <keep-alive :max="10">
@@ -19,6 +19,7 @@ import Nav from '@/components/Nav'
 import { LocalStorage } from '@/utils/storage'
 
 const isPageEffectOn = LocalStorage.get('PXV_PAGE_EFFECT', false)
+const noImgFillScreen = !LocalStorage.get('PXV_IMG_FIT_SCREEN', true)
 
 export default {
   components: {
@@ -36,6 +37,7 @@ export default {
   },
   data() {
     return {
+      noImgFillScreen,
       isPageEffectOn,
       transitionName: isPageEffectOn ? 'fade' : '',
     }

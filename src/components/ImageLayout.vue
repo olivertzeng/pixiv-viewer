@@ -1,5 +1,5 @@
 <template>
-  <div :class="wfClass">
+  <div class="image-layout" :class="wfClass">
     <masonry v-if="isMasonry" v-bind="masonryProps">
       <slot></slot>
     </masonry>
@@ -12,6 +12,31 @@
 <script>
 import { LocalStorage } from '@/utils/storage'
 const wfType = LocalStorage.get('PXV_WF_TYPE', 'Masonry')
+const isImgFillScreen = LocalStorage.get('PXV_IMG_FIT_SCREEN', true)
+
+const masonryProps = {
+  gutter: '10px',
+  cols: isImgFillScreen
+    ? {
+        300: 1,
+        600: 2,
+        900: 3,
+        1200: 4,
+        1600: 5,
+        1920: 6,
+        2400: 7,
+        2700: 8,
+        3000: 9,
+        default: 6,
+      }
+    : {
+        300: 1,
+        600: 2,
+        1200: 3,
+        default: 4,
+      },
+}
+
 export default {
   props: {
     layout: {
@@ -22,21 +47,7 @@ export default {
   data() {
     return {
       wfType,
-      masonryProps: {
-        gutter: '10px',
-        cols: {
-          300: 1,
-          600: 2,
-          900: 3,
-          1200: 4,
-          1600: 5,
-          1920: 6,
-          2400: 7,
-          2700: 8,
-          3000: 9,
-          default: 6,
-        },
-      },
+      masonryProps,
     }
   },
   computed: {

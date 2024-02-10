@@ -86,6 +86,12 @@ export default {
       }
     },
     onSearch() {
+      const id = this.term.match(/https?:\/\/.+\/artworks\/(\d+)/i)?.[1] || this.term.match(/^(\d{8,})$/)?.[1]
+      if (id) {
+        this.term = ''
+        this.$router.push(`/artworks/${id}`)
+        return
+      }
       this.$router.push(`/search/${this.term || this.placeholder}`)
     },
   },

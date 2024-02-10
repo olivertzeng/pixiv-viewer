@@ -35,6 +35,11 @@
         <van-switch :value="isImageCardOuterMeta" size="24" @change="changeImageCardOuterMeta" />
       </template>
     </van-cell>
+    <van-cell center :title="$t('mR4YFHYUnr00zmzYydrMv')" :label="$t('V-KoSeNoEiNct7oZJgCcD')">
+      <template #right-icon>
+        <van-switch :value="isImageFitScreen" size="24" @change="changeImageFitScreen" />
+      </template>
+    </van-cell>
     <van-cell center :title="$t('setting.other.manual_input')" :label="$t('setting.other.manual_input_label')">
       <template #right-icon>
         <van-switch v-model="hideApSelect" size="24" />
@@ -235,6 +240,7 @@ export default {
       isLongpressDL: LocalStorage.get('PXV_LONGPRESS_DL', false),
       isLongpressBlock: LocalStorage.get('PXV_LONGPRESS_BLOCK', false),
       isImageCardOuterMeta: LocalStorage.get('PXV_IMG_META_OUTER', false),
+      isImageFitScreen: LocalStorage.get('PXV_IMG_FIT_SCREEN', true),
     }
   },
   head() {
@@ -408,6 +414,10 @@ export default {
     changeImageCardOuterMeta(val) {
       this.isImageCardOuterMeta = val
       this.saveSetting('PXV_IMG_META_OUTER', val)
+    },
+    changeImageFitScreen(val) {
+      this.isImageFitScreen = false
+      this.saveSetting('PXV_IMG_FIT_SCREEN', val)
     },
     changeLang({ name }) {
       this.lang.value = name

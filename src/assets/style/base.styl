@@ -484,10 +484,10 @@ html:has(.dark)
   overflow hidden
   border-radius: 0.26667rem;
 
-.Spotlights .image-card, .rank-card .spec_wp
-  img[lazy="loaded"]
-    transform none
-    transition transform 0.5s
+// .Spotlights .image-card, .rank-card .spec_wp
+//   img[lazy="loaded"]
+//     transform none
+//     transition transform 0.5s
   // @media screen and (min-width: 1280px)
   //   &:hover img
   //     transform scale(1.1)
@@ -496,6 +496,10 @@ html:has(.dark)
   height 100%
   padding-bottom 0 !important
   border-radius: 0.26667rem;
+
+.swiper-slide .image
+  transform none !important
+  transition none !important
 
 .author-card .swiper-slide .image-card-wrapper
   height 100%
@@ -542,3 +546,6 @@ html:has(.dark)
 
 .fadeIn
   animation fadeIn 0.5s
+
+.van-action-sheet__content::-webkit-scrollbar
+  width 0.17333rem

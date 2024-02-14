@@ -86,6 +86,41 @@ yarn lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+## FAQ
+
+### How to preset the image proxy and API instance if you build it yourself?
+
+Refer to [#2](https://github.com/asadahimeka/pixiv-viewer/issues/2) and [#5](https://github.com/asadahimeka/pixiv-viewer/issues/5) to set up the environment variable. You can create a new `.env` file in the project root directory and fill in the environment variables in the following format:
+
+```env
+TEST="lalala"
+ABC=DEF
+```
+
+### Keep prompting that the API exceeds the limit or Rate Limit
+
+You can switch the API instance in the settings, or directly use RefreshToken or OAuth to log in.
+
+### How to get RefreshToken
+
+See https://www.nanoka.top/posts/e78ef86/
+
+### Image loading is very slow
+
+Due to the network environment, the image loading speed may be slow. You can switch to the image proxy in the settings, or download the Android version and turn on the image direct connection function.
+
+### Cookie/SessionID login error
+
+It is recommended to use RefreshToken to log in
+
+### Is there an iOS App?
+
+Currently there are only Android and Windows versions. Download: [Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
+
+### Android version crashes after clicking download
+
+Go to the system settings to give this application storage permissions, or download the latest version and try again.
+
 ## Contribute
 
 This project uses [Vue I18n](https://kazupon.github.io/vue-i18n/) for internationalization, other language translations are mainly from machine translation, if there is anything wrong, welcome [contribute translation](https://github.com/asadahimeka/pixiv-viewer/tree/master/src/locales)

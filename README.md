@@ -127,6 +127,41 @@ yarn lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+## FAQ
+
+### 自建的话如何预设图床与 API 实例
+
+参照 [#2](https://github.com/asadahimeka/pixiv-viewer/issues/2) 与 [#5](https://github.com/asadahimeka/pixiv-viewer/issues/5) 设置环境变量。可以在项目根目录下新建 `.env` 文件，按如下格式填入环境变量：
+
+```env
+TEST="lalala"
+ABC=DEF
+```
+
+### 一直提示 API 超限或者 Rate Limit
+
+可以到设置里切换 API 实例，或者直接使用 RefreshToken 或者 OAuth 方式登录
+
+### 如何获取 RefreshToken
+
+参见 https://www.nanoka.top/posts/e78ef86/
+
+### 图片加载很慢
+
+受限于网络环境，图片加载速度可能会比较慢。可以到设置里切换图床，或者下载 Android 版本后打开图片直连功能
+
+### Cookie/SessionID 登录出错
+
+建议使用 RefreshToken 方式登录
+
+### 是否有 iOS App
+
+目前只有 Android 与 Windows 版本，均为 Webview 套壳，下载：[Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
+
+### Android 版本点击下载就闪退
+
+到系统设置里给予本应用存储权限，或者下载最新版本后再进行尝试
+
 ## Contribute
 
 本项目使用 [Vue I18n](https://kazupon.github.io/vue-i18n/) 进行国际化，其他语言翻译主要来自机器翻译，如有不妥，欢迎[贡献翻译](https://github.com/asadahimeka/pixiv-viewer/tree/master/src/locales)

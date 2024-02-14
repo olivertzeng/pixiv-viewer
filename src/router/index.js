@@ -28,6 +28,7 @@ import ClearCache from '@/views/Setting/ClearCache.vue'
 import ContentsDisplay from '@/views/Setting/ContentsDisplay.vue'
 import SettingOthers from '@/views/Setting/OtherSetting.vue'
 import SettingAbout from '@/views/Setting/About.vue'
+import SettingFAQ from '@/views/Setting/FAQ.vue'
 import SettingDisclaimer from '@/views/Setting/Disclaimer.vue'
 import SettingDownApp from '@/views/Setting/DownloadApp.vue'
 import Recommend from '@/views/Setting/Recommend.vue'
@@ -234,6 +235,12 @@ const routes = [
             name: 'SettingAbout',
             component: SettingAbout,
             meta: { __depth: 2 },
+          },
+          {
+            path: '/setting/about/faq',
+            name: 'SettingAboutFaq',
+            component: SettingFAQ,
+            meta: { __depth: 3 },
           },
           {
             path: '/setting/about/disclaimer',

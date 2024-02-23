@@ -210,6 +210,8 @@ html[lang="ja"]
 
 
 html:has(.dark)
+  background #16161a
+  color #fff
   ::-webkit-scrollbar
     width: 10px;
     height: 5px;
@@ -422,6 +424,9 @@ html:has(.dark)
     color #8ca8ff
   .novel-view
     background #16161a !important
+    &+.collapse-btn
+      background #16161a !important
+
   .novel_text
     color #b6b6b6 !important
   .novel-view.shrink::after,
@@ -555,7 +560,8 @@ html:has(.dark)
   .image-layout,
   .rank .top,
   .search .tags,
-  .user-tabs .van-tabs__nav
+  .user-tabs .van-tabs__nav,
+  .History .h-tabs .van-tabs__nav
     max-width 1200PX
     margin-left auto !important
     margin-right auto !important

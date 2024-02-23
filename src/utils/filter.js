@@ -65,8 +65,7 @@ export async function mintVerify(word = '', forceCheck = false) {
   if (!forceCheck && (store.state.SETTING.r18 || store.state.SETTING.r18g)) {
     return true
   }
-  word = word.replace(/https?:\/\//gi, '')
-  word = word.replace(/\s+/g, '')
+  word = word.replace(/[A-Za-z\d\s~`!@#$%^&*()_+\-=[\]{};':"\\|,./<>?]+/g, '')
   try {
     if (!mint) {
       let filterWords = await getCache('s.filter.words')

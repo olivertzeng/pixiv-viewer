@@ -1150,15 +1150,13 @@ const api = {
     let artwork = await getCache(cacheKey)
 
     if (!artwork) {
-      const res = await get('/novel_text', {
-        id,
-      })
+      const res = await get(`https://now.pixiv.pics/ajax/novel/${id}.txt`)
 
-      if (res.novel_text) {
+      if (res.content) {
         artwork = {
-          text: res.novel_text,
-          prev: res.series_prev?.id && parseNovel(res.series_prev),
-          next: res.series_next?.id && parseNovel(res.series_next),
+          text: res.content,
+          prev: res.seriesNavData?.prev,
+          next: res.seriesNavData?.next,
         }
         setCache(cacheKey, artwork, -1)
       } else if (res.error) {
@@ -1176,6 +1174,38 @@ const api = {
 
     return { status: 0, data: artwork }
   },
+
+  // async getNovelText(id) {
+  //   const cacheKey = `novel_text_${id}`
+  //   let artwork = await getCache(cacheKey)
+
+  //   if (!artwork) {
+  //     const res = await get('/novel_text', {
+  //       id,
+  //     })
+
+  //     if (res.novel_text) {
+  //       artwork = {
+  //         text: res.novel_text,
+  //         prev: res.series_prev?.id && parseNovel(res.series_prev),
+  //         next: res.series_next?.id && parseNovel(res.series_next),
+  //       }
+  //       setCache(cacheKey, artwork, -1)
+  //     } else if (res.error) {
+  //       return {
+  //         status: -1,
+  //         msg: dealErrMsg(res),
+  //       }
+  //     } else {
+  //       return {
+  //         status: -1,
+  //         msg: i18n.t('tip.unknown_err'),
+  //       }
+  //     }
+  //   }
+
+  //   return { status: 0, data: artwork }
+  // },
 
   /**
    *

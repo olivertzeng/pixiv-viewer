@@ -1721,6 +1721,29 @@ export const localApi = {
 
     return { status: 0, data: filterCensoredIllusts(list) }
   },
+  async novelFollow(page = 1) {
+    let list = []
+    const offset = (page - 1) * 30
+    const params = {}
+    if (offset > 0) params.offset = offset
+    const res = await reqGet('v1/novel/follow', params)
+
+    if (res.novels) {
+      list = res.novels.map(art => parseNovel(art))
+    } else if (res.error) {
+      return {
+        status: -1,
+        msg: dealErrMsg(res),
+      }
+    } else {
+      return {
+        status: -1,
+        msg: i18n.t('tip.unknown_err'),
+      }
+    }
+
+    return { status: 0, data: list }
+  },
   async illustBookmarkAdd(id, restrict = 'public') {
     if (!id) return false
     try {

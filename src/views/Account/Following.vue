@@ -1,8 +1,11 @@
 <template>
   <div class="Following">
-    <van-tabs v-if="isLogin" v-model="activeTab" sticky animated color="#F2C358">
+    <van-tabs v-if="isLogin" v-model="activeTab" :ellipsis="false" swipe-threshold="3" sticky animated color="#F2C358">
       <van-tab :title="$t('follow.timeline')" name="1">
-        <LatestConcerned v-if="activeTab == 1" />
+        <FeedsIllusts v-if="activeTab == 1" />
+      </van-tab>
+      <van-tab v-if="isLocalApi" :title="`${$t('follow.timeline')}(${$t('common.novel')})`" name="5">
+        <FeedsNovels v-if="activeTab == 5" />
       </van-tab>
       <van-tab :title="$t('follow.fav')" name="2">
         <MyBookmarks v-if="activeTab == 2" />
@@ -22,15 +25,17 @@
 import { mapState } from 'vuex'
 import FollowedUsers from './components/FollowedUsers.vue'
 import LatestAllSite from './components/LatestAllSite.vue'
-import LatestConcerned from './components/LatestConcerned.vue'
+import FeedsIllusts from './components/FeedsIllusts.vue'
+import FeedsNovels from './components/FeedsNovels.vue'
 import MyBookmarks from './MyBookmarks.vue'
 
 export default {
   name: 'Following',
-  components: { LatestConcerned, FollowedUsers, LatestAllSite, MyBookmarks },
+  components: { FeedsIllusts, FeedsNovels, FollowedUsers, LatestAllSite, MyBookmarks },
   data() {
     return {
       activeTab: this.$route.params?.tab || '1',
+      isLocalApi: window.APP_CONFIG.useLocalAppApi,
     }
   },
   head() {
@@ -58,13 +63,12 @@ export default {
   .van-tabs--line .van-tabs__wrap
     height 60px
   .van-tabs__nav
-    justify-content center
     padding-bottom 0
     background: rgba(255,255,255,0.8)
     backdrop-filter: saturate(200%) blur(0.08rem)
   .van-tab
-    flex unset
     margin 0 0.1rem
+    padding 0
   .van-tab__text
     height: 0.8rem;
     padding: 0 0.21333rem;
@@ -83,5 +87,13 @@ export default {
     display none
   .van-tabs__content
     margin 0.1rem 0 0.6rem
+
+@media screen and (min-width: 769px)
+  .Following
+    .van-tabs__nav
+      justify-content center
+    .van-tab
+      flex unset
+      padding 0 4PX
 
 </style>

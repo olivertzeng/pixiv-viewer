@@ -10,28 +10,26 @@
     :error-text="$t('tips.net_err')"
     @load="getRankList"
   >
-    <wf-cont v-bind="$store.getters.wfProps">
-      <ImageCard
+    <masonry v-bind="$store.getters.novelMyProps">
+      <NovelCard
         v-for="art in artList"
         :key="art.id"
-        mode="all"
         :artwork="art"
         @click-card="toArtwork($event)"
       />
-    </wf-cont>
+    </masonry>
   </van-list>
 </template>
 
 <script>
 import { localApi } from '@/api'
-import { getFollowingIllusts } from '@/api/user'
-import ImageCard from '@/components/ImageCard'
+import NovelCard from '@/components/NovelCard'
 import _ from 'lodash'
 
 export default {
-  name: 'LatestConcerned',
+  name: 'FeedsNovels',
   components: {
-    ImageCard,
+    NovelCard,
   },
   data() {
     return {
@@ -45,9 +43,7 @@ export default {
   methods: {
     getRankList: _.throttle(async function () {
       this.loading = true
-      const res = window.APP_CONFIG.useLocalAppApi
-        ? await localApi.illustFollow(this.curPage)
-        : await getFollowingIllusts(this.curPage)
+      const res = await localApi.novelFollow(this.curPage)
       if (res.status === 0) {
         this.artList = _.uniqBy([
           ...this.artList,
@@ -66,11 +62,7 @@ export default {
       }
     }, 1500),
     toArtwork(id) {
-      this.$store.dispatch('setGalleryList', this.artList)
-      this.$router.push({
-        name: 'Artwork',
-        params: { id },
-      })
+      this.$router.push(`/novel/${id}`)
     },
   },
 }

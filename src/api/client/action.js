@@ -295,6 +295,7 @@ function initApp(pixiv) {
     console.log('params: ', params)
     const fns = {
       'v2/illust/follow': () => pixiv.illustFollow(JSON.parse(params)),
+      'v1/novel/follow': () => pixiv.novelFollow(JSON.parse(params)),
     }
     return fns[path]?.()
   })

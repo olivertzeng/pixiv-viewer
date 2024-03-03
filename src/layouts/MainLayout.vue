@@ -11,6 +11,7 @@
       </keep-alive>
     </div>
     <my-nav v-if="showNav" />
+    <div class="back_to_top" @dblclick="scrollToTop()"></div>
   </div>
 </template>
 
@@ -55,6 +56,11 @@ export default {
       console.log('this.transitionName: ', this.transitionName)
     },
   },
+  methods: {
+    scrollToTop() {
+      document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+  },
 }
 </script>
 
@@ -72,4 +78,16 @@ export default {
   padding 10px 8px 0
   box-sizing border-box
   // overflow-y auto
+
+.back_to_top
+  position fixed
+  bottom 0
+  right 0
+  z-index 999
+  width 1rem
+  height 1rem
+
+  @media screen and (max-width: 1280px)
+    display none
+
 </style>

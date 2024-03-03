@@ -1157,6 +1157,7 @@ const api = {
           text: res.content,
           prev: res.seriesNavData?.prev,
           next: res.seriesNavData?.next,
+          embedImgs: res.textEmbeddedImages,
         }
         setCache(cacheKey, artwork, -1)
       } else if (res.error) {

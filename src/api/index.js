@@ -4,7 +4,7 @@ import { SessionStorage } from '@/utils/storage'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { i18n } from '@/i18n'
 import { filterCensoredIllusts } from '@/utils/filter'
-import { PXIMG_PROXY_BASE } from '@/consts'
+import { PXIMG_PROXY_BASE, notSelfHibiApi } from '@/consts'
 
 const isSupportWebP = (() => {
   const elem = document.createElement('canvas')
@@ -1150,15 +1150,25 @@ const api = {
     let artwork = await getCache(cacheKey)
 
     if (!artwork) {
-      const res = await get(`https://now.pixiv.pics/ajax/novel/${id}.txt`)
+      let res
+      if (notSelfHibiApi) {
+        res = await get(`https://now.pixiv.pics/ajax/novel/${id}.txt`).then(r => ({
+          text: r.content,
+          prev: r.seriesNavData?.prev,
+          next: r.seriesNavData?.next,
+          embedImgs: r.textEmbeddedImages,
+        }))
+      } else {
+        res = await get('/webview_novel', { id }).then(r => ({
+          text: r.text,
+          prev: r.seriesNavigation?.prevNovel,
+          next: r.seriesNavigation?.nextNovel,
+          embedImgs: r.images,
+        }))
+      }
 
-      if (res.content) {
-        artwork = {
-          text: res.content,
-          prev: res.seriesNavData?.prev,
-          next: res.seriesNavData?.next,
-          embedImgs: res.textEmbeddedImages,
-        }
+      if (res.text) {
+        artwork = res
         setCache(cacheKey, artwork, -1)
       } else if (res.error) {
         return {

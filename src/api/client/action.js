@@ -289,6 +289,10 @@ function initApp(pixiv) {
     const { id } = req.query
     return pixiv.novelText(id)
   })
+  app.get('/webview_novel', async req => {
+    const { id, raw } = req.query
+    return pixiv.webviewNovel(id, raw == 'true')
+  })
   app.get('/req_get', async req => {
     const { path, params } = req.query
     console.log('path: ', path)

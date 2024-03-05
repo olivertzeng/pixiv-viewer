@@ -613,14 +613,17 @@ class PixivApi {
   }
 
   illustRecommended(options) {
-    const queryString = qs.stringify(
-      Object.assign(
-        {
-          include_ranking_illusts: true,
-        },
-        options
+    const queryString = options.params
+      ? qs.stringify(JSON.parse(options.params))
+      : qs.stringify(
+        Object.assign(
+          {
+            include_privacy_policy: false,
+            include_ranking_illusts: false,
+          },
+          options
+        )
       )
-    )
     return this.requestUrl(`/v1/illust/recommended?${queryString}`)
   }
 
@@ -964,13 +967,32 @@ class PixivApi {
     return this.requestUrl(`/v2/novel/detail?${queryString}`)
   }
 
-  novelText(id) {
+  async novelText(id) {
     if (!id) {
       return Promise.reject(new Error('novel_id required'))
     }
 
-    const queryString = qs.stringify({ novel_id: id })
-    return this.requestUrl(`/v1/novel/text?${queryString}`)
+    // const queryString = qs.stringify({ novel_id: id })
+    // return this.requestUrl(`/v1/novel/text?${queryString}`)
+
+    const r = await this.webviewNovel(id)
+    return ({ novel_text: r.text })
+  }
+
+  async webviewNovel(id, raw = false) {
+    if (!id) {
+      throw new Error('novel_id required')
+    }
+
+    const queryString = qs.stringify({ id, viewer_version: '20221031_ai' })
+    const response = await this.requestUrl(`/webview/v2/novel?${queryString}`, {
+      responseType: 'text',
+    })
+
+    if (raw) return response
+
+    const json = response.match(/novel:\s({.+}),/)?.[1]
+    return JSON.parse(json)
   }
 
   novelFollow(options) {

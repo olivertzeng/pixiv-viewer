@@ -344,10 +344,13 @@ export default {
         }
         val += ' -R-18 -R18 -18+'
       }
-      if (!this.$store.state.SETTING.ai) val += ' -AI'
       if (this.usersIriTag) val += ' ' + this.usersIriTag
+      const params = _.pickBy(this.searchParams, Boolean)
+      if (!this.$store.state.SETTING.ai) {
+        params.search_ai_type = 0
+      }
       this.loading = true
-      const res = await api.search(val, this.curPage, _.pickBy(this.searchParams, Boolean))
+      const res = await api.search(val, this.curPage, params)
       if (res.status === 0) {
         if (res.data.length) {
           let artList = _.uniqBy([

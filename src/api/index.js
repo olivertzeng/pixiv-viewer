@@ -100,6 +100,7 @@ const parseIllust = data => {
       id: data.user.id,
       name: data.user.name,
       avatar: imgProxy(data.user.profile_image_urls.medium),
+      is_followed: data.user.is_followed,
     },
     created: create_date,
     images,
@@ -436,16 +437,22 @@ const api = {
     return { status: 0, data: relatedList }
   },
 
-  async getRecommendedIllust() {
+  async getRecommendedIllust(params) {
     const cacheKey = 'recommended.illust'
-    let relatedList = await getCache(cacheKey)
+    let relatedList
+    if (!window.APP_CONFIG.useLocalAppApi) {
+      relatedList = await getCache(cacheKey)
+    }
 
     if (!relatedList) {
-      const res = await get('/illust_recommended')
+      const res = await get('/illust_recommended', { params })
 
       if (res.illusts) {
-        relatedList = res.illusts.map(art => parseIllust(art)).filter(e => e.like >= 1000)
-        setCache(cacheKey, relatedList, 60 * 60 * 12)
+        relatedList = res.illusts.map(art => parseIllust(art)).filter(e => e.like >= 500)
+        relatedList.nextUrl = res.next_url
+        if (!window.APP_CONFIG.useLocalAppApi) {
+          setCache(cacheKey, relatedList, 60 * 60 * 12)
+        }
       } else if (res.error) {
         return {
           status: -1,

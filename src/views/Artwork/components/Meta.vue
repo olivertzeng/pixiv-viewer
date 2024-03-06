@@ -20,7 +20,9 @@
         <div v-if="!isNovel && artwork.series && artwork.series.id" class="series is_illust" :title="artwork.series.title">
           <router-link :to="`/user/${artwork.author.id}/series/${artwork.series.id}`">{{ artwork.series.title }}</router-link>
         </div>
-        <div class="author" @click="toAuthor(artwork.author.id)">{{ artwork.author.name }}</div>
+        <div class="author" :class="{is_followed:artwork.author.is_followed}" @click="toAuthor(artwork.author.id)">
+          {{ artwork.author.name }}
+        </div>
       </div>
     </div>
     <div class="date">
@@ -573,6 +575,12 @@ export default {
         cursor pointer
         // overflow: hidden;
         // text-overflow: ellipsis;
+
+        &.is_followed {
+          font-weight 500
+          text-decoration underline
+          color: #00AA90;
+        }
       }
 
     }

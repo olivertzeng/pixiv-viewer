@@ -613,7 +613,7 @@ class PixivApi {
   }
 
   illustRecommended(options) {
-    const queryString = options.params
+    const queryString = options.params && options.params !== '{}'
       ? qs.stringify(JSON.parse(options.params))
       : qs.stringify(
         Object.assign(

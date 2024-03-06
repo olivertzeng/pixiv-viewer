@@ -292,7 +292,8 @@
     "no_data": "暫無數據",
     "no_more": "沒有更多了",
     "copy_err": "複製失敗",
-    "tip": "提示"
+    "tip": "提示",
+    "load_more": "加載更多"
   },
   "user": {
     "art_num": "{0}件作品",

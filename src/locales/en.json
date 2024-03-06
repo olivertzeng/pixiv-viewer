@@ -292,7 +292,8 @@
     "no_data": "No data",
     "no_more": "No more",
     "copy_err": "Copy failed",
-    "tip": "Tips"
+    "tip": "Tips",
+    "load_more": "Load more"
   },
   "user": {
     "art_num": "{0} works",

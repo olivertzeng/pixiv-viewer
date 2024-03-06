@@ -66,6 +66,7 @@
     "ios_webm": "iOS 设备暂不支持 WebM 格式下载",
     "download_wait": "下载时间可能较长，请耐心等待",
     "loading": "加载中...",
+    "load_more": "加载更多",
     "no_more": "没有更多了",
     "net_err": "网络异常，点击重新加载",
     "no_data": "暂无数据",

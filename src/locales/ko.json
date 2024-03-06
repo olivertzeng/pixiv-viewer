@@ -292,7 +292,8 @@
     "no_data": "데이터 없음",
     "no_more": "이미 아니",
     "copy_err": "복사 실패",
-    "tip": "팁"
+    "tip": "팁",
+    "load_more": "더 로드하세요"
   },
   "user": {
     "art_num": "{0}개의 작품",

@@ -292,7 +292,8 @@
     "no_data": "Pas de données",
     "no_more": "Pas plus",
     "copy_err": "Échec de la copie",
-    "tip": "Conseils"
+    "tip": "Conseils",
+    "load_more": "charger plus"
   },
   "user": {
     "art_num": "{0} œuvres",

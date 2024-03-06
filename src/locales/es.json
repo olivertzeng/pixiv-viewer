@@ -364,7 +364,8 @@
     "net_err": "Excepción de red, haga clic para recargar",
     "no_data": "Sin datos",
     "no_more": "No más",
-    "tip": "Consejos"
+    "tip": "Consejos",
+    "load_more": "carga más"
   },
   "user": {
     "art_num": "{0} funciona",

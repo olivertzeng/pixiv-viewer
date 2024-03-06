@@ -342,7 +342,8 @@
     "no_data": "Nessun dato",
     "no_more": "Non più",
     "copy_err": "Copia fallita",
-    "tip": "Suggerimenti"
+    "tip": "Suggerimenti",
+    "load_more": "caricare di più"
   },
   "user": {
     "art_num": "{0} funziona",

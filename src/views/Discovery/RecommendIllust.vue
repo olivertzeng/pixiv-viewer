@@ -11,11 +11,11 @@
       <van-button
         size="small"
         loading-size="1em"
-        loading-text="Loading..."
+        :loading-text="$t('tips.loading')"
         :loading="loading"
         @click="loadMore"
       >
-        LOAD MORE
+        {{ $t('tips.load_more') }}
       </van-button>
     </div>
   </div>
@@ -74,15 +74,13 @@ export default {
       const params = {}
       if (!window.APP_CONFIG.useApiProxy) {
         const u = this.tryURL(this.nextUrl)
-        if (!u) {
-          this.finished = true
-          return
+        if (u) {
+          u.searchParams.forEach((v, k) => {
+            params[k] = v
+          })
         }
-        this.loading = true
-        u.searchParams.forEach((v, k) => {
-          params[k] = v
-        })
       }
+      this.loading = true
       const res = await api.getRecommendedIllust(JSON.stringify(params))
       if (res.status === 0) {
         if (res.data.length) {

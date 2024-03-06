@@ -364,7 +364,8 @@
     "net_err": "Exceção de rede, clique para recarregar",
     "no_data": "Sem dados",
     "no_more": "Não mais",
-    "tip": "Pontas"
+    "tip": "Pontas",
+    "load_more": "Carregue mais"
   },
   "user": {
     "art_num": "{0} funciona",

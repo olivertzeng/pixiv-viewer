@@ -292,7 +292,8 @@
     "no_data": "Keine Daten",
     "no_more": "Nicht mehr",
     "copy_err": "Das Kopieren ist fehlgeschlagen",
-    "tip": "Tipps"
+    "tip": "Tipps",
+    "load_more": "Mehr laden"
   },
   "user": {
     "art_num": "{0} funktioniert",

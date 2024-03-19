@@ -293,6 +293,12 @@ function initApp(pixiv) {
     const { id, raw } = req.query
     return pixiv.webviewNovel(id, raw == 'true')
   })
+  app.get('/live_list', async req => {
+    const { page = 1, size = 30 } = req.query
+    const params = {}
+    if (page > 1) params.offset = (page - 1) * size
+    return pixiv.liveList(params)
+  })
   app.get('/req_get', async req => {
     const { path, params } = req.query
     console.log('path: ', path)

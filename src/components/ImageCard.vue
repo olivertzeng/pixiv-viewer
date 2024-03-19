@@ -374,7 +374,7 @@ export default {
     .author
       display: inline-block;
       font-size: 20px;
-      font-weight: 200;
+      // font-weight: 200;
 
 .outer-meta
   .content

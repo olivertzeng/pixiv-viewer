@@ -117,7 +117,7 @@ html,body
     .home-search
       display none
 
-@media screen and (max-width: 400px)
+@media screen and (max-width: 600px)
   .Home .home-i-tabs
     .app-title
       display none
@@ -178,4 +178,12 @@ html,body
         span
           font-size 0.26rem
 
+html:not([lang^=zh])
+  @media screen and (max-width: 1200px)
+    .Home .home-search
+      display none
+  @media screen and (max-width: 786px)
+    .Home .home-i-tabs
+      .app-title
+        display none
 </style>

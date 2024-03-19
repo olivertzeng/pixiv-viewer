@@ -9,6 +9,8 @@ import MainLayout from '@/layouts/MainLayout.vue'
 import Home from '@/views/Home/index.vue'
 import HomeManga from '@/views/Home/HomeManga.vue'
 import HomeNovel from '@/views/Home/HomeNovel.vue'
+import Lives from '@/views/Lives/index.vue'
+import LiveDetail from '@/views/Lives/LiveDetail.vue'
 import Discovery from '@/views/Discovery/Discovery.vue'
 import RecommendIllust from '@/views/Discovery/RecommendIllust.vue'
 import Spotlights from '@/views/Spotlights/Spotlights.vue'
@@ -310,6 +312,18 @@ const routes = [
             name: 'OAuthCallback',
             component: OAuthCallback,
             meta: { __depth: 1 },
+          },
+          {
+            path: '/lives',
+            name: 'Lives',
+            component: Lives,
+            meta: { __depth: 2 },
+          },
+          {
+            path: '/live/:id',
+            name: 'LiveDetail',
+            component: LiveDetail,
+            meta: { __depth: 3 },
           },
         ],
       },

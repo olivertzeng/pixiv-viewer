@@ -1099,6 +1099,18 @@ class PixivApi {
     const queryString = qs.stringify({ illust_id: id })
     return this.requestUrl(`/v1/ugoira/metadata?${queryString}`)
   }
+
+  liveList(options) {
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          list_type: 'popular',
+        },
+        options
+      )
+    )
+    return this.requestUrl(`/v1/live/list?${queryString}`)
+  }
 }
 
 export default PixivApi

@@ -1637,6 +1637,24 @@ const api = {
 
     return { status: 0, data: tags }
   },
+  async getLiveList(page = 1) {
+    const res = await get('/live_list', { page })
+
+    if (res.error) {
+      return {
+        status: -1,
+        msg: dealErrMsg(res),
+      }
+    }
+    if (!res.lives) {
+      return {
+        status: -1,
+        msg: i18n.t('tip.unknown_err'),
+      }
+    }
+
+    return { status: 0, data: res.lives }
+  },
 }
 export default api
 

@@ -67,8 +67,11 @@
       >UID:{{ artwork.author.id }}<Icon name="copy" style="margin-left: 1px;" /></span>
     </div>
     <ul class="tag-list" :class="{ censored: isCensored(artwork) }">
-      <li v-if="artwork.illust_ai_type == 2">
+      <li v-if="isAiIllust">
         <van-tag class="x_tag" size="large" color="#FFB11B">{{ $t('common.ai_gen') }}</van-tag>
+      </li>
+      <li v-else-if="maybeAiAuthor">
+        <van-tag class="x_tag" size="large" color="#FFB11B">Maybe AI</van-tag>
       </li>
       <li v-if="artwork.x_restrict">
         <van-tag class="x_tag" size="large" type="danger">NSFW</van-tag>
@@ -190,6 +193,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    maybeAiAuthor: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -203,6 +210,9 @@ export default {
     ...mapGetters(['isCensored', 'isLoggedIn']),
     showTranslatedTags() {
       return i18n.locale.includes('zh')
+    },
+    isAiIllust() {
+      return this.artwork.illust_ai_type == 2 || this.artwork.tags.some(e => e.name.startsWith('AI'))
     },
   },
   watch: {

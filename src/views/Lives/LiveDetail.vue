@@ -295,7 +295,8 @@ export default {
   margin-top 40px
   margin-bottom 40px
   text-align center
-  font-size 28px
+  font-size 0.38rem
+  font-weight bold
 
 .live_detail
   position relative

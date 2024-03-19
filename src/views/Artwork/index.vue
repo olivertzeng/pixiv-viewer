@@ -17,10 +17,10 @@
         </div>
         <div class="ia-right">
           <van-skeleton class="skeleton" title avatar :row="5" row-width="200px" avatar-size="42px" :loading="loading">
-            <ArtworkMeta ref="artworkMeta" :artwork="artwork" @ugoira-download="showUgPanelFromDlBtn" />
+            <ArtworkMeta ref="artworkMeta" :artwork="artwork" :maybe-ai-author="maybeAiAuthor" @ugoira-download="showUgPanelFromDlBtn" />
           </van-skeleton>
           <keep-alive>
-            <AuthorCard v-if="artwork.author" :id="artwork.author.id" :key="artwork.id" />
+            <AuthorCard v-if="artwork.author" :id="artwork.author.id" :key="artwork.id" @loaded="a => maybeAiAuthor = a.maybeAiAuthor" />
           </keep-alive>
         </div>
       </div>
@@ -130,6 +130,7 @@ export default {
         { name: 'Facebook', icon: IconFacebook },
       ],
       disableSwipe: !LocalStorage.get('PXV_IMG_DTL_SWIPE', false),
+      maybeAiAuthor: false,
     }
   },
   head() {

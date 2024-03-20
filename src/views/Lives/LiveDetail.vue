@@ -367,6 +367,7 @@ export default {
       display block
       margin-bottom 30px
       color: rgb(46, 151, 216)
+      word-break: break-word;
       &:hover
         text-decoration underline
 

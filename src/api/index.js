@@ -1638,7 +1638,7 @@ const api = {
     return { status: 0, data: tags }
   },
   async getLiveList(page = 1) {
-    const res = await get('/live_list', { page })
+    const res = await get('/live_list', { page, _t: dayjs().format('YYYYMMDDHHmm') })
 
     if (res.error) {
       return {

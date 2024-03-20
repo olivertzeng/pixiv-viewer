@@ -100,9 +100,9 @@ export default {
       const res = await api.getMemberArtwork(id)
       if (res.status === 0) {
         this.memberArtwork = res.data
-        const { length } = res.data.filter(e => e.tags.some(t => t.name.startsWith('AI')))
+        const { length } = res.data.filter(e => e.illust_ai_type == 2 || e.tags.some(t => t.name.startsWith('AI')))
         console.log('ai arts length: ', length)
-        this.$emit('loaded', { maybeAiAuthor: length > 5 })
+        this.$emit('loaded', { maybeAiAuthor: length >= 5 })
         const i = res.data.findIndex(e => e.id == this.$route.params.id)
         i && this.$nextTick(() => {
           this.$refs.mySwiper?.$swiper?.slideTo(i)

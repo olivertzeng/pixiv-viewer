@@ -109,3 +109,12 @@ export async function checkUrlAvailable(url) {
   if (res.data) return true
   throw new Error('Resp not ok.')
 }
+
+export async function readTextFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = reject
+    reader.readAsText(file)
+  })
+}

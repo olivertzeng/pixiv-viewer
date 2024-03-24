@@ -64,6 +64,8 @@
       <!-- <van-cell v-if="appConfig.directMode" center :title="$t('setting.other.direct_mode.host.title')" is-link :label="$t('setting.other.direct_mode.host.label')" @click="clearApiHosts" /> -->
       <van-cell v-if="appConfig.refreshToken" center :title="$t('setting.other.cp_token_title')" is-link :label="$t('setting.other.cp_token_label')" @click="copyToken" />
     </template>
+    <van-cell center :title="$t('Wc3yMDMSkHUhoGx22bsP8')" is-link :label="$t('setting.lab.title')" @click="importSettings" />
+    <van-cell center :title="$t('Bi5BpYwKhUhWcm_RueGZN')" is-link :label="$t('setting.lab.title')" @click="exportSettings" />
     <van-dialog
       v-model="pximgBed.show"
       width="9rem"
@@ -150,9 +152,10 @@
 
 <script>
 import { Dialog } from 'vant'
+import FileSaver from 'file-saver'
 import PixivAuth from '@/api/client/pixiv-auth'
 import { i18n } from '@/i18n'
-import { checkImgAvailable, checkUrlAvailable, copyText, isURL } from '@/utils'
+import { checkImgAvailable, checkUrlAvailable, copyText, isURL, readTextFile } from '@/utils'
 import { mintVerify } from '@/utils/filter'
 import localDb from '@/utils/storage/localDb'
 import { getCache, setCache } from '@/utils/storage/siteCache'
@@ -427,6 +430,41 @@ export default {
       setTimeout(() => {
         location.reload()
       }, 500)
+    },
+    importSettings() {
+      window.umami?.track('importSettings')
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.style.display = 'none'
+      input.onchange = async e => {
+        try {
+          const text = await readTextFile(e.target.files[0])
+          const settings = JSON.parse(decodeURI(atob(text)))
+          console.log('settings: ', settings)
+          Object.keys(settings).forEach(k => {
+            localStorage.setItem(k, settings[k])
+          })
+          this.$toast.success('Success')
+          setTimeout(() => {
+            location.reload()
+          }, 500)
+        } catch (err) {
+          console.log('err: ', err)
+          this.$toast(`Error: ${err.message}`)
+        }
+      }
+      input.click()
+    },
+    exportSettings() {
+      window.umami?.track('exportSettings')
+      const settings = {}
+      const len = localStorage.length
+      for (let i = 0; i < len; i++) {
+        const keyName = localStorage.key(i)
+        settings[keyName] = localStorage.getItem(keyName)
+      }
+      const blob = new Blob([btoa(encodeURI(JSON.stringify(settings)))])
+      FileSaver.saveAs(blob, 'pixiv-viewer-settings.txt')
     },
     async checkURL(val, checkFn) {
       if (!isURL(val)) {

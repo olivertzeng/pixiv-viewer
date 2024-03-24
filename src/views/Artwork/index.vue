@@ -13,7 +13,7 @@
       <div class="ia-cont">
         <div class="ia-left">
           <van-loading v-if="loading" size="50px" />
-          <ImageView ref="imgView" :artwork="artwork" :lazy="true" @open-download="ugoiraDownloadPanelShow = true" />
+          <ImageView ref="imgView" :artwork="artwork" :lazy="true" :maybe-ai-author="maybeAiAuthor" @open-download="ugoiraDownloadPanelShow = true" />
         </div>
         <div class="ia-right">
           <van-skeleton class="skeleton" title avatar :row="5" row-width="200px" avatar-size="42px" :loading="loading">

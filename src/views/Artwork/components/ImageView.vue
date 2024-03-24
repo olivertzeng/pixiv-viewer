@@ -12,6 +12,15 @@
       :style="index === 0 ? { width: `${displayWidth}px`, height: `${displayWidth / (artwork.width / artwork.height)}px` } : null"
     >
       <!-- :style="{height: `${(375/artwork.width*artwork.height).toFixed(2)}px`}" -->
+      <van-button
+        v-if="artwork.illust_ai_type != 2 && maybeAiAuthor"
+        class="check-ai-btn"
+        color="linear-gradient(to right, #ff758c 0%, #ff7eb3 100%)"
+        size="mini"
+        @click="checkAI(url.l)"
+      >
+        Check AI
+      </van-button>
       <img
         v-if="lazy"
         v-lazy="getImgUrl(url)"
@@ -78,6 +87,10 @@ export default {
     lazy: {
       type: Boolean,
       default: true,
+    },
+    maybeAiAuthor: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -165,6 +178,25 @@ export default {
     },
     showFull() {
       if (this.isShrink) this.isShrink = false
+    },
+    async checkAI(url) {
+      const loading = this.$toast.loading({
+        message: this.$t('tips.loading'),
+        forbidClick: true,
+      })
+      try {
+        const resp = await fetch(`https://nx.cocomi.eu.org/api/ai-image-detect?url=${url}`)
+        const json = await resp.json()
+        loading.clear()
+        Dialog.alert({
+          title: this.$t('bJ1fo_0HLdA1bWDIic_CT'),
+          message: this.$t('fSITk3ygQ7rxjm0lDUoSV', [(json.data.probability * 100).toFixed(1)]),
+          theme: 'round-button',
+        })
+      } catch (err) {
+        loading.clear()
+        this.$toast('Error: ' + err.message)
+      }
     },
     async ugoiraMetadata() {
       const res = await api.ugoiraMetadata(this.artwork.id)
@@ -522,6 +554,13 @@ export default {
       max-width: 100%;
       height: auto;
       max-height 100%
+    }
+
+    .check-ai-btn {
+      position absolute
+      bottom 0.1rem
+      right 0.1rem
+      font-weight bold
     }
   }
 

@@ -175,6 +175,8 @@ export default {
       clearInterval(this.ldSid)
       this.$refs.dplayer?.dp?.destroy()
       this.ws?.close()
+      this.ws && (this.ws.onmessage = null)
+      this.ws = null
       this.showPlayer = false
       this.showPlayBtn = false
       this.detail = {}

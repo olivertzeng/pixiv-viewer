@@ -1391,7 +1391,7 @@ const api = {
         data = res.illusts.map(art => parseIllust(art))
         data.next = !!res.next_url
         data.detail = res.illust_series_detail
-        data.detail.cover = imgProxy(res.illust_series_detail.cover_image_urls.medium)
+        data.detail.cover = imgProxy(res.illust_series_detail?.cover_image_urls?.medium || '')
         setCache(cacheKey, data, 60 * 60 * 12)
       } else if (res.error) {
         return {

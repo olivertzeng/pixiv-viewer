@@ -212,7 +212,7 @@ export default {
       return i18n.locale.includes('zh')
     },
     isAiIllust() {
-      return this.artwork.illust_ai_type == 2 || this.artwork.tags.some(e => e.name.startsWith('AI'))
+      return this.artwork.illust_ai_type == 2 || !!this.artwork.tags?.some(e => e.name.startsWith('AI'))
     },
   },
   watch: {

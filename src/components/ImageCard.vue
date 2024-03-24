@@ -106,7 +106,7 @@ export default {
       return this.artwork.images[0].m
     },
     isAiIllust() {
-      return this.artwork.illust_ai_type == 2 || this.artwork.tags.some(e => e.name.startsWith('AI'))
+      return this.artwork.illust_ai_type == 2 || !!this.artwork.tags?.some(e => e.name.startsWith('AI'))
     },
     tagText() {
       if (this.artwork.x_restrict == 1) {

@@ -20,7 +20,7 @@
             <ArtworkMeta ref="artworkMeta" :artwork="artwork" :maybe-ai-author="maybeAiAuthor" @ugoira-download="showUgPanelFromDlBtn" />
           </van-skeleton>
           <keep-alive>
-            <AuthorCard v-if="artwork.author" :id="artwork.author.id" :key="artwork.id" @loaded="a => maybeAiAuthor = a.maybeAiAuthor" />
+            <AuthorCard v-if="artwork.author" :id="artwork.author.id" :key="artwork.id" @author-change="v => maybeAiAuthor = v" />
           </keep-alive>
         </div>
       </div>

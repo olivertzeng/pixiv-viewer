@@ -88,6 +88,9 @@ export default {
     },
     ...mapGetters(['isCensored']),
   },
+  activated() {
+    this.checkAiAuthor()
+  },
   mounted() {
     this.init()
   },
@@ -100,9 +103,8 @@ export default {
       const res = await api.getMemberArtwork(id)
       if (res.status === 0) {
         this.memberArtwork = res.data
-        const { length } = res.data.filter(e => e.illust_ai_type == 2 || e.tags?.some(t => t.name.startsWith('AI')))
-        console.log('ai arts length: ', length)
-        this.$emit('loaded', { maybeAiAuthor: length >= 5 })
+        this.checkAiAuthor()
+        // this.$emit('loaded')
         const i = res.data.findIndex(e => e.id == this.$route.params.id)
         i && this.$nextTick(() => {
           this.$refs.mySwiper?.$swiper?.slideTo(i)
@@ -113,6 +115,11 @@ export default {
           icon: require('@/icons/error.svg'),
         })
       }
+    },
+    checkAiAuthor() {
+      const { length } = (this.memberArtwork || []).filter(e => e.illust_ai_type == 2 || e.tags?.some(t => t.name.startsWith('AI')))
+      console.log('----------------ai arts: ', length)
+      this.$emit('author-change', length >= 5)
     },
     toArtwork(id) {
       this.setGalleryList(this.memberArtwork)

@@ -324,7 +324,6 @@ export default {
         await loadScript('https://lib.baomitu.com/pako/2.1.0/pako_deflate.min.js')
         await loadScript('https://lib.baomitu.com/upng-js/2.1.0/UPNG.min.js')
       }
-      await this.$nextTick()
 
       this.$toast(this.$t('tip.down_wait'))
       await sleep(1000)
@@ -335,7 +334,7 @@ export default {
       canvas.height = height
       const ctx = canvas.getContext('2d', { willReadFrequently: true })
 
-      const images = []
+      let images = []
       const delays = []
       Object.values(this.ugoira.frames).forEach(frame => {
         ctx.drawImage(frame.bmp, 0, 0)
@@ -345,6 +344,8 @@ export default {
 
       const pngFile = window.UPNG.encode(images, width, height, 0, delays)
       const blob = new Blob([pngFile], { type: 'image/vnd.mozilla.apng' })
+
+      images = null
 
       FileSaver.saveAs(
         blob,

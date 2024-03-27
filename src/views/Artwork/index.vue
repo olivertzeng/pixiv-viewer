@@ -114,6 +114,7 @@ export default {
         { name: 'ZIP', subname: i18n.t('artwork.download.zip') },
         { name: 'GIF', subname: i18n.t('artwork.download.gif') },
         { name: 'WebM', subname: i18n.t('artwork.download.webm') }, // chrome only
+        { name: 'APNG', subname: i18n.t('artwork.download.webm') },
         { name: 'MP4', subname: i18n.t('LC7_PMpEgK-L5fx7s4TBv') },
         { name: 'Other', subname: i18n.t('artwork.download.mp4') },
       ],

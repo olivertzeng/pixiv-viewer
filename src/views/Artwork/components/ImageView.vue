@@ -19,7 +19,7 @@
         size="mini"
         @click="checkAI(url.l)"
       >
-        Check AI
+        AI Check
       </van-button>
       <img
         v-if="lazy"
@@ -73,7 +73,7 @@ import tsWhammy from 'ts-whammy'
 import FileSaver from 'file-saver'
 import api from '@/api'
 import { LocalStorage } from '@/utils/storage'
-import { sleep } from '@/utils'
+import { sleep, loadScript } from '@/utils'
 
 const imgResSel = LocalStorage.get('PXV_DTL_IMG_RES', navigator.userAgent.includes('Mobile') ? 'Medium' : 'Large')
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
@@ -185,7 +185,7 @@ export default {
         forbidClick: true,
       })
       try {
-        const resp = await fetch(`https://nx.cocomi.eu.org/api/ai-image-detect?url=${url}`)
+        const resp = await fetch(`https://hibi-nx.pixiv.pics/api/ai-image-detect?url=${url}`)
         const json = await resp.json()
         loading.clear()
         Dialog.alert({
@@ -318,6 +318,39 @@ export default {
         `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.zip`
       )
     },
+    // ref: https://github.com/xuejianxianzun/PixivBatchDownloader/blob/master/src/ts/ConvertUgoira/ToAPNG.ts
+    async downloadAPNG() {
+      if (!window.UPNG) {
+        await loadScript('https://lib.baomitu.com/pako/2.1.0/pako_deflate.min.js')
+        await loadScript('https://lib.baomitu.com/upng-js/2.1.0/UPNG.min.js')
+      }
+      await this.$nextTick()
+
+      this.$toast(this.$t('tip.down_wait'))
+      await sleep(1000)
+
+      const { width, height } = this.artwork
+      const canvas = document.createElement('canvas')
+      canvas.width = width
+      canvas.height = height
+      const ctx = canvas.getContext('2d', { willReadFrequently: true })
+
+      const images = []
+      const delays = []
+      Object.values(this.ugoira.frames).forEach(frame => {
+        ctx.drawImage(frame.bmp, 0, 0)
+        images.push(ctx.getImageData(0, 0, width, height).data.buffer)
+        delays.push(frame.delay)
+      })
+
+      const pngFile = window.UPNG.encode(images, width, height, 0, delays)
+      const blob = new Blob([pngFile], { type: 'image/vnd.mozilla.apng' })
+
+      FileSaver.saveAs(
+        blob,
+        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.apng`
+      )
+    },
     async downloadWebM() {
       if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
         this.$toast({
@@ -416,12 +449,16 @@ export default {
           this.downloadWebM()
           break
 
+        case 'APNG':
+          this.downloadAPNG()
+          break
+
         case 'MP4':
-          window.open(`https://ugoira-mp4.cocomi.eu.org/${this.artwork.id}`, '_blank')
+          window.open(`https://ugoira-mp4-dl.pixiv.pics/${this.artwork.id}`, '_blank', 'noopener')
           break
 
         case 'Other':
-          window.open(`https://ugoira.pixiv.pics/?id=${this.artwork.id}`, '_blank', 'noopener noreferrer')
+          window.open(`https://ugoira.pixiv.pics/?id=${this.artwork.id}`, '_blank', 'noopener')
           break
 
         default:

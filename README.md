@@ -180,6 +180,12 @@ ABC=DEF
 - [Cloudflare Workers](https://workers.cloudflare.com/)：图像反代服务
 - [Vercel](https://vercel.com/)：提供页面托管服务
 
+## Disclaimer
+
+本项目与 pixiv.net (ピクシブ株式会社) 无任何关系，所有作品的版权均为 Pixiv 或其原作者所有。
+
+仅供交流与学习。
+
 ## LICENSE
 
 [![MIT License Copyright (c) 2020 Jad](https://img.shields.io/github/license/journey-ad/pixiv-viewer)](https://github.com/asadahimeka/pixiv-viewer/blob/master/LICENSE)

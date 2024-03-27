@@ -1,12 +1,5 @@
 <script>
-function loadScript(src) {
-  return new Promise(resolve => {
-    const script = document.createElement('script')
-    script.src = src
-    script.addEventListener('load', () => { resolve() }, false)
-    document.head.appendChild(script)
-  })
-}
+import { loadScript } from '@/utils'
 
 export default {
   props: {

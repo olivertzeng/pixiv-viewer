@@ -435,6 +435,7 @@ export default {
       window.umami?.track('importSettings')
       const input = document.createElement('input')
       input.type = 'file'
+      input.accept = '.txt'
       input.style.display = 'none'
       input.onchange = async e => {
         try {

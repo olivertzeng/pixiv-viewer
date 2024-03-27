@@ -136,6 +136,12 @@ This project uses [Vue I18n](https://kazupon.github.io/vue-i18n/) for internatio
 - [Cloudflare Workers](https://workers.cloudflare.com/)
 - [Vercel](https://vercel.com/)
 
+## Disclaimer
+
+This project has nothing to do with pixiv.net (ピクシブ株式会社). The copyright of all works belongs to Pixiv or its original author.
+
+For communication and learning only.
+
 ## LICENSE
 
 [![MIT License Copyright (c) 2020 Jad](https://img.shields.io/github/license/journey-ad/pixiv-viewer)](https://github.com/asadahimeka/pixiv-viewer/blob/master/LICENSE)

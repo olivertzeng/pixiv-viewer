@@ -138,9 +138,11 @@ This project uses [Vue I18n](https://kazupon.github.io/vue-i18n/) for internatio
 
 ## Disclaimer
 
-This project has nothing to do with pixiv.net (ピクシブ株式会社). The copyright of all works belongs to Pixiv or its original author.
+This project has no affiliation with pixiv.net(ピクシブ株式会社).
 
-For communication and learning only.
+The copyright of all artworks presented in this project(Website/APP) belongs to Pixiv or its original authors.
+
+This project is for communication and learning only and may not be used for any commercial purposes.
 
 ## LICENSE
 

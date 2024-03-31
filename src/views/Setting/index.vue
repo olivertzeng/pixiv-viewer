@@ -75,6 +75,9 @@ export default {
         today.isBefore(dayjs(e.end).endOf('day'))
       )
       console.log('this.notice: ', this.notice)
+      if (this.notice.style) {
+        document.head.insertAdjacentHTML('beforeend', `<style>${this.notice.style}</style>`)
+      }
     } catch (err) {
       console.log('err: ', err)
     }

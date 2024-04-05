@@ -127,3 +127,9 @@ export function loadScript(src) {
     document.head.appendChild(script)
   })
 }
+
+export function isSafari() {
+  const ua = navigator.userAgent
+  if (!/Chrome/i.test(ua) && /Safari/i.test(ua)) return true
+  return false
+}

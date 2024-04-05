@@ -2,7 +2,7 @@
   <div
     ref="view"
     class="novel-view"
-    :class="{ shrink: isShrink, loaded: artwork.images, censored: isCensored(artwork) }"
+    :class="{ shrink: isShrink, loaded: artwork.images, censored }"
     :style="{ backgroundColor: textConfig.bg }"
     @click="showFull"
   >
@@ -53,6 +53,9 @@ export default {
   },
   computed: {
     ...mapGetters(['isCensored']),
+    censored() {
+      return this.isCensored(this.artwork)
+    },
     getImgUrl() {
       return this.artwork.images?.[0]?.m || ''
     },

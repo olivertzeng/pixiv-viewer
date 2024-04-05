@@ -2,17 +2,17 @@
   <div
     ref="view"
     class="image-view"
-    :class="{ shrink: isShrink, loaded: artwork.images, censored: isCensored(artwork) }"
+    :class="{ shrink: isShrink, loaded: artwork.images, censored }"
     @click="showFull"
   >
     <div
       v-for="(url, index) in artwork.images"
       :key="index"
       class="image-box"
-      :style="index === 0 ? { width: `${displayWidth}px`, height: `${displayWidth / (artwork.width / artwork.height)}px` } : null"
     >
+      <!-- :style="index === 0 ? { width: `${displayWidth}px`, height: `${displayWidth / (artwork.width / artwork.height)}px` } : null" -->
       <!-- :style="{height: `${(375/artwork.width*artwork.height).toFixed(2)}px`}" -->
-      <van-button
+      <!-- <van-button
         v-if="artwork.illust_ai_type != 2 && maybeAiAuthor"
         class="check-ai-btn"
         color="linear-gradient(to right, #ff758c 0%, #ff7eb3 100%)"
@@ -20,24 +20,24 @@
         @click="checkAI(url.l)"
       >
         AI Check
-      </van-button>
+      </van-button> -->
+      <!-- v-if="lazy" -->
       <img
-        v-if="lazy"
         v-lazy="getImgUrl(url)"
         v-longpress="isLongpressDL?e => downloadArtwork(e, index):null"
         :alt="`${artwork.title} - Page ${index + 1}`"
         class="image"
-        @click.stop="view(index, isCensored(artwork))"
+        @click.stop="view(index)"
         @contextmenu="preventContext"
       >
-      <img
+      <!-- <img
         v-else
         :src="getImgUrl(url)"
         :alt="`${artwork.title} - Page ${index + 1}`"
         class="image"
         :style="{ width: displayWidth, height: ((artwork.width / displayWidth) * artwork.height) * (artwork.width / artwork.height) }"
         @click.stop="view(index, isCensored(artwork))"
-      >
+      > -->
       <canvas
         v-if="artwork.type === 'ugoira'"
         id="ugoira"
@@ -84,19 +84,19 @@ export default {
       type: Object,
       required: true,
     },
-    lazy: {
-      type: Boolean,
-      default: true,
-    },
-    maybeAiAuthor: {
-      type: Boolean,
-      default: false,
-    },
+    // lazy: {
+    //   type: Boolean,
+    //   default: true,
+    // },
+    // maybeAiAuthor: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
   data() {
     return {
-      displayWidth: 0,
-      displayHeight: 0,
+      // displayWidth: 0,
+      // displayHeight: 0,
       isShrink: false,
       ugoira: null,
       ugoiraPlaying: false,
@@ -111,6 +111,9 @@ export default {
       return this.artwork.images.map(url => url.o)
     },
     ...mapGetters(['isCensored']),
+    censored() {
+      return this.isCensored(this.artwork)
+    },
   },
   watch: {
     artwork(val) {
@@ -134,8 +137,8 @@ export default {
       }
       return urlMap[imgResSel] || urls.l
     },
-    view(index, censored) {
-      if (censored) {
+    view(index) {
+      if (this.censored) {
         this.$toast({
           message: this.$t('common.content.hide'),
           icon: require('@/icons/ban-view.svg'),
@@ -179,25 +182,25 @@ export default {
     showFull() {
       if (this.isShrink) this.isShrink = false
     },
-    async checkAI(url) {
-      const loading = this.$toast.loading({
-        message: this.$t('tips.loading'),
-        forbidClick: true,
-      })
-      try {
-        const resp = await fetch(`https://hibi-nx.pixiv.pics/api/ai-image-detect?url=${url}`)
-        const json = await resp.json()
-        loading.clear()
-        Dialog.alert({
-          title: this.$t('bJ1fo_0HLdA1bWDIic_CT'),
-          message: this.$t('fSITk3ygQ7rxjm0lDUoSV', [(json.data.probability * 100).toFixed(1)]),
-          theme: 'round-button',
-        })
-      } catch (err) {
-        loading.clear()
-        this.$toast('Error: ' + err.message)
-      }
-    },
+    // async checkAI(url) {
+    //   const loading = this.$toast.loading({
+    //     message: this.$t('tips.loading'),
+    //     forbidClick: true,
+    //   })
+    //   try {
+    //     const resp = await fetch(`https://hibi-nx.pixiv.pics/api/ai-image-detect?url=${url}`)
+    //     const json = await resp.json()
+    //     loading.clear()
+    //     Dialog.alert({
+    //       title: this.$t('bJ1fo_0HLdA1bWDIic_CT'),
+    //       message: this.$t('fSITk3ygQ7rxjm0lDUoSV', [(json.data.probability * 100).toFixed(1)]),
+    //       theme: 'round-button',
+    //     })
+    //   } catch (err) {
+    //     loading.clear()
+    //     this.$toast('Error: ' + err.message)
+    //   }
+    // },
     async ugoiraMetadata() {
       const res = await api.ugoiraMetadata(this.artwork.id)
       if (res.status === 0) {
@@ -436,7 +439,7 @@ export default {
       gif.render()
     },
     download(type) {
-      // window.umami?.track('download_ugoira', { dl_type: type })
+      window.umami?.track('download_ugoira', { dl_type: type })
       switch (type) {
         case 'ZIP':
           this.downloadZIP()
@@ -485,9 +488,8 @@ export default {
     init() {
       this.resetUgoira()
       this.$nextTick(() => {
-        this.displayWidth = document.getElementById('app').getBoundingClientRect().width
-        this.displayHeight =
-          this.displayWidth / (this.artwork.width / this.artwork.height)
+        // this.displayWidth = document.getElementById('app').getBoundingClientRect().width
+        // this.displayHeight = this.displayWidth / (this.artwork.width / this.artwork.height)
         setTimeout(() => {
           if (this.artwork.images && this.artwork.images.length >= 3) {
             this.isShrink = true
@@ -512,6 +514,7 @@ export default {
   }
 
   &.loaded {
+    width: 100%;
     min-height: unset;
   }
 

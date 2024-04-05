@@ -66,7 +66,7 @@
         @contextmenu="preventContext"
       >UID:{{ artwork.author.id }}<Icon name="copy" style="margin-left: 1px;" /></span>
     </div>
-    <ul class="tag-list" :class="{ censored: isCensored(artwork) }">
+    <ul class="tag-list" :class="{ censored }">
       <li v-if="isAiIllust">
         <van-tag class="x_tag" size="large" color="#FFB11B">{{ $t('common.ai_gen') }}</van-tag>
       </li>
@@ -94,13 +94,13 @@
     <div :class="{ shrink: isShrink }" @click="isShrink = false">
       <div
         class="caption"
-        :class="{ censored: isCensored(artwork) }"
+        :class="{ censored }"
         @click.stop.prevent="handleClick($event)"
         v-html="artwork.caption"
       ></div>
       <Icon v-if="isShrink" class="dropdown" name="dropdown" scale="4" />
     </div>
-    <div v-if="!isNovel " class="meta_btns" :class="{ censored: isCensored(artwork) }">
+    <div v-if="!isNovel " class="meta_btns" :class="{ censored }">
       <van-button
         v-if="isLoggedIn"
         size="small"
@@ -157,7 +157,7 @@ import { mapGetters } from 'vuex'
 import FileSaver from 'file-saver'
 import dayjs from 'dayjs'
 import { Dialog } from 'vant'
-import { copyText, sleep } from '@/utils'
+import { copyText, sleep, isSafari } from '@/utils'
 import { i18n } from '@/i18n'
 import { isIllustBookmarked, addBookmark, removeBookmark } from '@/api/user'
 import { localApi } from '@/api'
@@ -208,6 +208,9 @@ export default {
   },
   computed: {
     ...mapGetters(['isCensored', 'isLoggedIn']),
+    censored() {
+      return this.isCensored(this.artwork)
+    },
     showTranslatedTags() {
       return i18n.locale.includes('zh')
     },
@@ -234,8 +237,7 @@ export default {
     },
   },
   mounted() {
-    const ua = navigator.userAgent
-    if (!/Chrome/i.test(ua) && /Safari/i.test(ua)) return
+    if (isSafari()) return
     this.$nextTick(() => {
       setTimeout(() => {
         this.drawMask()

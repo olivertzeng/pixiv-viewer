@@ -9,7 +9,7 @@
       <img
         v-lazy="imgSrc"
         class="image"
-        :class="{ censored: isCensored(artwork) }"
+        :class="{ censored }"
         :alt="artwork.title"
       >
       <div class="tag-r18-ai">
@@ -118,6 +118,9 @@ export default {
       }
     },
     ...mapGetters(['isCensored']),
+    censored() {
+      return this.isCensored(this.artwork)
+    },
   },
   async mounted() {
     if ((this.mode == 'all' || this.mode == 'cover') && this.showBookmarkBtn) {

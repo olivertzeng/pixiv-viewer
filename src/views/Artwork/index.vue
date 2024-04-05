@@ -1,5 +1,5 @@
 <template>
-  <div class="artwork">
+  <div class="artwork" :class="{ isSafari }">
     <TopBar />
     <div class="share_btn" @click="share">
       <Icon class="icon" name="share" />
@@ -13,7 +13,7 @@
       <div class="ia-cont">
         <div class="ia-left">
           <van-loading v-if="loading" size="50px" />
-          <ImageView ref="imgView" :artwork="artwork" :lazy="true" :maybe-ai-author="maybeAiAuthor" @open-download="ugoiraDownloadPanelShow = true" />
+          <ImageView ref="imgView" :artwork="artwork" @open-download="ugoiraDownloadPanelShow = true" />
         </div>
         <div class="ia-right">
           <van-skeleton class="skeleton" title avatar :row="5" row-width="200px" avatar-size="42px" :loading="loading">
@@ -66,7 +66,7 @@ import api from '@/api'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import _ from 'lodash'
 import { i18n } from '@/i18n'
-import { copyText } from '@/utils'
+import { copyText, isSafari } from '@/utils'
 import IconLink from '@/assets/images/share-sheet-link.png'
 import IconQQ from '@/assets/images/share-sheet-qq.png'
 import IconQrcode from '@/assets/images/share-sheet-qrcode.png'
@@ -132,6 +132,7 @@ export default {
       ],
       disableSwipe: !LocalStorage.get('PXV_IMG_DTL_SWIPE', false),
       maybeAiAuthor: false,
+      isSafari: isSafari(),
     }
   },
   head() {
@@ -368,11 +369,6 @@ img[src*="/api/qrcode?text"]
     box-sizing border-box
     overflow hidden
 
-.artwork
-  ::v-deep .top-bar-wrap
-    width 2rem
-    background none
-
 @media screen and (max-width: 1200px)
   .ia-cont
     display block !important
@@ -393,5 +389,21 @@ img[src*="/api/qrcode?text"]
     padding-right 0 !important
     .artwork-meta
       margin-top 10px !important
+
+.artwork
+  ::v-deep .top-bar-wrap
+    width 2rem
+    background none
+  &.isSafari
+    .image-view.loaded
+      min-height auto
+    .ia-right ::v-deep .artwork-meta
+      padding 20px 30px 40px
+      background #f5f5f5
+      border-radius 20px
+      @media screen and (max-width: 1200px)
+        margin 0.26667rem 0.13333rem !important
+      .shrink::after
+        background: linear-gradient(to top, #f5f5f5, rgba(255,255,255,0));
 
 </style>

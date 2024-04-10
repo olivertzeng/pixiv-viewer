@@ -162,6 +162,7 @@ import { i18n } from '@/i18n'
 import { isIllustBookmarked, addBookmark, removeBookmark } from '@/api/user'
 import { localApi } from '@/api'
 import { toggleBookmarkCache } from '@/utils/storage/siteCache'
+import { isAiIllust } from '@/utils/filter'
 
 export default {
   filters: {
@@ -215,7 +216,7 @@ export default {
       return i18n.locale.includes('zh')
     },
     isAiIllust() {
-      return this.artwork.illust_ai_type == 2 || !!this.artwork.tags?.some(e => e.name.startsWith('AI'))
+      return isAiIllust(this.artwork)
     },
   },
   watch: {

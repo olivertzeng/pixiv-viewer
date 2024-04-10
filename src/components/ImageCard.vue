@@ -60,6 +60,7 @@ import { mapGetters } from 'vuex'
 import { localApi } from '@/api'
 import { LocalStorage } from '@/utils/storage'
 import { getCache, toggleBookmarkCache } from '@/utils/storage/siteCache'
+import { isAiIllust } from '@/utils/filter'
 
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
 const isLongpressBlock = LocalStorage.get('PXV_LONGPRESS_BLOCK', false)
@@ -106,7 +107,7 @@ export default {
       return this.artwork.images[0].m
     },
     isAiIllust() {
-      return this.artwork.illust_ai_type == 2 || !!this.artwork.tags?.some(e => e.name.startsWith('AI'))
+      return isAiIllust(this.artwork)
     },
     tagText() {
       if (this.artwork.x_restrict == 1) {

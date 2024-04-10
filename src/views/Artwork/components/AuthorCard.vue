@@ -41,6 +41,7 @@ import ImageCard from '@/components/ImageCard'
 import ImageSlide from '@/components/ImageSlide'
 import { mapActions, mapGetters } from 'vuex'
 import api from '@/api'
+import { isAiIllust } from '@/utils/filter'
 export default {
   components: {
     ImageCard,
@@ -117,7 +118,7 @@ export default {
       }
     },
     checkAiAuthor() {
-      const { length } = (this.memberArtwork || []).filter(e => e.illust_ai_type == 2 || e.tags?.some(t => t.name.startsWith('AI')))
+      const { length } = (this.memberArtwork || []).filter(isAiIllust)
       console.log('----------------ai arts: ', length)
       this.$emit('author-change', length >= 5)
     },

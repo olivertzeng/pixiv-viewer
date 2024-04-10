@@ -11,9 +11,9 @@ const DEF_API_HOSTS = {
 
 async function setApiHosts(config) {
   console.log('config: ', config)
-  globalThis.p_api_hosts = DEF_API_HOSTS
+  window.p_api_hosts = DEF_API_HOSTS
   // if (config.apiHosts) {
-  //   globalThis.p_api_hosts = config.apiHosts
+  //   window.p_api_hosts = config.apiHosts
   //   return
   // }
   // try {
@@ -23,15 +23,15 @@ async function setApiHosts(config) {
   //   })
   //   const { data } = res.data.Answer[0]
   //   console.log('dns answer: ', data)
-  //   globalThis.p_api_hosts = {
+  //   window.p_api_hosts = {
   //     [OAUTH_DOMAIN]: data,
   //     [API_DOMAIN]: data,
   //   }
-  //   config.apiHosts = globalThis.p_api_hosts
+  //   config.apiHosts = window.p_api_hosts
   //   PixivAuth.writeConfig(config)
   // } catch (err) {
   //   console.log('setApiHosts err: ', err)
-  //   globalThis.p_api_hosts = DEF_API_HOSTS
+  //   window.p_api_hosts = DEF_API_HOSTS
   // }
 }
 
@@ -39,7 +39,7 @@ async function prepare() {
   const config = PixivAuth.readConfig()
   if (!PixivAuth.checkConfig(config)) throw new Error('Not login.')
   if (config.useApiProxy) {
-    globalThis.p_api_proxy = config.apiProxy || DEF_API_PROXY
+    window.p_api_proxy = config.apiProxy || DEF_API_PROXY
   } else if (config.directMode) {
     await setApiHosts(config)
   }

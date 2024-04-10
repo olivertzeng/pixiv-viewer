@@ -56,7 +56,6 @@ Download: ⏬ [App Center](https://install.appcenter.ms/users/yumine/apps/pixiv-
 - [PixivNow](https://now.pixiv.pics/ranking)
 - [PixivMoe](https://moe.pixiv.pics)
 - [PixivLxns](https://lxns.pixiv.pics)
-- [PIXID](https://pixid.top/ranking.php)
 - [pixivic](https://pixivic.com)
 - [vilipix](https://www.vilipix.com/ranking)
 - [moeview](https://moeview.pixiv.pics)

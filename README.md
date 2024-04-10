@@ -100,7 +100,6 @@ https://github.com/asadahimeka/pixiv-viewer/issues
 - [PixivNow](https://now.pixiv.pics/ranking)
 - [PixivMoe](https://moe.pixiv.pics)
 - [PixivLxns](https://lxns.pixiv.pics)
-- [PIXID](https://pixid.top/ranking.php)
 - [pixivic](https://pixivic.com)
 - [vilipix](https://www.vilipix.com/ranking)
 - [moeview](https://moeview.pixiv.pics)
@@ -160,6 +159,8 @@ ABC=DEF
 ### 是否有 iOS App
 
 目前只有 Android 与 Windows 版本，均为 Webview 套壳，下载：[Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
+
+iOS 与 macOS 版本排期中……（ ~~鸽了~~
 
 ### Android 版本点击下载就闪退
 

@@ -1,5 +1,20 @@
 import axios from 'axios'
 
+export function throttleScroll(el, downFn, upFn) {
+  let position = el.scrollTop
+  let ticking = false
+  return function (arg) {
+    if (ticking) return
+    ticking = true
+    window.requestAnimationFrame(() => {
+      const scroll = el.scrollTop
+      scroll > position ? downFn?.(scroll, arg) : upFn?.(scroll, arg)
+      position = scroll
+      ticking = false
+    })
+  }
+}
+
 function fallbackCopyTextToClipboard(text, cb, errCb) {
   const textArea = document.createElement('textarea')
   textArea.value = text
@@ -132,4 +147,11 @@ export function isSafari() {
   const ua = navigator.userAgent
   if (!/Chrome/i.test(ua) && /Safari/i.test(ua)) return true
   return false
+}
+
+export function randomBg() {
+  const getRandomRangeNum = (min, max) => min + Math.floor(Math.random() * (max - min))
+  const leftHue = getRandomRangeNum(0, 360)
+  const bottomHue = getRandomRangeNum(0, 360)
+  return `linear-gradient(to right bottom,hsl(${leftHue}, 100%, 90%) 0%,hsl(${bottomHue}, 100%, 90%) 100%)`
 }

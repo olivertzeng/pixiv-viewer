@@ -98,6 +98,13 @@
       label="https://wotaku.moe/"
       @click="openLink('https://wotaku.moe/')"
     />
+    <van-cell
+      center
+      title="AnimeGarden - Anime Torrent aggregation site"
+      is-link
+      label="https://garden.onekuma.cn/"
+      @click="openLink('https://garden.onekuma.cn/')"
+    />
   </div>
 </template>
 

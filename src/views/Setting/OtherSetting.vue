@@ -171,7 +171,7 @@ export default {
       apiProxySel: {
         show: false,
         actions: APP_API_PROXYS.split(',').map((_value, i) => {
-          return { name: `Proxy ${i} (${_value.split(/[.-]/)[0]})`, _value }
+          return { name: `Proxy ${i} (${_value.split('.')[0]})`, _value }
         }),
       },
       pximgBed: {

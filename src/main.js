@@ -6,23 +6,24 @@ import './polyfill'
 import './registerServiceWorker'
 
 import { init } from 'console-ban'
-import Vant, { Dialog, ImagePreview, Lazyload, Notify, Toast } from 'vant'
 import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueMasonry from 'vue-masonry-css'
 import VueMeta from 'vue-meta'
+import Vant, { Dialog, ImagePreview, Lazyload, Notify, Toast } from 'vant'
 
-import App from './App.vue'
-import { getActionMap } from './api/client/action'
-import ImageLayout from './components/ImageLayout.vue'
-import TopBar from './components/TopBar'
-import { getSelectedLang, i18n, initLocale } from './i18n'
 import SvgIcon from './icons'
+import ImageLayout from './components/ImageLayout.vue'
+import TopBar from './components/TopBar.vue'
+// import Pximg from './components/DirectPximg.vue'
+import App from './App.vue'
 import router from './router'
 import store from './store'
 import longpress from './directives/longpress'
-import { initBookmarkCache } from './utils/storage/siteCache'
 import { LocalStorage } from './utils/storage'
+import { getSelectedLang, i18n, initLocale } from './i18n'
+import { getActionMap } from './api/client/action'
+import { initBookmarkCache } from './utils/storage/siteCache'
 
 setupApp()
 
@@ -59,6 +60,7 @@ async function setupApp() {
 
   Vue.component('WfCont', ImageLayout)
   Vue.component('TopBar', TopBar)
+  // Vue.component('Pximg', Pximg)
 
   Vue.config.productionTip = false
 

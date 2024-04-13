@@ -92,14 +92,14 @@ export default {
 
 .back_to_top
   position fixed
-  bottom .72rem
-  right .22rem
+  bottom 40PX
+  right 20PX
   z-index 999
   display: flex;
   align-items: center;
   justify-content: center;
-  width .8rem
-  height .8rem
+  width 40PX
+  height 40PX
   cursor: pointer;
   color #fff
   border-radius 50%
@@ -109,7 +109,7 @@ export default {
   background-color rgba(241, 194, 95, 0.9)
 
   ::v-deep .van-icon
-    font-size .39rem
+    font-size 24PX
     font-weight 600
 
   &--show

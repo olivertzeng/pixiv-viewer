@@ -231,10 +231,8 @@ export default {
       }
       // console.log(this.ugoira);
       this.progressShow = true
-      let zipUrl = ugoira.zip
-      if (zipUrl.includes('i-cf.pximg.net')) zipUrl = zipUrl.replace('i-cf.pximg.net', 'i.pixiv.re')
       axios
-        .get(zipUrl, {
+        .get(ugoira.zip, {
           responseType: 'blob',
           timeout: 1000 * 60,
           onDownloadProgress: progress => {

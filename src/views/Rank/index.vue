@@ -70,6 +70,7 @@ import _ from 'lodash'
 import api from '@/api'
 import { i18n } from '@/i18n'
 import { LocalStorage } from '@/utils/storage'
+import { isAiIllust } from '@/utils/filter'
 
 const getRankMenus = () => ({
   daily: { name: i18n.t('rank.day'), io: 'day', cat: '0' },
@@ -109,6 +110,7 @@ const getRankCatActions = () => getRankCatLabels().map((e, i) => ({ text: e, _v:
 
 const isHideManga = LocalStorage.get('PXV_HIDE_RANK_MANGA', false)
 const AUTHORS_NO_TYPE_MANGA = [19585163, 16776564, 1453344, 18923, 18688682, 16106315]
+const AUTHORS_NO_TYPE_AI = [10758107, 88598928, 31909437, 21470736]
 
 export default {
   name: 'Rank',
@@ -227,6 +229,13 @@ export default {
           }
           if (!this.menu[this.curType]?.x) {
             artList = artList.filter(e => !/R-?18|18\+/i.test(JSON.stringify(e.tags)))
+          }
+          if (!this.menu[this.curType]?.ai) {
+            artList = artList.filter(e => {
+              if (isAiIllust(e)) return false
+              if (AUTHORS_NO_TYPE_AI.includes(+e.author.id)) return false
+              return true
+            })
           }
           this.artList = artList
           this.curPage++

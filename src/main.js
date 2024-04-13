@@ -42,14 +42,6 @@ async function setupApp() {
     lazyComponent: true,
     loading: require('@/icons/loading.svg'),
     preload: 1.5,
-    adapter: {
-      error(evt) {
-        const src = evt.src
-        if (!src?.includes('i-cf.pximg.net')) return
-        if (!/\/artworks\/|\/spotlight\//i.test(location.href)) evt.el.src = ''
-        evt.el.src = src.replace('i-cf.pximg.net', 'i.pixiv.re')
-      },
-    },
   })
   Vue.use(Vant)
   Vue.use(VueAwesomeSwiper)

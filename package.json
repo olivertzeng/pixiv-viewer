@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@vant/touch-emulator": "1.4.0",
-    "axios": "0.27.2",
+    "axios": "0.28.1",
     "console-ban": "5.0.0",
     "core-js": "3.36.0",
     "crypto-js": "4.2.0",

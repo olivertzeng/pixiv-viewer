@@ -350,7 +350,6 @@ export default {
     async changePximgBed() {
       const url = `https://${this.pximgBed.value}`
       const res = await this.checkURL(url, () => {
-        if (url == 'https://i-cf.pximg.net') return true
         return checkImgAvailable(`${url}/user-profile/img/2022/02/03/15/54/20/22159592_fce9f5c7a908c9b601dc7e9da7a412a3_50.jpg?_t=${Date.now()}`)
       })
       if (!res) return

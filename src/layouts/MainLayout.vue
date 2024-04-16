@@ -109,7 +109,7 @@ export default {
   background-color rgba(241, 194, 95, 0.9)
 
   ::v-deep .van-icon
-    font-size 24PX
+    font-size 22PX
     font-weight 600
 
   &--show

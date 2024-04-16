@@ -319,7 +319,7 @@
       "manual_input": "Ingrese manualmente el enlace proxy/API",
       "manual_input_label": "Si las direcciones de instancia de API y proxy de las imágenes siguientes se ingresan manualmente",
       "swipe_toggle": "Deslícese hacia la izquierda o hacia la derecha en la página de detalles para alternar obras de arte",
-      "title": "Otros ajustes"
+      "title": "Preferencias"
     },
     "recomm": {
       "app": "Aplicaciones",
@@ -415,5 +415,6 @@
   "bJ1fo_0HLdA1bWDIic_CT": "Para tu información",
   "fSITk3ygQ7rxjm0lDUoSV": "Existe un {0} % de probabilidad de que este trabajo haya sido generado por IA.",
   "Wc3yMDMSkHUhoGx22bsP8": "Importar ajustes",
-  "Bi5BpYwKhUhWcm_RueGZN": "Exportar configuración"
+  "Bi5BpYwKhUhWcm_RueGZN": "Exportar configuración",
+  "psoXLFqv51j1SeKjTbnms": "Acentuar el color"
 }

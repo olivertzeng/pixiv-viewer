@@ -226,7 +226,7 @@
     "other": {
       "lang": "Langue",
       "lang_ph": "Veuillez sélectionner la langue",
-      "title": "Autres réglages",
+      "title": "Préférences",
       "manual_input_label": "Si les adresses de proxy et d'instance d'API des images ci-dessous sont saisies manuellement",
       "manual_input": "Saisissez manuellement le lien proxy/API",
       "api_proxy": {
@@ -415,5 +415,6 @@
   "bJ1fo_0HLdA1bWDIic_CT": "Pour votre information",
   "fSITk3ygQ7rxjm0lDUoSV": "Il y a une probabilité de {0} % que ce travail ait été généré par l'IA.",
   "Wc3yMDMSkHUhoGx22bsP8": "Importer les configurations",
-  "Bi5BpYwKhUhWcm_RueGZN": "Paramètres d'exportation"
+  "Bi5BpYwKhUhWcm_RueGZN": "Paramètres d'exportation",
+  "psoXLFqv51j1SeKjTbnms": "Couleur d'accentuation"
 }

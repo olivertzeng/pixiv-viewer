@@ -224,7 +224,7 @@
       "title": "画像一覧のレイアウト選択"
     },
     "other": {
-      "title": "その他の設定",
+      "title": "環境設定",
       "lang": "言語",
       "lang_ph": "言語を選択してください",
       "manual_input_label": "以下の画像のプロキシおよび API インスタンスのアドレスが手動で入力されているかどうか",
@@ -415,5 +415,6 @@
   "bJ1fo_0HLdA1bWDIic_CT": "結果は参考用です",
   "fSITk3ygQ7rxjm0lDUoSV": "この作品が AI によって生成された確率は {0}% です。",
   "Wc3yMDMSkHUhoGx22bsP8": "設定のインポート",
-  "Bi5BpYwKhUhWcm_RueGZN": "設定のエクスポート"
+  "Bi5BpYwKhUhWcm_RueGZN": "設定のエクスポート",
+  "psoXLFqv51j1SeKjTbnms": "アクセントの色"
 }

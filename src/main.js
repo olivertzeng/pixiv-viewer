@@ -1,5 +1,6 @@
 // import 'swiper/css/swiper.css'
 import '@/assets/style/base.styl'
+import '@/assets/style/theme.styl'
 
 import '@vant/touch-emulator'
 import './polyfill'
@@ -12,7 +13,7 @@ import VueMasonry from 'vue-masonry-css'
 import VueMeta from 'vue-meta'
 import Vant, { Dialog, ImagePreview, Lazyload, Notify, Toast } from 'vant'
 
-import SvgIcon from './icons'
+import SvgIcon, { loadingSvg } from './icons'
 import ImageLayout from './components/ImageLayout.vue'
 import TopBar from './components/TopBar.vue'
 // import Pximg from './components/DirectPximg.vue'
@@ -40,7 +41,7 @@ async function setupApp() {
   Vue.use(Lazyload, {
     // observer: true,
     lazyComponent: true,
-    loading: require('@/icons/loading.svg'),
+    loading: localStorage.PXV_ACT_COLOR ? loadingSvg(localStorage.PXV_ACT_COLOR) : require('@/icons/loading.svg'),
     preload: 1.5,
   })
   Vue.use(Vant)
@@ -112,7 +113,7 @@ async function checkBrowser() {
     Notify({
       message,
       color: '#fff',
-      background: '#f1c25f',
+      background: localStorage.PXV_ACT_COLOR || '#f1c25f',
       duration: 2500,
     })
     return true
@@ -122,7 +123,7 @@ async function checkBrowser() {
     Notify({
       message,
       color: '#fff',
-      background: '#f1c25f',
+      background: localStorage.PXV_ACT_COLOR || '#f1c25f',
       duration: 2500,
     })
   }

@@ -33,6 +33,7 @@ import SettingAbout from '@/views/Setting/About.vue'
 import SettingFAQ from '@/views/Setting/FAQ.vue'
 import SettingDisclaimer from '@/views/Setting/Disclaimer.vue'
 import SettingDownApp from '@/views/Setting/DownloadApp.vue'
+import SettingAccentColor from '@/views/Setting/AccentColor.vue'
 import Recommend from '@/views/Setting/Recommend.vue'
 import Artwork from '@/views/Artwork/index.vue'
 import Novel from '@/views/Artwork/Novel.vue'
@@ -260,6 +261,12 @@ const routes = [
             path: '/setting/recommend',
             name: 'SettingRecommend',
             component: Recommend,
+            meta: { __depth: 2 },
+          },
+          {
+            path: '/setting/accent_color',
+            name: 'SettingAccentColor',
+            component: SettingAccentColor,
             meta: { __depth: 2 },
           },
           {

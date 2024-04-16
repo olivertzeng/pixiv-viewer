@@ -226,7 +226,7 @@
     "other": {
       "lang": "語言",
       "lang_ph": "請選擇語言",
-      "title": "其他設置",
+      "title": "偏好設定",
       "manual_input": "手動輸入代理/API鏈接",
       "manual_input_label": "下方圖片代理與 API 實例地址是否手動輸入",
       "api_proxy": {
@@ -415,5 +415,6 @@
   "bJ1fo_0HLdA1bWDIic_CT": "結果僅供參考",
   "fSITk3ygQ7rxjm0lDUoSV": "此作品有 {0}% 的可能性是由 AI 產生的。",
   "Wc3yMDMSkHUhoGx22bsP8": "導入設定",
-  "Bi5BpYwKhUhWcm_RueGZN": "匯出設定"
+  "Bi5BpYwKhUhWcm_RueGZN": "匯出設定",
+  "psoXLFqv51j1SeKjTbnms": "應用強調色"
 }

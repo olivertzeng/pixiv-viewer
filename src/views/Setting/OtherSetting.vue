@@ -46,10 +46,15 @@
         <van-switch v-model="hideApSelect" size="24" />
       </template>
     </van-cell>
-    <van-cell v-if="hideApSelect" center :title="$t('setting.img_proxy.title')" is-link :label="pximgBed.value" @click="pximgBed.show = true" />
+    <van-cell v-if="hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title')" is-link :label="pximgBed.value" @click="pximgBed.show = true" />
     <van-cell v-if="!appConfig.useLocalAppApi && hideApSelect" center :title="$t('setting.api.title')" is-link :label="hibiapi.value" @click="hibiapi.show = true" />
-    <van-cell v-if="!hideApSelect" center :title="$t('setting.img_proxy.title2')" is-link :label="pximgBedLabel" @click="pximgBed_.show = true" />
+    <van-cell v-if="!hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title2')" is-link :label="pximgBedLabel" @click="pximgBed_.show = true" />
     <van-cell v-if="!appConfig.useLocalAppApi && !hideApSelect" center :title="$t('setting.api.title2')" is-link :label="hibiapiLabel" @click="hibiapi_.show = true" />
+    <van-cell center :title="$t('lGZGzwfWz9tW_KQey3AmQ')" :label="$t('setting.lab.title')">
+      <template #right-icon>
+        <van-switch :value="isDirectPximg" size="24" @change="setDirectPximg" />
+      </template>
+    </van-cell>
     <template v-if="appConfig.useLocalAppApi">
       <van-cell v-if="isHelperInst" center :title="$t('setting.other.direct_mode.title')" :label="$t('setting.other.direct_mode.label')">
         <template #right-icon>
@@ -245,6 +250,7 @@ export default {
       isLongpressBlock: LocalStorage.get('PXV_LONGPRESS_BLOCK', false),
       isImageCardOuterMeta: LocalStorage.get('PXV_IMG_META_OUTER', false),
       isImageFitScreen: LocalStorage.get('PXV_IMG_FIT_SCREEN', true),
+      isDirectPximg: LocalStorage.get('PXV_PXIMG_DIRECT', false),
     }
   },
   head() {
@@ -285,6 +291,26 @@ export default {
         location.reload()
       }, 500)
     },
+    async setDirectPximg(val) {
+      if (val) {
+        const res = await Dialog.confirm({
+          title: this.$t('nTsgCnGYm8FSVMfe-TQSN'),
+          message: this.$t('YeEO8hAsoM45pm_vcijKP'),
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+        })
+        if (res == 'cancel') return
+        if (!this.isHelperInst) {
+          Dialog.alert({
+            message: this.$t('9omPI2Fz4KzKSVNlmF8-K'),
+            confirmButtonText: this.$t('common.confirm'),
+          })
+          return
+        }
+      }
+      this.isDirectPximg = val
+      this.saveSetting('PXV_PXIMG_DIRECT', val)
+    },
     async setDirectMode(val) {
       if (val) {
         const res = await Dialog.confirm({
@@ -294,11 +320,12 @@ export default {
           cancelButtonText: this.$t('common.cancel'),
         })
         if (res == 'cancel') return
-        window.umami?.track('setDirectMode')
+        window.umami?.track('setDirectMode', { val })
         this.appConfig.directMode = true
         await this.$nextTick()
         await this.saveConfig()
       } else {
+        window.umami?.track('setDirectMode', { val })
         this.appConfig.directMode = false
         await this.$nextTick()
         await this.saveConfig()

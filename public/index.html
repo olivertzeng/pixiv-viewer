@@ -25,7 +25,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Pixiv Viewer","alternateName":"Pxve","url":"https://pixiv.pics/"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://pixiv.pics/","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pixiv.pics/search/{search_term_string}"},"query-input":"required name=search_term_string"}}</script>
   <script src="<%= BASE_URL %>static/js/flexible.min.js"></script>
-  <script>if(!localStorage.PXV_DARK&&localStorage.PXV_THEME)document.documentElement.classList.add('custom_theme','t_'+localStorage.PXV_THEME);</script>
+  <script>if(!localStorage.PXV_DARK&&localStorage.PXV_THEME)document.documentElement.classList.add('custom_theme','t_'+localStorage.PXV_THEME);document.documentElement.style.setProperty('--accent-color',localStorage.PXV_ACT_COLOR);</script>
   <% if (process.env.NODE_ENV === 'production' && process.env.VUE_APP_GA_ID) { %>
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= process.env.VUE_APP_GA_ID %>"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','<%= process.env.VUE_APP_GA_ID %>',{transport_type:'beacon'});</script>

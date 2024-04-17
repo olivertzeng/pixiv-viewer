@@ -6,12 +6,12 @@
       @click.stop="click(artwork.id)"
       @contextmenu="preventContext"
     >
-      <img
-        v-lazy="imgSrc"
+      <Pximg
         class="image"
+        :src="imgSrc"
         :class="{ censored }"
         :alt="artwork.title"
-      >
+      />
       <div class="tag-r18-ai">
         <van-tag v-if="index">#{{ index }}</van-tag>
         <van-tag v-if="tagText" :color="tagText === 'R-18' ? '#fb7299' : '#ff3f3f'">{{ tagText }}</van-tag>
@@ -35,7 +35,7 @@
         <div v-if="!isOuterMeta" class="content">
           <h2 class="title" :title="artwork.title">{{ artwork.title }}</h2>
           <div class="author-cont">
-            <img :src="artwork.author.avatar" :alt="artwork.author.name" class="avatar" @error="onAvatarErr">
+            <Pximg :src="artwork.author.avatar" :alt="artwork.author.name" nobg class="avatar" />
             <div class="author">{{ artwork.author.name }}</div>
           </div>
         </div>
@@ -45,7 +45,7 @@
       <div class="content">
         <h2 class="title" :title="artwork.title">{{ artwork.title }}</h2>
         <div class="author-cont">
-          <img :src="artwork.author.avatar" :alt="artwork.author.name" class="avatar" @error="onAvatarErr">
+          <Pximg :src="artwork.author.avatar" :alt="artwork.author.name" nobg class="avatar" />
           <div class="author">{{ artwork.author.name }}</div>
         </div>
       </div>
@@ -130,19 +130,19 @@ export default {
     }
   },
   methods: {
-    onAvatarErr() {
-      const src = this.artwork.author.avatar
-      if (!src) return
-      if (src.includes('i.pixiv.re')) return
-      try {
-        const u = new URL(src)
-        u.host = 'i.pixiv.re'
-        // eslint-disable-next-line vue/no-mutating-props
-        this.artwork.author.avatar = u.href
-      } catch (error) {
-        console.log('error: ', error)
-      }
-    },
+    // onAvatarErr() {
+    //   const src = this.artwork.author.avatar
+    //   if (!src) return
+    //   if (src.includes('i.pixiv.re')) return
+    //   try {
+    //     const u = new URL(src)
+    //     u.host = 'i.pixiv.re'
+    //     // eslint-disable-next-line vue/no-mutating-props
+    //     this.artwork.author.avatar = u.href
+    //   } catch (error) {
+    //     console.log('error: ', error)
+    //   }
+    // },
     async toggleBookmark() {
       if (this.bLoading) return
       this.bLoading = true

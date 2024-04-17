@@ -73,42 +73,6 @@
     background transparent
     text-decoration underline
 
-  .setting .app-title
-    img
-      display none
-    &-desc
-      position relative
-      padding-left 1.2rem
-      &::before
-        content ''
-        position absolute
-        top 50%
-        left 0
-        width: 0.9rem
-        height: 0.9rem
-        transform translateY(-50%)
-
-  .setting:has(.user_data)
-    .app-title-desc
-      padding-left 0
-      &::before
-        display none
-
-  .Home .home-title
-    &::before
-      content ''
-      position absolute
-      top 50%
-      left 0
-      width: 0.8rem
-      height: 0.8rem
-      transform translateY(-50%)
-    .app-logo
-      display none
-    .app-title
-      position relative
-      padding-left 0.9rem
-
   .image-card .bookmark
     padding 0.12rem !important
     filter none !important
@@ -127,11 +91,55 @@
     .app-main:has(.setting-page)
       border-top 4PX solid var(--accent-color)
 
+.custom_theme:not(.t_Tomori,.t_Anon,.t_Soyo,.t_Taki,.t_Rana)
+  .com_sel_tab.cur
+    color #fff
+  #app .nav a.cur,
+  .user-container .user-tabs .van-tag--mark,
+  .search .search-bar-wrap .search-bar-word .word,
+  .Following .van-tab--active .van-tab__text
+    color #fefefe !important
+  .search .search-bar-wrap .search-bar-word .word .text
+    border-color #fefefe !important
 
-
+.t_Tomori,.t_Anon,.t_Soyo,.t_Taki,.t_Rana
+  .search .search-bar-wrap .search-bar-word .word .text
+    border-color #fefefe !important
+  .setting .app-title
+    img
+      display none
+    &-desc
+      position relative
+      padding-left 1.2rem
+      &::before
+        content ''
+        position absolute
+        top 50%
+        left 0
+        width: 0.9rem
+        height: 0.9rem
+        transform translateY(-50%)
+  .setting:has(.user_data)
+    .app-title-desc
+      padding-left 0
+      &::before
+        display none
+  .Home .home-title
+    &::before
+      content ''
+      position absolute
+      top 50%
+      left 0
+      width: 0.8rem
+      height: 0.8rem
+      transform translateY(-50%)
+    .app-logo
+      display none
+    .app-title
+      position relative
+      padding-left 0.9rem
 
 .t_Anon
-  --accent-color #ff8899
   .com_sel_tab.cur
     color #fff
   .setting .app-title-desc::before,
@@ -142,11 +150,9 @@
   .search .search-bar-wrap .search-bar-word .word,
   .Following .van-tab--active .van-tab__text
     color #fefefe !important
-  .search .search-bar-wrap .search-bar-word .word .text
-    border-color #fefefe !important
 
 .t_Soyo
-  --accent-color darken(#FFDD88, 20%)
+  --accent-color darken(#FFDD88, 20%) !important
   .setting .app-title-desc::before,
   .Home .home-title::before
     background url("https://upload-bbs.miyoushe.com/upload/2024/04/17/190122060/212be2d3f873cfea44529289d4c85cc2_4715623065945558825.png") no-repeat center / contain
@@ -155,13 +161,10 @@
   .search .search-bar-wrap .search-bar-word .word,
   .Following .van-tab--active .van-tab__text
     color #333 !important
-  .search .search-bar-wrap .search-bar-word .word .text
-    border-color #fefefe !important
   #app .artwork-meta .tag-list .tag
     text-shadow 1PX 1PX rgba(0,0,0,0.1)
 
 .t_Taki
-  --accent-color #7777AA
   .com_sel_tab.cur
     color #fff
   .setting .app-title-desc::before,
@@ -172,11 +175,8 @@
   .search .search-bar-wrap .search-bar-word .word,
   .Following .van-tab--active .van-tab__text
     color #fefefe !important
-  .search .search-bar-wrap .search-bar-word .word .text
-    border-color #fefefe !important
 
 .t_Tomori
-  --accent-color #77BBDD
   .setting .app-title-desc::before,
   .Home .home-title::before
     background url("https://upload-bbs.miyoushe.com/upload/2024/04/17/190122060/32ef5e5e1cf7f5fc9b9c223fbf9f2712_3178960435287605206.png") no-repeat center / contain
@@ -185,14 +185,11 @@
   .search .search-bar-wrap .search-bar-word .word,
   .Following .van-tab--active .van-tab__text
     color #333 !important
-  .search .search-bar-wrap .search-bar-word .word .text
-    border-color #fefefe !important
   #app .artwork-meta .tag-list .tag
     font-weight 600
     text-shadow 1PX 1PX rgba(0,0,0,0.01)
 
 .t_Rana
-  --accent-color #77DD77
   .setting .app-title-desc::before,
   .Home .home-title::before
     background url("https://upload-bbs.miyoushe.com/upload/2024/04/17/190122060/7535cd28469e887d37e3a5139d2894fa_8353360825500089988.png") no-repeat center / contain
@@ -201,34 +198,10 @@
   .search .search-bar-wrap .search-bar-word .word,
   .Following .van-tab--active .van-tab__text
     color #333 !important
-  .search .search-bar-wrap .search-bar-word .word .text
-    border-color #fefefe !important
   #app .artwork-meta .tag-list .tag
     font-weight bold
     text-shadow 1PX 1PX rgba(0,0,0,0.05)
 
-.t_MyGO
-  --accent-color #3388BB
-  .com_sel_tab.cur
-    color #fff
-  .setting
-    .app-title img
-      display inline-block
-    .app-title-desc
-      padding-left 0
-      &::before
-        display none
-  .Home .home-title
-    .app-title
-      padding-left 0
-    .app-logo
-      display inline-block
-    &::before
-      display none
-  #app .nav a.cur,
-  .user-container .user-tabs .van-tag--mark,
-  .search .search-bar-wrap .search-bar-word .word,
-  .Following .van-tab--active .van-tab__text
-    color #fefefe !important
-  .search .search-bar-wrap .search-bar-word .word .text
-    border-color #fefefe !important
+.t_LuoTianyi
+  #app .artwork-meta .tag-list .tag
+    text-shadow 1PX 1PX rgba(0,0,0,0.05)

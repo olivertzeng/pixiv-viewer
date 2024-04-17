@@ -16,7 +16,7 @@ import Vant, { Dialog, ImagePreview, Lazyload, Notify, Toast } from 'vant'
 import SvgIcon, { loadingSvg } from './icons'
 import ImageLayout from './components/ImageLayout.vue'
 import TopBar from './components/TopBar.vue'
-// import Pximg from './components/DirectPximg.vue'
+import Pximg from './components/DirectPximg.vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -53,7 +53,7 @@ async function setupApp() {
 
   Vue.component('WfCont', ImageLayout)
   Vue.component('TopBar', TopBar)
-  // Vue.component('Pximg', Pximg)
+  Vue.component('Pximg', Pximg)
 
   Vue.config.productionTip = false
 

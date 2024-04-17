@@ -7,7 +7,7 @@
         class="user_info"
         @click="toArtwork(u.id)"
       >
-        <img class="user_avatar" :src="u.avatar" alt="">
+        <Pximg nobg class="user_avatar" :src="u.avatar" alt="" />
         <div class="user_name">{{ u.name }}</div>
         <div
           class="cover"

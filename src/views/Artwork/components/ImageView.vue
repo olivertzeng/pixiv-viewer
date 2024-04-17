@@ -22,14 +22,15 @@
         AI Check
       </van-button> -->
       <!-- v-if="lazy" -->
-      <img
-        v-lazy="getImgUrl(url)"
+      <Pximg
         v-longpress="isLongpressDL?e => downloadArtwork(e, index):null"
+        :src="getImgUrl(url)"
         :alt="`${artwork.title} - Page ${index + 1}`"
         class="image"
-        @click.stop="view(index)"
-        @contextmenu="preventContext"
-      >
+        nobg
+        @click.native.stop="view(index)"
+        @contextmenu.native="preventContext"
+      />
       <!-- <img
         v-else
         :src="getImgUrl(url)"

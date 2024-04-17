@@ -8,11 +8,11 @@
         </div>
         <div v-if="userInfo.id" class="info-container">
           <div class="bg-cover" :class="{ hasbgcover: !!userInfo.bgcover }">
-            <img v-lazy="userInfo.bgcover || userInfo.avatar" :class="{ nobg: !userInfo.bgcover }" :alt="userInfo.name">
+            <Pximg :src="userInfo.bgcover || userInfo.avatar" :class="{ nobg: !userInfo.bgcover }" :alt="userInfo.name" />
           </div>
           <div class="info">
             <div class="avatar">
-              <img :src="userInfo.avatar" :alt="userInfo.name">
+              <Pximg :src="userInfo.avatar" :alt="userInfo.name" />
             </div>
             <h2 class="name">
               <div class="user_name">

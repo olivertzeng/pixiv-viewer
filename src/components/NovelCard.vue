@@ -1,7 +1,7 @@
 <template>
   <div class="novel-card" @click.stop="click(artwork.id)">
     <div class="img-cont">
-      <img v-lazy="imgSrc" :alt="artwork.title" class="image" :class="{ censored }">
+      <Pximg :src="imgSrc" :alt="artwork.title" class="image" :class="{ censored }" />
     </div>
     <div class="meta" :class="{ censored }">
       <div v-if="artwork.series && artwork.series.id" class="series">{{ artwork.series.title }}</div>

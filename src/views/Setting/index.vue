@@ -19,7 +19,7 @@
     <van-cell v-if="isLoggedIn" size="large" center is-link :to="`/u/${user.id}`">
       <template #title>
         <div class="user_data">
-          <img v-lazy="user.profileImg" width="50" height="50" alt="">
+          <Pximg :src="user.profileImg" nobg width="50" height="50" alt="" />
           <div>
             <div>{{ user.name }}</div>
             <div style="color: #999">@{{ user.pixivId }}</div>

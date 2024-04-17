@@ -53,7 +53,6 @@ export default {
   },
   methods: {
     revokeURL() {
-      console.log('revokeURL: ', this.localSrc)
       if (this.localSrc?.startsWith('blob:')) {
         URL.revokeObjectURL(this.localSrc)
       }

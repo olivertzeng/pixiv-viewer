@@ -1,13 +1,16 @@
 <template>
-  <img :class="{'fadeIn':!loading}" :src="directSrc" :style="bgStyle" :lazy="lazy" :alt="alt">
+  <img v-if="direct" :class="{'fadeIn':!loading}" :src="directSrc" :style="bgStyle" :lazy="lazy" :alt="alt" @load="revokeURL">
+  <img v-else v-lazy="src" :alt="alt">
 </template>
 
 <script>
 import { loadingSvg as loadSvg } from '@/icons'
+import { LocalStorage } from '@/utils/storage'
 import { randomBg } from '@/utils'
 
 const loadingSvg = localStorage.PXV_ACT_COLOR ? loadSvg(localStorage.PXV_ACT_COLOR) : require('@/icons/loading.svg')
 const defSrc = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
+const direct = LocalStorage.get('PXV_PXIMG_DIRECT', false)
 
 export default {
   name: 'DirectPximg',
@@ -27,6 +30,7 @@ export default {
   },
   data() {
     return {
+      direct,
       loading: true,
       localSrc: '',
     }
@@ -45,14 +49,15 @@ export default {
     },
   },
   mounted() {
-    this.setObserver()
-  },
-  destroyed() {
-    if (this.localSrc?.startsWith('blob:')) {
-      URL.revokeObjectURL(this.localSrc)
-    }
+    if (this.direct) this.setObserver()
   },
   methods: {
+    revokeURL() {
+      console.log('revokeURL: ', this.localSrc)
+      if (this.localSrc?.startsWith('blob:')) {
+        URL.revokeObjectURL(this.localSrc)
+      }
+    },
     setObserver() {
       const options = {
         rootMargin: '0px 50px 50px 0px',

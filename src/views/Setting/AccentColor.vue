@@ -5,7 +5,10 @@
     <div class="color-list">
       <div v-for="c in colors" :key="c.name" class="color-item" @click="saveActColor(c)">
         <div class="color-bg" :style="{background:c.color}">{{ c.color }}</div>
-        <div class="color-name" :style="{color:c.color}">{{ c.name }}</div>
+        <div class="color-name" :style="{color:c.color}">
+          <span v-if="c.color == actColor">✅</span>
+          <span>{{ c.name }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -28,6 +31,7 @@ export default {
   data() {
     return {
       colors,
+      actColor: localStorage.PXV_ACT_COLOR,
     }
   },
   head() {

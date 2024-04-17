@@ -159,7 +159,7 @@ import { i18n } from '@/i18n'
 import { checkImgAvailable, checkUrlAvailable, copyText, isURL, readTextFile } from '@/utils'
 import { mintVerify } from '@/utils/filter'
 import localDb from '@/utils/storage/localDb'
-import { getCache, setCache } from '@/utils/storage/siteCache'
+// import { getCache, setCache } from '@/utils/storage/siteCache'
 import { LocalStorage, SessionStorage } from '@/utils/storage'
 import { APP_API_PROXYS, DEF_HIBIAPI_MAIN, DEF_PXIMG_MAIN, HIBIAPI_ALTS, PXIMG_PROXYS } from '@/consts'
 
@@ -359,6 +359,16 @@ export default {
       this.saveSetting('PXIMG_PROXY', this.pximgBed.value)
     },
     async changePximgBed_({ _value }) {
+      // this.pximgBed_.value = _value
+      // SessionStorage.clear()
+      // await localDb.clear()
+      // this.saveSetting('PXIMG_PROXY', _value)
+
+      const url = `https://${_value}`
+      const res = await this.checkURL(url, () => {
+        return checkImgAvailable(`${url}/user-profile/img/2022/02/03/15/54/20/22159592_fce9f5c7a908c9b601dc7e9da7a412a3_50.jpg?_t=${Date.now()}`)
+      })
+      if (!res) return
       this.pximgBed_.value = _value
       SessionStorage.clear()
       await localDb.clear()
@@ -375,6 +385,15 @@ export default {
       this.saveSetting('HIBIAPI_BASE', this.hibiapi.value)
     },
     async changeHibiapi_({ _value }) {
+      // this.hibiapi_.value = _value
+      // SessionStorage.clear()
+      // await localDb.clear()
+      // this.saveSetting('HIBIAPI_BASE', _value)
+
+      const res = await this.checkURL(_value, () => {
+        return checkUrlAvailable(`${_value}/rank?_t=${Date.now()}`)
+      })
+      if (!res) return
       this.hibiapi_.value = _value
       SessionStorage.clear()
       await localDb.clear()
@@ -511,66 +530,66 @@ export default {
       }
     },
     async checkApiAvailable() {
-      const ck = 'setting.apiChk'
-      const isChk = await getCache(ck, false)
-      this.apiChecked = isChk
-      if (isChk) return
-      this.hibiapi_.actions.forEach(async e => {
-        this.$set(e, 'loading', true)
-        const startTime = Date.now()
-        try {
-          const resp = await fetch(`${e._value}/rank?_t=${startTime}`)
-          if (!resp.ok) throw new Error('Resp not ok.')
-          const duration = (Date.now() - startTime) / 1000
-          this.$set(e, 'subname', `${duration}s`)
-          this.$set(e, 'loading', false)
-          if (duration > 1) {
-            this.$set(e, 'color', 'grey')
-          } else if (duration < 0.5) {
-            this.$set(e, 'color', 'green')
-          } else {
-            this.$set(e, 'color', 'orange')
-          }
-        } catch (error) {
-          this.$set(e, 'loading', false)
-          this.$set(e, 'subname', '-1ms')
-          this.$set(e, 'color', 'red')
-        }
-      })
-      setCache(ck, true, 60 * 60 * 6)
+      // const ck = 'setting.apiChk'
+      // const isChk = await getCache(ck, false)
+      // this.apiChecked = isChk
+      // if (isChk) return
+      // this.hibiapi_.actions.forEach(async e => {
+      //   this.$set(e, 'loading', true)
+      //   const startTime = Date.now()
+      //   try {
+      //     const resp = await fetch(`${e._value}/rank?_t=${startTime}`)
+      //     if (!resp.ok) throw new Error('Resp not ok.')
+      //     const duration = (Date.now() - startTime) / 1000
+      //     this.$set(e, 'subname', `${duration}s`)
+      //     this.$set(e, 'loading', false)
+      //     if (duration > 1) {
+      //       this.$set(e, 'color', 'grey')
+      //     } else if (duration < 0.5) {
+      //       this.$set(e, 'color', 'green')
+      //     } else {
+      //       this.$set(e, 'color', 'orange')
+      //     }
+      //   } catch (error) {
+      //     this.$set(e, 'loading', false)
+      //     this.$set(e, 'subname', '-1ms')
+      //     this.$set(e, 'color', 'red')
+      //   }
+      // })
+      // setCache(ck, true, 60 * 60 * 6)
     },
     async checkImgAvailable() {
-      const ck = 'setting.imgChk'
-      const isChk = await getCache(ck, false)
-      this.pximgChecked = isChk
-      if (isChk) return
-      this.pximgBed_.actions.forEach(async e => {
-        this.$set(e, 'loading', true)
-        const startTime = Date.now()
-        let img = document.createElement('img')
-        img.referrerPolicy = 'no-referrer'
-        img.src = `https://${e._value}/user-profile/img/2022/02/03/15/54/20/22159592_fce9f5c7a908c9b601dc7e9da7a412a3_50.jpg?_t=${startTime}`
-        img.onload = () => {
-          const duration = (Date.now() - startTime) / 1000
-          this.$set(e, 'subname', `${duration}s`)
-          this.$set(e, 'loading', false)
-          if (duration > 1) {
-            this.$set(e, 'color', '#969799')
-          } else if (duration < 0.5) {
-            this.$set(e, 'color', 'green')
-          } else {
-            this.$set(e, 'color', 'orange')
-          }
-          img = null
-        }
-        img.onerror = () => {
-          this.$set(e, 'loading', false)
-          this.$set(e, 'subname', '-1ms')
-          this.$set(e, 'color', 'red')
-          img = null
-        }
-      })
-      setCache(ck, true, 60 * 60 * 6)
+      // const ck = 'setting.imgChk'
+      // const isChk = await getCache(ck, false)
+      // this.pximgChecked = isChk
+      // if (isChk) return
+      // this.pximgBed_.actions.forEach(async e => {
+      //   this.$set(e, 'loading', true)
+      //   const startTime = Date.now()
+      //   let img = document.createElement('img')
+      //   img.referrerPolicy = 'no-referrer'
+      //   img.src = `https://${e._value}/user-profile/img/2022/02/03/15/54/20/22159592_fce9f5c7a908c9b601dc7e9da7a412a3_50.jpg?_t=${startTime}`
+      //   img.onload = () => {
+      //     const duration = (Date.now() - startTime) / 1000
+      //     this.$set(e, 'subname', `${duration}s`)
+      //     this.$set(e, 'loading', false)
+      //     if (duration > 1) {
+      //       this.$set(e, 'color', '#969799')
+      //     } else if (duration < 0.5) {
+      //       this.$set(e, 'color', 'green')
+      //     } else {
+      //       this.$set(e, 'color', 'orange')
+      //     }
+      //     img = null
+      //   }
+      //   img.onerror = () => {
+      //     this.$set(e, 'loading', false)
+      //     this.$set(e, 'subname', '-1ms')
+      //     this.$set(e, 'color', 'red')
+      //     img = null
+      //   }
+      // })
+      // setCache(ck, true, 60 * 60 * 6)
     },
   },
 }

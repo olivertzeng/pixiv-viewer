@@ -4,6 +4,13 @@
     <h3 class="af_title">{{ $t('setting.down_app') }}</h3>
     <van-cell
       center
+      title="Github Releases"
+      is-link
+      label="Github:asadahimeka/pixiv-viewer"
+      @click="openLink('https://github.com/asadahimeka/pixiv-viewer/releases')"
+    />
+    <van-cell
+      center
       title="Android"
       is-link
       label="Go to App Center"
@@ -11,17 +18,10 @@
     />
     <van-cell
       center
-      title="Windows (App Center)"
+      title="Windows"
       is-link
       label="Go to App Center"
       @click="openLink('https://install.appcenter.ms/users/yumine/apps/pxve/distribution_groups/public')"
-    />
-    <van-cell
-      center
-      title="Windows (Github Releases)"
-      is-link
-      label="Github:asadahimeka/pixiv-viewer"
-      @click="openLink('https://github.com/asadahimeka/pixiv-viewer/releases')"
     />
   </div>
 </template>

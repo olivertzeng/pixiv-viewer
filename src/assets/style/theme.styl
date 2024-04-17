@@ -52,9 +52,12 @@
   .Following .van-tab--active .van-tab__text
     background var(--accent-color)
 
+  #nprogress .bar
+    background-color: var(--accent-color)
+
   .van-radio__icon--checked .van-icon,
   .van-calendar__confirm.van-button,
-  .setting-page .van-button,
+  .setting-page .van-cell .van-button,
   #app .setting-page .van-switch--on
     background var(--accent-color) !important
     border-color var(--accent-color) !important
@@ -119,6 +122,12 @@
     background-image: url('~@/assets/images/calendar_op0.png')
     .date
       color var(--accent-color)
+
+  @media screen and (max-width: 500px)
+    .app-main:has(.setting-page)
+      border-top 4PX solid var(--accent-color)
+
+
 
 
 .t_Anon

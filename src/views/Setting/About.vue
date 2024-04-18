@@ -67,12 +67,29 @@
         @click="openLink('https://www.nanoka.top/say/pxve_comments.html')"
       />
     </van-cell-group>
+    <van-cell-group v-if="backSites" title="备用站点">
+      <van-cell
+        v-for="s in backSites"
+        :key="s"
+        center
+        :title="`https://${s}`"
+        is-link
+        @click="openLink(`https://${s}`)"
+      />
+    </van-cell-group>
   </div>
 </template>
 
 <script>
+import { BACKUP_DOMAINS } from '@/consts'
+
 export default {
   name: 'SettingAbout',
+  data() {
+    return {
+      backSites: BACKUP_DOMAINS.split(',').filter(Boolean),
+    }
+  },
   head() {
     return { title: this.$t('about.title') }
   },

@@ -26,49 +26,49 @@
       title="Pixiviz Kai"
       is-link
       label="https://z.pixiv.pics"
-      @click="openLink('https://z.pixiv.pics')"
+      @click="openLink('https://pixiviz.cocomi.eu.org')"
     />
     <van-cell
       center
       title="Pixivel Kai"
       is-link
       label="https://pxelk.pixiv.pics"
-      @click="openLink('https://pxelk.pixiv.pics')"
+      @click="openLink('https://pxelk.cocomi.eu.org')"
     />
     <van-cell
       center
       title="PixivNow Kai"
       is-link
-      label="https://now.pixiv.pics"
-      @click="openLink('https://now.pixiv.pics')"
+      label="https://pixiv-now.cocomi.eu.org"
+      @click="openLink('https://pixiv-now.cocomi.eu.org')"
     />
     <van-cell
       center
       title="pixiv萌え改"
       is-link
       label="https://moe.pixiv.pics"
-      @click="openLink('https://moe.pixiv.pics')"
+      @click="openLink('https://pixivmoe.cocomi.eu.org')"
     />
     <van-cell
       center
       title="PixivLxns"
       is-link
       label="https://lxns.pixiv.pics"
-      @click="openLink('https://lxns.pixiv.pics')"
+      @click="openLink('https://pixivlxns.cocomi.eu.org')"
     />
     <van-cell
       center
       title="Moeview"
       is-link
       label="https://moeview.pixiv.pics"
-      @click="openLink('https://moeview.pixiv.pics')"
+      @click="openLink('https://moeview.cocomi.eu.org')"
     />
     <van-cell
       center
       title="Booru Masonry"
       is-link
       label="https://booru.pixiv.pics"
-      @click="openLink('https://booru.pixiv.pics')"
+      @click="openLink('https://booru.cocomi.eu.org')"
     />
     <van-cell
       center
@@ -82,14 +82,14 @@
       title="PixivCollection"
       is-link
       label="https://fav.pixiv.pics/"
-      @click="openLink('https://fav.pixiv.pics/')"
+      @click="openLink('https://pxc.cocomi.eu.org')"
     />
     <van-cell
       center
       title="Ugoira Converter"
       is-link
       label="https://ugoira.pixiv.pics"
-      @click="openLink('https://ugoira.pixiv.pics')"
+      @click="openLink('https://ugoira.cocomi.eu.org')"
     />
     <van-cell
       center

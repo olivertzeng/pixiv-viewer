@@ -146,7 +146,7 @@
         <iframe
           v-if="showComments"
           class="comments-iframe"
-          :src="`https://now.pixiv.pics/#/comments/${artwork.id}`"
+          :src="`https://pixiv-now.cocomi.eu.org/#/comments/${artwork.id}`"
         ></iframe>
       </van-popup>
     </div>

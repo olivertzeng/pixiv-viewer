@@ -457,11 +457,11 @@ export default {
           break
 
         case 'MP4':
-          window.open(`https://ugoira-mp4-dl.pixiv.pics/${this.artwork.id}`, '_blank', 'noopener')
+          window.open(`https://ugoira-mp4-dl.cocomi.eu.org/${this.artwork.id}`, '_blank', 'noopener')
           break
 
         case 'Other':
-          window.open(`https://ugoira.pixiv.pics/?id=${this.artwork.id}`, '_blank', 'noopener')
+          window.open(`https://ugoira.cocomi.eu.org/?id=${this.artwork.id}`, '_blank', 'noopener')
           break
 
         default:

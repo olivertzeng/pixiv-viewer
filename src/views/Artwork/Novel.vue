@@ -122,7 +122,7 @@
       <iframe
         v-if="showComments"
         class="comments-iframe"
-        :src="`https://now.pixiv.pics/#/comments/${artwork.id}?novel=1`"
+        :src="`https://pixiv-now.cocomi.eu.org/#/comments/${artwork.id}?novel=1`"
       ></iframe>
     </van-popup>
   </div>

@@ -740,7 +740,7 @@ const api = {
     let spotlights = await getCache(cacheKey)
 
     if (!spotlights) {
-      const url = 'https://now.pixiv.pics/api/pixivision'
+      const url = 'https://pixiv-now.cocomi.eu.org/api/pixivision'
       const params = { page }
       if (lang != 'zh-Hans') {
         params.lang = lang
@@ -783,7 +783,7 @@ const api = {
       if (lang != 'zh-Hans') {
         params.lang = lang
       }
-      const res = await get('https://now.pixiv.pics/api/pixivision/list', params)
+      const res = await get('https://pixiv-now.cocomi.eu.org/api/pixivision/list', params)
 
       if (res.articles) {
         res.articles.forEach(a => {
@@ -820,7 +820,7 @@ const api = {
       if (lang != 'zh-Hans') {
         params.lang = lang
       }
-      const res = await get('https://now.pixiv.pics/api/pixivision/detail', params)
+      const res = await get('https://pixiv-now.cocomi.eu.org/api/pixivision/detail', params)
 
       if (res) {
         res.related_latest?.items?.forEach(a => {
@@ -851,7 +851,7 @@ const api = {
     let spotlight = await getCache(cacheKey)
 
     if (!spotlight) {
-      const domain = 'now.pixiv.pics'
+      const domain = 'pixiv-now.cocomi.eu.org'
       const params = {}
       if (lang != 'zh-Hans') {
         params.lang = lang
@@ -898,7 +898,7 @@ const api = {
     let rankList = await getCache(cacheKey)
 
     if (!rankList) {
-      const res = await get('https://now.pixiv.pics/api/ranking', {
+      const res = await get('https://pixiv-now.cocomi.eu.org/api/ranking', {
         format: 'json',
         p: page,
         mode,
@@ -925,7 +925,7 @@ const api = {
     let rankList = await getCache(cacheKey)
 
     if (!rankList) {
-      const domain = 'now.pixiv.pics'
+      const domain = 'pixiv-now.cocomi.eu.org'
       const res = await get(`https://${domain}/api/ranking`, {
         format: 'json',
         p: page,
@@ -951,7 +951,7 @@ const api = {
   async getDiscoveryArtworks(mode = 'all', limit = 60) {
     let list
 
-    const res = await get('https://now.pixiv.pics/ajax/discovery/artworks', {
+    const res = await get('https://pixiv-now.cocomi.eu.org/ajax/discovery/artworks', {
       mode,
       limit,
       lang: 'zh',
@@ -1159,7 +1159,7 @@ const api = {
     if (!artwork) {
       let res
       if (notSelfHibiApi) {
-        res = await get(`https://now.pixiv.pics/ajax/novel/${id}.txt`).then(r => ({
+        res = await get(`https://pixiv-now.cocomi.eu.org/ajax/novel/${id}.txt`).then(r => ({
           text: r.content,
           prev: r.seriesNavData?.prev,
           next: r.seriesNavData?.next,

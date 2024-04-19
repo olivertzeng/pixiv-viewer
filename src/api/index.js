@@ -4,7 +4,7 @@ import { SessionStorage } from '@/utils/storage'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { i18n } from '@/i18n'
 import { filterCensoredIllusts } from '@/utils/filter'
-import { PXIMG_PROXY_BASE, notSelfHibiApi } from '@/consts'
+import { PXIMG_PROXY_BASE, notSelfHibiApi, PIXIV_NOW_URL } from '@/consts'
 
 const isSupportWebP = (() => {
   const elem = document.createElement('canvas')
@@ -740,7 +740,7 @@ const api = {
     let spotlights = await getCache(cacheKey)
 
     if (!spotlights) {
-      const url = 'https://pixiv-now.cocomi.eu.org/api/pixivision'
+      const url = `${PIXIV_NOW_URL}/api/pixivision`
       const params = { page }
       if (lang != 'zh-Hans') {
         params.lang = lang
@@ -783,7 +783,7 @@ const api = {
       if (lang != 'zh-Hans') {
         params.lang = lang
       }
-      const res = await get('https://pixiv-now.cocomi.eu.org/api/pixivision/list', params)
+      const res = await get(`${PIXIV_NOW_URL}/api/pixivision/list`, params)
 
       if (res.articles) {
         res.articles.forEach(a => {
@@ -820,7 +820,7 @@ const api = {
       if (lang != 'zh-Hans') {
         params.lang = lang
       }
-      const res = await get('https://pixiv-now.cocomi.eu.org/api/pixivision/detail', params)
+      const res = await get(`${PIXIV_NOW_URL}/api/pixivision/detail`, params)
 
       if (res) {
         res.related_latest?.items?.forEach(a => {
@@ -851,12 +851,11 @@ const api = {
     let spotlight = await getCache(cacheKey)
 
     if (!spotlight) {
-      const domain = 'pixiv-now.cocomi.eu.org'
       const params = {}
       if (lang != 'zh-Hans') {
         params.lang = lang
       }
-      const res = await get(`https://${domain}/api/pixivision/${id}`, params)
+      const res = await get(`${PIXIV_NOW_URL}/api/pixivision/${id}`, params)
 
       if (res) {
         res.cover = imgProxy(res.cover?.replace('i-ogp.pximg.net', 'i.pximg.net') || '')
@@ -898,7 +897,7 @@ const api = {
     let rankList = await getCache(cacheKey)
 
     if (!rankList) {
-      const res = await get('https://pixiv-now.cocomi.eu.org/api/ranking', {
+      const res = await get(`${PIXIV_NOW_URL}/api/ranking`, {
         format: 'json',
         p: page,
         mode,
@@ -925,8 +924,7 @@ const api = {
     let rankList = await getCache(cacheKey)
 
     if (!rankList) {
-      const domain = 'pixiv-now.cocomi.eu.org'
-      const res = await get(`https://${domain}/api/ranking`, {
+      const res = await get(`${PIXIV_NOW_URL}/api/ranking`, {
         format: 'json',
         p: page,
         mode,
@@ -951,7 +949,7 @@ const api = {
   async getDiscoveryArtworks(mode = 'all', limit = 60) {
     let list
 
-    const res = await get('https://pixiv-now.cocomi.eu.org/ajax/discovery/artworks', {
+    const res = await get(`${PIXIV_NOW_URL}/ajax/discovery/artworks`, {
       mode,
       limit,
       lang: 'zh',
@@ -978,7 +976,7 @@ const api = {
 
     if (nocache) params._vercel_no_cache = 1
 
-    const res = await get('/prks/now/ajax/illust/discovery', params, { baseURL: '/' })
+    const res = await get(`${PIXIV_NOW_URL}/ajax/illust/discovery`, params, { baseURL: '/' })
 
     if (res && res.illusts) {
       list = res.illusts.filter(e => !e.isAdContainer).map(e => parseWebApiIllust(e))
@@ -1159,7 +1157,7 @@ const api = {
     if (!artwork) {
       let res
       if (notSelfHibiApi) {
-        res = await get(`https://pixiv-now.cocomi.eu.org/ajax/novel/${id}.txt`).then(r => ({
+        res = await get(`${PIXIV_NOW_URL}/ajax/novel/${id}.txt`).then(r => ({
           text: r.content,
           prev: r.seriesNavData?.prev,
           next: r.seriesNavData?.next,
@@ -1240,6 +1238,45 @@ const api = {
 
       if (res.illust) {
         artwork = parseIllust(res.illust)
+        try {
+          if (artwork.images[0].o.includes('common/images/limit_sanity_level')) {
+            const [webRes, webImages] = await Promise.all([
+              get(`${PIXIV_NOW_URL}/ajax/illust/${id}?full=1`),
+              get(`${PIXIV_NOW_URL}/ajax/illust/${id}/pages`),
+            ])
+            artwork = {
+              id: webRes.illustId,
+              title: webRes.illustTitle,
+              caption: webRes.illustComment,
+              author: {
+                id: webRes.userId,
+                name: webRes.userName,
+                avatar: artwork.author.avatar,
+                is_followed: false,
+              },
+              created: webRes.createDate,
+              images: webImages.map(e => ({
+                s: imgProxy(e.urls.thumb_mini),
+                m: imgProxy(e.urls.small),
+                l: imgProxy(e.urls.regular),
+                o: imgProxy(e.urls.original),
+              })),
+              tags: webRes.tags.tags.map(e => ({ name: e.tag })),
+              width: webRes.width,
+              height: webRes.height,
+              count: webRes.pageCount,
+              view: webRes.viewCount,
+              like: webRes.bookmarkCount,
+              x_restrict: webRes.xRestrict,
+              illust_ai_type: webRes.aiType,
+              type: 'illust',
+              is_bookmarked: false,
+              series: null,
+            }
+          }
+        } catch (err) {
+          console.log('err: ', err)
+        }
         setCache(cacheKey, artwork, -1)
       } else if (res.error) {
         return {

@@ -39,8 +39,8 @@
       center
       title="PixivNow Kai"
       is-link
-      label="https://pixiv-now.cocomi.eu.org"
-      @click="openLink('https://pixiv-now.cocomi.eu.org')"
+      label="https://pxnow.cocomi.eu.org"
+      @click="openLink('https://pxnow.cocomi.eu.org')"
     />
     <van-cell
       center

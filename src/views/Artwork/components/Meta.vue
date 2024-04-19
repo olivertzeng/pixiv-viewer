@@ -146,7 +146,7 @@
         <iframe
           v-if="showComments"
           class="comments-iframe"
-          :src="`https://pixiv-now.cocomi.eu.org/#/comments/${artwork.id}`"
+          :src="`${PIXIV_NOW_URL}/#/comments/${artwork.id}`"
         ></iframe>
       </van-popup>
     </div>
@@ -164,6 +164,7 @@ import { isIllustBookmarked, addBookmark, removeBookmark } from '@/api/user'
 import { localApi } from '@/api'
 import { toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
+import { PIXIV_NOW_URL } from '@/consts'
 
 export default {
   filters: {
@@ -202,6 +203,7 @@ export default {
   },
   data() {
     return {
+      PIXIV_NOW_URL,
       isShrink: false,
       bookmarkId: null,
       favLoading: false,

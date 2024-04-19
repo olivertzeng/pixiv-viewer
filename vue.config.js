@@ -6,7 +6,11 @@ const isProduction = process.env.NODE_ENV === 'production'
 const svgIconDir = path.join(__dirname, 'src/icons/svg')
 
 const cdn = {
-  css: [],
+  css: [
+    'https://lib.baomitu.com/vant/2.12.54/index.min.css',
+    'https://lib.baomitu.com/Swiper/5.4.5/css/swiper.min.css',
+    'https://lib.baomitu.com/lxgw-wenkai-screen-webfont/1.7.0/style.min.css',
+  ],
   js: [
     'https://lib.baomitu.com/vue/2.6.14/vue.min.js',
     'https://lib.baomitu.com/vue-i18n/8.28.2/vue-i18n.min.js',
@@ -87,14 +91,14 @@ module.exports = {
       })
       .end()
 
+    config.plugin('html')
+      .tap(args => {
+        args[0].cdn = cdn
+        return args
+      })
     if (isProduction) {
       config.plugins.delete('preload')
       config.plugins.delete('prefetch')
-      config.plugin('html')
-        .tap(args => {
-          args[0].cdn = cdn
-          return args
-        })
       config.optimization.minimize(true)
       config.optimization
         .splitChunks({

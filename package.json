@@ -9,6 +9,7 @@
     "prerelease": "git add .",
     "lint": "vue-cli-service lint"
   },
+  "packageManager": "yarn@1.22.19",
   "dependencies": {
     "@vant/touch-emulator": "1.4.0",
     "axios": "0.28.1",

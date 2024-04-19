@@ -61,7 +61,7 @@ const colors = [
   { name: 'Hagumi', color: '#FF9922' },
   { name: 'Kanon', color: '#44DDFF' },
   { name: 'Misaki', color: '#006599' },
-  { name: 'Morfonica', color: '#33aaff' },
+  { name: 'Morfonica', color: '#33AAFF' },
   { name: 'Mashiro', color: '#6677CC' },
   { name: 'Touko', color: '#EE6666' },
   { name: 'Nanami', color: '#EE7744' },

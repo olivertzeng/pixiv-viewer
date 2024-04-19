@@ -122,7 +122,7 @@
       <iframe
         v-if="showComments"
         class="comments-iframe"
-        :src="`https://pixiv-now.cocomi.eu.org/#/comments/${artwork.id}?novel=1`"
+        :src="`${PIXIV_NOW_URL}/#/comments/${artwork.id}?novel=1`"
       ></iframe>
     </van-popup>
   </div>
@@ -152,6 +152,7 @@ import IconWechat from '@/assets/images/share-sheet-wechat.png'
 import IconWeibo from '@/assets/images/share-sheet-weibo.png'
 import IconTwitter from '@/assets/images/share-sheet-twi.png'
 import IconFacebook from '@/assets/images/share-sheet-facebook.png'
+import { PIXIV_NOW_URL } from '@/consts'
 
 const textConfig = LocalStorage.get('PXV_TEXT_CONFIG', {
   size: 16,
@@ -174,6 +175,7 @@ export default {
   },
   data() {
     return {
+      PIXIV_NOW_URL,
       loading: false,
       artwork: {},
       novelText: {},

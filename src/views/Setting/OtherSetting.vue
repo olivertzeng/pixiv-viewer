@@ -295,7 +295,7 @@ export default {
       if (val) {
         const res = await Dialog.confirm({
           title: this.$t('nTsgCnGYm8FSVMfe-TQSN'),
-          message: this.$t('YeEO8hAsoM45pm_vcijKP'),
+          message: `${this.$t('YeEO8hAsoM45pm_vcijKP')}<br><br><p>Tampermonkey: <a href="https://www.tampermonkey.net/" target="_blank" rel="noreferrer">tampermonkey.net</a></p><p>${this.$t('lkfd4SXJiefx26Z7vj0Au')}: <a href="https://fastly.jsdelivr.net/gh/asadahimeka/pixiv-viewer@master/public/helper/helper.user.js" target="_blank" rel="noreferrer">${this.$t('2jNIricwtCbrzEESdEbvH')}</a></p>`,
           confirmButtonText: this.$t('common.confirm'),
           cancelButtonText: this.$t('common.cancel'),
         })

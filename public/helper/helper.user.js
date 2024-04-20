@@ -1,12 +1,17 @@
 // ==UserScript==
 // @name         Pxve HTTP Helper
 // @namespace    https://www.nanoka.top
-// @version      0.2
+// @version      0.3
 // @description  HTTP helper for Pixiv-Viewer.
 // @author       asadahimeka
 // @license      MIT
 // @match        https://www.pixiv.pics/*
 // @match        https://pixiv.pics/*
+// @match        https://pxvek.cocomi.eu.org/*
+// @match        https://pksbv.169889.xyz/*
+// @match        https://pksbv.netlify.app/*
+// @match        https://pksbv.pages.dev/*
+// @match        https://pksbv.zeabur.app/*
 // @connect      pixiv.net
 // @connect      210.140.92.180
 // @connect      210.140.139.130

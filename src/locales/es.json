@@ -420,5 +420,7 @@
   "lGZGzwfWz9tW_KQey3AmQ": "Habilitar el modo de conexión directa de imagen pximg",
   "nTsgCnGYm8FSVMfe-TQSN": "¿Confirmar para habilitar el modo directo pxig?",
   "YeEO8hAsoM45pm_vcijKP": "El modo de conexión directa de pximg requiere que Tampermonkey y el script de usuario Helper estén instalados, y la velocidad puede ser más lenta y la estabilidad no está garantizada.",
-  "9omPI2Fz4KzKSVNlmF8-K": "Error: Tampermonkey o el script de usuario auxiliar no están instalados."
+  "9omPI2Fz4KzKSVNlmF8-K": "Error: Tampermonkey o el script de usuario auxiliar no están instalados.",
+  "2jNIricwtCbrzEESdEbvH": "Haga clic para instalar",
+  "lkfd4SXJiefx26Z7vj0Au": "Enlace de script de usuario auxiliar"
 }

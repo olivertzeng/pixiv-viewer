@@ -11,6 +11,7 @@
   ::-webkit-scrollbar-thumb
     background var(--accent-color)
 
+  a,
   .svg-icon,
   .setting .app-title,
   .swiper-button-prev, .swiper-button-next,
@@ -57,12 +58,17 @@
   .dark #app .Following .van-tab:not(.van-tab--active) .van-tab__text.cur
     background var(--accent-color)
 
-  #nprogress .bar
+  #nprogress .bar,
+  #app .tips code
     background-color: var(--accent-color)
+
+  #app .tips code
+    color #fff
 
   .van-radio__icon--checked .van-icon,
   .van-calendar__confirm.van-button,
   .setting-page .van-cell .van-button,
+  .af_title + .van-form .van-button[type="submit"],
   #app .setting-page .van-switch--on
     background var(--accent-color) !important
     border-color var(--accent-color) !important

@@ -54,10 +54,17 @@
     <van-cell-group :title="$t('about.feedback')">
       <van-cell
         center
-        title="Github Issues"
+        title="Github Discussions"
         is-link
         label="Github:asadahimeka/pixiv-viewer"
-        @click="openLink('https://github.com/asadahimeka/pixiv-viewer/issues')"
+        @click="openLink('https://github.com/asadahimeka/pixiv-viewer/discussions')"
+      />
+      <van-cell
+        center
+        title="Github Issues"
+        is-link
+        label="Github:asadahimeka/pixiv-viewer-apk"
+        @click="openLink('https://github.com/asadahimeka/pixiv-viewer-apk/issues')"
       />
       <van-cell
         center

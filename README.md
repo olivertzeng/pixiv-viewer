@@ -69,7 +69,7 @@
 
 ## Feedback
 
-https://github.com/asadahimeka/pixiv-viewer/issues
+https://github.com/asadahimeka/pixiv-viewer/discussions
 
 ## Preview
 
@@ -133,7 +133,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 自建的话如何预设图床与 API 实例
 
-参照 [#2](https://github.com/asadahimeka/pixiv-viewer/issues/2) 与 [#5](https://github.com/asadahimeka/pixiv-viewer/issues/5) 设置环境变量。可以在项目根目录下新建 `.env` 文件，按如下格式填入环境变量：
+参照 [#10](https://github.com/asadahimeka/pixiv-viewer/discussions/10) 与 [#13](https://github.com/asadahimeka/pixiv-viewer/discussions/13) 设置环境变量。可以在项目根目录下新建 `.env` 文件，按如下格式填入环境变量：
 
 ```env
 TEST="lalala"
@@ -152,9 +152,19 @@ ABC=DEF
 
 受限于网络环境，图片加载速度可能会比较慢。可以到设置里切换图床，或者下载 Android 版本后打开图片直连功能
 
+### 使用美国/英国 IP 无法查看某些作品
+
+见 pixiv 官方公告：https://www.pixiv.net/info.php?id=10837
+
+建议用自己的账号登录本站后再使用，并且要在官方网页端[设置](https://www.pixiv.net/setting_user.php)里面选择非美国/英国的地区，最好选择日区。
+
 ### Cookie/SessionID 登录出错
 
 建议使用 RefreshToken 方式登录
+
+### Android 版本点击下载就闪退
+
+到系统设置里给予本应用存储权限，或者下载最新版本后再进行尝试
 
 ### 是否有 iOS App
 
@@ -162,9 +172,6 @@ ABC=DEF
 
 iOS 与 macOS 版本排期中……（ ~~鸽了~~
 
-### Android 版本点击下载就闪退
-
-到系统设置里给予本应用存储权限，或者下载最新版本后再进行尝试
 
 ## Contribute
 

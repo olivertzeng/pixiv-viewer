@@ -35,6 +35,10 @@ Download: ⏬ [App Center](https://install.appcenter.ms/users/yumine/apps/pixiv-
 - [x] Dark Mode
 - [x] Swipe to toggle artworks
 
+## Feedback
+
+https://github.com/asadahimeka/pixiv-viewer/discussions
+
 ## Preview
 
 - Mobile
@@ -89,12 +93,18 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### How to preset the image proxy and API instance if you build it yourself?
 
-Refer to [#2](https://github.com/asadahimeka/pixiv-viewer/issues/2) and [#5](https://github.com/asadahimeka/pixiv-viewer/issues/5) to set up the environment variable. You can create a new `.env` file in the project root directory and fill in the environment variables in the following format:
+Refer to [#10](https://github.com/asadahimeka/pixiv-viewer/discussions/10) and [#13](https://github.com/asadahimeka/pixiv-viewer/discussions/13) to set up the environment variable. You can create a new `.env` file in the project root directory and fill in the environment variables in the following format:
 
 ```env
 TEST="lalala"
 ABC=DEF
 ```
+
+### Some artworks cannot be viewed using US/UK IP
+
+See pixiv official announcement: https://www.pixiv.net/info.php?id=10837
+
+It is recommended to log in to this site with your own account before using it, and select a non-US/UK region in the official web page [settings](https://www.pixiv.net/setting_user.php). It is best to select the Japan region.
 
 ### Keep prompting that the API exceeds the limit or Rate Limit
 

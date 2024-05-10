@@ -7,6 +7,7 @@
 // @license      MIT
 // @match        https://www.pixiv.pics/*
 // @match        https://pixiv.pics/*
+// @match        https://pixiv.orgs.hk/*
 // @match        https://pxvek.cocomi.eu.org/*
 // @match        https://pksbv.169889.xyz/*
 // @match        https://pksbv.netlify.app/*

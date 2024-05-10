@@ -4,7 +4,7 @@ import { SessionStorage } from '@/utils/storage'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { i18n } from '@/i18n'
 import { filterCensoredIllusts } from '@/utils/filter'
-import { PXIMG_PROXY_BASE, notSelfHibiApi, PIXIV_NOW_URL } from '@/consts'
+import { PXIMG_PROXY_BASE, notSelfHibiApi, PIXIV_NOW_URL, PIXIV_NEXT_URL } from '@/consts'
 
 const isSupportWebP = (() => {
   const elem = document.createElement('canvas')
@@ -740,7 +740,7 @@ const api = {
     let spotlights = await getCache(cacheKey)
 
     if (!spotlights) {
-      const url = `${PIXIV_NOW_URL}/api/pixivision`
+      const url = `${PIXIV_NEXT_URL}/api/pixivision`
       const params = { page }
       if (lang != 'zh-Hans') {
         params.lang = lang
@@ -783,7 +783,7 @@ const api = {
       if (lang != 'zh-Hans') {
         params.lang = lang
       }
-      const res = await get(`${PIXIV_NOW_URL}/api/pixivision/list`, params)
+      const res = await get(`${PIXIV_NEXT_URL}/api/pixivision/list`, params)
 
       if (res.articles) {
         res.articles.forEach(a => {
@@ -820,7 +820,7 @@ const api = {
       if (lang != 'zh-Hans') {
         params.lang = lang
       }
-      const res = await get(`${PIXIV_NOW_URL}/api/pixivision/detail`, params)
+      const res = await get(`${PIXIV_NEXT_URL}/api/pixivision/detail`, params)
 
       if (res) {
         res.related_latest?.items?.forEach(a => {
@@ -855,7 +855,7 @@ const api = {
       if (lang != 'zh-Hans') {
         params.lang = lang
       }
-      const res = await get(`${PIXIV_NOW_URL}/api/pixivision/${id}`, params)
+      const res = await get(`${PIXIV_NEXT_URL}/api/pixivision/${id}`, params)
 
       if (res) {
         res.cover = imgProxy(res.cover?.replace('i-ogp.pximg.net', 'i.pximg.net') || '')
@@ -897,7 +897,7 @@ const api = {
     let rankList = await getCache(cacheKey)
 
     if (!rankList) {
-      const res = await get(`${PIXIV_NOW_URL}/api/ranking`, {
+      const res = await get(`${PIXIV_NOW_URL}/ranking`.replace('/http', ''), {
         format: 'json',
         p: page,
         mode,
@@ -924,7 +924,7 @@ const api = {
     let rankList = await getCache(cacheKey)
 
     if (!rankList) {
-      const res = await get(`${PIXIV_NOW_URL}/api/ranking`, {
+      const res = await get(`${PIXIV_NOW_URL}/ranking`.replace('/http', ''), {
         format: 'json',
         p: page,
         mode,
@@ -954,6 +954,7 @@ const api = {
       limit,
       lang: 'zh',
       _vercel_no_cache: 1,
+      _t: Date.now(),
     })
 
     const illust = res?.thumbnails?.illust
@@ -974,7 +975,10 @@ const api = {
 
     const params = { mode, max, _anon: 1 }
 
-    if (nocache) params._vercel_no_cache = 1
+    if (nocache) {
+      params._vercel_no_cache = 1
+      params._t = Date.now()
+    }
 
     const res = await get(`${PIXIV_NOW_URL}/ajax/illust/discovery`, params, { baseURL: '/' })
 
@@ -1157,7 +1161,7 @@ const api = {
     if (!artwork) {
       let res
       if (notSelfHibiApi) {
-        res = await get(`${PIXIV_NOW_URL}/ajax/novel/${id}.txt`).then(r => ({
+        res = await get(`${PIXIV_NOW_URL}/ajax/novel/${id}`).then(r => ({
           text: r.content,
           prev: r.seriesNavData?.prev,
           next: r.seriesNavData?.next,

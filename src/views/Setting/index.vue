@@ -48,7 +48,7 @@ import { Dialog } from 'vant'
 import dayjs from 'dayjs'
 import PixivAuth from '@/api/client/pixiv-auth'
 import { logout } from '@/api/user'
-import { NOTICES_JSON } from '@/consts'
+// import { NOTICES_JSON } from '@/consts'
 
 export default {
   name: 'Setting',
@@ -66,16 +66,16 @@ export default {
     ...mapState(['user']),
     ...mapGetters(['isLoggedIn']),
   },
-  created() {
+  async created() {
     try {
-      const notices = JSON.parse(NOTICES_JSON)
+      const notices = await fetch('https://pxve-notice.nanoka.top').then(r => r.json())
       const today = dayjs().startOf('day')
       this.notice = notices.find(e =>
         today.isAfter(dayjs(e.start).startOf('day') - 1) &&
         today.isBefore(dayjs(e.end).endOf('day'))
       )
       console.log('this.notice: ', this.notice)
-      if (this.notice.style) {
+      if (this.notice?.style) {
         document.head.insertAdjacentHTML('beforeend', `<style>${this.notice.style}</style>`)
       }
     } catch (err) {

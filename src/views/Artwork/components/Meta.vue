@@ -164,7 +164,6 @@ import { isIllustBookmarked, addBookmark, removeBookmark } from '@/api/user'
 import { localApi } from '@/api'
 import { toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
-import { PIXIV_NOW_URL } from '@/consts'
 
 export default {
   filters: {
@@ -203,7 +202,7 @@ export default {
   },
   data() {
     return {
-      PIXIV_NOW_URL,
+      PIXIV_NOW_URL: 'https://pxnow.cocomi.eu.org',
       isShrink: false,
       bookmarkId: null,
       favLoading: false,

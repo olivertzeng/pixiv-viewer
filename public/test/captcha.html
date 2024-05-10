@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <title>Question</title>
+  <style>
+    #q_imgs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: 700px;
+    }
+
+    #q_imgs > div {
+      position: relative;
+      width: 30%;
+      max-width: 30%;
+    }
+    #q_imgs > div::before {
+      content: attr(data-index);
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 3px 6px;
+      background: #bbb;
+      color: #fff;
+    }
+    #q_imgs > div img {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <p id="q_title"></p>
+    <p>答案请输入图片的序号，多个序号以英文逗号分隔</p>
+    <p>
+      输入答案：<input id="ans">&nbsp;&nbsp;<button id="sub_btn">提交</button>&nbsp;&nbsp;<button
+        onclick="reload()">换一题</button>
+    </p>
+    <p id="q_imgs"></p>
+  </div>
+  <script>
+    function randomEl(arr) {
+      return arr[parseInt(Math.random() * arr.length, 10)]
+    }
+    function reload() {
+      location.reload()
+    }
+    window.onload = function () {
+      var ans = ''
+      fetch('./captcha.json').then(function (resp) {
+        return resp.json()
+      }).then(function (arr) {
+        const el = Math.random() < 0.5 ? arr[0] : randomEl(arr)
+        q('#q_title').innerText = el.q
+        q('#q_imgs').innerHTML = el.i.map((e, i) => `<div data-index=${i + 1}><img src="${e}" alt></div>`).join('')
+        ans = el.a
+      })
+      q('#sub_btn').onclick = function () {
+        if (q('#ans').value == ans) {
+          alert('回答正确')
+          localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')
+          location.replace('/')
+        } else {
+          alert('回答错误')
+          reload()
+        }
+      }
+    }
+    function q(sel) {
+      return document.querySelector(sel)
+    }
+  </script>
+</body>
+
+</html>

@@ -478,7 +478,6 @@ export default {
       }, 500)
     },
     importSettings() {
-      window.umami?.track('importSettings')
       const input = document.createElement('input')
       input.type = 'file'
       input.accept = '.txt'
@@ -491,6 +490,7 @@ export default {
           Object.keys(settings).forEach(k => {
             localStorage.setItem(k, settings[k])
           })
+          window.umami?.track('importSettings')
           this.$toast.success('Success')
           setTimeout(() => {
             location.reload()

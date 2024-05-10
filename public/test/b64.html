@@ -35,7 +35,6 @@
         const el = arr[parseInt(Math.random() * arr.length, 10)]
         q('#q_img').innerText = el.q
         ans = el.a
-        console.log('ans: ', ans)
       })
       q('#sub_btn').onclick = function () {
         if (q('#ans').value == ans) {

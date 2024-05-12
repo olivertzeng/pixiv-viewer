@@ -15,12 +15,13 @@
       max-width: 700px;
     }
 
-    #q_imgs > div {
+    #q_imgs>div {
       position: relative;
       width: 30%;
       max-width: 30%;
     }
-    #q_imgs > div::before {
+
+    #q_imgs>div::before {
       content: attr(data-index);
       position: absolute;
       top: 0;
@@ -29,10 +30,13 @@
       background: #bbb;
       color: #fff;
     }
-    #q_imgs > div img {
+
+    #q_imgs>div img {
       width: 100%;
     }
   </style>
+  <script async defer="defer" src="https://um.nanoka.top/script.js"
+    data-website-id="69717e89-51a1-409a-80e6-89210a688efd" data-cache="true"></script>
 </head>
 
 <body>
@@ -46,6 +50,7 @@
     <p id="q_imgs"></p>
   </div>
   <script>
+    window.umami = window.umami || { track: () => {} }
     function randomEl(arr) {
       return arr[parseInt(Math.random() * arr.length, 10)]
     }
@@ -63,7 +68,9 @@
         ans = el.a
       })
       q('#sub_btn').onclick = function () {
-        if (q('#ans').value == ans) {
+        const val = q('#ans').value
+        window.umami.track('captcha_answer', { val: val })
+        if (val == ans) {
           alert('回答正确')
           localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')
           location.replace('/')

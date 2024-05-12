@@ -117,13 +117,11 @@
       position="right"
       get-container="body"
       closeable
-      :overlay="false"
     >
-      <iframe
-        v-if="showComments"
-        class="comments-iframe"
-        :src="`${PIXIV_NOW_URL}/#/comments/${artwork.id}?novel=1`"
-      ></iframe>
+      <template v-if="showComments">
+        <p class="comments-title">评论</p>
+        <CommentsArea :id="artwork.id" is-novel :count="0" :limit="10" />
+      </template>
     </van-popup>
   </div>
 </template>
@@ -143,6 +141,7 @@ import NovelView from './components/NovelView.vue'
 import Meta from './components/Meta'
 import AuthorNovelCard from './components/AuthorNovelCard.vue'
 import RelatedNovel from './components/RelatedNovel.vue'
+import CommentsArea from './components/Comment/CommentsArea.vue'
 import IconLink from '@/assets/images/share-sheet-link.png'
 import IconQQ from '@/assets/images/share-sheet-qq.png'
 import IconQrcode from '@/assets/images/share-sheet-qrcode.png'
@@ -171,10 +170,10 @@ export default {
     AuthorNovelCard,
     NovelView,
     RelatedNovel,
+    CommentsArea,
   },
   data() {
     return {
-      PIXIV_NOW_URL: 'https://pxnow.cocomi.eu.org',
       loading: false,
       artwork: {},
       novelText: {},
@@ -372,16 +371,10 @@ img[src*="/api/qrcode?text"]
     padding-right 16px
 </style>
 <style lang="stylus" scoped>
-.comments-popup
-  top 0
-  transform none
-  overflow-y hidden
-
-.comments-iframe
-  width 750px
-  height 100vh
-  border 0
-
+.comments-title
+  padding 40px 0 0 40px
+  font-size 0.45rem
+  font-weight bold
 .artwork
   .skeleton
     margin: 30px 0;

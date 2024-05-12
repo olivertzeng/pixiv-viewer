@@ -141,13 +141,11 @@
         position="right"
         get-container="body"
         closeable
-        :overlay="false"
       >
-        <iframe
-          v-if="showComments"
-          class="comments-iframe"
-          :src="`${PIXIV_NOW_URL}/#/comments/${artwork.id}`"
-        ></iframe>
+        <template v-if="showComments">
+          <p class="comments-title">评论</p>
+          <CommentsArea :id="artwork.id" :count="0" :limit="10" />
+        </template>
       </van-popup>
     </div>
   </div>
@@ -164,8 +162,11 @@ import { isIllustBookmarked, addBookmark, removeBookmark } from '@/api/user'
 import { localApi } from '@/api'
 import { toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
+import CommentsArea from './Comment/CommentsArea.vue'
 
 export default {
+  name: 'ArtworkMeta',
+  components: { CommentsArea },
   filters: {
     convertToK(val) {
       if (!val) return '-'
@@ -202,7 +203,6 @@ export default {
   },
   data() {
     return {
-      PIXIV_NOW_URL: 'https://pxnow.cocomi.eu.org',
       isShrink: false,
       bookmarkId: null,
       favLoading: false,
@@ -492,15 +492,10 @@ export default {
   }
 }
 
-.comments-popup {
-  top 0
-  transform none
-  overflow-y hidden
-}
-.comments-iframe {
-  width 750px
-  height 100vh
-  border 0
+.comments-title {
+  padding 40px 0 0 40px
+  font-size 0.45rem
+  font-weight bold
 }
 
 .artwork-meta {

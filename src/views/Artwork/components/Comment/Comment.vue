@@ -1,26 +1,26 @@
 <template>
   <li class="comment-block">
     <div class="left">
-      <router-link class="plain" :to="'/users/' + comment.userId">
+      <a class="plain" target="_blank" :href="'/users/' + comment.userId">
         <img
           alt=""
           class="avatar"
           :src="resolveSrc(comment.img)"
           :title="comment.userName + ' (' + comment.userId + ')'"
         >
-      </router-link>
+      </a>
     </div>
     <div class="right">
       <h4 class="user">
         <span class="comment-author">{{ comment.userName }}</span>
-        <span v-if="comment.replyToUserId" class="comment-reply">&emsp;▶&emsp;{{ parentUserName }}</span>
+        <span v-if="comment.replyToUserId" class="comment-reply">&nbsp;▶&nbsp;&nbsp;{{ parentUserName }}</span>
       </h4>
       <div v-if="!comment.stampId" class="content" v-html="replaceStamps(comment.comment)"></div>
       <div v-if="comment.stampId" class="content">
         <img
           class="big-stamp"
           :src="resolveSrc('/~/common/images/stamp/generated-stamps/' + comment.stampId + '_s.jpg')"
-          alt="表情包"
+          alt=""
         >
       </div>
       <div class="comment-date">{{ comment.commentDate }}</div>
@@ -46,9 +46,9 @@ export default {
     resolveSrc: imgProxy,
     replaceStamps(str) {
       for (const [stampName, stampUrl] of Object.entries(stampList)) {
-        str = str.replaceAll(
-          `(${stampName})`,
-          `<img class="stamp" src="${imgProxy(stampUrl)}" alt="表情包">`
+        str = str.replace(
+          new RegExp(`\\(${stampName}\\)`, 'g'),
+          `<img class="stamp" src="${imgProxy(stampUrl)}" alt="">`
         )
       }
       return str

@@ -1,13 +1,12 @@
 <template>
   <div class="comments-area">
-    <em v-if="count" class="stats">共{{ count || comments.length || 0 }}条评论</em>
-    <p v-if="!comments.length && !loading">还没有人发表评论呢~</p>
+    <p v-if="!comments.length && !loading">{{ $t('vqHSGcz4r3oSQIWQwZiVf') }}</p>
     <ul v-if="comments.length" class="comments-list">
       <div v-for="item in comments" :key="item.id" class="comments-item">
         <Comment :comment="item" />
         <div class="reply-area">
-          <van-button v-if="item.hasReplies && !qShowMap[item.id]" type="primary" plain size="small" @click="queryReply(item.id)">
-            {{ qLoadingMap[item.id] ? '加载中' : '查看回复' }}
+          <van-button v-if="item.hasReplies && !qShowMap[item.id]" type="info" plain size="small" @click="queryReply(item.id)">
+            {{ qLoadingMap[item.id] ? $t('tips.loading') : $t('0CDMRP9wSGJQTyMbvrM8z') }}
           </van-button>
           <ul v-if="qShowMap[item.id]" class="comments-list">
             <div v-for="qItem in qComments[item.id]" :key="qItem.id" class="comments-item">
@@ -18,7 +17,7 @@
       </div>
       <div class="show-more">
         <van-button v-if="comments.length && hasNext" type="primary" plain size="small" @click="init(id)">
-          {{ loading ? '正在加载' : '查看更多' }}
+          {{ loading ? $t('tips.loading') : $t('common.view_more') }}
         </van-button>
       </div>
     </ul>
@@ -72,7 +71,7 @@ export default {
           {
             params: {
               [this.isNovel ? 'novel_id' : 'illust_id']: id,
-              limit: this.comments.length ? 30 : (this.limit ?? 3),
+              limit: this.comments.length ? 30 : (this.limit || 3),
               offset: this.offset,
             },
           }

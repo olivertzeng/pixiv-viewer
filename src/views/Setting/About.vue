@@ -74,7 +74,7 @@
         @click="openLink('https://www.nanoka.top/say/pxve_comments.html')"
       />
     </van-cell-group>
-    <van-cell-group v-if="backSites" title="备用站点">
+    <van-cell-group v-if="backSites" :title="$t('1V8tlBs--oNk_UbzsItA-')">
       <van-cell
         v-for="s in backSites"
         :key="s"

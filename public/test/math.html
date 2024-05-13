@@ -21,6 +21,7 @@
     </p>
   </div>
   <script>
+    window.umami = window.umami || { track: () => {} }
     function randomEl(arr) {
       return arr[parseInt(Math.random() * arr.length, 10)]
     }
@@ -39,6 +40,7 @@
       })
       q('#sub_btn').onclick = function () {
         if (q('#ans').value == ans) {
+          window.umami.track('math_answer_correct', { val: ans })
           alert('回答正确')
           localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')
           location.replace('/')

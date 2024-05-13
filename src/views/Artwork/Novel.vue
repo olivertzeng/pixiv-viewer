@@ -119,7 +119,7 @@
       closeable
     >
       <template v-if="showComments">
-        <p class="comments-title">评论</p>
+        <p class="comments-title">{{ $t('hGqGftQ7v772prEac1hbJ') }}</p>
         <CommentsArea :id="artwork.id" is-novel :count="0" :limit="10" />
       </template>
     </van-popup>

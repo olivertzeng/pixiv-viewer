@@ -1,10 +1,12 @@
 import nprogress from 'nprogress'
 import { Dialog } from 'vant'
 import { i18n } from '@/i18n'
-import { getCookie, objectToQueryString, removeCookie, setCookie } from '@/utils'
+import { objectToQueryString } from '@/utils'
 import { imgProxy, parseWebApiIllust } from '.'
 import { getCache, setCache } from '@/utils/storage/siteCache'
+import { LocalStorage } from '@/utils/storage'
 import store from '@/store'
+import { PIXIV_NOW_URL } from '@/consts'
 
 /**
  * @param {string} url
@@ -13,10 +15,15 @@ import store from '@/store'
  */
 const doGet = (url, params, config = {}) => {
   nprogress.start()
-  return fetch('/prks/now' + url + objectToQueryString(params), {
+  return fetch((url.startsWith('http') ? url : PIXIV_NOW_URL + url) + objectToQueryString(params), {
     method: 'GET',
     referrerPolicy: 'origin',
     ...config,
+    headers: {
+      'x-auth': LocalStorage.get('PXV_NOW_COOKIE') || '',
+      'x-csrf-token': sessionStorage.getItem('PXV_NOW_CSRFTOKEN') || '',
+      ...config.headers,
+    },
   }).then(res => {
     nprogress.done()
     if (!res.ok) throw new Error('Not ok.')
@@ -36,14 +43,17 @@ const doGet = (url, params, config = {}) => {
  */
 const doPost = (url, data, config = {}) => {
   nprogress.start()
-  return fetch('/prks/now' + url, {
+  return fetch(PIXIV_NOW_URL + url, {
     method: 'POST',
     referrerPolicy: 'origin',
     body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-    },
     ...config,
+    headers: {
+      'content-type': 'application/json',
+      'x-auth': LocalStorage.get('PXV_NOW_COOKIE') || '',
+      'x-csrf-token': sessionStorage.getItem('PXV_NOW_CSRFTOKEN') || '',
+      ...config.headers,
+    },
   }).then(res => {
     nprogress.done()
     if (!res.ok) throw new Error('Not ok.')
@@ -57,28 +67,33 @@ const doPost = (url, data, config = {}) => {
 }
 
 export function existsSessionId() {
-  const sessionId = getCookie('PHPSESSID')
+  // const sessionId = getCookie('PHPSESSID')
+  const sessionId = LocalStorage.get('PXV_NOW_COOKIE')
   if (sessionId) {
     return true
   } else {
-    removeCookie('CSRFTOKEN')
+    // removeCookie('CSRFTOKEN')
+    sessionStorage.removeItem('PXV_NOW_CSRFTOKEN')
     return false
   }
 }
 
 export async function initUser() {
   try {
-    const { data } = await doGet('/api/user', {}, { headers: { 'cache-control': 'no-store' } })
+    const { data } = await doGet(PIXIV_NOW_URL.replace('/http', '') + '/user', {}, { headers: { 'cache-control': 'no-store' } })
     if (data?.token) {
       console.log('session ID认证成功', data)
-      setCookie('CSRFTOKEN', data.token)
+      // setCookie('CSRFTOKEN', data.token)
+      sessionStorage.setItem('PXV_NOW_CSRFTOKEN', data.token)
       return data.userData
     } else {
-      removeCookie('CSRFTOKEN')
+      // removeCookie('CSRFTOKEN')
+      sessionStorage.removeItem('PXV_NOW_CSRFTOKEN')
       throw new Error('无效的session ID')
     }
   } catch (err) {
-    removeCookie('CSRFTOKEN')
+    // removeCookie('CSRFTOKEN')
+    sessionStorage.removeItem('PXV_NOW_CSRFTOKEN')
     throw err
   }
 }
@@ -88,12 +103,14 @@ export function login(token) {
     console.error('访问令牌格式错误')
     return Promise.reject(new Error('访问令牌格式错误'))
   }
-  setCookie('PHPSESSID', token, 180)
+  // setCookie('PHPSESSID', token, 180)
+  LocalStorage.set('PXV_NOW_COOKIE', `PHPSESSID=${token}`, 180 * 86400)
   return initUser()
 }
 
 export function logout() {
-  const token = getCookie('PHPSESSID')
+  // const token = getCookie('PHPSESSID')
+  const token = LocalStorage.set('PXV_NOW_COOKIE')
   if (!token) return
   Dialog.confirm({
     message: i18n.t('user.sess.logout'),
@@ -101,8 +118,10 @@ export function logout() {
     cancelButtonText: i18n.t('common.cancel'),
     confirmButtonText: i18n.t('common.confirm'),
   }).then(() => {
-    removeCookie('PHPSESSID')
-    removeCookie('CSRFTOKEN')
+    // removeCookie('PHPSESSID')
+    // removeCookie('CSRFTOKEN')
+    LocalStorage.remove('PXV_NOW_COOKIE')
+    sessionStorage.removeItem('PXV_NOW_CSRFTOKEN')
     setTimeout(() => {
       location.reload()
     }, 200)
@@ -139,6 +158,7 @@ export async function getDiscoveryArtworks(page = 1, mode = 'all', limit = 60) {
       limit,
       lang: 'zh',
       _vercel_no_cache: 1,
+      _t: Date.now(),
     })
 
     const illust = res?.thumbnails?.illust
@@ -170,6 +190,7 @@ export async function getDiscoveryUsers(page = 1, limit = 60) {
       limit,
       lang: 'zh',
       _vercel_no_cache: 1,
+      _t: Date.now(),
     })
 
     const illust = res?.thumbnails?.illust || []
@@ -221,6 +242,7 @@ export async function getFollowingUsers(page = 1) {
       acceptingRequests: 0,
       lang: 'zh',
       _vercel_no_cache: 1,
+      _t: Date.now(),
     })
 
     const users = res.users || []
@@ -261,6 +283,7 @@ export async function getFollowingIllusts(page = 1, mode = 'all') {
       mode,
       lang: 'zh',
       _vercel_no_cache: 1,
+      _t: Date.now(),
     })
 
     const illust = res?.thumbnails?.illust
@@ -295,6 +318,7 @@ export async function getNewIllusts(page = 1, lastId = 0) {
       r18: false,
       lang: 'zh',
       _vercel_no_cache: 1,
+      _t: Date.now(),
     })
 
     const illust = res?.illusts
@@ -331,6 +355,7 @@ export async function getBookmarkIllusts(page = 1, userId) {
       rest: 'show',
       lang: 'zh',
       _vercel_no_cache: 1,
+      _t: Date.now(),
     })
 
     const illust = res?.works
@@ -357,7 +382,7 @@ export async function isIllustBookmarked(id) {
   const key = `isFav.${id}`
   let res = await getCache(key)
   if (res === void 0) {
-    const { data } = await doGet(`/ajax/illust/${id}?_vercel_no_cache=1`)
+    const { data } = await doGet(`/ajax/illust/${id}?_vercel_no_cache=1&_t=${Date.now()}`)
     res = data?.bookmarkData?.id
     setCache(key, data?.bookmarkData?.id || null, 60 * 30)
   }
@@ -368,7 +393,7 @@ export async function isUserFollowed(id) {
   const key = `isFollowed.${id}`
   let res = await getCache(key)
   if (res === void 0) {
-    const { data } = await doGet(`/ajax/user/${id}?_vercel_no_cache=1`)
+    const { data } = await doGet(`/ajax/user/${id}?_vercel_no_cache=1&_t=${Date.now()}`)
     res = !!data?.isFollowed
     setCache(key, res, 60 * 30)
   }

@@ -69,7 +69,7 @@
       })
       q('#sub_btn').onclick = function () {
         const val = q('#ans').value
-        window.umami.track('captcha_answer', { val: val })
+        window.umami.track('captcha_answer', { val: q('#q_title').innerText + ': ' + val + '(' + ans + ')'})
         if (val == ans) {
           alert('回答正确')
           localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')

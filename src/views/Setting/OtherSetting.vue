@@ -11,6 +11,11 @@
         <van-switch :value="isDark" size="24" @change="onDarkChange" />
       </template>
     </van-cell>
+    <van-cell center :title="$t('qLUWER5bf4X2lE0RjKTBj')" :label="$t('setting.lab.title')">
+      <template #right-icon>
+        <van-switch :value="useFancybox" size="24" @change="changeUseFancybox" />
+      </template>
+    </van-cell>
     <van-cell center :title="$t('setting.other.swipe_toggle')" :label="$t('setting.lab.title')">
       <template #right-icon>
         <van-switch :value="enableSwipe" size="24" @change="changeEnableSwipe" />
@@ -245,6 +250,7 @@ export default {
       hideApSelect: LocalStorage.get('__HIDE_AP_SEL', false),
       isDark: !!localStorage.getItem('PXV_DARK'),
       enableSwipe: LocalStorage.get('PXV_IMG_DTL_SWIPE', false),
+      useFancybox: LocalStorage.get('PXV_USE_FANCYBOX', false),
       isPageEffectOn: LocalStorage.get('PXV_PAGE_EFFECT', false),
       isLongpressDL: LocalStorage.get('PXV_LONGPRESS_DL', false),
       isLongpressBlock: LocalStorage.get('PXV_LONGPRESS_BLOCK', false),
@@ -447,6 +453,10 @@ export default {
     changeEnableSwipe(val) {
       this.enableSwipe = val
       this.saveSetting('PXV_IMG_DTL_SWIPE', val)
+    },
+    changeUseFancybox(val) {
+      this.useFancybox = val
+      this.saveSetting('PXV_USE_FANCYBOX', val)
     },
     changePageEffect(val) {
       this.isPageEffectOn = val

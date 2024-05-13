@@ -70,6 +70,7 @@ export default {
       background-size: 0.8rem
       border-radius: 50%
   .right
+    flex 1
     .user
       margin-bottom: .1rem
       font-size 0.33rem

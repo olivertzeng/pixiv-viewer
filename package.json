@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "release": "bumpp package.json src/views/Setting/About.vue --all --no-tag",
+    "release": "bumpp package.json src/consts/index.js --all --no-tag",
     "prerelease": "git add .",
     "lint": "vue-cli-service lint"
   },

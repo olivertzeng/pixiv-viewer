@@ -110,7 +110,7 @@ export function login(token) {
 
 export function logout() {
   // const token = getCookie('PHPSESSID')
-  const token = LocalStorage.set('PXV_NOW_COOKIE')
+  const token = LocalStorage.get('PXV_NOW_COOKIE')
   if (!token) return
   Dialog.confirm({
     message: i18n.t('user.sess.logout'),

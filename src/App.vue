@@ -10,6 +10,7 @@ import Preload from '@/components/Preload'
 import { mapMutations } from 'vuex'
 import { existsSessionId, initUser } from '@/api/user'
 import { localApi } from './api'
+import { CURRENT_APP_VERSION } from './consts'
 
 export default {
   name: 'App',
@@ -39,6 +40,7 @@ export default {
   mounted() {
     const loading = document.querySelector('#ldio-loading')
     loading && (loading.style.display = 'none')
+    window.umami?.track('App Mounted', { host: location.host, ver: CURRENT_APP_VERSION })
   },
   methods: {
     ...mapMutations(['setUser']),

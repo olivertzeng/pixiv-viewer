@@ -3,7 +3,7 @@
     <top-bar id="top-bar-wrap" />
     <h3 class="af_title">{{ $t('about.title') }}</h3>
     <van-cell-group :title="$t('about.about_site')">
-      <van-cell center :title="$t('about.version')" clickable label="v1.17.4" />
+      <van-cell center :title="$t('about.version')" clickable :label="ver" />
       <van-cell center :title="$t('about.disclaimer')" is-link :label="$t('tips.click_view')" to="/setting/about/disclaimer" />
       <van-cell
         center
@@ -88,12 +88,13 @@
 </template>
 
 <script>
-import { BACKUP_DOMAINS } from '@/consts'
+import { BACKUP_DOMAINS, CURRENT_APP_VERSION } from '@/consts'
 
 export default {
   name: 'SettingAbout',
   data() {
     return {
+      ver: CURRENT_APP_VERSION,
       backSites: BACKUP_DOMAINS.split(',').filter(Boolean),
     }
   },

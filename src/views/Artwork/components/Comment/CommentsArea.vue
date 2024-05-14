@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="show-more">
-        <van-button v-if="comments.length && hasNext" type="primary" plain size="small" @click="init(id)">
+        <van-button v-if="comments.length && hasNext" type="info" plain size="small" @click="init(id)">
           {{ loading ? $t('tips.loading') : $t('common.view_more') }}
         </van-button>
       </div>

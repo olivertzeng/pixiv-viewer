@@ -74,7 +74,7 @@ import tsWhammy from 'ts-whammy'
 import FileSaver from 'file-saver'
 import api from '@/api'
 import { LocalStorage } from '@/utils/storage'
-import { sleep, loadScript } from '@/utils'
+import { sleep, fancyboxShow, loadScript } from '@/utils'
 
 const imgResSel = LocalStorage.get('PXV_DTL_IMG_RES', navigator.userAgent.includes('Mobile') ? 'Medium' : 'Large')
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
@@ -148,40 +148,7 @@ export default {
         return
       }
       if (useFancybox) {
-        if (!window.Fancybox) {
-          document.head.insertAdjacentHTML('beforeend', '<link href="https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
-          await loadScript('https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
-        }
-        window.Fancybox.show(this.artwork.images.map(e => ({
-          src: e.o,
-          thumb: e.m,
-        })), {
-          compact: navigator.userAgent.includes('Mobile'),
-          backdropClick: 'close',
-          // contentClick: 'close',
-          startIndex: index,
-          Thumbs: { showOnStart: false },
-          Carousel: { infinite: false },
-          Toolbar: {
-            display: {
-              left: ['infobar'],
-              middle: [],
-              right: ['toggleZoom', 'thumbs', 'myDownload', 'rotateCW', 'flipX', 'flipY', 'close'],
-            },
-            items: {
-              myDownload: {
-                tpl: '<button class="f-button"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"></path></svg></button>',
-                click: ev => {
-                  console.log('ev: ', ev)
-                  const { page } = ev.instance.carousel
-                  const item = this.artwork.images[page]
-                  const fileName = `${this.artwork.author.name}_${this.artwork.title}_${this.artwork.id}_p${page}.${item.o.split('.').pop()}`
-                  FileSaver.saveAs(item.o, fileName)
-                },
-              },
-            },
-          },
-        })
+        fancyboxShow(this.artwork, index)
       } else {
         ImagePreview({
           className: 'image-preview',

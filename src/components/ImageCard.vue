@@ -43,8 +43,8 @@
     </div>
     <div v-if="isOuterMeta && (mode == 'all' || mode === 'meta')" class="outer-meta">
       <div class="content">
-        <h2 class="title" :title="artwork.title">{{ artwork.title }}</h2>
-        <div class="author-cont">
+        <h2 v-longpress="onImageTitleLongpress" class="title" :title="artwork.title">{{ artwork.title }}</h2>
+        <div class="author-cont" @click="toAuthor">
           <Pximg :src="artwork.author.avatar" :alt="artwork.author.name" nobg class="avatar" />
           <div class="author">{{ artwork.author.name }}</div>
         </div>
@@ -61,6 +61,7 @@ import { localApi } from '@/api'
 import { LocalStorage } from '@/utils/storage'
 import { getCache, toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
+import { fancyboxShow } from '@/utils'
 
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
 const isLongpressBlock = LocalStorage.get('PXV_LONGPRESS_BLOCK', false)
@@ -191,6 +192,13 @@ export default {
       if (!this.isTriggerLongpress) return
       ev.preventDefault()
       isLongpressDL ? this.downloadArtwork() : this.showBlockDialog()
+    },
+    onImageTitleLongpress() {
+      fancyboxShow(this.artwork, 0, e => e.l.replace(/\/c\/\d+x\d+(_\d+)?\//g, '/'))
+    },
+    toAuthor() {
+      if (this.$route.name == 'Users') return
+      this.$router.push(`/users/${this.artwork.author.id}`)
     },
     showBlockDialog() {
       Dialog.confirm({

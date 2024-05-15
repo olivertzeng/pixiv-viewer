@@ -1,4 +1,5 @@
 import axios from 'axios'
+import FileSaver from 'file-saver'
 
 export function throttleScroll(el, downFn, upFn) {
   let position = el.scrollTop
@@ -154,4 +155,41 @@ export function randomBg() {
   const leftHue = getRandomRangeNum(0, 360)
   const bottomHue = getRandomRangeNum(0, 360)
   return `linear-gradient(to right bottom,hsl(${leftHue}, 100%, 90%) 0%,hsl(${bottomHue}, 100%, 90%) 100%)`
+}
+
+export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
+  if (!window.Fancybox) {
+    document.head.insertAdjacentHTML('beforeend', '<link href="https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
+    await loadScript('https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
+  }
+  window.Fancybox.show(artwork.images.map(e => ({
+    src: getSrc(e),
+    thumb: e.m,
+  })), {
+    compact: navigator.userAgent.includes('Mobile'),
+    backdropClick: 'close',
+    // contentClick: 'close',
+    startIndex: index,
+    Thumbs: { showOnStart: false },
+    Carousel: { infinite: false },
+    Toolbar: {
+      display: {
+        left: ['infobar'],
+        middle: [],
+        right: ['toggleZoom', 'thumbs', 'myDownload', 'rotateCW', 'flipX', 'flipY', 'close'],
+      },
+      items: {
+        myDownload: {
+          tpl: '<button class="f-button"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"></path></svg></button>',
+          click: ev => {
+            console.log('ev: ', ev)
+            const { page } = ev.instance.carousel
+            const item = artwork.images[page]
+            const fileName = `${artwork.author.name}_${artwork.title}_${artwork.id}_p${page}.${item.o.split('.').pop()}`
+            FileSaver.saveAs(item.o, fileName)
+          },
+        },
+      },
+    },
+  })
 }

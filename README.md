@@ -186,7 +186,7 @@ iOS 与 macOS 版本排期中……（ ~~鸽了~~
 - [PixivNow](https://github.com/FreeNowOrg/PixivNow)：提供部分网页版接口支持
 - [SauceNAO](https://saucenao.com/)：以图搜图功能接口
 - [Cloudflare Workers](https://workers.cloudflare.com/)：图像反代服务
-- [Vercel](https://vercel.com/)：提供页面托管服务
+- [Netlify](https://netlify.com/)：<img src="https://api.netlify.com/api/v1/badges/84d224a8-1630-4f47-94c2-ffb0e6da920a/deploy-status" alt style="vertical-align: middle;"> 提供页面托管服务
 
 ## Disclaimer
 

@@ -143,7 +143,7 @@ This project uses [Vue I18n](https://kazupon.github.io/vue-i18n/) for internatio
 - [PixivNow](https://github.com/FreeNowOrg/PixivNow)
 - [SauceNAO](https://saucenao.com/)
 - [Cloudflare Workers](https://workers.cloudflare.com/)
-- [Vercel](https://vercel.com/)
+- [Netlify](https://netlify.com/)
 
 ## Disclaimer
 

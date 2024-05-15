@@ -47,7 +47,7 @@
                 </a>
               </li>
               <li class="site">·</li>
-              <li class="site" @click="copyId">
+              <li v-longpress="onUidLongpress" class="site" @click="copyId">
                 <span class="user_id">ID:{{ userInfo.id }}</span>
                 <Icon name="copy" />
               </li>
@@ -229,6 +229,7 @@ import RecommUser from '../Search/components/RecommUser.vue'
 import AuthorNovels from './components/AuthorNovels.vue'
 import FavoriteNovels from './components/FavoriteNovels.vue'
 import _ from 'lodash'
+import { Dialog } from 'vant'
 import api, { localApi } from '@/api'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { copyText } from '@/utils'
@@ -375,6 +376,21 @@ export default {
         () => this.$toast(this.$t('tips.copylink.succ')),
         err => this.$toast(this.$t('tips.copy_err') + err)
       )
+    },
+    onUidLongpress() {
+      const author = this.userInfo
+      Dialog.confirm({
+        title: this.$t('w73XEmHradtum3SQ9IjBq'),
+        message: `${author.name}(${author.id})`,
+        lockScroll: false,
+        closeOnPopstate: true,
+        cancelButtonText: this.$t('common.cancel'),
+        confirmButtonText: this.$t('common.confirm'),
+      }).then(res => {
+        if (res == 'confirm') {
+          this.$store.dispatch('appendBlockUids', [author.id])
+        }
+      }).catch(() => {})
     },
     share() {
       copyText(

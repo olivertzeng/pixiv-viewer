@@ -43,7 +43,7 @@
     </div>
     <div v-if="isOuterMeta && (mode == 'all' || mode === 'meta')" class="outer-meta">
       <div class="content">
-        <h2 v-longpress="onImageTitleLongpress" class="title" :title="artwork.title">{{ artwork.title }}</h2>
+        <h2 class="title" :title="artwork.title" @click="onImageTitleClick">{{ artwork.title }}</h2>
         <div class="author-cont" @click="toAuthor">
           <Pximg :src="artwork.author.avatar" :alt="artwork.author.name" nobg class="avatar" />
           <div class="author">{{ artwork.author.name }}</div>
@@ -193,7 +193,7 @@ export default {
       ev.preventDefault()
       isLongpressDL ? this.downloadArtwork() : this.showBlockDialog()
     },
-    onImageTitleLongpress() {
+    onImageTitleClick() {
       fancyboxShow(this.artwork, 0, e => e.l.replace(/\/c\/\d+x\d+(_\d+)?\//g, '/'))
     },
     toAuthor() {

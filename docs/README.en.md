@@ -2,6 +2,13 @@
 
 <h1 align="center">Pixiv Viewer <sup><small>Kai</small></sup></h1>
 
+![](https://img.shields.io/github/package-json/v/asadahimeka/pixiv-viewer)
+![](https://img.shields.io/badge/license-MIT-green)
+![](https://api.netlify.com/api/v1/badges/84d224a8-1630-4f47-94c2-ffb0e6da920a/deploy-status)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/vue)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/dev/@vue/cli-service)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/vant)
+
 Demo: 🔗 [pixiv.pics](https://pixiv.pics)
 
 Download: ⏬ [App Center](https://install.appcenter.ms/users/yumine/apps/pixiv-viewer/distribution_groups/beta) | [GitHub Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
@@ -155,4 +162,4 @@ This project is for communication and learning only and may not be used for any 
 
 ## LICENSE
 
-[![MIT License Copyright (c) 2020 Jad](https://img.shields.io/github/license/journey-ad/pixiv-viewer)](https://github.com/asadahimeka/pixiv-viewer/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/github/license/asadahimeka/pixiv-viewer)](https://github.com/asadahimeka/pixiv-viewer/blob/master/LICENSE)

@@ -3,6 +3,13 @@
 <h1 align="center">Pixiv Viewer <sup><small>Kai</small></sup></h1>
 <p align="center">Yet Another Pixiv Illust&Novel Viewer.</p>
 
+![](https://img.shields.io/github/package-json/v/asadahimeka/pixiv-viewer)
+![](https://img.shields.io/badge/license-MIT-green)
+![](https://api.netlify.com/api/v1/badges/84d224a8-1630-4f47-94c2-ffb0e6da920a/deploy-status)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/vue)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/dev/@vue/cli-service)
+![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/vant)
+
 中文 | [English](./docs/README.en.md)
 
 预览: 🔗 [pixiv.pics](https://pixiv.pics)
@@ -186,7 +193,7 @@ iOS 与 macOS 版本排期中……（ ~~鸽了~~
 - [PixivNow](https://github.com/FreeNowOrg/PixivNow)：提供部分网页版接口支持
 - [SauceNAO](https://saucenao.com/)：以图搜图功能接口
 - [Cloudflare Workers](https://workers.cloudflare.com/)：图像反代服务
-- [Netlify](https://netlify.com/)：<img src="https://api.netlify.com/api/v1/badges/84d224a8-1630-4f47-94c2-ffb0e6da920a/deploy-status" alt style="vertical-align: middle;"> 提供页面托管服务
+- [Netlify](https://netlify.com/)：提供页面托管服务
 
 ## Disclaimer
 
@@ -198,4 +205,4 @@ iOS 与 macOS 版本排期中……（ ~~鸽了~~
 
 ## LICENSE
 
-[![MIT License Copyright (c) 2020 Jad](https://img.shields.io/github/license/journey-ad/pixiv-viewer)](https://github.com/asadahimeka/pixiv-viewer/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/github/license/asadahimeka/pixiv-viewer)](https://github.com/asadahimeka/pixiv-viewer/blob/master/LICENSE)

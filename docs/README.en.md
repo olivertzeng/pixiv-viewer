@@ -113,6 +113,10 @@ See pixiv official announcement: https://www.pixiv.net/info.php?id=10837
 
 It is recommended to log in to this site with your own account before using it, and select a non-US/UK region in the official web page [settings](https://www.pixiv.net/setting_user.php). It is best to select the Japan region.
 
+### List and details do not match or repeat, search results do not match the search label
+
+It is caused by the CDN cache of the self -built API, you can switch other API instances in the settings or use it after logging in.
+
 ### Keep prompting that the API exceeds the limit or Rate Limit
 
 You can switch the API instance in the settings, or directly use RefreshToken or OAuth to log in.

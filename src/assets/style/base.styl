@@ -278,6 +278,9 @@ html:has(.dark)
     border 0
     border-radius: 0.26667rem;
 
+  .nav-container
+    @media screen and (max-width: 450px)
+      height 110px
   .nav-container .nav-bar
     box-shadow 0 0 0.26667rem #222
     background rgba(0,0,0,0.8)
@@ -295,6 +298,10 @@ html:has(.dark)
       &.active,
       &.active + span
         color: #f2c358
+      @media screen and (max-width: 450px)
+        font-size 22PX
+        & + span
+          font-size 12PX
     span
       display inline-block
 

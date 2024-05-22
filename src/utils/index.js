@@ -170,6 +170,10 @@ export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
     backdropClick: 'close',
     // contentClick: 'close',
     startIndex: index,
+    hideScrollbar: false,
+    placeFocusBack: false,
+    trapFocus: false,
+    Hash: false,
     Thumbs: { showOnStart: false },
     Carousel: { infinite: false },
     Toolbar: {

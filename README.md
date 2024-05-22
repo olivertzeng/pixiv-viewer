@@ -165,6 +165,10 @@ ABC=DEF
 
 建议用自己的账号登录本站后再使用，并且要在官方网页端[设置](https://www.pixiv.net/setting_user.php)里面选择非美国/英国的地区，最好选择日区。
 
+### 列表与详情图片不匹配或重复、搜索结果与搜索标签不匹配
+
+是因为自建 API 的 CDN 缓存导致的，可以到设置里切换其他 API 实例或者登录后再使用
+
 ### Cookie/SessionID 登录出错
 
 建议使用 RefreshToken 方式登录

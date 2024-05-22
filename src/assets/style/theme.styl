@@ -87,13 +87,15 @@
     text-decoration underline
 
   .image-card .bookmark
-    padding 0.12rem !important
-    filter none !important
-    background: rgba(0,0,0,.3)
-    backdrop-filter: blur(10px)
+    padding 7PX 7PX 5PX !important
+    filter drop-shadow(1PX 1PX 1PX var(--accent-color)) !important
+    background: rgba(255,255,255,.5)
     border-top-left-radius 0.2rem
-    .van-icon
+    .van-icon,
+    .van-loading__spinner
       color var(--accent-color) !important
+    .van-icon
+      font-size 28PX
 
   #app .rank .top .calendar
     background-image: url('~@/assets/images/calendar_op0.png')

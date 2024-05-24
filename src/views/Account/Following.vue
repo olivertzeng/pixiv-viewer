@@ -65,7 +65,7 @@ export default {
   .van-tabs__nav
     padding-bottom 0
     background: rgba(255,255,255,0.8)
-    backdrop-filter: saturate(200%) blur(0.08rem)
+    backdrop-filter: saturate(200%) blur(10PX)
   .van-tab
     margin 0 0.1rem
     padding 0

@@ -5,8 +5,8 @@
     <div class="color-list">
       <div v-for="c in colors" :key="c.name" class="color-item" @click="saveActColor(c)">
         <div class="color-bg" :style="{background:c.color}">{{ c.color }}</div>
-        <div class="color-name" :style="{color:c.color}">
-          <span v-if="c.color == actColor">✅</span>
+        <div class="color-name flex-c" :style="{color:c.color}">
+          <van-checkbox v-if="c.color == actColor" :value="true" checked-color="#00AA90" style="margin-right: 0.15rem" />
           <span>{{ c.name }}</span>
         </div>
       </div>

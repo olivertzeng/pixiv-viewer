@@ -79,7 +79,7 @@ html,body
     margin-bottom 0
     padding 0.3rem 0
     background: rgba(255,255,255,0.8)
-    backdrop-filter: saturate(200%) blur(6px)
+    backdrop-filter: saturate(200%) blur(10PX)
     .home-title
       position absolute
       top 50%

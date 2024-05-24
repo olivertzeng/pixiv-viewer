@@ -89,7 +89,7 @@ export async function initUser() {
     } else {
       // removeCookie('CSRFTOKEN')
       sessionStorage.removeItem('PXV_NOW_CSRFTOKEN')
-      throw new Error('无效的session ID')
+      throw new Error(i18n.t('k0V0c1MNZGYs9MCqjx8QL'))
     }
   } catch (err) {
     // removeCookie('CSRFTOKEN')
@@ -101,7 +101,7 @@ export async function initUser() {
 export function login(token) {
   if (!validateSessionId(token)) {
     console.error('访问令牌格式错误')
-    return Promise.reject(new Error('访问令牌格式错误'))
+    return Promise.reject(new Error(i18n.t('3UCLxnEsirUQvP_xv4po4')))
   }
   // setCookie('PHPSESSID', token, 180)
   LocalStorage.set('PXV_NOW_COOKIE', `PHPSESSID=${token}`, 180 * 86400)

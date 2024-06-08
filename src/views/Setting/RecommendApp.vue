@@ -163,6 +163,13 @@
     />
     <van-cell
       center
+      title="Aniyomi (Android)"
+      is-link
+      label="Full-featured player and reader, based on Tachiyomi."
+      @click="openLink('https://aniyomi.org/')"
+    />
+    <van-cell
+      center
       title="Bili You (Android)"
       is-link
       label="一个用flutter制作的第三方B站客户端."

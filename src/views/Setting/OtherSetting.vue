@@ -1,7 +1,7 @@
 <template>
   <div class="setting-page">
     <top-bar id="top-bar-wrap" />
-    <h3 class="af_title" @dblclick="hideApSelect=false">{{ $t('setting.other.title') }}</h3>
+    <h3 class="af_title">{{ $t('setting.other.title') }}</h3>
     <van-cell center :title="$t('setting.other.lang')" is-link :label="lang.value" @click="lang.show = true" />
     <van-cell center :title="$t('setting.layout.title')" is-link :label="wfType.value" @click="wfType.show = true" />
     <van-cell center :title="$t('setting.img_res.title')" is-link :label="imgRes.value" @click="imgRes.show = true" />

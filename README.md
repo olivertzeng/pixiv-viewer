@@ -179,9 +179,7 @@ ABC=DEF
 
 ### 是否有 iOS App
 
-目前只有 Android 与 Windows 版本，均为 Webview 套壳，下载：[Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
-
-iOS 与 macOS 版本排期中……（ ~~鸽了~~
+可到 [Github Releases](https://github.com/asadahimeka/pixiv-viewer/releases) 下载，注意 iOS 安装包未签名，需要自行签名侧载安装，教程：[爱思助手(视频)](https://www.bilibili.com/video/BV1Jg4y1n7hi/)、[爱思助手](https://www.i4.cn/news_detail_38195.html)、[AltStore](https://kerrinz.com/archives/432.html)
 
 
 ## Contribute

@@ -105,6 +105,13 @@
       label="https://garden.onekuma.cn/"
       @click="openLink('https://garden.onekuma.cn/')"
     />
+    <van-cell
+      center
+      title="EverythingMoe - Index of best Anime/Manga sites"
+      is-link
+      label="https://everythingmoe.com"
+      @click="openLink('https://everythingmoe.com')"
+    />
   </div>
 </template>
 

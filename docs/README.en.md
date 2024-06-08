@@ -135,7 +135,7 @@ It is recommended to use RefreshToken to log in
 
 ### Is there an iOS App?
 
-Currently there are only Android and Windows versions. Download: [Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
+You can download it from [Github Releases](https://github.com/asadahimeka/pixiv-viewer/releases). Note that the iOS installation package is not signed, so you need to sign it yourself. Tutorials: [AltStore](https://faq.AltStore.io)
 
 ### Android version crashes after clicking download
 

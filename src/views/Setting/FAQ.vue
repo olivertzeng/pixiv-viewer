@@ -15,7 +15,7 @@
       </van-collapse-item>
       <van-collapse-item title="Cookie/SessionID 登录出错" name="5">建议使用 RefreshToken 方式登录</van-collapse-item>
       <van-collapse-item title="Android 版本点击下载就闪退" name="6">到系统设置里给予本应用存储权限，或者下载最新版本后再进行尝试</van-collapse-item>
-      <van-collapse-item title="是否有 iOS App" name="7">目前只有 Android 与 Windows 版本，均为 Webview 套壳，下载：<a href="https://github.com/asadahimeka/pixiv-viewer/releases" target="_blank">https://github.com/asadahimeka/pixiv-viewer/releases</a></van-collapse-item>
+      <van-collapse-item title="是否有 iOS App" name="7">可到 Github Releases 下载：<a href="https://github.com/asadahimeka/pixiv-viewer/releases" target="_blank">https://github.com/asadahimeka/pixiv-viewer/releases</a>，注意 iOS 安装包未签名，需要自行签名侧载安装</van-collapse-item>
       <van-collapse-item title="自建的话如何预设图床与 API 实例" name="8">
         参照 <a href="https://github.com/asadahimeka/pixiv-viewer/discussions/10" target="_blank">#10</a> 与 <a href="https://github.com/asadahimeka/pixiv-viewer/discussions/13" target="_blank">#13</a> 设置环境变量。可以在项目根目录下新建 `.env` 文件，按如下格式填入环境变量：
         <pre>

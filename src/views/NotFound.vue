@@ -10,6 +10,10 @@ export default {
   head: {
     title: '404 Not Found',
   },
+  created() {
+    const url = Object.keys(this.$route.query).find(e => e.startsWith('http'))
+    if (url) location.assign(url)
+  },
 }
 </script>
 

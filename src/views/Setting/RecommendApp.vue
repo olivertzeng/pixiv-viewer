@@ -142,6 +142,20 @@
     />
     <van-cell
       center
+      title="kobi ( Android,iOS,macOS,Windows,Linux)"
+      is-link
+      label="拷贝漫画客户端"
+      @click="openLink('https://github.com/Predidit/Kazumi')"
+    />
+    <van-cell
+      center
+      title="HamsterHelper (Windows)"
+      is-link
+      label="仓鼠助手,p站pixiv图片下载收藏管理器"
+      @click="openLink('https://github.com/HamsterHelper/HamsterHelper')"
+    />
+    <van-cell
+      center
       title="Neko Anime (Android)"
       is-link
       label="一个可以在线看番的 Android App."
@@ -167,6 +181,20 @@
       is-link
       label="Full-featured player and reader, based on Tachiyomi."
       @click="openLink('https://aniyomi.org/')"
+    />
+    <van-cell
+      center
+      title="KNKPAnime (Android,Windows)"
+      is-link
+      label="支持多番剧源与弹幕的看番软件。"
+      @click="openLink('https://github.com/KNKPA/KNKPAnime')"
+    />
+    <van-cell
+      center
+      title="Kazumi (Android,Windows)"
+      is-link
+      label="基于自定义规则的番剧采集APP，支持流媒体在线观看，支持弹幕。"
+      @click="openLink('https://github.com/Predidit/Kazumi')"
     />
     <van-cell
       center

@@ -9,6 +9,13 @@
     />
     <van-cell
       center
+      title="yande.re refine"
+      is-link
+      label="https://sleazyfork.org/zh-CN/scripts/397612"
+      @click="openLink('https://sleazyfork.org/zh-CN/scripts/397612')"
+    />
+    <van-cell
+      center
       title="ppixiv for Pixiv"
       is-link
       label="https://greasyfork.org/zh-CN/scripts/370418"

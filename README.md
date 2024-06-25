@@ -72,7 +72,7 @@
 - [x] 多端样式适配
 - [x] PWA 支持
 - [x] Android/Windows 版本
-- [ ] iOS/macOS 版本
+- [x] iOS/macOS 版本
 
 ## Feedback
 

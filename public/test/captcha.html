@@ -42,7 +42,7 @@
 <body>
   <div id="app">
     <p id="q_title"></p>
-    <p>答案请输入图片的序号，多个序号以英文逗号分隔</p>
+    <p>答案请输入图片的序号，多个序号以 <b>英文逗号</b> 分隔</p>
     <p>
       输入答案：<input id="ans">&nbsp;&nbsp;<button id="sub_btn">提交</button>&nbsp;&nbsp;<button
         onclick="reload()">换一题</button>
@@ -62,7 +62,7 @@
       fetch('./captcha.json').then(function (resp) {
         return resp.json()
       }).then(function (arr) {
-        const el = Math.random() < 0.5 ? arr[0] : randomEl(arr)
+        const el = randomEl(arr)
         q('#q_title').innerText = el.q
         q('#q_imgs').innerHTML = el.i.map((e, i) => `<div data-index=${i + 1}><img src="${e}" alt></div>`).join('')
         ans = el.a

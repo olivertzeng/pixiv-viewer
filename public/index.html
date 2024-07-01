@@ -47,9 +47,10 @@
     <div class="ldio-content">
       <img src="<%= BASE_URL %>img/icons/192.png" width="120" height="120" alt="">
       <div class="ldio-title">Pixiv Viewer</div>
+      <p id="loading-longtime-top" style="display: none;">首次加载较慢，请耐心等待</p>
     </div>
   </div>
-  <script>if(!!localStorage.PXV_DARK)document.body.classList.add('dark');</script>
+  <script>if(!!localStorage.PXV_DARK)document.body.classList.add('dark');if(!localStorage.PXV_ASSETS_LOADED){document.querySelector('#loading-longtime-top').style.display='block';}else{document.querySelector('#loading-longtime-top').remove()};</script>
   <% if (process.env.NODE_ENV === 'production') { %>
   <% for (let js of htmlWebpackPlugin.options.cdn.js) { %>
   <script src="<%= js %>"></script>

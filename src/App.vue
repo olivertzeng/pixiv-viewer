@@ -41,6 +41,7 @@ export default {
     const loading = document.querySelector('#ldio-loading')
     loading && (loading.style.display = 'none')
     window.umami?.track('App Mounted', { host: location.host, ver: CURRENT_APP_VERSION })
+    if (!localStorage.PXV_ASSETS_LOADED) localStorage.PXV_ASSETS_LOADED = '1'
   },
   methods: {
     ...mapMutations(['setUser']),

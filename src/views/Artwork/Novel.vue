@@ -34,8 +34,8 @@
           <van-button type="info" size="small" plain block @click="showComments = true">
             {{ $t('user.view_comments') }}
           </van-button>
-          <van-button v-if="showPntBtn" type="info" size="small" plain block @click="goYoudaoFanyi">
-            去有道翻译
+          <van-button v-if="showPntBtn" type="info" size="small" plain block @click="fanyi">
+            翻译
           </van-button>
         </div>
         <keep-alive>
@@ -132,6 +132,7 @@ import FileSaver from 'file-saver'
 import { mapGetters } from 'vuex'
 import { ImagePreview } from 'vant'
 import api from '@/api'
+import { translate } from '@/api/microsoft-translate-api'
 import { copyText } from '@/utils'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { LocalStorage } from '@/utils/storage'
@@ -205,7 +206,8 @@ export default {
   computed: {
     ...mapGetters(['isCensored']),
     showPntBtn() {
-      return sessionStorage.getItem('__pnt_installed') === '1'
+      return false
+      // return sessionStorage.getItem('__pnt_installed') === '1'
     },
   },
   watch: {
@@ -304,7 +306,7 @@ export default {
         () => {
           ImagePreview({
             closeable: true,
-            images: [`https://api.obfs.dev/api/qrcode?text=${encodeURIComponent(location.href)}`],
+            images: [`https://api.moedog.org/qr/?url=${encodeURIComponent(location.href)}`],
           })
         },
         () => {
@@ -344,18 +346,64 @@ export default {
       FileSaver.saveAs(new Blob([this.novelText.text]), `${this.artwork.id}_${this.artwork.title}.txt`)
       // window.umami?.track('download_novel')
     },
-    goYoudaoFanyi() {
-      if (/Mobile/i.test(navigator.userAgent)) {
-        return
+    async fanyi() {
+      // todo: migrate to server api & local/server/cdn cache
+      try {
+        const loading = this.$toast.loading({
+          duration: 0,
+          forbidClick: true,
+          message: 'Loading',
+        })
+        const arr = this.novelText.text.replace(/\n+/g, '\n').split('')
+        console.log('arr: ', arr.length)
+        const indexes = []
+        for (let i = 0, j = 1e3; i < arr.length; i++) {
+          if (/\n/.test(arr[i]) && i > j) {
+            indexes.push(i)
+            j += 1e3
+          }
+        }
+        indexes.push(arr.length)
+        const splitTextArr = indexes.reduce((acc, cur) => {
+          const last = acc.at(-1)
+          acc.push({
+            v: arr.slice(last.i, cur + 1).join(''),
+            i: cur,
+          })
+          return acc
+        }, [{ v: '', i: 0 }]).map(e => e.v).slice(1)
+        const results = []
+        for (const item of splitTextArr) {
+          const text = item
+            .replace(/\[newpage\]/g, '')
+            .replace(/\[\[rb:([^>[\]]+) *> *([^>[\]]+)\]\]/g, '<ruby>$1<rt>$2</rt></ruby>')
+            .replace(/\[\[jumpuri:([^>\s[\]]+) *> *([^>\s[\]]+)\]\]/g, '')
+            .replace(/\[pixivimage:([\d-]+)\]/g, '')
+            .replace(/\[chapter: *([^[\]]+)\]/g, '')
+            .replace(/\[uploadedimage:(\d+)\]/g, '')
+          const resp = await translate(text, null, 'zh-Hans')
+          results.push(resp?.[0]?.translations?.[0]?.text || '')
+        }
+        console.log('res', results)
+        const trsRes =
+        splitTextArr.map((e, i) => {
+          const ta = results[i].split('\n')
+          return e.split('\n')
+            .map((f, j) => `${f}<p style="color:gray">${ta[j] || 'Translate failed'}</p>`)
+        })
+        console.log('res text: ', trsRes)
+        this.novelText.text = trsRes.flat(Infinity).join('\n')
+        loading.clear()
+      } catch (err) {
+        console.log('fanyi err: ', err)
       }
-      this.openUrl(`https://fanyi.youdao.com/index.html#/?__pn_id__=${this.artwork.id}`)
     },
   },
 }
 </script>
 
 <style lang="stylus">
-img[src*="/api/qrcode?text"]
+img[src*="https://api.moedog.org/qr/?url="]
   position absolute
   top 50%
   left 50%

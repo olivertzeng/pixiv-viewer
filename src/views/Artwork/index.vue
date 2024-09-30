@@ -247,7 +247,7 @@ export default {
         () => {
           ImagePreview({
             closeable: true,
-            images: [`https://api.obfs.dev/api/qrcode?text=${encodeURIComponent(shareUrl)}`],
+            images: [`https://api.moedog.org/qr/?url=${encodeURIComponent(shareUrl)}`],
           })
         },
         () => {
@@ -282,7 +282,7 @@ export default {
 </script>
 
 <style lang="stylus">
-img[src*="/api/qrcode?text"]
+img[src*="https://api.moedog.org/qr/?url="]
   position absolute
   top 50%
   left 50%

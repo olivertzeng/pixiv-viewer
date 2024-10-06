@@ -208,10 +208,11 @@ export default {
       showComments: false,
       showPntPopover: false,
       pntActions: [
-        { text: '加载沉浸式翻译 SDK', className: 'imt' },
-        { text: 'SiliconCloud(glm-4-9b-chat)', className: 'sc' },
-        { text: '微软翻译', className: 'ms' },
-        { text: '谷歌翻译', className: 'gg' },
+        { text: '加载沉浸式翻译 SDK', className: 'imt', key: 'imt' },
+        { text: '硅基流动 AI 翻译(glm4)', className: 'sc', key: 'sc_glm' },
+        { text: '硅基流动 AI 翻译(Qwen2)', className: 'sc', key: 'sc_qwen' },
+        { text: '微软翻译', className: 'ms', key: 'ms' },
+        { text: '谷歌翻译', className: 'gg', key: 'gg' },
       ],
     }
   },
@@ -366,11 +367,12 @@ export default {
     async onPntSelect(action) {
       const fns = {
         imt: () => this.loadImtSdk(),
-        sc: async () => this.fanyi('sc', await this.getNoTranslateWords()),
+        sc_glm: async () => this.fanyi('sc', await this.getNoTranslateWords(), 'glm'),
+        sc_qwen: async () => this.fanyi('sc', await this.getNoTranslateWords(), 'qwen'),
         ms: async () => this.fanyi('ms', await this.getNoTranslateWords()),
         gg: () => this.fanyi('gg'),
       }
-      const fn = fns[action.className]
+      const fn = fns[action.key]
       fn && (await fn())
     },
     async getNoTranslateWords() {
@@ -382,7 +384,7 @@ export default {
             <p style="margin:0.2rem 0">选择或输入不翻译的单词，以英文逗号分隔，留空跳过</p>
             <input id="get_pnt_nots_input" type="text" >
             <div style="height:1px;margin:0.2rem 0;border-bottom:1px solid #ccc"></div>
-            ${this.artwork.tags.map(e => `<div class="sel_block_chks"><input type="checkbox" data-tagname="${e.name}">${e.name}</div>`).join('')}
+            ${this.artwork.tags.map(e => `<div class="sel_block_chks"><input type="checkbox" data-tagname="${e.name}" onchange="if(this.checked){window['get_pnt_nots_input'].value=window['get_pnt_nots_input'].value.split(',').filter(e=>e).concat([this.getAttribute('data-tagname')]).join(',')}else{window['get_pnt_nots_input'].value=window['get_pnt_nots_input'].value.split(',').filter(e=>e&&e!=this.getAttribute('data-tagname')).join(',')}">${e.name}</div>`).join('')}
           </div>`,
           lockScroll: false,
           closeOnPopstate: true,
@@ -390,10 +392,7 @@ export default {
           confirmButtonText: this.$t('common.confirm'),
           beforeClose: (action, done) => {
             if (action == 'confirm') {
-              const tags = document.querySelectorAll('#get_pnt_nots_dialog input[data-tagname]:checked')
-              let tagInp = document.querySelector('#get_pnt_nots_input')?.value || ''
-              if (tags.length) tagInp = `${[...tags].map(e => e.getAttribute('data-tagname')).join(',')},${tagInp}`
-              if (tagInp.endsWith(',')) tagInp = tagInp.slice(0, -1)
+              const tagInp = document.querySelector('#get_pnt_nots_input')?.value || ''
               resolve(tagInp)
             }
             done()
@@ -401,18 +400,19 @@ export default {
         }).catch(() => {})
       })
     },
-    async fanyi(srv, nots = '') {
+    async fanyi(srv, nots = '', aiModel = 'glm') {
       try {
         const loading = this.$toast.loading({
           duration: 0,
           forbidClick: true,
           message: '加载时间较长，请耐心等待',
         })
-        const cacheKey = `novel.translate.${this.artwork.id}.${srv}.${nots}`
+        const cacheKey = `novel.translate.${this.artwork.id}.${srv}.${nots}.${aiModel}`
         let res = await getCache(cacheKey)
         if (!res) {
           let url = `${PIXIV_NEXT_URL}/api/pixiv-novel-translate/${this.artwork.id}.html?srv=${srv}`
           if (nots) url += `&nots=${nots}`
+          if (srv == 'sc' && aiModel) url += `&aimd=${aiModel}`
           res = await fetch(url).then(r => r.text())
           if (!res.includes('Translate failed')) setCache(cacheKey, res)
         }

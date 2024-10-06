@@ -34,9 +34,21 @@
           <van-button type="info" size="small" plain block @click="showComments = true">
             {{ $t('user.view_comments') }}
           </van-button>
-          <van-button v-if="showPntBtn" type="info" size="small" plain block @click="fanyi">
-            翻译
-          </van-button>
+          <van-popover
+            v-if="showPntBtn"
+            v-model="showPntPopover"
+            :actions="pntActions"
+            trigger="click"
+            placement="top"
+            style="width: 100%;"
+            @select="onPntSelect"
+          >
+            <template #reference>
+              <van-button v-if="showPntBtn" type="info" size="small" plain block>
+                翻译
+              </van-button>
+            </template>
+          </van-popover>
         </div>
         <keep-alive>
           <AuthorNovelCard v-if="artwork.author" :id="artwork.author.id" :key="artwork.id" />
@@ -130,10 +142,10 @@
 import _ from 'lodash'
 import FileSaver from 'file-saver'
 import { mapGetters } from 'vuex'
-import { ImagePreview } from 'vant'
+import { Dialog, ImagePreview } from 'vant'
 import api from '@/api'
-import { translate } from '@/api/microsoft-translate-api'
-import { copyText } from '@/utils'
+import { PIXIV_NEXT_URL } from '@/consts'
+import { copyText, loadScript } from '@/utils'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { LocalStorage } from '@/utils/storage'
 import { i18n } from '@/i18n'
@@ -194,6 +206,13 @@ export default {
       textConfig,
       isCollapseMeta: false,
       showComments: false,
+      showPntPopover: false,
+      pntActions: [
+        { text: '加载沉浸式翻译 SDK', className: 'imt' },
+        { text: 'SiliconCloud(glm-4-9b-chat)', className: 'sc' },
+        { text: '微软翻译', className: 'ms' },
+        { text: '谷歌翻译', className: 'gg' },
+      ],
     }
   },
   head() {
@@ -206,8 +225,7 @@ export default {
   computed: {
     ...mapGetters(['isCensored']),
     showPntBtn() {
-      return false
-      // return sessionStorage.getItem('__pnt_installed') === '1'
+      return i18n.locale.includes('zh') && !/中文|中国语|Chinese|中國語|中国語/.test(JSON.stringify(this.artwork.tags))
     },
   },
   watch: {
@@ -344,59 +362,107 @@ export default {
     },
     downloadNovel() {
       FileSaver.saveAs(new Blob([this.novelText.text]), `${this.artwork.id}_${this.artwork.title}.txt`)
-      // window.umami?.track('download_novel')
     },
-    async fanyi() {
-      // todo: migrate to server api & local/server/cdn cache
+    async onPntSelect(action) {
+      const fns = {
+        imt: () => this.loadImtSdk(),
+        sc: async () => this.fanyi('sc', await this.getNoTranslateWords()),
+        ms: async () => this.fanyi('ms', await this.getNoTranslateWords()),
+        gg: () => this.fanyi('gg'),
+      }
+      const fn = fns[action.className]
+      fn && (await fn())
+    },
+    async getNoTranslateWords() {
+      return new Promise(resolve => {
+        Dialog.confirm({
+          title: '填写不翻译的文本',
+          message: `
+          <div id="get_pnt_nots_dialog">
+            <p style="margin:0.2rem 0">选择或输入不翻译的单词，以英文逗号分隔，留空跳过</p>
+            <input id="get_pnt_nots_input" type="text" >
+            <div style="height:1px;margin:0.2rem 0;border-bottom:1px solid #ccc"></div>
+            ${this.artwork.tags.map(e => `<div class="sel_block_chks"><input type="checkbox" data-tagname="${e.name}">${e.name}</div>`).join('')}
+          </div>`,
+          lockScroll: false,
+          closeOnPopstate: true,
+          cancelButtonText: this.$t('common.cancel'),
+          confirmButtonText: this.$t('common.confirm'),
+          beforeClose: (action, done) => {
+            if (action == 'confirm') {
+              const tags = document.querySelectorAll('#get_pnt_nots_dialog input[data-tagname]:checked')
+              let tagInp = document.querySelector('#get_pnt_nots_input')?.value || ''
+              if (tags.length) tagInp = `${[...tags].map(e => e.getAttribute('data-tagname')).join(',')},${tagInp}`
+              if (tagInp.endsWith(',')) tagInp = tagInp.slice(0, -1)
+              resolve(tagInp)
+            }
+            done()
+          },
+        }).catch(() => {})
+      })
+    },
+    async fanyi(srv, nots = '') {
       try {
         const loading = this.$toast.loading({
           duration: 0,
           forbidClick: true,
-          message: 'Loading',
+          message: '加载时间较长，请耐心等待',
         })
-        const arr = this.novelText.text.replace(/\n+/g, '\n').split('')
-        console.log('arr: ', arr.length)
-        const indexes = []
-        for (let i = 0, j = 1e3; i < arr.length; i++) {
-          if (/\n/.test(arr[i]) && i > j) {
-            indexes.push(i)
-            j += 1e3
-          }
+        const cacheKey = `novel.translate.${this.artwork.id}.${srv}.${nots}`
+        let res = await getCache(cacheKey)
+        if (!res) {
+          let url = `${PIXIV_NEXT_URL}/api/pixiv-novel-translate/${this.artwork.id}.html?srv=${srv}`
+          if (nots) url += `&nots=${nots}`
+          res = await fetch(url).then(r => r.text())
+          if (!res.includes('Translate failed')) setCache(cacheKey, res)
         }
-        indexes.push(arr.length)
-        const splitTextArr = indexes.reduce((acc, cur) => {
-          const last = acc.at(-1)
-          acc.push({
-            v: arr.slice(last.i, cur + 1).join(''),
-            i: cur,
-          })
-          return acc
-        }, [{ v: '', i: 0 }]).map(e => e.v).slice(1)
-        const results = []
-        for (const item of splitTextArr) {
-          const text = item
-            .replace(/\[newpage\]/g, '')
-            .replace(/\[\[rb:([^>[\]]+) *> *([^>[\]]+)\]\]/g, '<ruby>$1<rt>$2</rt></ruby>')
-            .replace(/\[\[jumpuri:([^>\s[\]]+) *> *([^>\s[\]]+)\]\]/g, '')
-            .replace(/\[pixivimage:([\d-]+)\]/g, '')
-            .replace(/\[chapter: *([^[\]]+)\]/g, '')
-            .replace(/\[uploadedimage:(\d+)\]/g, '')
-          const resp = await translate(text, null, 'zh-Hans')
-          results.push(resp?.[0]?.translations?.[0]?.text || '')
-        }
-        console.log('res', results)
-        const trsRes =
-        splitTextArr.map((e, i) => {
-          const ta = results[i].split('\n')
-          return e.split('\n')
-            .map((f, j) => `${f}<p style="color:gray">${ta[j] || 'Translate failed'}</p>`)
-        })
-        console.log('res text: ', trsRes)
-        this.novelText.text = trsRes.flat(Infinity).join('\n')
+        this.novelText.text = res
         loading.clear()
       } catch (err) {
         console.log('fanyi err: ', err)
       }
+    },
+    async loadImtSdk() {
+      if (!localStorage.getItem('PXV_IMT_SDK_CFMED')) {
+        const res = await Dialog.confirm({
+          title: '加载沉浸式翻译 SDK',
+          message: '提示：如果已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK',
+          lockScroll: false,
+          closeOnPopstate: true,
+          cancelButtonText: '取消',
+          confirmButtonText: '加载',
+        }).catch(() => 'cancel')
+        if (res != 'confirm') return
+      }
+      localStorage.setItem('PXV_IMT_SDK_CFMED', '1')
+      if (window.immersiveTranslateConfig) return
+      window.immersiveTranslateConfig = {
+        pageRule: {
+          selectors: ['.novel_text'],
+          translationClasses: ['color-gray'],
+        },
+      }
+      await loadScript('https://download.immersivetranslate.com/immersive-translate-sdk-latest.js')
+      const style = document.createElement('style')
+      style.innerHTML = `
+      .imt-fb-more-buttons .btn-animate:first-child,
+      .imt-fb-more-buttons .btn-animate:last-child,
+      .btn-animate[title="关闭悬浮球"],
+      .popup-container .popup-content > div.flex:first-child,
+      .popup-container .trial-pro-container,
+      .popup-container .text-sm.px-1.text-gray-2,
+      .popup-container .widgets-container.mt-5,
+      .popup-container footer,
+      .translation-service-container select option[value="deepl"],
+      .translation-service-container select option[value="openai"],
+      .translation-service-container select option[value="gemini"],
+      .translation-service-container select option[value="claude"],
+      .translation-service-container select option[value="more"] {
+        display: none !important;
+      }`
+      setTimeout(() => {
+        document.querySelector('#immersive-translate-popup')?.shadowRoot?.appendChild(style)
+      }, 800)
     },
   },
 }

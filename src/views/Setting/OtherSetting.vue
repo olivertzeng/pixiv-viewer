@@ -224,7 +224,7 @@ export default {
         actions: [
           { name: 'Medium', subname: this.$t('setting.img_res.m') },
           { name: 'Large', subname: this.$t('setting.img_res.l') },
-          { name: 'Original', subname: this.$t('setting.img_res.o') },
+          { name: 'Original', subname: this.$t('setting.img_res.o'), disabled: true },
         ],
       },
       lang: {
@@ -254,7 +254,7 @@ export default {
       isPageEffectOn: LocalStorage.get('PXV_PAGE_EFFECT', false),
       isLongpressDL: LocalStorage.get('PXV_LONGPRESS_DL', false),
       isLongpressBlock: LocalStorage.get('PXV_LONGPRESS_BLOCK', false),
-      isImageCardOuterMeta: LocalStorage.get('PXV_IMG_META_OUTER', false),
+      isImageCardOuterMeta: LocalStorage.get('PXV_IMG_META_OUTER', true),
       isImageFitScreen: LocalStorage.get('PXV_IMG_FIT_SCREEN', true),
       isDirectPximg: LocalStorage.get('PXV_PXIMG_DIRECT', false),
     }

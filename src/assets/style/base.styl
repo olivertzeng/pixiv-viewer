@@ -495,7 +495,7 @@ html:has(.dark)
 .setting-actions .conf-fcont
   align-items flex-start !important
 
-#sel_block_dialog
+#sel_block_dialog, #get_pnt_nots_dialog
   display flex
   flex-direction column
   margin-top: -0.9rem
@@ -593,3 +593,15 @@ html:has(.dark)
 
 .app-main:has(.live_detail)
   border-top 4PX solid #F2C358
+
+.color-gray
+  color: gray
+
+#immersive-translate-popup
+  display none !important
+html:has(.novel_text) #immersive-translate-popup
+  display block !important
+
+.van-popover__action
+  &.imt,&.sc,&.ms,&.gg
+    width 220px

@@ -31,6 +31,13 @@
       />
       <van-cell
         center
+        title="Pixiv.cat"
+        is-link
+        label="https://pixiv.re"
+        @click="openLink('https://pixiv.re')"
+      />
+      <van-cell
+        center
         title="pxder"
         is-link
         label="Github:Tsuk1ko/pxder"

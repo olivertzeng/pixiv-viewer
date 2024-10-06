@@ -43,7 +43,9 @@
     </div>
     <div v-if="isOuterMeta && (mode == 'all' || mode === 'meta')" class="outer-meta">
       <div class="content">
-        <h2 class="title" :title="artwork.title" @click="onImageTitleClick">{{ artwork.title }}</h2>
+        <h2 class="title" :title="artwork.title + ' ' + artwork.created" @click="onImageTitleClick">
+          {{ artwork.title }}
+        </h2>
         <div class="author-cont" @click="toAuthor">
           <Pximg :src="artwork.author.avatar" :alt="artwork.author.name" nobg class="avatar" />
           <div class="author">{{ artwork.author.name }}</div>
@@ -65,7 +67,7 @@ import { fancyboxShow } from '@/utils'
 
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
 const isLongpressBlock = LocalStorage.get('PXV_LONGPRESS_BLOCK', false)
-const isOuterMeta = LocalStorage.get('PXV_IMG_META_OUTER', false)
+const isOuterMeta = LocalStorage.get('PXV_IMG_META_OUTER', true)
 
 export default {
   props: {

@@ -1,6 +1,9 @@
 <template>
   <div class="NotFound">
     <img src="/img/404.png" alt="">
+    <div style="padding-top: 1rem;">
+      <van-button type="info" @click="$router.push('/')">Back to Home</van-button>
+    </div>
   </div>
 </template>
 

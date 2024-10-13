@@ -5,10 +5,30 @@
     <van-cell center :title="$t('setting.other.lang')" is-link :label="lang.value" @click="lang.show = true" />
     <van-cell center :title="$t('setting.layout.title')" is-link :label="wfType.value" @click="wfType.show = true" />
     <van-cell center :title="$t('setting.img_res.title')" is-link :label="imgRes.value" @click="imgRes.show = true" />
-    <van-cell center :title="$t('psoXLFqv51j1SeKjTbnms')" is-link :label="$t('setting.lab.title')" to="/setting/accent_color" />
+    <van-cell center :title="$t('psoXLFqv51j1SeKjTbnms')" is-link :label="`${accentColor} ${actTheme}`" to="/setting/accent_color" />
     <van-cell center :title="$t('setting.dark.title')" :label="$t('setting.lab.title')">
       <template #right-icon>
         <van-switch :value="isDark" size="24" @change="onDarkChange" />
+      </template>
+    </van-cell>
+    <van-cell center :title="$t('5syY7l774noiN5LHKUnqF')" :label="$t('QRASoWf3qDfwihoIa84C9')">
+      <template #right-icon>
+        <van-switch :disabled="isLongpressBlock" :value="isLongpressDL" size="24" @change="changeLongpressDL" />
+      </template>
+    </van-cell>
+    <van-cell center :title="$t('kFOiZTwKWwXy-sxaspqSD')" :label="$t('NgE24V8lvXN2c15W_2gnE')">
+      <template #right-icon>
+        <van-switch :disabled="isLongpressDL" :value="isLongpressBlock" size="24" @change="changeLongpressBlock" />
+      </template>
+    </van-cell>
+    <van-cell center :title="$t('ZO7u4XT4flW6_nmyvmXt7')" :label="$t('WdS4RTIeeWqdaqLtvk7ZO')">
+      <template #right-icon>
+        <van-switch :value="isImageCardOuterMeta" size="24" @change="changeImageCardOuterMeta" />
+      </template>
+    </van-cell>
+    <van-cell center :title="$t('mR4YFHYUnr00zmzYydrMv')" :label="$t('V-KoSeNoEiNct7oZJgCcD')">
+      <template #right-icon>
+        <van-switch :value="isImageFitScreen" size="24" @change="changeImageFitScreen" />
       </template>
     </van-cell>
     <van-cell center :title="$t('qLUWER5bf4X2lE0RjKTBj')" :label="$t('setting.lab.title')">
@@ -24,26 +44,6 @@
     <van-cell center :title="$t('eioSClGw9BqryzojTwr8j')" :label="$t('setting.lab.title')">
       <template #right-icon>
         <van-switch :value="isPageEffectOn" size="24" @change="changePageEffect" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('5syY7l774noiN5LHKUnqF')" :label="$t('setting.lab.title')">
-      <template #right-icon>
-        <van-switch :disabled="isLongpressBlock" :value="isLongpressDL" size="24" @change="changeLongpressDL" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('kFOiZTwKWwXy-sxaspqSD')" :label="$t('setting.lab.title')">
-      <template #right-icon>
-        <van-switch :disabled="isLongpressDL" :value="isLongpressBlock" size="24" @change="changeLongpressBlock" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('ZO7u4XT4flW6_nmyvmXt7')" :label="$t('setting.lab.title')">
-      <template #right-icon>
-        <van-switch :value="isImageCardOuterMeta" size="24" @change="changeImageCardOuterMeta" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('mR4YFHYUnr00zmzYydrMv')" :label="$t('V-KoSeNoEiNct7oZJgCcD')">
-      <template #right-icon>
-        <van-switch :value="isImageFitScreen" size="24" @change="changeImageFitScreen" />
       </template>
     </van-cell>
     <van-cell center :title="$t('setting.other.manual_input')" :label="$t('setting.other.manual_input_label')">
@@ -257,6 +257,8 @@ export default {
       isImageCardOuterMeta: LocalStorage.get('PXV_IMG_META_OUTER', true),
       isImageFitScreen: LocalStorage.get('PXV_IMG_FIT_SCREEN', true),
       isDirectPximg: LocalStorage.get('PXV_PXIMG_DIRECT', false),
+      actTheme: localStorage.PXV_THEME || '',
+      accentColor: localStorage.PXV_ACT_COLOR || 'Default',
     }
   },
   head() {

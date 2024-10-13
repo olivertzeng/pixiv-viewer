@@ -429,5 +429,8 @@
   "0CDMRP9wSGJQTyMbvrM8z": "Afficher les réponses",
   "qLUWER5bf4X2lE0RjKTBj": "Utilisez Fancybox pour afficher l'image originale sur la page de détails",
   "k0V0c1MNZGYs9MCqjx8QL": "ID de session invalide",
-  "3UCLxnEsirUQvP_xv4po4": "Erreur de format du jeton d'accès"
+  "3UCLxnEsirUQvP_xv4po4": "Erreur de format du jeton d'accès",
+  "QRASoWf3qDfwihoIa84C9": "Non disponible avec blocage par appui long",
+  "NgE24V8lvXN2c15W_2gnE": "Un appui long peut bloquer l'auteur ou la balise et ne peut pas être utilisé avec un appui long pour télécharger.",
+  "WdS4RTIeeWqdaqLtvk7ZO": "Placez le titre de l'image et l'auteur sous la fiche image. Cliquez sur le titre pour prévisualiser l'image."
 }

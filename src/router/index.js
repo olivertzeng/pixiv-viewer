@@ -66,6 +66,7 @@ const routes = [
             name: 'Home',
             component: Home,
             meta: { __depth: 1 },
+            alias: ['/home', '/index', '/index.html'],
           },
           {
             path: '/home_manga',

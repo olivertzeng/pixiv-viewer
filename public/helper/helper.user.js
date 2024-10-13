@@ -14,13 +14,15 @@
 // @match        https://pxvek.169889.xyz/*
 // @match        https://pixiv-viewer.netlify.app/*
 // @match        https://pixiv-viewer.zeabur.app/*
+// @match        https://pixiv-viewer.vercel.app/*
 // @match        https://pksbv.pages.dev/*
 // @connect      pixiv.net
 // @connect      210.140.92.180
 // @connect      210.140.139.130
 // @connect      pixiv.pics
 // @connect      cocomi.eu.org
-// @connect      deno.dev
+// @connect      pxve.cc
+// @connect      169889.xyz
 // @grant        unsafeWindow
 // @grant        window.close
 // @grant        GM_xmlhttpRequest

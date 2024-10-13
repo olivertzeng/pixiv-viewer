@@ -429,5 +429,8 @@
   "0CDMRP9wSGJQTyMbvrM8z": "查看回覆",
   "qLUWER5bf4X2lE0RjKTBj": "詳情頁使用 Fancybox 查看原圖",
   "k0V0c1MNZGYs9MCqjx8QL": "無效的session ID",
-  "3UCLxnEsirUQvP_xv4po4": "存取令牌格式錯誤"
+  "3UCLxnEsirUQvP_xv4po4": "存取令牌格式錯誤",
+  "QRASoWf3qDfwihoIa84C9": "不可與長按屏蔽一起使用",
+  "NgE24V8lvXN2c15W_2gnE": "長按可屏蔽作者或標籤，不可與長按下載一起使用",
+  "WdS4RTIeeWqdaqLtvk7ZO": "將圖片標題與作者置於圖片卡下方，點選標題可預覽圖片"
 }

@@ -429,5 +429,8 @@
   "0CDMRP9wSGJQTyMbvrM8z": "답글 보기",
   "qLUWER5bf4X2lE0RjKTBj": "Fancybox를 사용하여 세부정보 페이지에서 원본 이미지를 확인하세요.",
   "k0V0c1MNZGYs9MCqjx8QL": "잘못된 세션 ID",
-  "3UCLxnEsirUQvP_xv4po4": "액세스 토큰 형식 오류"
+  "3UCLxnEsirUQvP_xv4po4": "액세스 토큰 형식 오류",
+  "QRASoWf3qDfwihoIa84C9": "길게 누르기 차단에는 사용할 수 없습니다.",
+  "NgE24V8lvXN2c15W_2gnE": "길게 누르면 작성자나 태그가 차단될 수 있으며, 길게 누르기와 함께 다운로드할 수는 없습니다.",
+  "WdS4RTIeeWqdaqLtvk7ZO": "이미지 제목과 작성자를 이미지 카드 아래에 배치하세요. 제목을 클릭하면 이미지를 미리 볼 수 있습니다."
 }

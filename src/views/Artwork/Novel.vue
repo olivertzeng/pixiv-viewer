@@ -362,9 +362,11 @@ export default {
       this.$toast(this.$t('tips.current_value') + value)
     },
     downloadNovel() {
+      window.umami?.track('download_novel')
       FileSaver.saveAs(new Blob([this.novelText.text]), `${this.artwork.id}_${this.artwork.title}.txt`)
     },
     async onPntSelect(action) {
+      window.umami?.track('translate_novel', { action })
       const fns = {
         imt: () => this.loadImtSdk(),
         sc_glm: async () => this.fanyi('sc', await this.getNoTranslateWords(), 'glm'),

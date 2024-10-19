@@ -25,6 +25,7 @@ import { LocalStorage } from './utils/storage'
 import { getSelectedLang, i18n, initLocale } from './i18n'
 import { getActionMap } from './api/client/action'
 import { initBookmarkCache } from './utils/storage/siteCache'
+import { isProduction } from './consts'
 
 setupApp()
 
@@ -64,7 +65,7 @@ async function setupApp() {
     render: h => h(App),
   }).$mount('#app')
 
-  if (process.env.NODE_ENV === 'production') {
+  if (isProduction) {
     init()
   }
 }

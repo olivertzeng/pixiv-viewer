@@ -48,7 +48,7 @@ import { Dialog } from 'vant'
 import dayjs from 'dayjs'
 import PixivAuth from '@/api/client/pixiv-auth'
 import { logout } from '@/api/user'
-// import { NOTICES_JSON } from '@/consts'
+import { LocalStorage } from '@/utils/storage'
 
 export default {
   name: 'Setting',
@@ -87,6 +87,7 @@ export default {
       if (window.APP_CONFIG.useLocalAppApi) {
         const res = await Dialog.confirm({ message: this.$t('login.logout_tip') })
         if (res != 'confirm') return
+        LocalStorage.remove('PXV_CLIENT_AUTH')
         window.APP_CONFIG.useLocalAppApi = false
         PixivAuth.writeConfig(window.APP_CONFIG)
         setTimeout(() => {

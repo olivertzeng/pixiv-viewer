@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import nprogress from 'nprogress'
 import { LocalStorage } from '@/utils/storage'
+import { BASE_URL } from '@/consts'
 
 import BaseLayout from '@/layouts/BaseLayout.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -349,7 +350,7 @@ const isPageEffectOn = LocalStorage.get('PXV_PAGE_EFFECT', false)
 const router = new VueRouter({
   routes,
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: BASE_URL,
   scrollBehavior(_, __, pos) {
     console.log('pos: ', pos)
     if (isPageEffectOn) {

@@ -86,6 +86,7 @@ export default {
       const res = await api.getRecommendedIllust()
       if (res.status === 0) {
         this.artList = _.shuffle(res.data.filter(filterRecommIllust))
+        this.artList.nextUrl = res.data.nextUrl
       } else {
         this.$toast({
           message: res.msg,

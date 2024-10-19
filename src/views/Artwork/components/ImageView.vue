@@ -73,6 +73,7 @@ import GIF from 'gif.js'
 import tsWhammy from 'ts-whammy'
 import FileSaver from 'file-saver'
 import api from '@/api'
+import { BASE_URL } from '@/consts'
 import { LocalStorage } from '@/utils/storage'
 import { sleep, fancyboxShow, loadScript } from '@/utils'
 
@@ -427,7 +428,7 @@ export default {
         quality: 10,
         width,
         height,
-        workerScript: `${process.env.BASE_URL}static/js/gif.worker.js`,
+        workerScript: `${BASE_URL}static/js/gif.worker.js`,
       })
       Object.values(images).forEach(frame => {
         ctx.clearRect(0, 0, width, height)

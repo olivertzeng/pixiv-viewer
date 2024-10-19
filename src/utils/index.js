@@ -197,3 +197,11 @@ export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
     },
   })
 }
+
+export function tryURL(url) {
+  try {
+    return new URL(url)
+  } catch (_err) {
+    return null
+  }
+}

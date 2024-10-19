@@ -1,7 +1,8 @@
 import { register } from 'register-service-worker'
+import { BASE_URL, isProduction } from './consts'
 
-if (process.env.NODE_ENV === 'production') {
-  register(`${process.env.BASE_URL}service-worker.js`, {
+if (isProduction) {
+  register(`${BASE_URL}service-worker.js`, {
     ready() {
       console.info(
         'App is being served from cache by a service worker.\n' +

@@ -22,11 +22,12 @@
 </template>
 
 <script>
-import TopBar from '@/components/TopBar'
-import ImageCard from '@/components/ImageCard'
+import _ from 'lodash'
 import api from '@/api'
 import { filterRecommIllust } from '@/utils/filter'
-import _ from 'lodash'
+import { tryURL } from '@/utils'
+import TopBar from '@/components/TopBar'
+import ImageCard from '@/components/ImageCard'
 
 export default {
   name: 'RecommendIllust',
@@ -63,22 +64,14 @@ export default {
         params: { id },
       })
     },
-    tryURL(url) {
-      try {
-        return new URL(url)
-      } catch (_err) {
-        return null
-      }
-    },
     async loadMore() {
+      console.log('this.nextUrl: ', this.nextUrl)
       const params = {}
-      if (!window.APP_CONFIG.useApiProxy) {
-        const u = this.tryURL(this.nextUrl)
-        if (u) {
-          u.searchParams.forEach((v, k) => {
-            params[k] = v
-          })
-        }
+      const u = tryURL(this.nextUrl)
+      if (u) {
+        u.searchParams.forEach((v, k) => {
+          params[k] = v
+        })
       }
       this.loading = true
       const res = await api.getRecommendedIllust(JSON.stringify(params))
@@ -116,6 +109,7 @@ export default {
     },
     init() {
       const { list } = this.$route.params
+      console.log('list: ', list)
       if (list) {
         this.artList = list
         this.nextUrl = list.nextUrl

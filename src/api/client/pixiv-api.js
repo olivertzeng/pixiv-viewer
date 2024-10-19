@@ -524,19 +524,14 @@ class PixivApi {
     return this.requestUrl(`/v2/illust/comment/replies?${queryString}`)
   }
 
-  illustRelated(id, options) {
+  illustRelated(id, options = {}) {
     if (!id) {
       return Promise.reject(new Error('illust_id required'))
     }
 
-    const queryString = qs.stringify(
-      Object.assign(
-        {
-          illust_id: id,
-        },
-        options
-      )
-    )
+    const { nextUrl } = options
+    delete options.nextUrl
+    const queryString = nextUrl || qs.stringify(Object.assign({ illust_id: id }, options))
     return this.requestUrl(`/v2/illust/related?${queryString}`)
   }
 

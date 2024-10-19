@@ -267,7 +267,7 @@ export const parseWebApiIllust = d => {
 }
 
 const dealErrMsg = res => {
-  const err = res.error?.response?.data?.error || res.error
+  const err = res.error?.response?.data?.error || res.error?.error || res.error
   let msg = err?.message || err?.user_message || err
   if (msg == 'Rate Limit') msg = i18n.t('tip.rate_limit')
   return msg
@@ -376,7 +376,7 @@ const api = {
    * @param {Number} id 作品ID
    * @param {Number} page 页数 [1,5]
    */
-  async getRelated(id, page = 1) {
+  async getRelated(id, page = 1, nextUrl = '') {
     const cacheKey = `relatedList_${id}_p${page}`
     let relatedList = await getCache(cacheKey)
 
@@ -384,10 +384,12 @@ const api = {
       const res = await get('/related', {
         id,
         page,
+        nextUrl,
       })
 
       if (res.illusts) {
         relatedList = res.illusts.map(art => parseIllust(art))
+        relatedList.nextUrl = res.next_url
         setCache(cacheKey, relatedList, 60 * 60 * 48)
       } else if (res.error) {
         return {

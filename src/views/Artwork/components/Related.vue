@@ -26,9 +26,11 @@
 </template>
 
 <script>
-import ImageCard from '@/components/ImageCard'
-import api from '@/api'
 import _ from 'lodash'
+import api from '@/api'
+import { tryURL } from '@/utils'
+import ImageCard from '@/components/ImageCard'
+
 export default {
   name: 'Related',
   components: {
@@ -48,6 +50,7 @@ export default {
       error: false,
       loading: false,
       finished: false,
+      nextUrl: null,
     }
   },
   mounted() {
@@ -77,18 +80,18 @@ export default {
     },
     getRelated: _.throttle(async function () {
       if (!this.artwork.id) return
+      console.log('this.nextUrl: ', this.nextUrl)
       this.loading = true
-      let newList
-      const res = await api.getRelated(this.artwork.id, this.curPage)
+      const nextUrl = tryURL(this.nextUrl)
+      const res = await api.getRelated(this.artwork.id, this.curPage, nextUrl?.search.slice(1))
       if (res.status === 0) {
-        newList = res.data
-        if (newList.length) {
+        if (res.data.length) {
           this.artList = _.uniqBy([
             ...this.artList,
-            ...newList,
+            ...res.data,
           ], 'id')
           this.curPage++
-          if (this.curPage > 4) this.finished = true
+          this.nextUrl = res.data.nextUrl
         } else {
           this.finished = true
         }

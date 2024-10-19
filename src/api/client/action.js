@@ -212,10 +212,8 @@ function initApp(pixiv) {
     return pixiv.trendingTagsNovel(req.query)
   })
   app.get('/related', async req => {
-    const { page = 1, size = 30, id } = req.query
-    return pixiv.illustRelated(id, {
-      offset: (page - 1) * size,
-    })
+    const { id, nextUrl } = req.query
+    return pixiv.illustRelated(id, { nextUrl })
   })
   app.get('/related_novel', async req => {
     const { page = 1, size = 30, id } = req.query

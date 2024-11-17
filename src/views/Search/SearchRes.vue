@@ -326,7 +326,7 @@ export default {
       }
       console.log(`doSearch: ${val}`)
 
-      if (/スカラマシュ|散兵|放浪者(原神)|流浪者(原神)/i.test(val) || !(await mintVerify(val))) {
+      if (/スカラマシュ|散兵|放浪者(原神)|流浪者(原神)|雀魂/i.test(val) || !(await mintVerify(val))) {
         this.artList = []
         this.finished = true
         this.curPage = 1
@@ -371,9 +371,9 @@ export default {
           artList = artList.filter(e => {
             return !(
               e.like < 5 ||
-              /恋童|ペド|幼女|スカラマシュ|散兵/.test(JSON.stringify(e.tags)) ||
-              /恋童|幼女|进群|加好友|度盘|スカラマシュ|散兵/.test(e.title) ||
-              /恋童|幼女|进群|加好友|度盘|スカラマシュ|散兵/.test(e.caption)
+              /恋童|ペド|幼女|スカラマシュ|散兵|雀魂/.test(JSON.stringify(e.tags)) ||
+              /恋童|幼女|进群|加好友|度盘|スカラマシュ|散兵|雀魂/.test(e.title) ||
+              /恋童|幼女|进群|加好友|度盘|スカラマシュ|散兵|雀魂/.test(e.caption)
             )
           })
 

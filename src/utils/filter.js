@@ -3,8 +3,8 @@ import store from '@/store'
 import { getCache, setCache } from './storage/siteCache'
 import { COMMON_PROXY } from '@/consts'
 
-const re1 = /漫画|描き方|お絵かきTIPS|manga|BL|スカラマシュ|散兵/i
-const re2 = /R-?18|恋童|ペド|幼女|萝莉|loli|小学生|BL|腐|スカラマシュ|散兵/i
+const re1 = /漫画|描き方|お絵かきTIPS|manga|BL|スカラマシュ|散兵|雀魂/i
+const re2 = /R-?18|恋童|ペド|幼女|萝莉|loli|小学生|BL|腐|スカラマシュ|散兵|雀魂/i
 
 const blockedUserIds = [24517, 14002767, 16776564, 33333, 423251, 27526, 13150573]
 export function filterHomeIllust(e) {

@@ -162,13 +162,14 @@ export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
     document.head.insertAdjacentHTML('beforeend', '<link href="https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
     await loadScript('https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
   }
+  const isMobile = navigator.userAgent.includes('Mobile')
   window.Fancybox.show(artwork.images.map(e => ({
     src: getSrc(e),
     thumb: e.m,
   })), {
-    compact: navigator.userAgent.includes('Mobile'),
+    compact: isMobile,
     backdropClick: 'close',
-    // contentClick: 'close',
+    contentClick: isMobile ? 'close' : 'toggleZoom',
     startIndex: index,
     hideScrollbar: false,
     placeFocusBack: false,

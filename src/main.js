@@ -43,7 +43,7 @@ async function setupApp() {
     observer: true,
     lazyComponent: true,
     loading: localStorage.PXV_ACT_COLOR ? loadingSvg(localStorage.PXV_ACT_COLOR) : require('@/icons/loading.svg'),
-    preload: 1.5,
+    preload: 1.3,
   })
   Vue.use(Vant)
   Vue.use(VueAwesomeSwiper)

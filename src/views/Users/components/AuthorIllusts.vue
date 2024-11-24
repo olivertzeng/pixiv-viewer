@@ -41,7 +41,7 @@
       :error-text="$t('tips.net_err')"
       @load="getMemberArtwork()"
     >
-      <wf-cont v-bind="$store.getters.wfProps">
+      <wf-cont v-bind="$store.getters.wfProps" :layout="selTag ? 'Grid' : undefined">
         <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
       </wf-cont>
     </van-list>

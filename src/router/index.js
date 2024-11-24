@@ -114,6 +114,7 @@ const routes = [
           },
           {
             path: '/rank',
+            alias: ['/ranking', '/ranking.php'],
             redirect: '/rank/daily',
             meta: { __depth: 1 },
           },
@@ -171,6 +172,7 @@ const routes = [
           },
           {
             path: '/users/:id/artworks',
+            alias: ['/users/:id/illustrations'],
             name: 'AuthorIllusts',
             component: UserIllusts,
             meta: { __depth: 25 },
@@ -183,12 +185,14 @@ const routes = [
           },
           {
             path: '/users/:id/favorites',
+            alias: ['/users/:id/bookmarks/artworks'],
             name: 'AuthorFavorites',
             component: UserFavorites,
             meta: { __depth: 25 },
           },
           {
             path: '/users/:id/favorite_novels',
+            alias: ['/users/:id/bookmarks/novels'],
             name: 'AuthorFavoriteNovels',
             component: UserFavoriteNovels,
             meta: { __depth: 25 },

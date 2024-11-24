@@ -151,7 +151,7 @@
     "autocomplete": "搜尋建議",
     "history": "歷史搜尋",
     "img": {
-      "err": "返回結果解析失敗",
+      "err": "返回結果解析失敗。",
       "placeholder": "請選擇圖片文件"
     },
     "of_user_res": "{0}的搜尋結果",
@@ -433,5 +433,6 @@
   "QRASoWf3qDfwihoIa84C9": "不可與長按屏蔽一起使用",
   "NgE24V8lvXN2c15W_2gnE": "長按可屏蔽作者或標籤，不可與長按下載一起使用",
   "WdS4RTIeeWqdaqLtvk7ZO": "將圖片標題與作者置於圖片卡下方，點選標題可預覽圖片",
-  "Tx35SIS0MBLD-pgz1XgXh": "展示全部"
+  "Tx35SIS0MBLD-pgz1XgXh": "展示全部",
+  "lJtMtr2rgYCSg-osHykE9": "請前往<a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> 或<a href=\"https://iqdb.org/\" target= \n\"_blank\">https://iqdb.org</a> 搜尋。"
 }

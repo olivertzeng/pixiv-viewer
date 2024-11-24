@@ -191,7 +191,7 @@
     },
     "history": "Histórico de busca",
     "img": {
-      "err": "Falha na análise do resultado de retorno",
+      "err": "Falha na análise do resultado de retorno.",
       "placeholder": "Selecione um arquivo de imagem"
     },
     "mode": {
@@ -433,5 +433,6 @@
   "QRASoWf3qDfwihoIa84C9": "Não disponível com bloqueio de toque longo",
   "NgE24V8lvXN2c15W_2gnE": "Um toque longo pode bloquear o autor ou tag e não pode ser usado junto com um toque longo para fazer download.",
   "WdS4RTIeeWqdaqLtvk7ZO": "Coloque o título e o autor da imagem abaixo do cartão de imagem. Clique no título para visualizar a imagem.",
-  "Tx35SIS0MBLD-pgz1XgXh": "Mostrar tudo"
+  "Tx35SIS0MBLD-pgz1XgXh": "Mostrar tudo",
+  "lJtMtr2rgYCSg-osHykE9": "Acesse <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> ou <a href=\"https://iqdb.org/\" target = \"_blank\">https://iqdb.org</a> Pesquisa."
 }

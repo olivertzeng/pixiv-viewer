@@ -146,7 +146,7 @@
     "of_user_res": "{0}的搜索结果",
     "img": {
       "placeholder": "请选择图片文件",
-      "err": "返回结果解析失败"
+      "err": "返回结果解析失败。"
     },
     "pop_preview": "热门预览",
     "pop_preview_novel": "热门小说预览",
@@ -433,5 +433,6 @@
   "QRASoWf3qDfwihoIa84C9": "不可与长按屏蔽一起使用",
   "NgE24V8lvXN2c15W_2gnE": "长按可屏蔽作者或标签，不可与长按下载一起使用",
   "WdS4RTIeeWqdaqLtvk7ZO": "将图片标题与作者置于图片卡下方，点击标题可预览图片",
-  "Tx35SIS0MBLD-pgz1XgXh": "展示全部"
+  "Tx35SIS0MBLD-pgz1XgXh": "展示全部",
+  "lJtMtr2rgYCSg-osHykE9": "请前往 <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> 或者 <a href=\"https://iqdb.org/\" target=\"_blank\">https://iqdb.org</a> 搜索。"
 }

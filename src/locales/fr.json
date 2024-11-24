@@ -151,7 +151,7 @@
     "autocomplete": "Suggestion de recherche",
     "history": "Historique des recherches",
     "img": {
-      "err": "Échec de l'analyse du résultat renvoyé",
+      "err": "Échec de l'analyse du résultat renvoyé.",
       "placeholder": "Veuillez sélectionner un fichier image"
     },
     "of_user_res": "Résultats de la recherche pour {0}",
@@ -433,5 +433,6 @@
   "QRASoWf3qDfwihoIa84C9": "Non disponible avec blocage par appui long",
   "NgE24V8lvXN2c15W_2gnE": "Un appui long peut bloquer l'auteur ou la balise et ne peut pas être utilisé avec un appui long pour télécharger.",
   "WdS4RTIeeWqdaqLtvk7ZO": "Placez le titre de l'image et l'auteur sous la fiche image. Cliquez sur le titre pour prévisualiser l'image.",
-  "Tx35SIS0MBLD-pgz1XgXh": "Afficher tout"
+  "Tx35SIS0MBLD-pgz1XgXh": "Afficher tout",
+  "lJtMtr2rgYCSg-osHykE9": "Veuillez vous rendre sur <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> ou <a href=\"https://iqdb.org/\" target = \"_blank\">https://iqdb.org</a> Recherche."
 }

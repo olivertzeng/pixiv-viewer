@@ -151,7 +151,7 @@
     "autocomplete": "Search Suggestion",
     "history": "Search History",
     "img": {
-      "err": "Return result parsing failed",
+      "err": "Return result parsing failed.",
       "placeholder": "Please select an image file"
     },
     "of_user_res": "Search results for {0}",
@@ -433,5 +433,6 @@
   "QRASoWf3qDfwihoIa84C9": "Not available with long press blocking",
   "NgE24V8lvXN2c15W_2gnE": "Long press can block the author or tag, and cannot be used together with long press to download.",
   "WdS4RTIeeWqdaqLtvk7ZO": "Place the image title and author below the image card. Click the title to preview the image.",
-  "Tx35SIS0MBLD-pgz1XgXh": "Show all"
+  "Tx35SIS0MBLD-pgz1XgXh": "Show all",
+  "lJtMtr2rgYCSg-osHykE9": "Please go to <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> or <a href=\"https://iqdb.org/\" target= \n\"_blank\">https://iqdb.org</a> Search."
 }

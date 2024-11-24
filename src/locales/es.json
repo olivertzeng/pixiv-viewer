@@ -191,7 +191,7 @@
     },
     "history": "Buscar Historia",
     "img": {
-      "err": "Error al analizar el resultado devuelto",
+      "err": "Error al analizar el resultado devuelto.",
       "placeholder": "Por favor seleccione un archivo de imagen"
     },
     "mode": {
@@ -433,5 +433,6 @@
   "QRASoWf3qDfwihoIa84C9": "No disponible con bloqueo de pulsación larga",
   "NgE24V8lvXN2c15W_2gnE": "Una pulsación larga puede bloquear el autor o la etiqueta y no se puede utilizar junto con una pulsación larga para descargar.",
   "WdS4RTIeeWqdaqLtvk7ZO": "Coloque el título de la imagen y el autor debajo de la tarjeta de la imagen. Haga clic en el título para obtener una vista previa de la imagen.",
-  "Tx35SIS0MBLD-pgz1XgXh": "Mostrar todo"
+  "Tx35SIS0MBLD-pgz1XgXh": "Mostrar todo",
+  "lJtMtr2rgYCSg-osHykE9": "Vaya a <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> o <a href=\"https://iqdb.org/\" target = \"_blank\">https://iqdb.org</a> Buscar."
 }

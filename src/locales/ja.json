@@ -151,7 +151,7 @@
     "autocomplete": "検索候補",
     "history": "検索履歴",
     "img": {
-      "err": "戻り結果の解析に失敗しました",
+      "err": "戻り結果の解析に失敗しました。",
       "placeholder": "画像ファイルを選択してください"
     },
     "of_user_res": "{0}の検索結果",
@@ -433,5 +433,6 @@
   "QRASoWf3qDfwihoIa84C9": "長押しブロックでは使用できません",
   "NgE24V8lvXN2c15W_2gnE": "長押しすると作成者やタグがブロックされる可能性があり、長押しと併用してダウンロードすることはできません。",
   "WdS4RTIeeWqdaqLtvk7ZO": "画像カードの下に画像のタイトルと作者を配置します。タイトルをクリックして画像をプレビューします。",
-  "Tx35SIS0MBLD-pgz1XgXh": "すべて表示"
+  "Tx35SIS0MBLD-pgz1XgXh": "すべて表示",
+  "lJtMtr2rgYCSg-osHykE9": "<a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> または <a href=\"https://iqdb.org/\" ターゲットにアクセスしてください。 = \"_blank\">https://iqdb.org</a> で検索します。"
 }

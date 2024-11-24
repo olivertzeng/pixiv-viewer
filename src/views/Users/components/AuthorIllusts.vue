@@ -11,7 +11,7 @@
       </van-cell>
       <h3 v-else class="af_title">{{ $t('user.art_title', [authorName + iTypeText]) }}</h3>
     </template>
-    <div v-if="iType == 'illust'" class="member-tags" :class="{'one-line':showAllTags}">
+    <div v-if="iType == 'illust'" class="member-tags" :class="{ 'one-line': showAllTags }">
       <div v-for="t in memberTagsDisplay" :key="t.tag" class="member-tag" :style="getTagStyle()" @click="setSelTag(t.tag)">
         <div class="member-tag-main">
           <span>#{{ t.tag }}</span>
@@ -23,7 +23,7 @@
         <div v-if="t.tag_translation">{{ t.tag_translation }}</div>
       </div>
       <div
-        v-if="!selTag&&memberTags.length>20&&!showAllTags"
+        v-if="!selTag && memberTags.length > 20 && !showAllTags"
         class="member-tag"
         style="background: #efefef;color: #333;"
         @click="showAllTags = true"

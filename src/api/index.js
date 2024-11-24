@@ -243,7 +243,7 @@ export const parseWebApiIllust = d => {
   const artwork = {
     id: d.id,
     title: d.title,
-    caption: '',
+    caption: d.description || '',
     author: {
       id: d.userId,
       name: d.userName,
@@ -260,7 +260,7 @@ export const parseWebApiIllust = d => {
     like: 0,
     x_restrict: d.xRestrict,
     illust_ai_type: d.aiType,
-    type: 'illust',
+    type: ['illust', 'manga', 'ugoira'][d.illustType || 0],
   }
 
   return artwork
@@ -1246,6 +1246,10 @@ const api = {
       if (res.illust) {
         artwork = parseIllust(res.illust)
         try {
+          if (!artwork.caption) {
+            const webIllust = await get(`${PIXIV_NOW_URL}/ajax/illust/${id}?full=1`)
+            artwork.caption = webIllust.illustComment
+          }
           if (artwork.images[0].o.includes('common/images/limit_sanity_level')) {
             const [webRes, webImages] = await Promise.all([
               get(`${PIXIV_NOW_URL}/ajax/illust/${id}?full=1`),
@@ -1276,7 +1280,7 @@ const api = {
               like: webRes.bookmarkCount,
               x_restrict: webRes.xRestrict,
               illust_ai_type: webRes.aiType,
-              type: 'illust',
+              type: ['illust', 'manga', 'ugoira'][webRes.illustType || 0],
               is_bookmarked: false,
               series: null,
             }
@@ -1342,9 +1346,7 @@ const api = {
     let memberInfo = await getCache(cacheKey)
 
     if (!memberInfo) {
-      const res = await get('/member', {
-        id,
-      })
+      const res = await get('/member', { id })
 
       if (res.error) {
         return {
@@ -1353,10 +1355,84 @@ const api = {
         }
       } else {
         memberInfo = parseUser(res)
+        try {
+          if (!memberInfo.comment || !memberInfo.webpage || !memberInfo.twitter_url) {
+            const webRes = await get(`${PIXIV_NOW_URL}/users/${id}`.replace('/http', ''))
+            memberInfo.comment = webRes?.commentHtml
+            memberInfo.webpage = webRes?.webpage
+            memberInfo.twitter_url = webRes?.social?.twitter?.url || ''
+            memberInfo.twitter_account = webRes?.social?.twitter?.url?.split('/').pop() || ''
+          }
+        } catch (err) {
+          console.log('err: ', err)
+        }
+        setCache(cacheKey, memberInfo, 60 * 60 * 24)
       }
-
-      setCache(cacheKey, memberInfo, 60 * 60 * 24)
     }
+
+    return { status: 0, data: memberInfo }
+  },
+
+  /**
+   * 获取画师作品标签
+   * @param {Number} id 画师ID
+   */
+  async getMemberTags(id) {
+    const cacheKey = `memberTags_${id}`
+    let memberInfo = await getCache(cacheKey)
+
+    if (!memberInfo) {
+      const res = await get(`${PIXIV_NOW_URL}/ajax/user/${id}/illusts/tags`)
+
+      if (!Array.isArray(res)) {
+        return {
+          status: -1,
+          msg: dealErrMsg(res.error ? res : { error: res }),
+        }
+      } else {
+        memberInfo = res.sort((a, b) => b.cnt - a.cnt)
+        setCache(cacheKey, memberInfo, 60 * 60 * 24)
+      }
+    }
+
+    return { status: 0, data: memberInfo }
+  },
+
+  /**
+   * 获取画师标签下的作品
+   * @param {number} id 画师ID
+   * @param {string} tag 标签
+   * @param {number} page 页数
+   */
+  async getMemberTagArtworks(id, tag, page = 1) {
+    const cacheKey = `memberTagArtworks_${id}_${tag}_${page}`
+    let memberInfo = await getCache(cacheKey)
+
+    if (!memberInfo) {
+      const res = await get(`${PIXIV_NOW_URL}/ajax/user/${id}/illusts/tag`, {
+        tag,
+        offset: (page - 1) * 48,
+        limit: 48,
+        sensitiveFilterMode: 'userSetting',
+        lang: 'zh',
+      })
+
+      if (!Array.isArray(res.works)) {
+        return {
+          status: -1,
+          msg: dealErrMsg(res.error ? res : { error: res }),
+        }
+      } else {
+        memberInfo = {
+          total: res.total,
+          currLen: res.works.length,
+          works: res.works.map(parseWebApiIllust),
+        }
+        setCache(cacheKey, memberInfo, 60 * 60 * 12)
+      }
+    }
+
+    memberInfo.works = filterCensoredIllusts(memberInfo.works)
 
     return { status: 0, data: memberInfo }
   },

@@ -227,8 +227,8 @@
       "lang": "Sprache",
       "lang_ph": "Bitte Sprache auswählen",
       "title": "Präferenzen",
-      "manual_input_label": "Ob die Proxy- und API-Instanzadressen der folgenden Bilder manuell eingegeben werden",
-      "manual_input": "Geben Sie den Proxy-/API-Link manuell ein",
+      "manual_input_label": "Aktivieren Sie diesen Schalter, um den unten stehenden Link manuell einzugeben",
+      "manual_input": "Standard-API oder Bild-Proxy werden nicht verwendet",
       "api_proxy": {
         "def_ph": "Wenn der Standard-Proxy nicht verwendet werden kann, können Sie es mit einem anderen Proxy versuchen",
         "sel_desc": "Bitte wählen Sie AppApi Proxy",
@@ -432,5 +432,6 @@
   "3UCLxnEsirUQvP_xv4po4": "Fehler im Format des Zugriffstokens",
   "QRASoWf3qDfwihoIa84C9": "Nicht verfügbar mit Blockierung durch langes Drücken",
   "NgE24V8lvXN2c15W_2gnE": "Langes Drücken kann den Autor oder das Tag blockieren und kann nicht zusammen mit langem Drücken zum Herunterladen verwendet werden.",
-  "WdS4RTIeeWqdaqLtvk7ZO": "Platzieren Sie den Bildtitel und den Autor unter der Bildkarte. Klicken Sie auf den Titel, um eine Vorschau des Bildes anzuzeigen."
+  "WdS4RTIeeWqdaqLtvk7ZO": "Platzieren Sie den Bildtitel und den Autor unter der Bildkarte. Klicken Sie auf den Titel, um eine Vorschau des Bildes anzuzeigen.",
+  "Tx35SIS0MBLD-pgz1XgXh": "Alle anzeigen"
 }

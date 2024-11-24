@@ -101,7 +101,7 @@
           class="user-tabs"
           sticky
           animated
-          swipeable
+          :swipeable="activeTab!='illusts'"
           swipe-threshold="3"
           color="#F2C358"
         >

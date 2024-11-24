@@ -316,8 +316,8 @@
       },
       "lang": "Linguagem",
       "lang_ph": "Selecione o idioma",
-      "manual_input": "Insira manualmente o link proxy/API",
-      "manual_input_label": "Se os endereços de proxy e de instância de API das imagens abaixo são inseridos manualmente",
+      "manual_input": "Não usar API padrão ou proxy de imagem",
+      "manual_input_label": "Ative esta opção para inserir manualmente o link abaixo",
       "swipe_toggle": "Deslize para a esquerda ou para a direita na página de detalhes para alternar as obras de arte",
       "title": "Preferências"
     },
@@ -432,5 +432,6 @@
   "3UCLxnEsirUQvP_xv4po4": "Erro no formato do token de acesso",
   "QRASoWf3qDfwihoIa84C9": "Não disponível com bloqueio de toque longo",
   "NgE24V8lvXN2c15W_2gnE": "Um toque longo pode bloquear o autor ou tag e não pode ser usado junto com um toque longo para fazer download.",
-  "WdS4RTIeeWqdaqLtvk7ZO": "Coloque o título e o autor da imagem abaixo do cartão de imagem. Clique no título para visualizar a imagem."
+  "WdS4RTIeeWqdaqLtvk7ZO": "Coloque o título e o autor da imagem abaixo do cartão de imagem. Clique no título para visualizar a imagem.",
+  "Tx35SIS0MBLD-pgz1XgXh": "Mostrar tudo"
 }

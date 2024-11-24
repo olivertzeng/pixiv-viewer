@@ -168,7 +168,7 @@ export default {
         this.toPidPage(id)
         return
       }
-      if (/スカラマシュ|散|(^\d+$)/i.test(this.lastWord)) {
+      if (/スカラマシュ|散|(^\d+$)|雀魂|じゃんたま/i.test(this.lastWord)) {
         return
       }
       const res = await api.getTagsAutocomplete(this.lastWord)

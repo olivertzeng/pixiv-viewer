@@ -227,8 +227,8 @@
       "lang": "Langue",
       "lang_ph": "Veuillez sélectionner la langue",
       "title": "Préférences",
-      "manual_input_label": "Si les adresses de proxy et d'instance d'API des images ci-dessous sont saisies manuellement",
-      "manual_input": "Saisissez manuellement le lien proxy/API",
+      "manual_input_label": "Activez ce commutateur pour saisir manuellement le lien ci-dessous",
+      "manual_input": "Ne pas utiliser l'API par défaut ou le proxy d'image",
       "api_proxy": {
         "def_ph": "Si le proxy par défaut ne peut pas être utilisé, vous pouvez essayer un autre proxy",
         "sel_desc": "Veuillez sélectionner le proxy AppApi",
@@ -432,5 +432,6 @@
   "3UCLxnEsirUQvP_xv4po4": "Erreur de format du jeton d'accès",
   "QRASoWf3qDfwihoIa84C9": "Non disponible avec blocage par appui long",
   "NgE24V8lvXN2c15W_2gnE": "Un appui long peut bloquer l'auteur ou la balise et ne peut pas être utilisé avec un appui long pour télécharger.",
-  "WdS4RTIeeWqdaqLtvk7ZO": "Placez le titre de l'image et l'auteur sous la fiche image. Cliquez sur le titre pour prévisualiser l'image."
+  "WdS4RTIeeWqdaqLtvk7ZO": "Placez le titre de l'image et l'auteur sous la fiche image. Cliquez sur le titre pour prévisualiser l'image.",
+  "Tx35SIS0MBLD-pgz1XgXh": "Afficher tout"
 }

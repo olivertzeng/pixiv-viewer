@@ -227,8 +227,8 @@
       "lang": "語言",
       "lang_ph": "請選擇語言",
       "title": "偏好設定",
-      "manual_input": "手動輸入代理/API鏈接",
-      "manual_input_label": "下方圖片代理與 API 實例地址是否手動輸入",
+      "manual_input": "不使用預設API或圖片代理",
+      "manual_input_label": "打開此開關可在下方手動輸入鏈接",
       "api_proxy": {
         "def_ph": "默認代理無法使用的話可以嘗試其他代理",
         "sel_desc": "請選擇 AppApi 代理",
@@ -432,5 +432,6 @@
   "3UCLxnEsirUQvP_xv4po4": "存取令牌格式錯誤",
   "QRASoWf3qDfwihoIa84C9": "不可與長按屏蔽一起使用",
   "NgE24V8lvXN2c15W_2gnE": "長按可屏蔽作者或標籤，不可與長按下載一起使用",
-  "WdS4RTIeeWqdaqLtvk7ZO": "將圖片標題與作者置於圖片卡下方，點選標題可預覽圖片"
+  "WdS4RTIeeWqdaqLtvk7ZO": "將圖片標題與作者置於圖片卡下方，點選標題可預覽圖片",
+  "Tx35SIS0MBLD-pgz1XgXh": "展示全部"
 }

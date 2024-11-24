@@ -48,7 +48,7 @@ export default {
   methods: {
     async onSearch() {
       const word = this.keywords.trim()
-      if (!word || /スカラマシュ|散兵|放浪者|流浪者|雀魂/i.test(word) || !(await mintVerify(word))) {
+      if (!word || /スカラマシュ|散兵|放浪者|流浪者|雀魂|じゃんたま/i.test(word) || !(await mintVerify(word))) {
         return
       }
       this.$router.push(`/search_user/${word}`)

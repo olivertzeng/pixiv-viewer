@@ -215,8 +215,8 @@
       "title": "偏好设置",
       "lang": "语言",
       "lang_ph": "请选择语言",
-      "manual_input": "手动输入代理/API地址",
-      "manual_input_label": "下方图片代理与 API 实例地址是否手动输入",
+      "manual_input": "不使用预设API或图片代理",
+      "manual_input_label": "打开此开关可在下方手动输入链接",
       "cp_token_label": "复制当前 RefreshToken 到剪贴板",
       "cp_token_title": "导出 RefreshToken",
       "direct_mode": {
@@ -432,5 +432,6 @@
   "3UCLxnEsirUQvP_xv4po4": "访问令牌格式错误",
   "QRASoWf3qDfwihoIa84C9": "不可与长按屏蔽一起使用",
   "NgE24V8lvXN2c15W_2gnE": "长按可屏蔽作者或标签，不可与长按下载一起使用",
-  "WdS4RTIeeWqdaqLtvk7ZO": "将图片标题与作者置于图片卡下方，点击标题可预览图片"
+  "WdS4RTIeeWqdaqLtvk7ZO": "将图片标题与作者置于图片卡下方，点击标题可预览图片",
+  "Tx35SIS0MBLD-pgz1XgXh": "展示全部"
 }

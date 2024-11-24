@@ -227,8 +227,8 @@
       "title": "Preferences",
       "lang": "Language",
       "lang_ph": "Please select language",
-      "manual_input": "Manually enter the proxy/API link",
-      "manual_input_label": "Whether the proxy and API instance addresses of the images below are entered manually",
+      "manual_input": "Not using default API or image proxy",
+      "manual_input_label": "Turn this switch on to manually enter the link below",
       "api_proxy": {
         "def_ph": "If the default proxy cannot be used, you can try another proxy",
         "sel_desc": "Please select AppApi Proxy",
@@ -432,5 +432,6 @@
   "3UCLxnEsirUQvP_xv4po4": "Access token format error",
   "QRASoWf3qDfwihoIa84C9": "Not available with long press blocking",
   "NgE24V8lvXN2c15W_2gnE": "Long press can block the author or tag, and cannot be used together with long press to download.",
-  "WdS4RTIeeWqdaqLtvk7ZO": "Place the image title and author below the image card. Click the title to preview the image."
+  "WdS4RTIeeWqdaqLtvk7ZO": "Place the image title and author below the image card. Click the title to preview the image.",
+  "Tx35SIS0MBLD-pgz1XgXh": "Show all"
 }

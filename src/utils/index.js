@@ -206,3 +206,20 @@ export function tryURL(url) {
     return null
   }
 }
+
+/** 生成随机中间范围的颜色 */
+export function generateRandomColor() {
+  const min = 195
+  const max = 245
+  const r = Math.floor(Math.random() * (max - min)) + min
+  const g = Math.floor(Math.random() * (max - min)) + min
+  const b = Math.floor(Math.random() * (max - min)) + min
+  return `rgb(${r}, ${g}, ${b})`
+}
+
+/** 根据背景色生成对比强的文本色 */
+export function getContrastingTextColor(backgroundColor) {
+  const rgb = backgroundColor.match(/\d+/g).map(Number)
+  const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255
+  return luminance > 0.5 ? '#333' : 'white' // 浅色背景用黑字，深色背景用白字
+}

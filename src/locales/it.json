@@ -268,8 +268,8 @@
       "lang": "Lingua",
       "lang_ph": "Seleziona la lingua",
       "title": "Preferenze",
-      "manual_input_label": "Indica se gli indirizzi proxy e dell'istanza API delle immagini seguenti vengono inseriti manualmente",
-      "manual_input": "Inserisci manualmente il collegamento proxy/API",
+      "manual_input_label": "Attiva questo interruttore per inserire manualmente il collegamento sottostante",
+      "manual_input": "Non utilizzare l'API predefinita o il proxy di immagine",
       "api_proxy": {
         "def_ph": "Se non è possibile utilizzare il proxy predefinito, puoi provare un altro proxy",
         "sel_desc": "Seleziona AppApi Proxy",
@@ -432,5 +432,6 @@
   "3UCLxnEsirUQvP_xv4po4": "Errore nel formato del token di accesso",
   "QRASoWf3qDfwihoIa84C9": "Non disponibile con il blocco della pressione prolungata",
   "NgE24V8lvXN2c15W_2gnE": "La pressione prolungata può bloccare l'autore o il tag e non può essere utilizzata insieme alla pressione prolungata per il download.",
-  "WdS4RTIeeWqdaqLtvk7ZO": "Inserisci il titolo dell'immagine e l'autore sotto la scheda immagine. Fai clic sul titolo per visualizzare l'anteprima dell'immagine."
+  "WdS4RTIeeWqdaqLtvk7ZO": "Inserisci il titolo dell'immagine e l'autore sotto la scheda immagine. Fai clic sul titolo per visualizzare l'anteprima dell'immagine.",
+  "Tx35SIS0MBLD-pgz1XgXh": "Mostra tutto"
 }

@@ -227,8 +227,8 @@
       "lang": "언어",
       "lang_ph": "언어를 선택하세요",
       "title": "환경설정",
-      "manual_input_label": "아래 이미지의 프록시 및 API 인스턴스 주소를 수동으로 입력했는지 여부",
-      "manual_input": "프록시/API 링크를 수동으로 입력하세요.",
+      "manual_input_label": "아래 링크를 수동으로 입력하려면 이 스위치를 켜세요.",
+      "manual_input": "기본 API 또는 이미지 프록시를 사용하지 않음",
       "api_proxy": {
         "def_ph": "기본 프록시를 사용할 수 없는 경우 다른 프록시를 사용해 볼 수 있습니다.",
         "sel_desc": "AppApi 프록시를 선택하세요.",
@@ -432,5 +432,6 @@
   "3UCLxnEsirUQvP_xv4po4": "액세스 토큰 형식 오류",
   "QRASoWf3qDfwihoIa84C9": "길게 누르기 차단에는 사용할 수 없습니다.",
   "NgE24V8lvXN2c15W_2gnE": "길게 누르면 작성자나 태그가 차단될 수 있으며, 길게 누르기와 함께 다운로드할 수는 없습니다.",
-  "WdS4RTIeeWqdaqLtvk7ZO": "이미지 제목과 작성자를 이미지 카드 아래에 배치하세요. 제목을 클릭하면 이미지를 미리 볼 수 있습니다."
+  "WdS4RTIeeWqdaqLtvk7ZO": "이미지 제목과 작성자를 이미지 카드 아래에 배치하세요. 제목을 클릭하면 이미지를 미리 볼 수 있습니다.",
+  "Tx35SIS0MBLD-pgz1XgXh": "모두 표시"
 }

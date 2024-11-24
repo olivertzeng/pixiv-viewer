@@ -316,8 +316,8 @@
       },
       "lang": "Idioma",
       "lang_ph": "Por favor seleccione idioma",
-      "manual_input": "Ingrese manualmente el enlace proxy/API",
-      "manual_input_label": "Si las direcciones de instancia de API y proxy de las imágenes siguientes se ingresan manualmente",
+      "manual_input": "No utilizar API predeterminada ni proxy de imagen",
+      "manual_input_label": "Active este interruptor para ingresar manualmente al siguiente enlace",
       "swipe_toggle": "Deslícese hacia la izquierda o hacia la derecha en la página de detalles para alternar obras de arte",
       "title": "Preferencias"
     },
@@ -432,5 +432,6 @@
   "3UCLxnEsirUQvP_xv4po4": "Error de formato del token de acceso",
   "QRASoWf3qDfwihoIa84C9": "No disponible con bloqueo de pulsación larga",
   "NgE24V8lvXN2c15W_2gnE": "Una pulsación larga puede bloquear el autor o la etiqueta y no se puede utilizar junto con una pulsación larga para descargar.",
-  "WdS4RTIeeWqdaqLtvk7ZO": "Coloque el título de la imagen y el autor debajo de la tarjeta de la imagen. Haga clic en el título para obtener una vista previa de la imagen."
+  "WdS4RTIeeWqdaqLtvk7ZO": "Coloque el título de la imagen y el autor debajo de la tarjeta de la imagen. Haga clic en el título para obtener una vista previa de la imagen.",
+  "Tx35SIS0MBLD-pgz1XgXh": "Mostrar todo"
 }

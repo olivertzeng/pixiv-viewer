@@ -8,7 +8,7 @@
       <div class="ia-left">
         <van-loading v-if="loading" size="50px" style="margin-top: 3rem;" />
         <template v-else>
-          <NovelView :artwork="artwork" :text-obj="novelText" :text-config="textConfig" />
+          <NovelView ref="novelView" :artwork="artwork" :text-obj="novelText" :text-config="textConfig" />
           <div class="collapse-btn" @click="isCollapseMeta=!isCollapseMeta">
             <Icon class="icon" name="double_arrow_down" />
           </div>
@@ -249,6 +249,9 @@ export default {
     },
   },
   mounted() {
+    if (document.querySelector('#immersive-translate-popup')) {
+      this.pntActions = this.pntActions.filter(e => e.key != 'imt')
+    }
     this.init()
   },
   methods: {
@@ -367,6 +370,7 @@ export default {
     },
     async onPntSelect(action) {
       window.umami?.track('translate_novel', { action })
+      this.$refs.novelView.isShrink = false
       const fns = {
         imt: () => this.loadImtSdk(),
         sc_glm: async () => this.fanyi('sc', await this.getNoTranslateWords(), 'glm'),
@@ -455,6 +459,7 @@ export default {
       .popup-container .text-sm.px-1.text-gray-2,
       .popup-container .widgets-container.mt-5,
       .popup-container footer,
+      .translation-service-container .custom-select-item:has(.custom-select-item-pro),
       .translation-service-container select option[value="deepl"],
       .translation-service-container select option[value="openai"],
       .translation-service-container select option[value="gemini"],
@@ -464,6 +469,16 @@ export default {
       }`
       setTimeout(() => {
         document.querySelector('#immersive-translate-popup')?.shadowRoot?.appendChild(style)
+        try {
+          const config = JSON.parse(localStorage.buildinConfig).buildinConfig
+          config.translationService = 'siliconcloud'
+          localStorage.buildinConfig = JSON.stringify({ buildinConfig: config })
+          const userConfig = JSON.parse(localStorage.userConfig).userConfig
+          userConfig.translationService = 'siliconcloud'
+          localStorage.userConfig = JSON.stringify({ userConfig })
+        } catch (err) {
+          console.log('err: ', err)
+        }
       }, 800)
     },
   },

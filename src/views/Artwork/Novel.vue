@@ -25,7 +25,7 @@
           <van-button v-if="novelText.next" color="#7232dd" size="small" plain block @click="toNovel(novelText.next.id)">
             {{ $t('novel.series.next') }} {{ novelText.next.title }}
           </van-button>
-          <van-button type="info" size="small" plain block @click="share">
+          <van-button type="info" size="small" plain block @click="showShare = true">
             {{ $t('artwork.share.share') }}
           </van-button>
           <van-button type="info" size="small" plain block @click="downloadNovel">
@@ -142,10 +142,11 @@
 import _ from 'lodash'
 import FileSaver from 'file-saver'
 import { mapGetters } from 'vuex'
-import { Dialog, ImagePreview } from 'vant'
+import { ImagePreview } from 'vant'
 import api from '@/api'
-import { PIXIV_NEXT_URL } from '@/consts'
-import { copyText, loadScript } from '@/utils'
+import { PIXIV_NEXT_URL, SILICON_CLOUD_API_KEY } from '@/consts'
+import { getNoTranslateWords, loadImtSdk, siliconCloudTranslate } from '@/utils/translate'
+import { copyText } from '@/utils'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { LocalStorage } from '@/utils/storage'
 import { i18n } from '@/i18n'
@@ -355,9 +356,6 @@ export default {
     openUrl(url) {
       window.open(url, '_blank', 'noopener noreferrer')
     },
-    async share() {
-      this.showShare = true
-    },
     toNovel(id) {
       this.$router.push(`/novel/${id}`)
     },
@@ -372,42 +370,50 @@ export default {
       window.umami?.track('translate_novel', { action })
       this.$refs.novelView.isShrink = false
       const fns = {
-        imt: () => this.loadImtSdk(),
-        sc_glm: async () => this.fanyi('sc', await this.getNoTranslateWords(), 'glm'),
-        sc_qwen: async () => this.fanyi('sc', await this.getNoTranslateWords(), 'qwen'),
-        ms: async () => this.fanyi('ms', await this.getNoTranslateWords()),
+        imt: () => loadImtSdk(),
+        sc_glm: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'glm'),
+        sc_qwen: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'qwen'),
+        ms: async () => this.fanyi('ms', await getNoTranslateWords(this.artwork.tags)),
         gg: () => this.fanyi('gg'),
       }
       const fn = fns[action.key]
       fn && (await fn())
     },
-    async getNoTranslateWords() {
-      return new Promise(resolve => {
-        Dialog.confirm({
-          title: '填写不翻译的文本',
-          message: `
-          <div id="get_pnt_nots_dialog">
-            <p style="margin:0.2rem 0">选择或输入不翻译的单词，以英文逗号分隔，留空跳过</p>
-            <input id="get_pnt_nots_input" type="text" >
-            <div style="height:1px;margin:0.2rem 0;border-bottom:1px solid #ccc"></div>
-            ${this.artwork.tags.map(e => `<div class="sel_block_chks"><input type="checkbox" data-tagname="${e.name}" onchange="if(this.checked){window['get_pnt_nots_input'].value=window['get_pnt_nots_input'].value.split(',').filter(e=>e).concat([this.getAttribute('data-tagname')]).join(',')}else{window['get_pnt_nots_input'].value=window['get_pnt_nots_input'].value.split(',').filter(e=>e&&e!=this.getAttribute('data-tagname')).join(',')}">${e.name}</div>`).join('')}
-          </div>`,
-          lockScroll: false,
-          closeOnPopstate: true,
-          cancelButtonText: this.$t('common.cancel'),
-          confirmButtonText: this.$t('common.confirm'),
-          beforeClose: (action, done) => {
-            if (action == 'confirm') {
-              const tagInp = document.querySelector('#get_pnt_nots_input')?.value || ''
-              resolve(tagInp)
-            }
-            done()
-          },
-        }).catch(() => {})
-      })
-    },
     async fanyi(srv, nots = '', aiModel = 'glm') {
       try {
+        if (SILICON_CLOUD_API_KEY && srv == 'sc') {
+          const cacheKey = `novel.translate.${this.artwork.id}.sc.${aiModel}.${nots}`
+          const cacheText = await getCache(cacheKey)
+          if (cacheText) {
+            this.novelText.text = cacheText
+            return
+          }
+          const novelText = this.novelText.text
+          const notsArr = nots ? nots.split(',') : []
+          const novelElement = document.querySelector('.novel_text')
+          let resText = ''
+          this.novelText.text = 'Loading...'
+          siliconCloudTranslate(novelText, notsArr, aiModel, chunk => {
+            if (chunk.done) {
+              novelElement.innerHTML = resText
+              this.novelText.text = resText
+              setCache(cacheKey, resText)
+              return
+            }
+
+            resText += chunk
+            notsArr.forEach((e, i) => {
+              resText = resText.replaceAll(`[名字${i}]`, e)
+              resText = resText.replaceAll(`名字${i}`, e)
+            })
+            resText = resText.replace(/\n/g, '<br>')
+            requestAnimationFrame(() => {
+              novelElement.innerHTML = resText
+            })
+          })
+          return
+        }
+
         const loading = this.$toast.loading({
           duration: 0,
           forbidClick: true,
@@ -427,59 +433,6 @@ export default {
       } catch (err) {
         console.log('fanyi err: ', err)
       }
-    },
-    async loadImtSdk() {
-      if (!localStorage.getItem('PXV_IMT_SDK_CFMED')) {
-        const res = await Dialog.confirm({
-          title: '加载沉浸式翻译 SDK',
-          message: '提示：如果已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK',
-          lockScroll: false,
-          closeOnPopstate: true,
-          cancelButtonText: '取消',
-          confirmButtonText: '加载',
-        }).catch(() => 'cancel')
-        if (res != 'confirm') return
-      }
-      localStorage.setItem('PXV_IMT_SDK_CFMED', '1')
-      if (window.immersiveTranslateConfig) return
-      window.immersiveTranslateConfig = {
-        pageRule: {
-          selectors: ['.novel_text'],
-          translationClasses: ['color-gray'],
-        },
-      }
-      await loadScript('https://download.immersivetranslate.com/immersive-translate-sdk-latest.js')
-      const style = document.createElement('style')
-      style.innerHTML = `
-      .imt-fb-more-buttons .btn-animate:first-child,
-      .imt-fb-more-buttons .btn-animate:last-child,
-      .btn-animate[title="关闭悬浮球"],
-      .popup-container .popup-content > div.flex:first-child,
-      .popup-container .trial-pro-container,
-      .popup-container .text-sm.px-1.text-gray-2,
-      .popup-container .widgets-container.mt-5,
-      .popup-container footer,
-      .translation-service-container .custom-select-item:has(.custom-select-item-pro),
-      .translation-service-container select option[value="deepl"],
-      .translation-service-container select option[value="openai"],
-      .translation-service-container select option[value="gemini"],
-      .translation-service-container select option[value="claude"],
-      .translation-service-container select option[value="more"] {
-        display: none !important;
-      }`
-      setTimeout(() => {
-        document.querySelector('#immersive-translate-popup')?.shadowRoot?.appendChild(style)
-        try {
-          const config = JSON.parse(localStorage.buildinConfig).buildinConfig
-          config.translationService = 'siliconcloud'
-          localStorage.buildinConfig = JSON.stringify({ buildinConfig: config })
-          const userConfig = JSON.parse(localStorage.userConfig).userConfig
-          userConfig.translationService = 'siliconcloud'
-          localStorage.userConfig = JSON.stringify({ userConfig })
-        } catch (err) {
-          console.log('err: ', err)
-        }
-      }, 800)
     },
   },
 }

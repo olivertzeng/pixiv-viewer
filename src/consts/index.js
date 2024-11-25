@@ -17,3 +17,4 @@ export const BACKUP_DOMAINS = process.env.VUE_APP_BACKUP_DOMAINS || ''
 export const notSelfHibiApi = !/cocomi\..+|pixiv\.pics|169889\.xyz|pxve\.cc|hibiapi\.getloli\.com|api\.obfs\.dev/.test(BASE_API_URL)
 export const PIXIV_NEXT_URL = 'https://hibiapi.cocomi.eu.org'
 export const PIXIV_NOW_URL = `${PIXIV_NEXT_URL}/api/pixiv-now/http`
+export const SILICON_CLOUD_API_KEY = process.env.VUE_APP_SILICON_CLOUD_API_KEY

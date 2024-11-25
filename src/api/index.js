@@ -1246,10 +1246,10 @@ const api = {
       if (res.illust) {
         artwork = parseIllust(res.illust)
         try {
-          if (!artwork.caption) {
-            const webIllust = await get(`${PIXIV_NOW_URL}/ajax/illust/${id}?full=1`)
-            artwork.caption = webIllust.illustComment
-          }
+          // if (!artwork.caption) {
+          //   const webIllust = await get(`${PIXIV_NOW_URL}/ajax/illust/${id}?full=1`)
+          //   artwork.caption = webIllust.illustComment
+          // }
           if (artwork.images[0].o.includes('common/images/limit_sanity_level')) {
             const [webRes, webImages] = await Promise.all([
               get(`${PIXIV_NOW_URL}/ajax/illust/${id}?full=1`),

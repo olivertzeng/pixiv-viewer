@@ -9,7 +9,7 @@
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/dev/@vue/cli-service)
 ![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/vant)
 
-Demo: 🔗 [pixiv.pics](https://pixiv.pics)
+Demo: 🔗 [pixiv.pictures](https://pixiv.pictures)
 
 Download: ⏬ [App Center](https://install.appcenter.ms/users/yumine/apps/pixiv-viewer/distribution_groups/beta) | [GitHub Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
 
@@ -62,16 +62,16 @@ https://github.com/asadahimeka/pixiv-viewer/discussions
 
 ## Alternatives
 
-- [Pixiviz](https://z.pixiv.pics)
-- [Pixivel](https://pxelk.pixiv.pics)
-- [PixivNow](https://now.pixiv.pics/ranking)
-- [PixivMoe](https://moe.pixiv.pics)
-- [PixivLxns](https://lxns.pixiv.pics)
+- [Pixiviz](https://pixiviz.cocomi.eu.org/)
+- [Pixivel](https://pxelk.cocomi.eu.org/)
+- [PixivNow](https://pxnow.cocomi.eu.org/)
+- [PixivMoe](https://pixivmoe.cocomi.eu.org/)
+- [PixivLxns](https://pixivlxns.cocomi.eu.org/)
 - [pixivic](https://pixivic.com)
 - [vilipix](https://www.vilipix.com/ranking)
-- [moeview](https://moeview.pixiv.pics)
-- [booruwf](https://booru.pixiv.pics)
-- [Ranking](https://www.nanoka.top/illust/pixiv/)
+- [moeview](https://moeview.cocomi.eu.org/)
+- [booruwf](https://booru.cocomi.eu.org/)
+- [RankTop50](https://www.nanoka.top/illust/pixiv/)
 
 ## Project setup
 ```

@@ -35,7 +35,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/prks/now': {
-        target: 'https://now.pixiv.pics',
+        target: 'https://pxnow.cocomi.eu.org',
         changeOrigin: true,
         pathRewrite: { '^/prks/now': '' },
       },

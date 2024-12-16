@@ -10,8 +10,8 @@
   <meta name="description" itemprop="description" content="又一个Pixiv插画小说阅览工具，适配多端展示，支持PWA安装。" />
   <meta property="og:title" content="Pixiv Viewer" />
   <meta property="og:description" content="又一个Pixiv插画小说阅览工具，适配多端展示，支持PWA安装。" />
-  <meta property="og:url" content="https://pixiv.pics" />
-  <meta property="og:image" content="https://pixiv.pics/img/icons/256.png" />
+  <meta property="og:url" content="https://pixiv.pictures" />
+  <meta property="og:image" content="https://pixiv.pictures/img/icons/256.png" />
   <meta property="og:site_name" content="Pixiv Viewer" />
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="x-dns-prefetch-control" content="on" />
@@ -22,8 +22,8 @@
   <% for (let css of htmlWebpackPlugin.options.cdn.css) { %>
   <link rel="stylesheet" href="<%= css %>">
   <% } %>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Pixiv Viewer","alternateName":"Pxve","url":"https://pixiv.pics/"}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://pixiv.pics/","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pixiv.pics/search/{search_term_string}"},"query-input":"required name=search_term_string"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Pixiv Viewer","alternateName":"Pxve","url":"https://pixiv.pictures/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","url":"https://pixiv.pictures/","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://pixiv.pictures/search/{search_term_string}"},"query-input":"required name=search_term_string"}}</script>
   <script src="<%= BASE_URL %>static/js/flexible.min.js"></script>
   <script>if(localStorage.PXV_THEME){document.documentElement.classList.add('custom_theme','t_'+localStorage.PXV_THEME);document.documentElement.style.setProperty('--accent-color',localStorage.PXV_ACT_COLOR);}</script>
   <% if (process.env.NODE_ENV === 'production' && process.env.VUE_APP_GA_ID) { %>

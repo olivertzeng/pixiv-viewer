@@ -47,7 +47,7 @@
     },
     {
       "source": "/prks/now/:match*",
-      "destination": "https://now.pixiv.pics/:match*"
+      "destination": "https://pxnow.cocomi.eu.org/:match*"
     },
     {
       "source": "/:path*",

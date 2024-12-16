@@ -7,6 +7,8 @@
 // @license      MIT
 // @match        https://www.pixiv.pics/*
 // @match        https://pixiv.pics/*
+// @match        https://www.pixiv.pictures/*
+// @match        https://pixiv.pictures/*
 // @match        https://pxve.cc/*
 // @match        https://pixiv.nets.hk/*
 // @match        https://pixiv.orgs.hk/*
@@ -19,6 +21,7 @@
 // @connect      pixiv.net
 // @connect      210.140.92.180
 // @connect      210.140.139.130
+// @connect      pixiv.pictures
 // @connect      pixiv.pics
 // @connect      cocomi.eu.org
 // @connect      pxve.cc

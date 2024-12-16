@@ -195,7 +195,7 @@ export default {
     //     forbidClick: true,
     //   })
     //   try {
-    //     const resp = await fetch(`https://hibi-nx.pixiv.pics/api/ai-image-detect?url=${url}`)
+    //     const resp = await fetch(`https://hibiapi.cocomi.eu.org/api/ai-image-detect?url=${url}`)
     //     const json = await resp.json()
     //     loading.clear()
     //     Dialog.alert({

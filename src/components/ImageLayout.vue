@@ -79,6 +79,8 @@ export default {
 .justified-container::after {
   content: '';
   flex-grow: 999999999;
+  min-width: 200px;
+  height: 0;
 }
 
 .justified-container .image-card {

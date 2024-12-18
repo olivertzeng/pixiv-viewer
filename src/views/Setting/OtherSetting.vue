@@ -323,7 +323,7 @@ export default {
       if (val) {
         const res = await Dialog.confirm({
           title: this.$t('setting.other.direct_mode.confirm.title'),
-          message: this.$t('setting.other.direct_mode.confirm.msg') + '<br><br><a href="https://210.140.92.180/" target="_blank" rel="noreferrer">https://210.140.92.180/</a>',
+          message: this.$t('setting.other.direct_mode.confirm.msg') + '<br><br><a href="https://210.140.139.161/" target="_blank" rel="noreferrer">https://210.140.139.161/</a>',
           confirmButtonText: this.$t('common.confirm'),
           cancelButtonText: this.$t('common.cancel'),
         })

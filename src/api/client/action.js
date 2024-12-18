@@ -5,8 +5,8 @@ import PixivAuth from './pixiv-auth'
 const API_DOMAIN = 'app-api.pixiv.net'
 const OAUTH_DOMAIN = 'oauth.secure.pixiv.net'
 const DEF_API_HOSTS = {
-  [OAUTH_DOMAIN]: '210.140.92.180',
-  [API_DOMAIN]: '210.140.92.180',
+  [OAUTH_DOMAIN]: '210.140.139.161',
+  [API_DOMAIN]: '210.140.139.161',
 }
 
 async function setApiHosts(config) {

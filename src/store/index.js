@@ -21,6 +21,7 @@ export default new Vuex.Store({
     user: null,
     blockTags: LocalStorage.get('PXV_B_TAGS', '').split(',').filter(Boolean),
     blockUids: LocalStorage.get('PXV_B_UIDS', '').split(',').filter(Boolean),
+    isNovelViewShrink: true,
   },
   getters: {
     isCensored: state => artwork => {
@@ -113,6 +114,9 @@ export default new Vuex.Store({
         LocalStorage.set('PXV_B_UIDS', state.blockUids.join(','))
       }
     },
+    setIsNovelViewShrink(state, val) {
+      state.isNovelViewShrink = val
+    },
   },
   actions: {
     setGalleryList({ commit }, list) {
@@ -129,6 +133,9 @@ export default new Vuex.Store({
     },
     appendBlockUids({ commit }, value) {
       commit('setBlockUids', value)
+    },
+    setIsNovelViewShrink({ commit }, value) {
+      commit('setIsNovelViewShrink', value)
     },
   },
   modules: {

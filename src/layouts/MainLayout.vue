@@ -70,6 +70,11 @@ export default {
   methods: {
     scrollToTop() {
       document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })
+      if (this.$route.name == 'NovelDetail') {
+        setTimeout(() => {
+          this.$store.dispatch('setIsNovelViewShrink', true)
+        }, 500)
+      }
     },
   },
 }

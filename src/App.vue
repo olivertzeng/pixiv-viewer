@@ -11,6 +11,8 @@ import { mapMutations } from 'vuex'
 import { existsSessionId, initUser } from '@/api/user'
 import { localApi } from './api'
 import { CURRENT_APP_VERSION } from './consts'
+import { LocalStorage } from './utils/storage'
+import { loadImtSdk } from './utils/translate'
 
 export default {
   name: 'App',
@@ -42,6 +44,7 @@ export default {
     loading && (loading.style.display = 'none')
     window.umami?.track('App Mounted', { host: location.host, ver: CURRENT_APP_VERSION })
     if (!localStorage.PXV_ASSETS_LOADED) localStorage.PXV_ASSETS_LOADED = '1'
+    if (LocalStorage.get('PXV_AUTO_LOAD_IMT', false)) loadImtSdk(true)
   },
   methods: {
     ...mapMutations(['setUser']),

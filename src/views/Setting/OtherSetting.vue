@@ -31,6 +31,11 @@
         <van-switch :value="isImageFitScreen" size="24" @change="changeImageFitScreen" />
       </template>
     </van-cell>
+    <van-cell v-if="showAutoLoadImtSwitch" center title="自动加载沉浸式翻译 SDK 并翻译" label="如已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK">
+      <template #right-icon>
+        <van-switch :value="isAutoLoadImt" size="24" @change="changeAutoLoadImt" />
+      </template>
+    </van-cell>
     <van-cell center :title="$t('qLUWER5bf4X2lE0RjKTBj')" :label="$t('setting.lab.title')">
       <template #right-icon>
         <van-switch :value="useFancybox" size="24" @change="changeUseFancybox" />
@@ -251,6 +256,8 @@ export default {
       isDark: !!localStorage.getItem('PXV_DARK'),
       enableSwipe: LocalStorage.get('PXV_IMG_DTL_SWIPE', false),
       useFancybox: LocalStorage.get('PXV_USE_FANCYBOX', false),
+      isAutoLoadImt: LocalStorage.get('PXV_AUTO_LOAD_IMT', false),
+      showAutoLoadImtSwitch: i18n.locale.includes('zh'),
       isPageEffectOn: LocalStorage.get('PXV_PAGE_EFFECT', false),
       isLongpressDL: LocalStorage.get('PXV_LONGPRESS_DL', false),
       isLongpressBlock: LocalStorage.get('PXV_LONGPRESS_BLOCK', false),
@@ -459,6 +466,21 @@ export default {
     changeUseFancybox(val) {
       this.useFancybox = val
       this.saveSetting('PXV_USE_FANCYBOX', val)
+    },
+    async changeAutoLoadImt(val) {
+      if (val) {
+        const res = await Dialog.confirm({
+          title: '自动加载沉浸式翻译 SDK',
+          message: '提示：如果已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK',
+          lockScroll: false,
+          closeOnPopstate: true,
+          cancelButtonText: '取消',
+          confirmButtonText: '确定',
+        }).catch(() => 'cancel')
+        if (res != 'confirm') return
+      }
+      this.isAutoLoadImt = val
+      this.saveSetting('PXV_AUTO_LOAD_IMT', val)
     },
     changePageEffect(val) {
       this.isPageEffectOn = val

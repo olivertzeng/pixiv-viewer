@@ -4,7 +4,7 @@
     <div class="mask">
       <canvas ref="mask" class="mask-text"></canvas>
     </div>
-    <div class="author-info" :class="{ is_novel: isNovel }">
+    <div class="author-info" :class="{ is_novel: isNovel, isAutoLoadImt }">
       <Pximg
         v-if="!isNovel"
         class="avatar"
@@ -163,6 +163,7 @@ import { localApi } from '@/api'
 import { toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
 import CommentsArea from './Comment/CommentsArea.vue'
+import { LocalStorage } from '@/utils/storage'
 
 export default {
   name: 'ArtworkMeta',
@@ -201,6 +202,7 @@ export default {
       bookmarkId: null,
       favLoading: false,
       showComments: false,
+      isAutoLoadImt: LocalStorage.get('PXV_AUTO_LOAD_IMT', false),
     }
   },
   computed: {
@@ -589,11 +591,8 @@ export default {
 
     }
 
-    &.is_novel {
-      height auto
-      .name-box {
-        white-space normal
-      }
+    &.is_novel,
+    &.isAutoLoadImt {
       .author {
         margin-top 20px
         font-size 24px
@@ -605,6 +604,23 @@ export default {
         }
       }
     }
+
+    &.is_novel {
+      height auto
+      .name-box {
+        white-space normal
+      }
+    }
+
+    &.isAutoLoadImt {
+      .avatar {
+        display none
+      }
+      .name-box {
+        max-width unset
+      }
+    }
+
   }
 
   .date {

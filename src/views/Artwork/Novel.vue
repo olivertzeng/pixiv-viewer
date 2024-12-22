@@ -249,6 +249,7 @@ export default {
         { text: '微软翻译', className: 'ms', key: 'ms' },
         { text: '谷歌翻译', className: 'gg', key: 'gg' },
       ],
+      isAutoLoadImt: LocalStorage.get('PXV_AUTO_LOAD_IMT', false),
     }
   },
   head() {
@@ -261,7 +262,7 @@ export default {
   computed: {
     ...mapGetters(['isCensored']),
     showPntBtn() {
-      return i18n.locale.includes('zh') && !/中文|中国语|Chinese|中國語|中国語/.test(JSON.stringify(this.artwork.tags))
+      return !this.isAutoLoadImt && i18n.locale.includes('zh') && !/中文|中国语|Chinese|中國語|中国語/.test(JSON.stringify(this.artwork.tags))
     },
   },
   watch: {

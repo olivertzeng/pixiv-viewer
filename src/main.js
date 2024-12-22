@@ -32,7 +32,6 @@ setupApp()
 async function setupApp() {
   await checkWechat()
   await checkBrowser()
-  // await checkIncognito()
   await initSetting()
   await initLocalApi()
   await initLocale()

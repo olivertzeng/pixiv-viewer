@@ -3,8 +3,8 @@ import { SILICON_CLOUD_API_KEY } from '@/consts'
 import { loadScript } from '.'
 import { i18n } from '@/i18n'
 
-export async function loadImtSdk() {
-  if (!localStorage.getItem('PXV_IMT_SDK_CFMED')) {
+export async function loadImtSdk(isAutoLoadImt = false) {
+  if (!isAutoLoadImt && !localStorage.getItem('PXV_IMT_SDK_CFMED')) {
     const res = await Dialog.confirm({
       title: '加载沉浸式翻译 SDK',
       message: '提示：如果已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK',
@@ -14,12 +14,23 @@ export async function loadImtSdk() {
       confirmButtonText: '加载',
     }).catch(() => 'cancel')
     if (res != 'confirm') return
+    localStorage.setItem('PXV_IMT_SDK_CFMED', '1')
   }
-  localStorage.setItem('PXV_IMT_SDK_CFMED', '1')
   if (window.immersiveTranslateConfig) return
   window.immersiveTranslateConfig = {
+    isAutoTranslate: isAutoLoadImt,
     pageRule: {
-      selectors: ['.novel_text'],
+      selectors: [
+        '.novel_text',
+        '.artwork-meta .name-box .title',
+        '.artwork-meta .name-box .series',
+        '.artwork-meta .caption',
+        '.artwork .series-btns',
+        '.users .info .detail .content',
+        '.comments-popup .content',
+        '.live_detail .content .title',
+        '.live_detail .content .chat-item span:last-child',
+      ],
       translationClasses: ['color-gray'],
     },
   }

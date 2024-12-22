@@ -234,7 +234,8 @@ const routes = [
             meta: { __depth: 2 },
           },
           {
-            path: '/setting/others',
+            path: '/setting/preference',
+            alias: ['/setting/others'],
             name: 'SettingOthers',
             component: SettingOthers,
             meta: { __depth: 2 },

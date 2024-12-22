@@ -5,7 +5,7 @@
       <Icon class="icon" name="share" />
     </div>
     <van-swipe-cell ref="swipeCell" :disabled="disableSwipe" stop-propagation @open="onSwipeOpen">
-      <template #left>
+      <template v-if="!disableSwipe" #left>
         <div class="ia-sc-btn">
           <van-icon name="arrow-left" size="0.6rem" />
         </div>
@@ -24,7 +24,7 @@
           </keep-alive>
         </div>
       </div>
-      <template #right>
+      <template v-if="!disableSwipe" #right>
         <div class="ia-sc-btn">
           <van-icon name="arrow" size="0.6rem" />
         </div>
@@ -323,6 +323,7 @@ img[src*="https://api.moedog.org/qr/?url="]
     height 0.12rem
   ::v-deep .van-swipe-cell
     cursor auto
+    overflow clip
 
 .ia-sc-btn
   display flex
@@ -363,6 +364,8 @@ img[src*="https://api.moedog.org/qr/?url="]
         box-shadow: 0 0 transparent, 0 0 transparent, 0 1PX 3PX 0 rgba(0,0,0,.1), 0 1PX 2PX -1PX rgba(0,0,0,.1)
 
   .ia-right
+    position: sticky;
+    top: 0;
     max-width 28%
     padding-right 40px
     box-sizing border-box

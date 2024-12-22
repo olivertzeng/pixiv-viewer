@@ -75,12 +75,23 @@
             <div class="conf-title">{{ $t('novel.settings.text.font') }}</div>
             <div class="conf-inp">
               <van-radio-group v-model="textConfig.font" direction="horizontal">
-                <van-radio name="inherit">LXGW</van-radio>
                 <van-radio name="sans-serif" style="font-family: sans-serif;">{{ $t('novel.settings.text.sans') }}</van-radio>
                 <van-radio name="serif" style="font-family: serif;">{{ $t('novel.settings.text.serif') }}</van-radio>
+                <van-radio name="inherit">LXGW</van-radio>
               </van-radio-group>
             </div>
           </div>
+          <div class="conf-fitem">
+            <div class="conf-title">{{ $t('novel.settings.text.direction') }}</div>
+            <div class="conf-inp">
+              <van-radio-group v-model="textConfig.direction" direction="horizontal">
+                <van-radio name="h">{{ $t('novel.settings.text.direct_h') }}</van-radio>
+                <van-radio name="v">{{ $t('novel.settings.text.direct_v') }}</van-radio>
+              </van-radio-group>
+            </div>
+          </div>
+        </div>
+        <div class="conf-fcont novel-wrap-setting">
           <div class="conf-fitem">
             <div class="conf-title">{{ $t('novel.settings.text.height') }}</div>
             <div class="conf-inp">
@@ -89,17 +100,6 @@
                   <div class="van-slider__button">{{ textConfig.height }}</div>
                 </template>
               </van-slider>
-            </div>
-          </div>
-        </div>
-        <div class="conf-fcont">
-          <div class="conf-fitem">
-            <div class="conf-title">{{ $t('novel.settings.text.direction') }}</div>
-            <div class="conf-inp">
-              <van-radio-group v-model="textConfig.direction" direction="horizontal">
-                <van-radio name="h">{{ $t('novel.settings.text.direct_h') }}</van-radio>
-                <van-radio name="v">{{ $t('novel.settings.text.direct_v') }}</van-radio>
-              </van-radio-group>
             </div>
           </div>
           <div class="conf-fitem">
@@ -113,7 +113,7 @@
             </div>
           </div>
         </div>
-        <div class="conf-fcont">
+        <div class="conf-fcont novel-wrap-setting">
           <div class="conf-fitem">
             <div class="conf-title">{{ $t('zlMUy5svAesJpHhvWRc6C') }}</div>
             <div class="conf-inp">
@@ -200,6 +200,8 @@ const textConfig = LocalStorage.get('PXV_TEXT_CONFIG', {
   color: '#1f1f1f',
   bg: '#ffffff',
 })
+
+let novelTextBak = ''
 
 export default {
   name: 'NovelDetail',
@@ -304,6 +306,7 @@ export default {
       const res = await api.getNovelText(id)
       if (res.status === 0) {
         this.novelText = res.data
+        novelTextBak = res.data.text
       } else {
         this.$toast({
           message: res.msg,
@@ -396,7 +399,7 @@ export default {
     },
     downloadNovel() {
       window.umami?.track('download_novel')
-      FileSaver.saveAs(new Blob([this.novelText.text]), `${this.artwork.id}_${this.artwork.title}.txt`)
+      FileSaver.saveAs(new Blob([novelTextBak]), `${this.artwork.id}_${this.artwork.title}.txt`)
     },
     async onPntSelect(action) {
       window.umami?.track('translate_novel', { action })
@@ -420,12 +423,11 @@ export default {
             this.novelText.text = cacheText
             return
           }
-          const novelText = this.novelText.text
           const notsArr = nots ? nots.split(',') : []
           const novelElement = document.querySelector('.novel_text')
           let resText = ''
           this.novelText.text = 'Loading...'
-          siliconCloudTranslate(novelText, notsArr, aiModel, chunk => {
+          siliconCloudTranslate(novelTextBak, notsArr, aiModel, chunk => {
             if (chunk.done) {
               novelElement.innerHTML = resText
               this.novelText.text = resText
@@ -558,13 +560,23 @@ img[src*="https://api.moedog.org/qr/?url="]
     flex-wrap wrap
     gap 10px
   .conf-color
-    width 32px
-    height 32px
+    width 36px
+    height 36px
     border-radius 50%
     border 2PX solid rgba(0, 0, 0, 0.08)
-    &:hover,&.act {
+    &:hover,&.act
       border-color var(--accent-color, #0096fa)
-    }
+  .novel-wrap-setting
+    @media screen and (max-width: 600px)
+      flex-wrap wrap
+      > .conf-fitem
+        width 100%
+        flex unset
+      .conf-colors
+        gap 0.5rem
+      .conf-color
+        width 0.8rem
+        height 0.8rem
   .conf-slider
     margin-top 40px
     height: 4PX
@@ -686,7 +698,7 @@ img[src*="https://api.moedog.org/qr/?url="]
     ::v-deep .image
       max-width: 100% !important
       max-height: 90vh !important
-    ::v-deep .novel_text
+    ::v-deep .novel_text:not(.vertical)
       width 660px
 
   .ia-right

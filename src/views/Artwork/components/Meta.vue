@@ -38,7 +38,7 @@
         <Icon name="like" class="icon" />
         {{ artwork.like | convertToK }}
       </span>
-      <span class="created" :class="{ is_novel: isNovel }">{{ artwork.created | formatDate(isNovel) }}</span>
+      <span class="created" :class="{ is_novel: isNovel }">{{ artwork.created | formatDate }}</span>
     </div>
     <div class="pid_link">
       <a
@@ -177,13 +177,7 @@ export default {
         return val
       }
     },
-    formatDate(val, isNovel) {
-      if (isNovel) {
-        return dayjs(val)
-          .format('YYYY年MM月DD日Ahh点mm分')
-          .replace('AM', '上午')
-          .replace('PM', '下午')
-      }
+    formatDate(val) {
       return dayjs(val).format('YYYY-MM-DD HH:mm')
     },
   },

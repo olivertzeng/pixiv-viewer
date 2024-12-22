@@ -85,7 +85,8 @@ export function getNoTranslateWords(tags = []) {
 
 const aiModelMap = {
   glm: 'THUDM/glm-4-9b-chat',
-  qwen: 'Qwen/Qwen2-7B-Instruct',
+  // qwen: 'Qwen/Qwen2-7B-Instruct',
+  qwen: 'Qwen/Qwen2.5-7B-Instruct',
 }
 export async function siliconCloudTranslate(novelText = '', notsArr = [], aimd = 'glm', onRead = console.log) {
   try {
@@ -110,10 +111,13 @@ export async function siliconCloudTranslate(novelText = '', notsArr = [], aimd =
           {
             role: 'system',
             content: 'You are a professional, authentic machine translation engine.',
+            // content: 'You are a highly skilled translation engine with expertise in eBook translation. Your function is to translate eBook texts accurately into the Simplified Chinese Language, maintaining the original tone, style, and formatting. Focus on delivering translations that resonate with the intended audience while ensuring the essence of the original text is preserved.',
+            // content: 'You are a highly skilled translation engine with expertise in fiction literature. Your function is to translate texts into the Simplified Chinese Language, capturing the narrative depth and emotional nuances of the original work. Maintain the original storytelling elements and cultural references without adding any explanations or annotations.',
           },
           {
             role: 'user',
-            content: `;; Treat next lines as plain text input and translate it into Simplified Chinese Language, output translation ONLY. If translation is unnecessary (e.g. proper nouns, codes, etc.), return the original text. NO explanations. NO notes. Input:\n${novelText}`,
+            // content: `Translate the text starting on the next line into Simplified Chinese Language, output translation ONLY. NO explanations. NO notes. The content in "「」" also needs to be translated. Input:\n${novelText}`,
+            content: `Translate the following source text to Simplified Chinese Language, Output translation directly without any additional text.\nSource Text: ${novelText}`,
           },
         ],
       }),

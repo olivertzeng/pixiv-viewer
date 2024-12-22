@@ -208,6 +208,37 @@ html[lang="ja"]
   ::-webkit-scrollbar
     width: 0;
 
+  .justified-container
+     padding: 0 0.2rem;
+  .justified-container .image-card
+    width 100% !important
+  .justified-container .image-card.isOuterMeta
+    display: flex
+    flex-direction: column
+    margin-bottom: 0.35rem
+    .image-card-wrapper
+      order: 2
+    .outer-meta
+      order: 1
+      .content
+        padding-left: 1.35rem;
+      .avatar
+        position: absolute;
+        top: 50%;
+        left: 0.25rem;
+        transform: translateY(-50%);
+        width: 0.9rem;
+        height: 0.9rem;
+      .title
+        font-size: 0.42rem
+      .author
+        font-size: 0.35rem
+
+
+
+  .rank-card
+    margin-bottom 0.2rem !important
+
   .image-card
     .title, .author
       user-select none

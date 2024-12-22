@@ -137,6 +137,10 @@ export default {
         width 330px
         margin-right: 12px;
 
+        @media screen and (max-width: 500px) {
+          width 4.7rem
+        }
+
         &:last-child {
           .image-card {
             margin-right: 0;

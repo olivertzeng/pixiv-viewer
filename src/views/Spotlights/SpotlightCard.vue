@@ -38,6 +38,17 @@
 <script>
 import ImageSlide from '@/components/ImageSlide'
 import api from '@/api'
+
+const autoPlayOpts = navigator.userAgent.includes('Mobile')
+  ? {
+      autoplay: {
+        delay: 5000,
+        stopOnLastSlide: false,
+        disableOnInteraction: true,
+      },
+    }
+  : {}
+
 export default {
   name: 'SpotlightCard',
   components: {
@@ -59,6 +70,7 @@ export default {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
+        ...autoPlayOpts,
       },
     }
   },
@@ -179,6 +191,13 @@ export default {
   .card-box {
     // padding: 0 12px;
     height: 365px;
+
+    @media screen and (max-width: 500px) {
+      height 5.1rem
+      .swipe-item {
+        width 9.4rem !important
+      }
+    }
 
     .swipe-wrap {
       height: 100%;

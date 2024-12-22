@@ -198,6 +198,13 @@
     />
     <van-cell
       center
+      title="LightNovelReader (Android)"
+      is-link
+      label="一款开源的轻小说阅读软件，追求轻量化的体积和流畅的阅读体验。"
+      @click="openLink('https://github.com/dmzz-yyhyy/LightNovelReader')"
+    />
+    <van-cell
+      center
       title="Bili You (Android)"
       is-link
       label="一个用flutter制作的第三方B站客户端."

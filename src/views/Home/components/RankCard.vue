@@ -35,6 +35,18 @@ import ImageCard from '@/components/ImageCard'
 import ImageSlide from '@/components/ImageSlide'
 import api from '@/api'
 import { filterHomeIllust } from '@/utils/filter'
+
+const autoPlayOpts = navigator.userAgent.includes('Mobile')
+  ? {
+      autoplay: {
+        delay: 5000,
+        stopOnLastSlide: false,
+        disableOnInteraction: true,
+      },
+      slidesPerGroup: 2,
+    }
+  : {}
+
 export default {
   name: 'RankCard',
   components: {
@@ -57,6 +69,7 @@ export default {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
+        ...autoPlayOpts,
       },
     }
   },
@@ -123,6 +136,10 @@ export default {
       .swipe-item {
         width 450px;
         margin-right: 12px;
+
+        @media screen and (max-width: 500px) {
+          width 4.7rem
+        }
 
         &:last-child {
           .image-card {

@@ -1,5 +1,5 @@
 <template>
-  <div class="artwork" :class="{ isSafari }">
+  <div class="artwork" :class="{ isSafari, isAutoLoadImt }">
     <TopBar />
     <div class="share_btn" @click="share">
       <Icon class="icon" name="share" />
@@ -133,6 +133,7 @@ export default {
       disableSwipe: !LocalStorage.get('PXV_IMG_DTL_SWIPE', false),
       maybeAiAuthor: false,
       isSafari: isSafari(),
+      isAutoLoadImt: LocalStorage.get('PXV_AUTO_LOAD_IMT', false),
     }
   },
   head() {
@@ -396,13 +397,15 @@ img[src*="https://api.moedog.org/qr/?url="]
   ::v-deep .top-bar-wrap
     width 2rem
     background none
-  &.isSafari
+  &.isSafari, &.isAutoLoadImt
     .image-view.loaded
       min-height auto
     .ia-right ::v-deep .artwork-meta
       padding 20px 30px 40px
       background #f5f5f5
       border-radius 20px
+      .tag.translated
+        color #808080
       @media screen and (max-width: 1200px)
         margin 0.26667rem 0.13333rem !important
       .shrink::after

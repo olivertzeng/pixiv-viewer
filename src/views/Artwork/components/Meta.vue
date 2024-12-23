@@ -236,7 +236,7 @@ export default {
     },
   },
   mounted() {
-    if (isSafari()) return
+    if (this.isAutoLoadImt || isSafari()) return
     this.$nextTick(() => {
       setTimeout(() => {
         this.drawMask()

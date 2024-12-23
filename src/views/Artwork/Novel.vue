@@ -658,6 +658,8 @@ img[src*="https://api.moedog.org/qr/?url="]
         padding 20px 30px 40px
         background #f5f5f5
         border-radius 20px
+        .tag.translated
+          color #808080
       .shrink::after
         background: linear-gradient(to top, #f5f5f5, rgba(255,255,255,0));
 

@@ -43,7 +43,6 @@ const autoPlayOpts = navigator.userAgent.includes('Mobile')
         stopOnLastSlide: false,
         disableOnInteraction: true,
       },
-      slidesPerGroup: 2,
     }
   : {}
 

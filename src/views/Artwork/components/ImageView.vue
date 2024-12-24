@@ -31,6 +31,7 @@
         @click.native.stop="view(index)"
         @contextmenu.native="preventContext"
       />
+      <div v-if="seasonEffectSrc" class="season-effect" :style="`--bg:url(${seasonEffectSrc})`"></div>
       <!-- <img
         v-else
         :src="getImgUrl(url)"
@@ -116,6 +117,17 @@ export default {
     ...mapGetters(['isCensored']),
     censored() {
       return this.isCensored(this.artwork)
+    },
+    seasonEffectSrc() {
+      const effects = this.$store.state.seasonEffects
+      let src = ''
+      this.artwork.tags?.some(t => {
+        const act = effects?.find(e => e.tag == t.name)
+        if (!act) return false
+        src = act.src
+        return true
+      })
+      return src
     },
   },
   watch: {
@@ -639,5 +651,18 @@ export default {
       }
     }
   }
+}
+</style>
+<style scoped>
+.image-view.loaded .image[lazy="loaded"] + .season-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 99;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: var(--bg) no-repeat center center / contain;
 }
 </style>

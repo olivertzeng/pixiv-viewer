@@ -37,7 +37,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.notFromDetail = from.name !== 'Artwork'
+      vm.notFromDetail = !['Artwork', 'Users'].includes(from.name)
     })
   },
   data() {

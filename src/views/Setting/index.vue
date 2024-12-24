@@ -43,21 +43,15 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapGetters, mapState } from 'vuex'
 import { Dialog } from 'vant'
-import dayjs from 'dayjs'
 import PixivAuth from '@/api/client/pixiv-auth'
 import { logout } from '@/api/user'
 import { LocalStorage } from '@/utils/storage'
+import store from '@/store'
 
 export default {
   name: 'Setting',
-  data() {
-    return {
-      notice: null,
-    }
-  },
   head() {
     return {
       title: this.$t('nav.setting'),
@@ -66,40 +60,9 @@ export default {
   computed: {
     ...mapState(['user']),
     ...mapGetters(['isLoggedIn']),
-  },
-  async created() {
-    try {
-      const notices = await fetch('https://pxve-notice.nanoka.top').then(r => r.json())
-      const today = dayjs().startOf('day')
-      const notice = notices.filter(e => e.pnt.length == 0 || e.pnt.includes('web') || e.pnt.includes(location.hostname)).find(e =>
-        today.isAfter(dayjs(e.start).startOf('day') - 1) &&
-        today.isBefore(dayjs(e.end).endOf('day'))
-      )
-      console.log('notice: ', notice)
-      if (!notice) return
-      if (!notice.alert) {
-        this.notice = notice
-      } else if (localStorage.PXV_NOTICE_READ_REC != notice.id) {
-        Dialog.alert({
-          width: '8rem',
-          title: notice.title,
-          message: notice.text,
-        }).then(() => {
-          localStorage.PXV_NOTICE_READ_REC = notice.id
-        })
-      }
-      if (notice.style) {
-        document.head.insertAdjacentHTML('beforeend', `<style>${notice.style}</style>`)
-      }
-      if (notice.addClass) {
-        document.documentElement.className += notice.addClass
-      }
-      if (Array.isArray(notice.randomClass)) {
-        document.documentElement.classList.add(_.sample(notice.randomClass))
-      }
-    } catch (err) {
-      console.log('err: ', err)
-    }
+    notice() {
+      return store.state.appNotice
+    },
   },
   methods: {
     async logoutApp() {

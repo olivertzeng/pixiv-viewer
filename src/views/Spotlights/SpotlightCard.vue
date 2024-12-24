@@ -38,8 +38,9 @@
 <script>
 import ImageSlide from '@/components/ImageSlide'
 import api from '@/api'
+import store from '@/store'
 
-const autoPlayOpts = navigator.userAgent.includes('Mobile')
+const autoPlayOpts = store.state.isMobile
   ? {
       autoplay: {
         delay: 5000,
@@ -113,7 +114,7 @@ export default {
     },
     toDetail(id) {
       this.$router.push({
-        name: 'Spotlight',
+        name: store.state.isMobile ? 'SpotlightDetail' : 'Spotlight',
         params: { id },
       })
     },

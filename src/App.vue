@@ -7,10 +7,10 @@
 
 <script>
 import Preload from '@/components/Preload'
-import { mapMutations } from 'vuex'
-import { existsSessionId, initUser } from '@/api/user'
-import { localApi } from './api'
 import { CURRENT_APP_VERSION } from './consts'
+import { checkIsLogin } from './store/actions/check-login'
+import { fetchAppNotice } from './store/actions/fetch-notice'
+import { fetchSeasonEffects } from './store/actions/season-effect'
 import { LocalStorage } from './utils/storage'
 import { loadImtSdk } from './utils/translate'
 
@@ -26,18 +26,9 @@ export default {
     titleTemplate: '%s | Pixiv Viewer',
   },
   async created() {
-    let user = null
-    try {
-      if (window.APP_CONFIG.useLocalAppApi) {
-        user = await localApi.me()
-      } else if (existsSessionId()) {
-        user = await initUser()
-      }
-    } catch (err) {
-      console.log('err: ', err)
-    }
-    console.log('user: ', user)
-    this.setUser(user)
+    checkIsLogin()
+    fetchAppNotice()
+    fetchSeasonEffects()
   },
   mounted() {
     const loading = document.querySelector('#ldio-loading')
@@ -45,9 +36,6 @@ export default {
     window.umami?.track('App Mounted', { host: location.host, ver: CURRENT_APP_VERSION })
     if (!localStorage.PXV_ASSETS_LOADED) localStorage.PXV_ASSETS_LOADED = '1'
     if (LocalStorage.get('PXV_AUTO_LOAD_IMT', false)) loadImtSdk(true)
-  },
-  methods: {
-    ...mapMutations(['setUser']),
   },
 }
 </script>

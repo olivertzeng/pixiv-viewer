@@ -22,8 +22,14 @@ export default new Vuex.Store({
     blockTags: LocalStorage.get('PXV_B_TAGS', '').split(',').filter(Boolean),
     blockUids: LocalStorage.get('PXV_B_UIDS', '').split(',').filter(Boolean),
     isNovelViewShrink: true,
+    isMobile: navigator.userAgent.includes('Mobile'),
+    appNotice: null,
+    seasonEffects: null,
   },
   getters: {
+    isLoggedIn(state) {
+      return !!state.user
+    },
     isCensored: state => artwork => {
       if (state.blockUids.length && state.blockUids.includes(`${artwork?.author?.id}`)) {
         return true
@@ -76,9 +82,6 @@ export default new Vuex.Store({
         default: 4,
       },
     }),
-    isLoggedIn(state) {
-      return !!state.user
-    },
   },
   mutations: {
     setGalleryList(state, list = []) {
@@ -116,6 +119,12 @@ export default new Vuex.Store({
     },
     setIsNovelViewShrink(state, val) {
       state.isNovelViewShrink = val
+    },
+    setAppNotice(state, val) {
+      state.appNotice = val
+    },
+    setSeasonEffects(state, val) {
+      state.seasonEffects = val
     },
   },
   actions: {

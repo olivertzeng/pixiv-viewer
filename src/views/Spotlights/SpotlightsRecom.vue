@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: 'SpotlightsRecomCard',
   components: {
@@ -71,7 +73,7 @@ export default {
   },
   methods: {
     toDetail(id) {
-      if (this.isTypeDetail) {
+      if (store.state.isMobile || this.isTypeDetail) {
         this.$router.push({
           name: 'SpotlightDetail',
           params: { id },

@@ -44,10 +44,11 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import TopBar from '@/components/TopBar'
 import SpCard from '@/components/SpCard.vue'
 import api from '@/api'
-import _ from 'lodash'
+import store from '@/store'
 import SpotlightsRecom from './SpotlightsRecom.vue'
 
 export default {
@@ -106,7 +107,7 @@ export default {
   },
   methods: {
     toArtwork(id) {
-      if (this.activeTab == 'illustration') {
+      if (this.activeTab == 'illustration' && !store.state.isMobile) {
         this.$router.push({
           name: 'Spotlight',
           params: { id },

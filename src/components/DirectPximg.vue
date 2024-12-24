@@ -8,7 +8,8 @@ import { loadingSvg as loadSvg } from '@/icons'
 import { LocalStorage } from '@/utils/storage'
 import { randomBg } from '@/utils'
 
-const loadingSvg = localStorage.PXV_ACT_COLOR ? loadSvg(localStorage.PXV_ACT_COLOR) : require('@/icons/loading.svg')
+// const loadingSvg = localStorage.PXV_ACT_COLOR ? loadSvg(localStorage.PXV_ACT_COLOR) : require('@/icons/loading.svg')
+const loadingSvg = loadSvg(localStorage.PXV_ACT_COLOR || '#38a9f5')
 const defSrc = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
 const direct = LocalStorage.get('PXV_PXIMG_DIRECT', false)
 

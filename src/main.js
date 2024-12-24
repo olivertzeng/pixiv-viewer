@@ -41,7 +41,8 @@ async function setupApp() {
   Vue.use(Lazyload, {
     // observer: true,
     lazyComponent: true,
-    loading: localStorage.PXV_ACT_COLOR ? loadingSvg(localStorage.PXV_ACT_COLOR) : require('@/icons/loading.svg'),
+    // loading: localStorage.PXV_ACT_COLOR ? loadingSvg(localStorage.PXV_ACT_COLOR) : require('@/icons/loading.svg'),
+    loading: loadingSvg(localStorage.PXV_ACT_COLOR || '#38a9f5'),
     // preload: 1.3,
   })
   Vue.use(Vant)

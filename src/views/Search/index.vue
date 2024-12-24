@@ -32,8 +32,9 @@
       </div>
       <div v-if="pidOrUidList.length" class="pid-n-uid">
         <template v-for="n in pidOrUidList">
-          <div :key="'p_' + n" class="keyword" @click="toPidPage(n)">→ {{ $t('common.artwork') }} ID: {{ n }} </div>
+          <div :key="'p_' + n" class="keyword" @click="toPidPage(n)">→ {{ $t('common.illust_manga') }} ID: {{ n }} </div>
           <div :key="'u_' + n" class="keyword" @click="toUidPage(n)">→ {{ $t('common.user') }} ID: {{ n }} </div>
+          <div :key="'n_' + n" class="keyword" @click="toNovelPage(n)">→ {{ $t('common.novel') }} ID: {{ n }} </div>
           <!-- <div :key="'s_' + n" class="keyword" @click="toSpotlightPage(n)">→ 特辑 ID: {{ n }} </div> -->
         </template>
       </div>
@@ -56,7 +57,7 @@
       </div>
     </div>
     <ImageSearch v-show="!focus && !keywords.trim()" ref="imageSearch" key="container" />
-    <div class="com_sel_tabs">
+    <div class="com_sel_tabs" :style="focus?'opacity:0;pointer-events:none':''">
       <div class="com_sel_tab cur">{{ $t('common.illust_manga') }}</div>
       <div class="com_sel_tab" @click="$router.replace('/search_novel')">{{ $t('common.novel') }}</div>
       <div class="com_sel_tab" @click="$router.replace('/search_user')">{{ $t('common.user') }}</div>
@@ -204,6 +205,10 @@ export default {
     toSpotlightPage(id) {
       this.reset()
       this.$router.push(`/spotlight/${id}`)
+    },
+    toNovelPage(id) {
+      this.reset()
+      this.$router.push(`/novel/${id}`)
     },
     clearHistory() {
       this.setSearchHistory(null)

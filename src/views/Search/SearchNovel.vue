@@ -37,6 +37,11 @@
           {{ tag }}
         </div>
       </div>
+      <div v-if="pidOrUidList.length" class="pid-n-uid">
+        <template v-for="n in pidOrUidList">
+          <div :key="'n_' + n" class="keyword" @click="toArtwork(n)">→ {{ $t('common.novel') }} ID: {{ n }} </div>
+        </template>
+      </div>
       <div v-if="!keywords.trim() && searchHistory.length > 0" class="search-history">
         <div class="title-bar">
           {{ $t('search.history') }}
@@ -49,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div v-show="!keywords.trim()" class="com_sel_tabs">
+    <div v-show="!keywords.trim()" class="com_sel_tabs" :style="focus?'opacity:0;pointer-events:none':''">
       <div class="com_sel_tab" @click="$router.replace('/search')">{{ $t('common.illust_manga') }}</div>
       <div class="com_sel_tab cur">{{ $t('common.novel') }}</div>
       <div class="com_sel_tab" @click="$router.replace('/search_user')">{{ $t('common.user') }}</div>
@@ -121,6 +126,9 @@ export default {
   },
   computed: {
     ...mapState(['searchHistory']),
+    pidOrUidList() {
+      return this.keywords.match(/(\d+)/g) || []
+    },
   },
   watch: {
     $route() {

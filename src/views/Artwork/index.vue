@@ -115,7 +115,8 @@ export default {
         { name: 'GIF', subname: i18n.t('artwork.download.gif') },
         { name: 'WebM', subname: i18n.t('artwork.download.webm') }, // chrome only
         { name: 'APNG', subname: i18n.t('artwork.download.webm') },
-        { name: 'MP4', subname: i18n.t('LC7_PMpEgK-L5fx7s4TBv') },
+        { name: 'MP4(Browser)', subname: i18n.t('pIghtXdU8socMNNRUn5UR') },
+        { name: 'MP4(Server)', subname: i18n.t('zuVom-C8Ss8JTEDZIhzBj') },
         { name: 'Other', subname: i18n.t('artwork.download.mp4') },
       ],
       showShare: false,
@@ -197,10 +198,6 @@ export default {
       }
     },
     showUgPanelFromDlBtn() {
-      if (!this.$refs.imgView.ugoira) {
-        this.$toast(this.$t('artwork.download.ugoira.tip'))
-        return
-      }
       this.ugoiraDownloadPanelShow = true
     },
     onUgoiraDownloadPanelSelect(item) {

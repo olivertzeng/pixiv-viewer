@@ -20,7 +20,7 @@
       },
       "webm": "高畫質，兼容性差",
       "zip": "原始序列幀歸檔文件",
-      "mp4": "去 Ugoira Converter 轉換"
+      "mp4": "使用 ffmpeg.wasm 在瀏覽器轉換"
     },
     "share": {
       "of_art": "的作品",
@@ -238,7 +238,7 @@
       "cp_token_title": "導出 RefreshToken",
       "direct_mode": {
         "confirm": {
-          "msg": "直連模式僅支持 Firefox 瀏覽器，需確保 Tampermonkey 與 Helper 腳本已安裝，且速度較慢、不保證穩定性。\n不可與 AppApi 代理同時開啟。\n開啟直連後如果遇到網絡錯誤的話，請手動打開下面的鏈接後，點擊“高級” - “接受風險並繼續”，出現 421 後回到本站刷新頁面。",
+          "msg": "直連模式僅支持 Firefox 瀏覽器，需確保 Tampermonkey 與 HTTP Helper 腳本已安裝，且速度較慢、不保證穩定性。\n不可與 AppApi 代理同時開啟。\n開啟直連後如果遇到網絡錯誤的話，請手動打開下面的鏈接後，點擊“高級” - “接受風險並繼續”，出現 421 後回到本站刷新頁面。",
           "proxy_msg": "通過第三方雲服務轉發本地 AppApi 請求，無法保證穩定性與安全性。\n不可與直連模式同時開啟。",
           "proxy_title": "確認啟用 AppApi 代理？",
           "title": "確認啟用直連模式？"
@@ -286,7 +286,6 @@
     },
     "current_value": "當前值：",
     "download_wait": "下載時間可能較長，請耐心等待",
-    "ios_webm": "iOS 設備暫不支持 WebM 格式下載",
     "loading": "加載中...",
     "net_err": "網路異常，點擊重新加載",
     "no_data": "暫無數據",
@@ -379,13 +378,13 @@
       "desc2": "請確保已安裝 URLRedirector 瀏覽器插件並導入配置，否則將無法登錄",
       "desc3": "URLRedirector 安裝地址：",
       "desc4": "點擊複製 URLRedirector 在線規則地址",
-      "desc5": "請確保已安裝 Tampermonkey 瀏覽器插件並安裝 Helper 用戶腳本，否則將無法請求 API",
+      "desc5": "請確保已安裝 Tampermonkey 瀏覽器插件並安裝 HTTP Helper 用戶腳本，否則將無法請求 API",
       "desc6": "Tampermonkey 安裝地址：",
-      "desc7": "點擊安裝 Helper 用戶腳本"
+      "desc7": "點擊安裝 HTTP Helper 用戶腳本"
     },
     "succ_tip": "登錄成功",
     "t": {
-      "d1": "請確保已安裝 Tampermonkey 瀏覽器插件並安裝 Helper 用戶腳本，否則請打開 AppApi 代理",
+      "d1": "請確保已安裝 Tampermonkey 瀏覽器插件並安裝 HTTP Helper 用戶腳本，否則請打開 AppApi 代理",
       "d2": "請填寫 RefreshToken，獲取方式參考如下鏈接",
       "d3": "請填寫 RefreshToken",
       "d4": "RefreshToken 格式不正確"
@@ -407,7 +406,6 @@
   "ZO7u4XT4flW6_nmyvmXt7": "列表圖片資訊外置",
   "ebHfHD4g4932R2m1gFtmn": "是否返回首頁？",
   "a1HSQm-WYv6GDFwhKr9x_": "清理後設定項目將重置",
-  "LC7_PMpEgK-L5fx7s4TBv": "從 ugoira.com 下載",
   "mR4YFHYUnr00zmzYydrMv": "圖片清單鋪滿螢幕",
   "V-KoSeNoEiNct7oZJgCcD": "關閉此開關會為圖片清單設定最大寬度",
   "g4JWYmBbfeweCBkRSgGNw": "直播",
@@ -419,10 +417,10 @@
   "psoXLFqv51j1SeKjTbnms": "應用主題色",
   "lGZGzwfWz9tW_KQey3AmQ": "啟用 pximg 圖片直連模式",
   "nTsgCnGYm8FSVMfe-TQSN": "確認啟用 pximg 直連模式？",
-  "YeEO8hAsoM45pm_vcijKP": "pximg 直連模式需確保 Tampermonkey 與 Helper 腳本已安裝，且速度可能較慢、不保證穩定性。",
-  "9omPI2Fz4KzKSVNlmF8-K": "Tampermonkey 或 Helper 腳本未安裝，啟用失敗",
+  "YeEO8hAsoM45pm_vcijKP": "pximg 直連模式需確保 Tampermonkey 與 HTTP Helper 腳本已安裝，且速度可能較慢、不保證穩定性。",
+  "9omPI2Fz4KzKSVNlmF8-K": "Tampermonkey 或 HTTP Helper 腳本未安裝，啟用失敗",
   "2jNIricwtCbrzEESdEbvH": "點選安裝",
-  "lkfd4SXJiefx26Z7vj0Au": "Helper 腳本地址",
+  "lkfd4SXJiefx26Z7vj0Au": "HTTP Helper 腳本地址",
   "hGqGftQ7v772prEac1hbJ": "評論",
   "1V8tlBs--oNk_UbzsItA-": "備用域名",
   "vqHSGcz4r3oSQIWQwZiVf": "還沒有人發表評論呢~",
@@ -435,5 +433,8 @@
   "WdS4RTIeeWqdaqLtvk7ZO": "將圖片標題與作者置於圖片卡下方，點選標題可預覽圖片",
   "Tx35SIS0MBLD-pgz1XgXh": "展示全部",
   "lJtMtr2rgYCSg-osHykE9": "請前往<a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> 或<a href=\"https://iqdb.org/\" target= \n\"_blank\">https://iqdb.org</a> 搜尋。",
-  "zlMUy5svAesJpHhvWRc6C": "文字顏色預設"
+  "zlMUy5svAesJpHhvWRc6C": "文字顏色預設",
+  "H_rYWoPA0uI7TU4YCbIz0": "轉換失敗，目前設備可能不支援此功能",
+  "zuVom-C8Ss8JTEDZIhzBj": "使用 ffmpeg 在服務端轉換",
+  "pIghtXdU8socMNNRUn5UR": "使用 WebCodec 在瀏覽器轉換"
 }

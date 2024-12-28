@@ -20,7 +20,7 @@
       },
       "webm": "Hohe Qualität, schlechte Kompatibilität",
       "zip": "Rohsequenz-Frame-Archiv",
-      "mp4": "Gehen Sie zum Konvertieren zu Ugoira Converter"
+      "mp4": "Verwenden Sie ffmpeg.wasm zum Konvertieren im Browser"
     },
     "share": {
       "of_art": "'s Kunstwerke",
@@ -286,7 +286,6 @@
     },
     "current_value": "Der aktuelle Wert:",
     "download_wait": "Das Herunterladen kann lange dauern, bitte haben Sie etwas Geduld",
-    "ios_webm": "iOS-Geräte unterstützen derzeit keine Downloads im WebM-Format",
     "loading": "Wird geladen...",
     "net_err": "Netzwerkausnahme, zum Neuladen klicken",
     "no_data": "Keine Daten",
@@ -407,7 +406,6 @@
   "ZO7u4XT4flW6_nmyvmXt7": "Platzieren Sie die Metainformationen unter dem Bild der Kartenliste",
   "ebHfHD4g4932R2m1gFtmn": "Zur Startseite zurückkehren?",
   "a1HSQm-WYv6GDFwhKr9x_": "Die Einstellungen werden nach der Reinigung zurückgesetzt",
-  "LC7_PMpEgK-L5fx7s4TBv": "Von ugoira.com herunterladen",
   "mR4YFHYUnr00zmzYydrMv": "Sorgen Sie dafür, dass die Bilderliste den Bildschirm ausfüllt",
   "V-KoSeNoEiNct7oZJgCcD": "Durch Ausschalten dieses Schalters wird die maximale Breite für die Bildliste festgelegt",
   "g4JWYmBbfeweCBkRSgGNw": "Lives",
@@ -435,5 +433,8 @@
   "WdS4RTIeeWqdaqLtvk7ZO": "Platzieren Sie den Bildtitel und den Autor unter der Bildkarte. Klicken Sie auf den Titel, um eine Vorschau des Bildes anzuzeigen.",
   "Tx35SIS0MBLD-pgz1XgXh": "Alle anzeigen",
   "lJtMtr2rgYCSg-osHykE9": "Bitte gehen Sie zu <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> oder <a href=\"https://iqdb.org/\" target = \"_blank\">https://iqdb.org</a> Suche.",
-  "zlMUy5svAesJpHhvWRc6C": "Voreinstellungen für Textfarben"
+  "zlMUy5svAesJpHhvWRc6C": "Voreinstellungen für Textfarben",
+  "H_rYWoPA0uI7TU4YCbIz0": "Die Konvertierung ist fehlgeschlagen. Das aktuelle Gerät unterstützt diese Funktion möglicherweise nicht",
+  "zuVom-C8Ss8JTEDZIhzBj": "Verwenden Sie ffmpeg zum Konvertieren auf der Serverseite",
+  "pIghtXdU8socMNNRUn5UR": "Verwenden Sie WebCodec zum Konvertieren im Browser"
 }

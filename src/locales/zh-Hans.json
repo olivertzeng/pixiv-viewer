@@ -38,7 +38,7 @@
       "ugoira": {
         "tip": "请先播放动图"
       },
-      "mp4": "前往 Ugoira Converter 进行转换"
+      "mp4": "使用 ffmpeg.wasm 在浏览器转换"
     },
     "share": {
       "title": "立即分享给好友",
@@ -63,7 +63,6 @@
       "succ": "已复制"
     },
     "current_value": "当前值：",
-    "ios_webm": "iOS 设备暂不支持 WebM 格式下载",
     "download_wait": "下载时间可能较长，请耐心等待",
     "loading": "加载中...",
     "load_more": "加载更多",
@@ -232,7 +231,7 @@
         },
         "confirm": {
           "title": "确认启用直连模式？",
-          "msg": "直连模式仅支持 Firefox 浏览器，需确保 Tampermonkey 与 Helper 脚本已安装，且速度较慢、不保证稳定性。不可与 AppApi 代理同时开启。开启直连后如果遇到网络错误的话，请手动打开下面的链接后，点击“高级” - “接受风险并继续”，出现 421 后回到本站刷新页面。",
+          "msg": "直连模式仅支持 Firefox 浏览器，需确保 Tampermonkey 与 HTTP Helper 脚本已安装，且速度较慢、不保证稳定性。不可与 AppApi 代理同时开启。开启直连后如果遇到网络错误的话，请手动打开下面的链接后，点击“高级” - “接受风险并继续”，出现 421 后回到本站刷新页面。",
           "proxy_title": "确认启用 AppApi 代理？",
           "proxy_msg": "通过第三方云服务转发本地 AppApi 请求，无法保证稳定性与安全性。不可与直连模式同时开启。"
         },
@@ -377,12 +376,12 @@
       "desc2": "请确保已安装 URLRedirector 浏览器插件并导入配置，否则将无法登录",
       "desc3": "URLRedirector 安装地址：",
       "desc4": "点击复制 URLRedirector 在线规则地址",
-      "desc5": "请确保已安装 Tampermonkey 浏览器插件并安装 Helper 用户脚本，否则将无法请求 API",
+      "desc5": "请确保已安装 Tampermonkey 浏览器插件并安装 HTTP Helper 用户脚本，否则将无法请求 API",
       "desc6": "Tampermonkey 安装地址：",
-      "desc7": "点击安装 Helper 用户脚本"
+      "desc7": "点击安装 HTTP Helper 用户脚本"
     },
     "t": {
-      "d1": "请确保已安装 Tampermonkey 浏览器插件并安装 Helper 用户脚本，否则请打开 AppApi 代理",
+      "d1": "请确保已安装 Tampermonkey 浏览器插件并安装 HTTP Helper 用户脚本，否则请打开 AppApi 代理",
       "d2": "请填写 RefreshToken，获取方式参考如下链接",
       "d3": "请填写 RefreshToken",
       "d4": "RefreshToken 格式不正确"
@@ -407,7 +406,6 @@
   "ZO7u4XT4flW6_nmyvmXt7": "列表图片信息外置",
   "ebHfHD4g4932R2m1gFtmn": "是否返回首页？",
   "a1HSQm-WYv6GDFwhKr9x_": "清理后设置项将重置",
-  "LC7_PMpEgK-L5fx7s4TBv": "从 ugoira.com 下载",
   "mR4YFHYUnr00zmzYydrMv": "图片列表铺满屏幕",
   "V-KoSeNoEiNct7oZJgCcD": "关闭此开关会为图片列表设置最大宽度",
   "g4JWYmBbfeweCBkRSgGNw": "直播",
@@ -419,9 +417,9 @@
   "psoXLFqv51j1SeKjTbnms": "应用主题色",
   "lGZGzwfWz9tW_KQey3AmQ": "启用 pximg 图片直连模式",
   "nTsgCnGYm8FSVMfe-TQSN": "确认启用 pximg 直连模式？",
-  "YeEO8hAsoM45pm_vcijKP": "pximg 直连模式需确保 Tampermonkey 与 Helper 脚本已安装，且速度可能较慢、不保证稳定性。",
-  "9omPI2Fz4KzKSVNlmF8-K": "Tampermonkey 或 Helper 脚本未安装，启用失败",
-  "lkfd4SXJiefx26Z7vj0Au": "Helper 脚本地址",
+  "YeEO8hAsoM45pm_vcijKP": "pximg 直连模式需确保 Tampermonkey 与 HTTP Helper 脚本已安装，且速度可能较慢、不保证稳定性。",
+  "9omPI2Fz4KzKSVNlmF8-K": "Tampermonkey 或 HTTP Helper 脚本未安装，启用失败",
+  "lkfd4SXJiefx26Z7vj0Au": "HTTP Helper 脚本地址",
   "2jNIricwtCbrzEESdEbvH": "点击安装",
   "hGqGftQ7v772prEac1hbJ": "评论",
   "1V8tlBs--oNk_UbzsItA-": "备用域名",
@@ -435,5 +433,8 @@
   "WdS4RTIeeWqdaqLtvk7ZO": "将图片标题与作者置于图片卡下方，点击标题可预览图片",
   "Tx35SIS0MBLD-pgz1XgXh": "展示全部",
   "lJtMtr2rgYCSg-osHykE9": "请前往 <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> 或者 <a href=\"https://iqdb.org/\" target=\"_blank\">https://iqdb.org</a> 搜索。",
-  "zlMUy5svAesJpHhvWRc6C": "文字颜色预设"
+  "zlMUy5svAesJpHhvWRc6C": "文字颜色预设",
+  "H_rYWoPA0uI7TU4YCbIz0": "转换失败，当前设备可能不支持此功能",
+  "pIghtXdU8socMNNRUn5UR": "使用 WebCodec 在浏览器转换",
+  "zuVom-C8Ss8JTEDZIhzBj": "使用 ffmpeg 在服务端转换"
 }

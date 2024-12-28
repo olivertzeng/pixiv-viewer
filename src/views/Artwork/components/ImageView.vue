@@ -72,6 +72,7 @@ import axios from 'axios'
 import JSZip from 'jszip'
 import GIF from 'gif.js'
 import tsWhammy from 'ts-whammy'
+import { encode as encodeMP4 } from 'modern-mp4'
 import FileSaver from 'file-saver'
 import api from '@/api'
 import { BASE_URL } from '@/consts'
@@ -346,7 +347,7 @@ export default {
       }
 
       this.$toast(this.$t('tip.down_wait'))
-      await sleep(1000)
+      await sleep(200)
 
       const { width, height } = this.artwork
       const canvas = document.createElement('canvas')
@@ -373,16 +374,8 @@ export default {
       )
     },
     async downloadWebM() {
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-        this.$toast({
-          message: this.$t('tips.ios_webm'),
-          icon: require('@/icons/error.svg'),
-        })
-        return
-      }
-
       this.$toast(this.$t('tip.down_wait'))
-      await sleep(1000)
+      await sleep(200)
 
       const { width, height } = this.artwork
 
@@ -417,7 +410,7 @@ export default {
     },
     async downloadGIF() {
       this.$toast(this.$t('tip.down_wait'))
-      await sleep(1000)
+      // await sleep(1000)
 
       let images = Object.values(this.ugoira.frames)
       let offset = 1
@@ -455,35 +448,69 @@ export default {
       })
       gif.render()
     },
+    // ref: https://github.com/FreeNowOrg/PixivNow/blob/master/src/utils/UgoiraPlayer.ts#L195
+    async downloadMP4() {
+      this.$toast(this.$t('tip.down_wait'))
+
+      const { width, height } = this.artwork
+      let frames = Object.values(this.ugoira.frames).map(frame => ({
+        data: frame.bmp,
+        duration: frame.delay,
+      }))
+      this.resetUgoira()
+      const mp4File = await encodeMP4({ frames, width, height, audio: false })
+      const blob = new Blob([mp4File], { type: 'video/mp4' })
+      frames = null
+      FileSaver.saveAs(
+        blob,
+        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.mp4`
+      )
+    },
     download(type) {
+      const needPlay = !['MP4(Server)', 'Other'].includes(type)
+      if (!this.ugoira && needPlay) {
+        this.$toast(this.$t('artwork.download.ugoira.tip'))
+        return
+      }
       window.umami?.track('download_ugoira', { dl_type: type })
-      switch (type) {
-        case 'ZIP':
-          this.downloadZIP()
-          break
+      try {
+        switch (type) {
+          case 'ZIP':
+            this.downloadZIP()
+            break
 
-        case 'GIF':
-          this.downloadGIF()
-          break
+          case 'GIF':
+            this.downloadGIF()
+            break
 
-        case 'WebM':
-          this.downloadWebM()
-          break
+          case 'WebM':
+            this.downloadWebM()
+            break
 
-        case 'APNG':
-          this.downloadAPNG()
-          break
+          case 'APNG':
+            this.downloadAPNG()
+            break
 
-        case 'MP4':
-          window.open(`https://ugoira-mp4-dl.cocomi.eu.org/${this.artwork.id}`, '_blank', 'noopener')
-          break
+          case 'MP4(Browser)':
+            this.downloadMP4()
+            break
 
-        case 'Other':
-          window.open(`https://ugoira.cocomi.eu.org/?id=${this.artwork.id}`, '_blank', 'noopener')
-          break
+          case 'MP4(Server)':
+            window.open(`https://ugoira-mp4-dl.cocomi.eu.org/${this.artwork.id}`, '_blank', 'noopener')
+            break
 
-        default:
-          break
+          case 'Other':
+            window.open(`https://ugoira.cocomi.eu.org/?id=${this.artwork.id}`, '_blank', 'noopener')
+            break
+
+          default:
+            break
+        }
+      } catch (err) {
+        window.umami?.track('download_ugoira_err', { error: err.message })
+        this.$toast({
+          message: this.$t('H_rYWoPA0uI7TU4YCbIz0'),
+        })
       }
     },
     openDownloadPanel() {

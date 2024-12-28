@@ -20,7 +20,7 @@
       },
       "webm": "Alta qualità, scarsa compatibilità",
       "zip": "Archivio frame di sequenza non elaborato",
-      "mp4": "Vai su Ugoira Converter per convertire"
+      "mp4": "Utilizzare ffmpeg.wasm per convertire nel browser"
     },
     "fav_fail": "Aggiunta ai segnalibri non riuscita",
     "share": {
@@ -336,7 +336,6 @@
     },
     "current_value": "Il valore attuale:",
     "download_wait": "Il download potrebbe richiedere molto tempo, si prega di pazientare",
-    "ios_webm": "I dispositivi iOS attualmente non supportano i download in formato WebM",
     "loading": "Caricamento...",
     "net_err": "Eccezione di rete, fare clic per ricaricare",
     "no_data": "Nessun dato",
@@ -407,7 +406,6 @@
   "ZO7u4XT4flW6_nmyvmXt7": "Inserisci le meta informazioni sotto l'immagine dell'elenco delle carte",
   "ebHfHD4g4932R2m1gFtmn": "Vuoi tornare alla home page?",
   "a1HSQm-WYv6GDFwhKr9x_": "Le impostazioni verranno ripristinate dopo la pulizia",
-  "LC7_PMpEgK-L5fx7s4TBv": "Scaricalo da ugoira.com",
   "mR4YFHYUnr00zmzYydrMv": "Fai in modo che l'elenco delle immagini riempia lo schermo",
   "V-KoSeNoEiNct7oZJgCcD": "Disattivando questo interruttore verrà impostata la larghezza massima per l'elenco delle immagini",
   "g4JWYmBbfeweCBkRSgGNw": "Lives",
@@ -435,5 +433,8 @@
   "WdS4RTIeeWqdaqLtvk7ZO": "Inserisci il titolo dell'immagine e l'autore sotto la scheda immagine. Fai clic sul titolo per visualizzare l'anteprima dell'immagine.",
   "Tx35SIS0MBLD-pgz1XgXh": "Mostra tutto",
   "lJtMtr2rgYCSg-osHykE9": "Vai su <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> o <a href=\"https://iqdb.org/\" target = \"_blank\">https://iqdb.org</a> Cerca.",
-  "zlMUy5svAesJpHhvWRc6C": "Preimpostazioni del colore del testo"
+  "zlMUy5svAesJpHhvWRc6C": "Preimpostazioni del colore del testo",
+  "H_rYWoPA0uI7TU4YCbIz0": "Conversione non riuscita, il dispositivo corrente potrebbe non supportare questa funzione",
+  "zuVom-C8Ss8JTEDZIhzBj": "Usa ffmpeg per convertire sul lato server",
+  "pIghtXdU8socMNNRUn5UR": "Utilizzare WebCodec per convertire nel browser"
 }

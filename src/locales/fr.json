@@ -20,7 +20,7 @@
       },
       "webm": "Haute qualité, mauvaise compatibilité",
       "zip": "Archive de trame de séquence brute",
-      "mp4": "Allez sur Ugoira Converter pour convertir"
+      "mp4": "Utilisez ffmpeg.wasm pour convertir dans le navigateur"
     },
     "share": {
       "of_art": "Oeuvres de",
@@ -286,7 +286,6 @@
     },
     "current_value": "La valeur actuelle :",
     "download_wait": "Le téléchargement peut prendre du temps, soyez patient",
-    "ios_webm": "Les appareils iOS ne prennent actuellement pas en charge les téléchargements au format WebM",
     "loading": "Chargement...",
     "net_err": "Exception réseau, cliquez pour recharger",
     "no_data": "Pas de données",
@@ -407,7 +406,6 @@
   "ZO7u4XT4flW6_nmyvmXt7": "Mettez les méta-informations sous l'image de la liste des cartes",
   "ebHfHD4g4932R2m1gFtmn": "Voulez-vous revenir à la page d'accueil ?",
   "a1HSQm-WYv6GDFwhKr9x_": "Les paramètres seront réinitialisés après le nettoyage",
-  "LC7_PMpEgK-L5fx7s4TBv": "Télécharger sur ugoira.com",
   "mR4YFHYUnr00zmzYydrMv": "Faire en sorte que la liste d'images remplisse l'écran",
   "V-KoSeNoEiNct7oZJgCcD": "La désactivation de ce commutateur définira la largeur maximale de la liste d'images",
   "g4JWYmBbfeweCBkRSgGNw": "Lives",
@@ -435,5 +433,8 @@
   "WdS4RTIeeWqdaqLtvk7ZO": "Placez le titre de l'image et l'auteur sous la fiche image. Cliquez sur le titre pour prévisualiser l'image.",
   "Tx35SIS0MBLD-pgz1XgXh": "Afficher tout",
   "lJtMtr2rgYCSg-osHykE9": "Veuillez vous rendre sur <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> ou <a href=\"https://iqdb.org/\" target = \"_blank\">https://iqdb.org</a> Recherche.",
-  "zlMUy5svAesJpHhvWRc6C": "Préréglages de couleurs de texte"
+  "zlMUy5svAesJpHhvWRc6C": "Préréglages de couleurs de texte",
+  "H_rYWoPA0uI7TU4YCbIz0": "La conversion a échoué. L'appareil actuel peut ne pas prendre en charge cette fonctionnalité.",
+  "zuVom-C8Ss8JTEDZIhzBj": "Utilisez ffmpeg pour convertir côté serveur",
+  "pIghtXdU8socMNNRUn5UR": "Utilisez WebCodec pour convertir dans le navigateur"
 }

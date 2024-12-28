@@ -20,7 +20,7 @@
       },
       "webm": "고품질, 호환성이 좋지 않음",
       "zip": "원시 시퀀스 프레임 아카이브",
-      "mp4": "변환하려면 Ugoira Converter으로 이동하세요."
+      "mp4": "ffmpeg.wasm을 사용하여 브라우저에서 변환"
     },
     "share": {
       "of_art": "님의 작품",
@@ -238,7 +238,7 @@
       "cp_token_title": "RefreshToken 내보내기",
       "direct_mode": {
         "confirm": {
-          "msg": "직접접속 모드는 파이어폭스 브라우저만 지원하며, Tampermonkey와 Helper userscript가 설치되어 있는지 확인이 필요하며, 속도가 느리고 안정성이 보장되지 않습니다.\n\nAppApi 프록시와 동시에 활성화할 수 없습니다.\n\n직접 연결을 활성화한 후 네트워크 오류가 발생하면 아래 링크를 수동으로 열고 \"고급\" - \"위험을 감수하고 계속\"을 클릭한 다음 421이 나타난 후 이 사이트로 돌아와 페이지를 새로 고치십시오.",
+          "msg": "직접접속 모드는 파이어폭스 브라우저만 지원하며, Tampermonkey와 HTTP Helper userscript가 설치되어 있는지 확인이 필요하며, 속도가 느리고 안정성이 보장되지 않습니다.\n\nAppApi 프록시와 동시에 활성화할 수 없습니다.\n\n직접 연결을 활성화한 후 네트워크 오류가 발생하면 아래 링크를 수동으로 열고 \"고급\" - \"위험을 감수하고 계속\"을 클릭한 다음 421이 나타난 후 이 사이트로 돌아와 페이지를 새로 고치십시오.",
           "proxy_msg": "타사 클라우드 서비스를 통해 로컬 AppApi 요청을 전달하는 것은 안정성과 보안을 보장할 수 없습니다.\n\n직접 연결 모드와 동시에 켤 수 없습니다.",
           "proxy_title": "AppApi 프록시를 활성화하시겠습니까?",
           "title": "직접 모드를 활성화하시겠습니까?"
@@ -286,7 +286,6 @@
     },
     "current_value": "현재 값:",
     "download_wait": "다운로드에 시간이 걸릴 수 있으므로 잠시 기다려주십시오.",
-    "ios_webm": "iOS 기기는 현재 WebM 형식 다운로드를 지원하지 않습니다.",
     "loading": "로드 중...",
     "net_err": "네트워크 예외입니다. \n클릭하여 다시 로드하세요.",
     "no_data": "데이터 없음",
@@ -379,13 +378,13 @@
       "desc2": "URLRedirector 브라우저 플러그인을 설치하고 구성을 가져왔는지 확인하십시오. 그렇지 않으면 로그인할 수 없습니다.",
       "desc3": "URLRedirector 설치 링크:",
       "desc4": "URLRedirector 온라인 규칙 주소를 복사하려면 클릭하십시오.",
-      "desc5": "Tampermonkey 브라우저 플러그인이 설치되어 있고 Helper 사용자 스크립트가 설치되어 있는지 확인하십시오. 그렇지 않으면 API 요청이 작동하지 않습니다.",
+      "desc5": "Tampermonkey 브라우저 플러그인이 설치되어 있고 HTTP Helper 사용자 스크립트가 설치되어 있는지 확인하십시오. 그렇지 않으면 API 요청이 작동하지 않습니다.",
       "desc6": "Tampermonkey 설치 링크:",
-      "desc7": "Helper UserScript 설치를 클릭합니다."
+      "desc7": "HTTP Helper UserScript 설치를 클릭합니다."
     },
     "succ_tip": "로그인 성공",
     "t": {
-      "d1": "Tampermonkey 브라우저 플러그인이 설치되어 있는지 확인하고 Helper 사용자 스크립트를 설치하세요. 그렇지 않으면 AppApi 프록시를 켭니다.",
+      "d1": "Tampermonkey 브라우저 플러그인이 설치되어 있는지 확인하고 HTTP Helper 사용자 스크립트를 설치하세요. 그렇지 않으면 AppApi 프록시를 켭니다.",
       "d2": "RefreshToken을 입력하세요. 획득 방법은 아래 링크를 참조하세요.",
       "d3": "RefreshToken을 입력하세요.",
       "d4": "RefreshToken의 형식이 잘못되었습니다."
@@ -407,7 +406,6 @@
   "ZO7u4XT4flW6_nmyvmXt7": "카드 목록 이미지 아래에 메타정보를 넣어주세요",
   "ebHfHD4g4932R2m1gFtmn": "홈 페이지로 돌아가시겠습니까?",
   "a1HSQm-WYv6GDFwhKr9x_": "청소 후 설정이 재설정됩니다.",
-  "LC7_PMpEgK-L5fx7s4TBv": "ugoira.com에서 다운로드",
   "mR4YFHYUnr00zmzYydrMv": "이미지 목록이 화면을 가득 채우도록 만들기",
   "V-KoSeNoEiNct7oZJgCcD": "이 스위치를 끄면 이미지 목록의 최대 너비가 설정됩니다.",
   "g4JWYmBbfeweCBkRSgGNw": "Lives",
@@ -419,8 +417,8 @@
   "psoXLFqv51j1SeKjTbnms": "테마 컬러",
   "lGZGzwfWz9tW_KQey3AmQ": "pximg 이미지 직접 연결 모드 활성화",
   "nTsgCnGYm8FSVMfe-TQSN": "pximg 직접 모드를 활성화하시겠습니까?",
-  "YeEO8hAsoM45pm_vcijKP": "pximg 직접 연결 모드를 사용하려면 Tampermonkey 및 Helper 사용자 스크립트가 설치되어 있어야 하며 속도가 느려질 수 있으며 안정성이 보장되지 않습니다.",
-  "9omPI2Fz4KzKSVNlmF8-K": "실패: Tampermonkey 또는 Helper 사용자 스크립트가 설치되지 않았습니다.",
+  "YeEO8hAsoM45pm_vcijKP": "pximg 직접 연결 모드를 사용하려면 Tampermonkey 및 HTTP Helper 사용자 스크립트가 설치되어 있어야 하며 속도가 느려질 수 있으며 안정성이 보장되지 않습니다.",
+  "9omPI2Fz4KzKSVNlmF8-K": "실패: Tampermonkey 또는 HTTP Helper 사용자 스크립트가 설치되지 않았습니다.",
   "2jNIricwtCbrzEESdEbvH": "설치하려면 클릭하세요.",
   "lkfd4SXJiefx26Z7vj0Au": "도우미 사용자 스크립트 링크",
   "hGqGftQ7v772prEac1hbJ": "논평",
@@ -435,5 +433,8 @@
   "WdS4RTIeeWqdaqLtvk7ZO": "이미지 제목과 작성자를 이미지 카드 아래에 배치하세요. 제목을 클릭하면 이미지를 미리 볼 수 있습니다.",
   "Tx35SIS0MBLD-pgz1XgXh": "모두 표시",
   "lJtMtr2rgYCSg-osHykE9": "<a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> 또는 <a href=\"https://iqdb.org/\" target으로 이동하세요. = \"_blank\">https://iqdb.org</a> 검색하세요.",
-  "zlMUy5svAesJpHhvWRc6C": "텍스트 색상 사전 설정"
+  "zlMUy5svAesJpHhvWRc6C": "텍스트 색상 사전 설정",
+  "H_rYWoPA0uI7TU4YCbIz0": "변환에 실패했습니다. 현재 장치가 이 기능을 지원하지 않을 수 있습니다.",
+  "zuVom-C8Ss8JTEDZIhzBj": "ffmpeg를 사용하여 서버 측에서 변환",
+  "pIghtXdU8socMNNRUn5UR": "WebCodec을 사용하여 브라우저에서 변환"
 }

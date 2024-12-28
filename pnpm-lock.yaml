@@ -44,6 +44,9 @@ importers:
       mint-filter:
         specifier: 4.0.3
         version: 4.0.3
+      modern-mp4:
+        specifier: 0.1.2
+        version: 0.1.2(mp4box@0.5.3)
       nprogress:
         specifier: 0.2.0
         version: 0.2.0
@@ -3342,8 +3345,16 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
+  modern-mp4@0.1.2:
+    resolution: {integrity: sha512-aq7QGC5A053w5P/yns+gJVCrjfexGPlNAC4rJMaGMYtQrZKguHl7Tyh5YKPvxvg4ik/EhddYrqFTc72E6H0Hqg==}
+    peerDependencies:
+      mp4box: '*'
+
   module-alias@2.2.3:
     resolution: {integrity: sha512-23g5BFj4zdQL/b6tor7Ji+QY4pEfNH784BMslY9Qb0UnJWRAt+lQGLYmRaM0KDBwIG23ffEBELhZDP2rhi9f/Q==}
+
+  mp4box@0.5.3:
+    resolution: {integrity: sha512-RIvyFZdPDIg3+mL6vUdPBSyQRrEfKO3ryAeJ4xJJV7HBHQUH3KfLlZRzfSpBHCd/HqR63HfbrWQI/CwXDvYENQ==}
 
   mrmime@2.0.0:
     resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
@@ -8718,7 +8729,13 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
+  modern-mp4@0.1.2(mp4box@0.5.3):
+    dependencies:
+      mp4box: 0.5.3
+
   module-alias@2.2.3: {}
+
+  mp4box@0.5.3: {}
 
   mrmime@2.0.0: {}
 

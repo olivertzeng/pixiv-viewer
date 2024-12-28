@@ -14,7 +14,7 @@
   "artwork": {
     "download": {
       "gif": "Baixa qualidade, melhor compatibilidade",
-      "mp4": "Acesse Ugoira Converter para converter",
+      "mp4": "Use ffmpeg.wasm para converter no navegador",
       "placeholder": "Selecione um formato de download",
       "ugoira": {
         "tip": "Por favor, reproduza a animação primeiro"
@@ -359,7 +359,6 @@
     },
     "current_value": "O valor atual:",
     "download_wait": "O download pode demorar muito, por favor, seja paciente",
-    "ios_webm": "Dispositivos iOS atualmente não suportam downloads no formato WebM",
     "loading": "Carregando...",
     "net_err": "Exceção de rede, clique para recarregar",
     "no_data": "Sem dados",
@@ -407,7 +406,6 @@
   "ZO7u4XT4flW6_nmyvmXt7": "Coloque as meta informações abaixo da imagem da lista de cartas",
   "ebHfHD4g4932R2m1gFtmn": "Retornar a página inicial?",
   "a1HSQm-WYv6GDFwhKr9x_": "As configurações serão redefinidas após a limpeza",
-  "LC7_PMpEgK-L5fx7s4TBv": "Baixe em ugoira.com",
   "mR4YFHYUnr00zmzYydrMv": "Faça a lista de imagens preencher a tela",
   "V-KoSeNoEiNct7oZJgCcD": "Desativar esta opção definirá a largura máxima da lista de imagens",
   "g4JWYmBbfeweCBkRSgGNw": "Lives",
@@ -435,5 +433,8 @@
   "WdS4RTIeeWqdaqLtvk7ZO": "Coloque o título e o autor da imagem abaixo do cartão de imagem. Clique no título para visualizar a imagem.",
   "Tx35SIS0MBLD-pgz1XgXh": "Mostrar tudo",
   "lJtMtr2rgYCSg-osHykE9": "Acesse <a href=\"https://saucenao.com/\" target=\"_blank\">https://saucenao.com</a> ou <a href=\"https://iqdb.org/\" target = \"_blank\">https://iqdb.org</a> Pesquisa.",
-  "zlMUy5svAesJpHhvWRc6C": "Predefinições de cores de texto"
+  "zlMUy5svAesJpHhvWRc6C": "Predefinições de cores de texto",
+  "H_rYWoPA0uI7TU4YCbIz0": "Falha na conversão. O dispositivo atual pode não suportar esse recurso",
+  "zuVom-C8Ss8JTEDZIhzBj": "Use ffmpeg para converter no lado do servidor",
+  "pIghtXdU8socMNNRUn5UR": "Use WebCodec para converter no navegador"
 }

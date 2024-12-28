@@ -9,8 +9,7 @@
 import Preload from '@/components/Preload'
 import { CURRENT_APP_VERSION } from './consts'
 import { checkIsLogin } from './store/actions/check-login'
-import { fetchAppNotice } from './store/actions/fetch-notice'
-import { fetchSeasonEffects } from './store/actions/season-effect'
+import { fetchNotices } from './store/actions/fetch-notice'
 import { LocalStorage } from './utils/storage'
 import { loadImtSdk } from './utils/translate'
 
@@ -27,8 +26,7 @@ export default {
   },
   async created() {
     checkIsLogin()
-    fetchAppNotice()
-    fetchSeasonEffects()
+    fetchNotices()
   },
   mounted() {
     const loading = document.querySelector('#ldio-loading')

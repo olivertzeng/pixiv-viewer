@@ -151,6 +151,7 @@ export default {
         this.getMemberArtwork()
         return
       }
+      window.umami?.track('sel_user_tag', { tag })
       this.selTag = tag
       this.getMemberTagArtworks()
     },

@@ -1,6 +1,15 @@
 <template>
-  <img v-if="direct" :class="{'fadeIn':!loading}" :src="directSrc" :style="bgStyle" :lazy="lazy" :alt="alt" @load="revokeURL">
-  <img v-else v-lazy="src" :alt="alt">
+  <img
+    v-if="direct"
+    :class="{'fadeIn':!loading}"
+    :src="directSrc"
+    :style="bgStyle"
+    :lazy="lazy"
+    :alt="alt"
+    loading="lazy"
+    @load="revokeURL"
+  >
+  <img v-else v-lazy="src" :alt="alt" loading="lazy">
 </template>
 
 <script>

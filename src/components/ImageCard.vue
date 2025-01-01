@@ -57,7 +57,7 @@
 
 <script>
 import FileSaver from 'file-saver'
-import { Dialog } from 'vant'
+import { Dialog, ImagePreview } from 'vant'
 import { mapGetters } from 'vuex'
 import { localApi } from '@/api'
 import { LocalStorage } from '@/utils/storage'
@@ -68,6 +68,7 @@ import { fancyboxShow } from '@/utils'
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
 const isLongpressBlock = LocalStorage.get('PXV_LONGPRESS_BLOCK', false)
 const isOuterMeta = LocalStorage.get('PXV_IMG_META_OUTER', true)
+const useFancybox = LocalStorage.get('PXV_USE_FANCYBOX', false)
 
 export default {
   props: {
@@ -196,7 +197,18 @@ export default {
       isLongpressDL ? this.downloadArtwork() : this.showBlockDialog()
     },
     onImageTitleClick() {
-      fancyboxShow(this.artwork, 0, e => e.l.replace(/\/c\/\d+x\d+(_\d+)?\//g, '/'))
+      const getSrc = e => e.l.replace(/\/c\/\d+x\d+(_\d+)?\//g, '/')
+      if (useFancybox) {
+        fancyboxShow(this.artwork, 0, getSrc)
+      } else {
+        ImagePreview({
+          images: this.artwork.images.map(getSrc),
+          startPosition: 0,
+          closeOnPopstate: true,
+          closeable: true,
+          loop: false,
+        })
+      }
     },
     toAuthor() {
       if (this.$route.name == 'Users') return
@@ -397,6 +409,7 @@ export default {
     .title
       margin 6px 0
       font-weight 600
+      cursor pointer
 
     .avatar
       width: 36px;

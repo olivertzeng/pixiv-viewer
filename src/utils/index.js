@@ -163,7 +163,8 @@ export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
     await loadScript('https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
   }
   const isMobile = navigator.userAgent.includes('Mobile')
-  window.Fancybox.show(artwork.images.map(e => ({
+  // eslint-disable-next-line no-new
+  new window.Fancybox(artwork.images.map(e => ({
     src: getSrc(e),
     thumb: e.m,
   })), {

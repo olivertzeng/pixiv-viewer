@@ -31,6 +31,13 @@
       />
       <van-cell
         center
+        title="PixivNow"
+        is-link
+        label="Github:FreeNowOrg/PixivNow"
+        @click="openLink('https://github.com/FreeNowOrg/PixivNow')"
+      />
+      <van-cell
+        center
         title="Pixiv.cat"
         is-link
         label="https://pixiv.re"

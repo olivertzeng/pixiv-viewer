@@ -74,11 +74,11 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.getRankList()
-      }, 200)
-    })
+    // this.$nextTick(() => {
+    // setTimeout(() => {
+    this.getRankList()
+    // }, 200)
+    // })
   },
   methods: {
     async getRankList() {
@@ -138,7 +138,7 @@ export default {
         margin-right: 12px;
 
         @media screen and (max-width: 500px) {
-          width 4.7rem
+          width 4.65rem
         }
 
         &:last-child {

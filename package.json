@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "release": "bumpp package.json src/consts/index.js --all --no-tag",
-    "prerelease": "git add .",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "prerelease": "git add ."
   },
   "dependencies": {
     "@vant/touch-emulator": "1.4.0",

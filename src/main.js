@@ -6,7 +6,7 @@ import '@vant/touch-emulator'
 import './polyfill'
 import './registerServiceWorker'
 
-import { init } from 'console-ban'
+// import { init } from 'console-ban'
 import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueMasonry from 'vue-masonry-css'
@@ -25,7 +25,7 @@ import { LocalStorage } from './utils/storage'
 import { getSelectedLang, i18n, initLocale } from './i18n'
 import { getActionMap } from './api/client/action'
 import { initBookmarkCache } from './utils/storage/siteCache'
-import { isProduction } from './consts'
+// import { isProduction } from './consts'
 
 setupApp()
 
@@ -65,9 +65,9 @@ async function setupApp() {
     render: h => h(App),
   }).$mount('#app')
 
-  if (isProduction) {
-    init()
-  }
+  // if (isProduction) {
+  //   init()
+  // }
 }
 
 async function initLocalApi() {

@@ -40,16 +40,6 @@ import ImageSlide from '@/components/ImageSlide'
 import api from '@/api'
 import store from '@/store'
 
-const autoPlayOpts = store.state.isMobile
-  ? {
-      autoplay: {
-        delay: 5000,
-        stopOnLastSlide: false,
-        disableOnInteraction: true,
-      },
-    }
-  : {}
-
 export default {
   name: 'SpotlightCard',
   components: {
@@ -71,7 +61,6 @@ export default {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
-        ...autoPlayOpts,
       },
     }
   },
@@ -86,11 +75,11 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.getList()
-      }, 100)
-    })
+    // this.$nextTick(() => {
+    //   setTimeout(() => {
+    this.getList()
+    //   }, 100)
+    // })
   },
   methods: {
     async getList() {

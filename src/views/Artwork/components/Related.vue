@@ -133,7 +133,7 @@ export default {
     // height: 365px;
     .swipe-wrap {
       height: 100%;
-      border-radius: 20px;
+      // border-radius: 20px;
       overflow: hidden;
 
       .swipe-item {
@@ -148,13 +148,13 @@ export default {
           font-size: 0;
           float: left;
           margin-right: 12px;
-          border: 1px solid #ebebeb;
+          border: 1PX solid #ebebeb;
           border-radius: 18px;
           box-sizing: border-box;
         }
 
         .image-slide {
-          border: 1px solid #ebebeb;
+          border: 1PX solid #ebebeb;
           border-radius: 18px;
           box-sizing: border-box;
 

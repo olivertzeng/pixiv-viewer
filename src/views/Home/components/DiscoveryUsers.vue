@@ -111,7 +111,7 @@ export default {
 .illusts ::v-deep .image-slide
   height: 390px
   margin-bottom 12px
-  border: 1px solid #ebebeb
+  border: 1PX solid #ebebeb
   border-radius: 18px
   box-sizing: border-box
   background none

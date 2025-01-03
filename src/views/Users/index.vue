@@ -458,14 +458,14 @@ export default {
     padding-right 16px
 </style>
 <style lang="stylus" scoped>
-.user-container {
-  height: 100%;
+// .user-container {
+//   height: 100%;
 
-  .user-illusts, .user-wrap {
-    height: 100vh;
-    // overflow-y: scroll;
-  }
-}
+//   .user-illusts, .user-wrap {
+//     height: 100vh;
+//     // overflow-y: scroll;
+//   }
+// }
 
 .loading {
   position: absolute;

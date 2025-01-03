@@ -70,6 +70,14 @@ export default {
   padding-bottom: 100% !important;
 }
 
+.wf-grid .outer-meta .author {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 .justified-container {
   display: flex !important;
   flex-wrap: wrap;

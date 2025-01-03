@@ -406,7 +406,7 @@ export default {
     .chats
       margin-top 40px
       padding 20px 0
-      border 1px solid #ccc
+      border 1PX solid #ccc
       border-radius 0.1rem
       .ct-hr
         width 100%

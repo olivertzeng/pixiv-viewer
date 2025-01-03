@@ -180,7 +180,7 @@ export default {
 
   .artwork-list-wrap {
     // overflow-x: scroll;
-    border-radius: 20px;
+    // border-radius: 20px;
 
     .artwork-list {
       display: flex;
@@ -196,7 +196,7 @@ export default {
 
         .image-card {
           height: 240px !important;
-          border: 1px solid #ebebeb;
+          border: 1PX solid #ebebeb;
           border-radius: 18px;
           box-sizing: border-box;
           margin-right: 6px;
@@ -205,7 +205,7 @@ export default {
 
         .image-slide {
           height: 240px !important;
-          border: 1px solid #ebebeb;
+          border: 1PX solid #ebebeb;
           border-radius: 18px;
           box-sizing: border-box;
 

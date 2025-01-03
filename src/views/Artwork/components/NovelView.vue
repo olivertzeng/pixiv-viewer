@@ -119,7 +119,7 @@ export default {
   width 100%
   min-height: 600px;
   padding-top 40px
-  border-radius: 0.26667rem;
+  // border-radius: 0.26667rem;
 
   @media screen and (max-width: 1200px) {
     border-radius: 0;

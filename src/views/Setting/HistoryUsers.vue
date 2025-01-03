@@ -107,7 +107,7 @@ export default {
     min-height 240px
     padding: 0.26667rem;
     margin-bottom: 0.2rem;
-    border-radius: 0.26667rem;
+    // border-radius: 0.26667rem;
     border-bottom: 0.01333rem solid #ccc;
     cursor: pointer;
     .cover

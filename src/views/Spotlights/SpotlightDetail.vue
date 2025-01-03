@@ -191,7 +191,7 @@ export default {
     ._feature-article-body__widget
       margin-bottom 40px
       padding 20px
-      border 1px solid #ccc
+      border 1PX solid #ccc
       border-radius 5PX
     ._feature-article-body__pixiv_illust
       position relative

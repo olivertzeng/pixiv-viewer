@@ -165,9 +165,8 @@ html[lang="ja"]
   width: 2rem
   height: 97%
   margin-top: 0
-  border-radius: 20px
   color: #ffd745
-  background-image: linear-gradient(270deg, rgba(0,0,0,0.6) 0%, rgba(255,255,255,0) 100%)
+  background-image: linear-gradient(270deg, rgba(0,0,0,0.4) 0%, rgba(255,255,255,0) 100%)
   transition: opacity 0.2s
   opacity: 0
   &.swiper-button-disabled
@@ -178,7 +177,7 @@ html[lang="ja"]
 .swiper-button-prev
   left: 0
   right: auto
-  background-image: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(255,255,255,0) 100%)
+  background-image: linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(255,255,255,0) 100%)
 
 @media screen and (max-width: 600px)
   .swiper-button-prev, .swiper-button-next, .swiper-scrollbar
@@ -209,23 +208,29 @@ html[lang="ja"]
     width: 0;
 
   .justified-container
-     padding: 0 0.2rem;
+    padding: 0 0.2rem;
   .justified-container .image-card
     width 100% !important
   .justified-container .image-card.isOuterMeta
     display: flex
     flex-direction: column
     margin-bottom: 0.35rem
+    border-radius 20PX
+    background: #fafafa;
+    box-shadow: 0 3PX 1PX -2PX rgba(0, 0, 0, 0.2), 0 2PX 2PX 0 rgba(0, 0, 0, 0.14), 0 1PX 5PX 0 rgba(0, 0, 0, 0.12);
     .image-card-wrapper
       order: 2
+      &, & .image
+        border-radius 0
     .outer-meta
       order: 1
       .content
-        padding-left: 1.35rem;
+        padding-top 0.22rem
+        padding-left: 1.5rem;
       .avatar
         position: absolute;
         top: 50%;
-        left: 0.25rem;
+        left: 0.4rem;
         transform: translateY(-50%);
         width: 0.9rem;
         height: 0.9rem;
@@ -306,9 +311,9 @@ html:has(.dark)
 
   .rank-card .spec_wp,
   .image-card
-    // border 1px solid #aaa
+    // border 1PX solid #aaa
     border 0
-    border-radius: 0.26667rem;
+    // border-radius: 0.26667rem;
 
   .nav-container
     @media screen and (max-width: 450px)
@@ -430,7 +435,7 @@ html:has(.dark)
     box-shadow none
 
   .van-search__content
-    border 1px solid #aaa
+    border 1PX solid #aaa
     &,
     .van-cell
       background-color: transparent !important
@@ -492,7 +497,7 @@ html:has(.dark)
       color #bbb
 
   .image-slide
-      border 1px solid #16161a
+      border 1PX solid #16161a
 
   .ss-title,
   .ss-author,
@@ -538,7 +543,6 @@ html:has(.dark)
 
 .rank-card .spec_wp
   overflow hidden
-  border-radius: 0.26667rem;
 
 // .Spotlights .image-card, .rank-card .spec_wp
 //   img[lazy="loaded"]
@@ -551,7 +555,17 @@ html:has(.dark)
 .card-box .swipe-item .image-card-wrapper
   height 100%
   padding-bottom 0 !important
-  border-radius: 0.26667rem;
+
+.image-card,
+.image-card .image,
+.image-card-wrapper,
+.rank-card .spec_wp,
+.rank-card .spec_wp .sp_info::before,
+.card-box .swipe-item .image-card,
+.card-box .swipe-item .image-card .outer-meta::before,
+.Spotlights .image-card,
+.Spotlight .image-card .outer-meta::before
+  border-radius: 12PX;
 
 .swiper-slide .image
   transform none !important
@@ -591,6 +605,7 @@ html:has(.dark)
       width: 100%;
       height: 120%;
       background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+      // border-radius: 0.26667rem;
     .content
       color #fff !important
 

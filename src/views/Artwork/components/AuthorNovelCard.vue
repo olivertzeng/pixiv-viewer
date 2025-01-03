@@ -201,7 +201,7 @@ export default {
 
         .image-slide {
           height: 4rem !important;
-          border: 1px solid #ebebeb;
+          border: 1PX solid #ebebeb;
           border-radius: 18px;
           box-sizing: border-box;
 

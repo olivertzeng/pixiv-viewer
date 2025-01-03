@@ -33,8 +33,8 @@
       />
       <div v-if="mode == 'all' || mode === 'meta'" v-longpress="isTriggerLongpress?onLongpress:null" class="meta">
         <div v-if="!isOuterMeta" class="content">
-          <h2 class="title" :title="artwork.title">{{ artwork.title }}</h2>
-          <div class="author-cont">
+          <h2 class="title" :title="artwork.title + ' ' + artwork.created" @click.stop="onImageTitleClick">{{ artwork.title }}</h2>
+          <div class="author-cont" @click.stop="toAuthor">
             <Pximg :src="artwork.author.avatar" :alt="artwork.author.name" nobg class="avatar" />
             <div class="author">{{ artwork.author.name }}</div>
           </div>
@@ -270,7 +270,7 @@ export default {
   overflow: hidden;
   background: #fafafa;
   margin-bottom: 10px;
-  border-radius: 20px;
+  // border-radius: 20px;
 
   // @media screen and (min-width: 1280px)
   //   &:hover
@@ -355,7 +355,7 @@ export default {
   box-shadow none
   background none
   .image-card-wrapper
-    border-radius: 0.26667rem;
+    // border-radius: 0.26667rem;
 
   .meta
     background: rgba(0,0,0,.04);

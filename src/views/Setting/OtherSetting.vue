@@ -2,86 +2,104 @@
   <div class="setting-page">
     <top-bar id="top-bar-wrap" />
     <h3 class="af_title">{{ $t('setting.other.title') }}</h3>
-    <van-cell center :title="$t('setting.other.lang')" is-link :label="lang.value" @click="lang.show = true" />
-    <van-cell center :title="$t('setting.layout.title')" is-link :label="wfType.value" @click="wfType.show = true" />
-    <van-cell center :title="$t('setting.img_res.title')" is-link :label="imgRes.value" @click="imgRes.show = true" />
-    <van-cell center :title="$t('psoXLFqv51j1SeKjTbnms')" is-link :label="`${accentColor} ${actTheme}`" to="/setting/accent_color" />
-    <van-cell center :title="$t('setting.dark.title')" :label="$t('setting.lab.title')">
-      <template #right-icon>
-        <van-switch :value="isDark" size="24" @change="onDarkChange" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('5syY7l774noiN5LHKUnqF')" :label="$t('QRASoWf3qDfwihoIa84C9')">
-      <template #right-icon>
-        <van-switch :disabled="isLongpressBlock" :value="isLongpressDL" size="24" @change="changeLongpressDL" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('kFOiZTwKWwXy-sxaspqSD')" :label="$t('NgE24V8lvXN2c15W_2gnE')">
-      <template #right-icon>
-        <van-switch :disabled="isLongpressDL" :value="isLongpressBlock" size="24" @change="changeLongpressBlock" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('ZO7u4XT4flW6_nmyvmXt7')" :label="$t('WdS4RTIeeWqdaqLtvk7ZO')">
-      <template #right-icon>
-        <van-switch :value="isImageCardOuterMeta" size="24" @change="changeImageCardOuterMeta" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('mR4YFHYUnr00zmzYydrMv')" :label="$t('V-KoSeNoEiNct7oZJgCcD')">
-      <template #right-icon>
-        <van-switch :value="isImageFitScreen" size="24" @change="changeImageFitScreen" />
-      </template>
-    </van-cell>
-    <van-cell v-if="showAutoLoadImtSwitch" center title="自动加载沉浸式翻译 SDK 并翻译" label="如已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK">
-      <template #right-icon>
-        <van-switch :value="isAutoLoadImt" size="24" @change="changeAutoLoadImt" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('qLUWER5bf4X2lE0RjKTBj')" :label="$t('setting.lab.title')">
-      <template #right-icon>
-        <van-switch :value="useFancybox" size="24" @change="changeUseFancybox" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('setting.other.swipe_toggle')" :label="$t('setting.lab.title')">
-      <template #right-icon>
-        <van-switch :value="enableSwipe" size="24" @change="changeEnableSwipe" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('eioSClGw9BqryzojTwr8j')" :label="$t('setting.lab.title')">
-      <template #right-icon>
-        <van-switch :value="isPageEffectOn" size="24" @change="changePageEffect" />
-      </template>
-    </van-cell>
-    <van-cell center :title="$t('setting.other.manual_input')" :label="$t('setting.other.manual_input_label')">
-      <template #right-icon>
-        <van-switch v-model="hideApSelect" size="24" />
-      </template>
-    </van-cell>
-    <van-cell v-if="hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title')" is-link :label="pximgBed.value" @click="pximgBed.show = true" />
-    <van-cell v-if="!appConfig.useLocalAppApi && hideApSelect" center :title="$t('setting.api.title')" is-link :label="hibiapi.value" @click="hibiapi.show = true" />
-    <van-cell v-if="!hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title2')" is-link :label="pximgBedLabel" @click="pximgBed_.show = true" />
-    <van-cell v-if="!appConfig.useLocalAppApi && !hideApSelect" center :title="$t('setting.api.title2')" is-link :label="hibiapiLabel" @click="hibiapi_.show = true" />
-    <van-cell center :title="$t('lGZGzwfWz9tW_KQey3AmQ')" :label="$t('setting.lab.title')">
-      <template #right-icon>
-        <van-switch :value="isDirectPximg" size="24" @change="setDirectPximg" />
-      </template>
-    </van-cell>
-    <template v-if="appConfig.useLocalAppApi">
-      <van-cell v-if="isHelperInst" center :title="$t('setting.other.direct_mode.title')" :label="$t('setting.other.direct_mode.label')">
+    <van-cell-group :title="$t('GS0J0mAbmiqPGKw20ORPi')">
+      <van-cell center :title="$t('setting.other.lang')" is-link :label="lang.value" @click="lang.show = true" />
+      <van-cell center :title="$t('psoXLFqv51j1SeKjTbnms')" is-link :label="`${accentColor} ${actTheme}`" to="/setting/accent_color" />
+      <van-cell center :title="$t('setting.dark.title')" :label="$t('setting.lab.title')">
         <template #right-icon>
-          <van-switch :value="appConfig.directMode" :disabled="appConfig.useApiProxy" size="24" @change="setDirectMode" />
+          <van-switch :value="isDark" size="24" @change="onDarkChange" />
         </template>
       </van-cell>
-      <van-cell center :title="$t('setting.other.direct_mode.proxy.title')" :label="$t('setting.other.direct_mode.proxy.label')">
+    </van-cell-group>
+
+    <van-cell-group :title="$t('9X179hdP1zzapzk5Rvqx2')">
+      <van-cell center :title="$t('setting.layout.title')" is-link :label="wfType.value" @click="wfType.show = true" />
+      <van-cell center :title="$t('setting.img_res.title')" is-link :label="imgRes.value" @click="imgRes.show = true" />
+      <van-cell center :title="$t('ZO7u4XT4flW6_nmyvmXt7')" :label="$t('WdS4RTIeeWqdaqLtvk7ZO')">
         <template #right-icon>
-          <van-switch :value="appConfig.useApiProxy" :disabled="appConfig.directMode" size="24" @change="setUseApiProxy" />
+          <van-switch :value="isImageCardOuterMeta" size="24" @change="changeImageCardOuterMeta" />
         </template>
       </van-cell>
-      <van-cell v-if="appConfig.useApiProxy" center :title="$t('setting.other.api_proxy.title')" is-link :label="apiProxyLabel||$t('setting.other.api_proxy.def_ph')" @click="apiProxySel.show = true" />
-      <!-- <van-cell v-if="appConfig.directMode" center :title="$t('setting.other.direct_mode.host.title')" is-link :label="$t('setting.other.direct_mode.host.label')" @click="clearApiHosts" /> -->
-      <van-cell v-if="appConfig.refreshToken" center :title="$t('setting.other.cp_token_title')" is-link :label="$t('setting.other.cp_token_label')" @click="copyToken" />
-    </template>
-    <van-cell center :title="$t('Wc3yMDMSkHUhoGx22bsP8')" is-link :label="$t('setting.lab.title')" @click="importSettings" />
-    <van-cell center :title="$t('Bi5BpYwKhUhWcm_RueGZN')" is-link :label="$t('setting.lab.title')" @click="exportSettings" />
+      <van-cell center :title="$t('mR4YFHYUnr00zmzYydrMv')" :label="$t('V-KoSeNoEiNct7oZJgCcD')">
+        <template #right-icon>
+          <van-switch :value="isImageFitScreen" size="24" @change="changeImageFitScreen" />
+        </template>
+      </van-cell>
+      <van-cell center :title="$t('kFOiZTwKWwXy-sxaspqSD')" :label="$t('NgE24V8lvXN2c15W_2gnE')">
+        <template #right-icon>
+          <van-switch :disabled="isLongpressDL" :value="isLongpressBlock" size="24" @change="changeLongpressBlock" />
+        </template>
+      </van-cell>
+      <van-cell v-if="showAutoLoadImtSwitch" center title="自动加载沉浸式翻译 SDK 并翻译" label="如已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK">
+        <template #right-icon>
+          <van-switch :value="isAutoLoadImt" size="24" @change="changeAutoLoadImt" />
+        </template>
+      </van-cell>
+    </van-cell-group>
+
+    <van-cell-group :title="$t('j2tFt08r6GGMmsfbF4HAN')">
+      <van-cell center :title="$t('5syY7l774noiN5LHKUnqF')" :label="$t('QRASoWf3qDfwihoIa84C9')">
+        <template #right-icon>
+          <van-switch :disabled="isLongpressBlock" :value="isLongpressDL" size="24" @change="changeLongpressDL" />
+        </template>
+      </van-cell>
+    </van-cell-group>
+
+    <van-cell-group :title="$t('7-drBPGRIz_BsYuc9ybCm')">
+      <van-cell center :title="$t('setting.other.manual_input')" :label="$t('setting.other.manual_input_label')">
+        <template #right-icon>
+          <van-switch v-model="hideApSelect" size="24" />
+        </template>
+      </van-cell>
+      <van-cell v-if="hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title')" is-link :label="pximgBed.value" @click="pximgBed.show = true" />
+      <van-cell v-if="!appConfig.useLocalAppApi && hideApSelect" center :title="$t('setting.api.title')" is-link :label="hibiapi.value" @click="hibiapi.show = true" />
+      <van-cell v-if="!hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title2')" is-link :label="pximgBedLabel" @click="pximgBed_.show = true" />
+      <van-cell v-if="!appConfig.useLocalAppApi && !hideApSelect" center :title="$t('setting.api.title2')" is-link :label="hibiapiLabel" @click="hibiapi_.show = true" />
+      <van-cell center :title="$t('lGZGzwfWz9tW_KQey3AmQ')" :label="$t('OA8ygupG-4FcNWHtwEUG-')">
+        <template #right-icon>
+          <van-switch :value="isDirectPximg" size="24" @change="setDirectPximg" />
+        </template>
+      </van-cell>
+      <template v-if="appConfig.useLocalAppApi">
+        <van-cell v-if="isHelperInst" center :title="$t('setting.other.direct_mode.title')" :label="$t('setting.other.direct_mode.label')">
+          <template #right-icon>
+            <van-switch :value="appConfig.directMode" :disabled="appConfig.useApiProxy" size="24" @change="setDirectMode" />
+          </template>
+        </van-cell>
+        <van-cell center :title="$t('setting.other.direct_mode.proxy.title')" :label="$t('setting.other.direct_mode.proxy.label')">
+          <template #right-icon>
+            <van-switch :value="appConfig.useApiProxy" :disabled="appConfig.directMode" size="24" @change="setUseApiProxy" />
+          </template>
+        </van-cell>
+        <van-cell v-if="appConfig.useApiProxy" center :title="$t('setting.other.api_proxy.title')" is-link :label="apiProxyLabel||$t('setting.other.api_proxy.def_ph')" @click="apiProxySel.show = true" />
+        <!-- <van-cell v-if="appConfig.directMode" center :title="$t('setting.other.direct_mode.host.title')" is-link :label="$t('setting.other.direct_mode.host.label')" @click="clearApiHosts" /> -->
+        <van-cell v-if="appConfig.refreshToken" center :title="$t('setting.other.cp_token_title')" is-link :label="$t('setting.other.cp_token_label')" @click="copyToken" />
+      </template>
+    </van-cell-group>
+
+    <van-cell-group :title="$t('setting.lab.title')">
+      <van-cell center :title="$t('qLUWER5bf4X2lE0RjKTBj')">
+        <template #right-icon>
+          <van-switch :value="useFancybox" size="24" @change="changeUseFancybox" />
+        </template>
+      </van-cell>
+      <van-cell center :title="$t('setting.other.swipe_toggle')">
+        <template #right-icon>
+          <van-switch :value="enableSwipe" size="24" @change="changeEnableSwipe" />
+        </template>
+      </van-cell>
+      <van-cell center :title="$t('eioSClGw9BqryzojTwr8j')">
+        <template #right-icon>
+          <van-switch :value="isPageEffectOn" size="24" @change="changePageEffect" />
+        </template>
+      </van-cell>
+    </van-cell-group>
+
+    <van-cell-group :title="$t('_AEPlcZHsKjnjPXQBX59p')">
+      <van-cell center :title="$t('Wc3yMDMSkHUhoGx22bsP8')" is-link @click="importSettings" />
+      <van-cell center :title="$t('Bi5BpYwKhUhWcm_RueGZN')" is-link @click="exportSettings" />
+    </van-cell-group>
+
     <van-dialog
       v-model="pximgBed.show"
       width="9rem"
@@ -170,7 +188,7 @@
 import { Dialog } from 'vant'
 import PixivAuth from '@/api/client/pixiv-auth'
 import { i18n } from '@/i18n'
-import { checkImgAvailable, checkUrlAvailable, copyText, downloadFile, isURL, readTextFile } from '@/utils'
+import { checkImgAvailable, checkUrlAvailable, copyText, downloadURL, isURL, readTextFile } from '@/utils'
 import { mintVerify } from '@/utils/filter'
 import localDb from '@/utils/storage/localDb'
 // import { getCache, setCache } from '@/utils/storage/siteCache'
@@ -544,7 +562,7 @@ export default {
         settings[keyName] = localStorage.getItem(keyName)
       }
       const blob = new Blob([btoa(encodeURI(JSON.stringify(settings)))])
-      downloadFile(blob, '@pixiv-viewer-settings.txt')
+      downloadURL(blob, 'pixiv-viewer-settings.txt')
     },
     async checkURL(val, checkFn) {
       if (!isURL(val)) {
@@ -662,4 +680,6 @@ export default {
     width 1.4rem
   .van-cell__title
     padding-right 20px
+  .van-cell-group
+    margin-bottom 15px
 </style>

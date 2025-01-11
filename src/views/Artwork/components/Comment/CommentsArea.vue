@@ -81,7 +81,7 @@ export default {
         for (let i = 0; i < data.comments.length; i++) {
           const element = data.comments[i]
           const text = element.userName + element.comment
-          if (mintVerify(text)) {
+          if (await mintVerify(text, true)) {
             res.push(element)
           }
         }
@@ -110,7 +110,7 @@ export default {
         for (let i = 0; i < data.comments.length; i++) {
           const element = data.comments[i]
           const text = element.userName + element.comment
-          if (mintVerify(text)) {
+          if (await mintVerify(text, true)) {
             res.push(element)
           }
         }

@@ -66,9 +66,13 @@ export function isAiIllust(artwork) {
 
 /** @type {Mint} */
 let mint
+const presetWords = ['vpn', 'VPN', '推荐', '好用', '梯子']
 export async function mintVerify(word = '', forceCheck = false) {
   if (!forceCheck && (store.state.SETTING.r18 || store.state.SETTING.r18g)) {
     return true
+  }
+  if (presetWords.some(e => word.includes(e))) {
+    return false
   }
   word = word.replace(/[A-Za-z\d\s~`!@#$%^&*()_+\-=[\]{};':"\\|,./<>?]+/g, '')
   try {

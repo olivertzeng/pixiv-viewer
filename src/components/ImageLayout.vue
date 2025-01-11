@@ -98,6 +98,10 @@ export default {
   width: calc(var(--w) * var(--jstf-w-px) / var(--h));
 }
 
+.justified-container .image-card:not(.isOuterMeta) {
+  margin-bottom: 0 !important;
+}
+
 @media screen and (max-width: 500px) {
   .justified-container .image-card {
     --jstf-w: 240;

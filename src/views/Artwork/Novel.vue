@@ -165,13 +165,12 @@
 
 <script>
 import _ from 'lodash'
-import FileSaver from 'file-saver'
 import { mapGetters } from 'vuex'
 import { ImagePreview } from 'vant'
 import api from '@/api'
 import { PIXIV_NEXT_URL, SILICON_CLOUD_API_KEY } from '@/consts'
 import { getNoTranslateWords, loadImtSdk, siliconCloudTranslate } from '@/utils/translate'
-import { copyText } from '@/utils'
+import { copyText, downloadFile } from '@/utils'
 import { getCache, setCache } from '@/utils/storage/siteCache'
 import { LocalStorage } from '@/utils/storage'
 import { i18n } from '@/i18n'
@@ -398,9 +397,9 @@ export default {
     onSizeChange(value) {
       this.$toast(this.$t('tips.current_value') + value)
     },
-    downloadNovel() {
+    async downloadNovel() {
       window.umami?.track('download_novel')
-      FileSaver.saveAs(new Blob([novelTextBak]), `${this.artwork.id}_${this.artwork.title}.txt`)
+      await downloadFile(new Blob([novelTextBak]), `${this.artwork.id}_${this.artwork.title}.txt`, { subDir: 'novel' })
     },
     async onPntSelect(action) {
       window.umami?.track('translate_novel', { action })

@@ -1,5 +1,6 @@
 import axios from 'axios'
-import FileSaver from 'file-saver'
+import { Toast } from 'vant'
+import { isFsaSupported, saveFile } from './fsa'
 
 export function throttleScroll(el, downFn, upFn) {
   let position = el.scrollTop
@@ -104,26 +105,92 @@ export function isURL(s) {
   return /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/i.test(s)
 }
 
-export async function checkImgAvailable(src) {
-  return new Promise((resolve, reject) => {
-    let img = document.createElement('img')
-    img.referrerPolicy = 'no-referrer'
-    img.src = src
-    img.onload = () => {
-      resolve(true)
-      img = null
-    }
-    img.onerror = () => {
-      reject(new Error('Network error.'))
-      img = null
-    }
-  })
+export function tryURL(url) {
+  try {
+    return new URL(url)
+  } catch (_err) {
+    return null
+  }
 }
 
-export async function checkUrlAvailable(url) {
-  const res = await axios.get(url, { timeout: 5000 })
-  if (res.data) return true
-  throw new Error('Resp not ok.')
+function replaceValidFileName(str = '') {
+  const maxLen = 128
+  const strArr = str.split('.')
+  const ext = strArr.pop()
+  str = strArr.join('').replace(/[\\/|?*:<>'"\s.]/g, '_') + '.' + ext
+  if (str.length > maxLen) str = str.slice(-maxLen)
+  return str
+}
+
+/**
+ * @param {string|Blob} source
+ * @param {string} fileName
+ * @param {object} options
+ * @param {string} options.message
+ * @param {string} options.subDir
+ */
+export async function downloadFile(source, fileName, options = {}) {
+  try {
+    if (typeof source == 'string' && !/\.\w+$/.test(fileName)) {
+      fileName += `.${source.split('.').pop()}`
+    }
+    fileName = replaceValidFileName(fileName)
+
+    const loading = Toast.loading({
+      duration: 0,
+      // forbidClick: true,
+      message: options.message || ('下载中：' + fileName),
+    })
+
+    if (isFsaSupported) {
+      const res = await saveFile(source, fileName, options.subDir)
+      loading.clear()
+      Toast('下载完成：' + res)
+    } else if (typeof source == 'string' && window.__download__) {
+      await window.__download__(source, fileName)
+      loading.clear()
+      Toast('下载完成：' + fileName)
+    } else {
+      await downloadURL(source, fileName)
+      loading.clear()
+    }
+  } catch (err) {
+    console.log('err: ', err)
+    Toast.clear(true)
+    if (typeof source == 'string') downloadLink(source, fileName)
+  }
+}
+
+/**
+ * @param {string|Blob} source
+ * @param {string} fileName
+ */
+export async function downloadURL(source, fileName) {
+  if (source instanceof Blob) {
+    source = URL.createObjectURL(source)
+  } else {
+    const resp = await fetch(source)
+    if (!resp.ok) throw new Error('Response not ok.')
+    source = URL.createObjectURL(await resp.blob())
+  }
+  downloadLink(source, fileName)
+  URL.revokeObjectURL(source)
+}
+
+/**
+ * @param {string} source
+ * @param {string} fileName
+ */
+export async function downloadLink(source, fileName) {
+  const a = document.createElement('a')
+  a.href = source
+  a.target = '_blank'
+  a.rel = 'noopener noreferrer'
+  a.style.display = 'none'
+  a.setAttribute('download', fileName)
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
 }
 
 export async function readTextFile(file) {
@@ -157,6 +224,45 @@ export function randomBg() {
   return `linear-gradient(to right bottom,hsl(${leftHue}, 100%, 90%) 0%,hsl(${bottomHue}, 100%, 90%) 100%)`
 }
 
+/** 生成随机中间范围的颜色 */
+export function generateRandomColor() {
+  const min = 195
+  const max = 245
+  const r = Math.floor(Math.random() * (max - min)) + min
+  const g = Math.floor(Math.random() * (max - min)) + min
+  const b = Math.floor(Math.random() * (max - min)) + min
+  return `rgb(${r}, ${g}, ${b})`
+}
+
+/** 根据背景色生成对比强的文本色 */
+export function getContrastingTextColor(backgroundColor) {
+  const rgb = backgroundColor.match(/\d+/g).map(Number)
+  const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255
+  return luminance > 0.5 ? '#333' : 'white' // 浅色背景用黑字，深色背景用白字
+}
+
+export async function checkImgAvailable(src) {
+  return new Promise((resolve, reject) => {
+    let img = document.createElement('img')
+    img.referrerPolicy = 'no-referrer'
+    img.src = src
+    img.onload = () => {
+      resolve(true)
+      img = null
+    }
+    img.onerror = () => {
+      reject(new Error('Network error.'))
+      img = null
+    }
+  })
+}
+
+export async function checkUrlAvailable(url) {
+  const res = await axios.get(url, { timeout: 5000 })
+  if (res.data) return true
+  throw new Error('Resp not ok.')
+}
+
 export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
   if (!window.Fancybox) {
     document.head.insertAdjacentHTML('beforeend', '<link href="https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
@@ -187,40 +293,15 @@ export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
       items: {
         myDownload: {
           tpl: '<button class="f-button"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"></path></svg></button>',
-          click: ev => {
+          click: async ev => {
             console.log('ev: ', ev)
             const { page } = ev.instance.carousel
             const item = artwork.images[page]
             const fileName = `${artwork.author.name}_${artwork.title}_${artwork.id}_p${page}.${item.o.split('.').pop()}`
-            FileSaver.saveAs(item.o, fileName)
+            await downloadFile(item.o, fileName)
           },
         },
       },
     },
   })
-}
-
-export function tryURL(url) {
-  try {
-    return new URL(url)
-  } catch (_err) {
-    return null
-  }
-}
-
-/** 生成随机中间范围的颜色 */
-export function generateRandomColor() {
-  const min = 195
-  const max = 245
-  const r = Math.floor(Math.random() * (max - min)) + min
-  const g = Math.floor(Math.random() * (max - min)) + min
-  const b = Math.floor(Math.random() * (max - min)) + min
-  return `rgb(${r}, ${g}, ${b})`
-}
-
-/** 根据背景色生成对比强的文本色 */
-export function getContrastingTextColor(backgroundColor) {
-  const rgb = backgroundColor.match(/\d+/g).map(Number)
-  const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255
-  return luminance > 0.5 ? '#333' : 'white' // 浅色背景用黑字，深色背景用白字
 }

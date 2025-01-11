@@ -56,14 +56,13 @@
 </template>
 
 <script>
-import FileSaver from 'file-saver'
 import { Dialog, ImagePreview } from 'vant'
 import { mapGetters } from 'vuex'
 import { localApi } from '@/api'
 import { LocalStorage } from '@/utils/storage'
 import { getCache, toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
-import { fancyboxShow } from '@/utils'
+import { fancyboxShow, downloadFile } from '@/utils'
 
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
 const isLongpressBlock = LocalStorage.get('PXV_LONGPRESS_BLOCK', false)
@@ -207,6 +206,7 @@ export default {
           closeOnPopstate: true,
           closeable: true,
           loop: false,
+          transition: 'fade',
         })
       }
     },
@@ -258,7 +258,7 @@ export default {
       }).catch(() => 'cancel')
       if (res != 'confirm') return
       await this.$nextTick()
-      FileSaver.saveAs(src, fileName)
+      await downloadFile(src, fileName)
     },
   },
 }

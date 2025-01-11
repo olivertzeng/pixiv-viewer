@@ -153,10 +153,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import FileSaver from 'file-saver'
 import dayjs from 'dayjs'
 import { Dialog } from 'vant'
-import { copyText, sleep, isSafari } from '@/utils'
+import { copyText, isSafari, downloadFile } from '@/utils'
 import { i18n } from '@/i18n'
 import { isIllustBookmarked, addBookmark, removeBookmark } from '@/api/user'
 import { localApi } from '@/api'
@@ -394,15 +393,11 @@ export default {
         this.$emit('ugoira-download')
         return
       }
-      // window.umami?.track('download_artwork')
-      this.$toast(this.$t('tips.download_wait'))
-      for (let index = 0; index < this.artwork.images.length; index++) {
+      const len = this.artwork.images.length
+      for (let index = 0; index < len; index++) {
         const item = this.artwork.images[index]
-        FileSaver.saveAs(
-          item.o,
-          `${this.artwork.author.name}_${this.artwork.title}_${this.artwork.id}_p${index}.${item.o.split('.').pop()}`
-        )
-        await sleep(1000)
+        const fileName = `${this.artwork.author.name}_${this.artwork.title}_${this.artwork.id}_p${index}.${item.o.split('.').pop()}`
+        await downloadFile(item.o, fileName, { message: `下载中 (${index + 1}/${len})` })
       }
     },
     async copyId(text) {

@@ -3,7 +3,7 @@
     <top-bar id="top-bar-wrap" />
     <h3 class="af_title">{{ $t('psoXLFqv51j1SeKjTbnms') }}</h3>
     <div class="color-list">
-      <div v-for="c in colors" :key="c.name" class="color-item" @click="saveActColor(c)">
+      <div v-for="(c,i) in colors" :key="i" class="color-item" @click="saveActColor(c)">
         <div class="color-bg" :style="{background:c.color}">{{ c.color }}</div>
         <div class="color-name flex-c" :style="{color:c.color}">
           <van-checkbox v-if="c.color == actColor" :value="true" checked-color="#00AA90" style="margin-right: 0.15rem" />
@@ -26,11 +26,11 @@ const colors = [
   { name: 'Soyo', color: '#FFDD88' },
   { name: 'Taki', color: '#7777AA' },
   { name: 'Ave Mujica', color: '#881144', cname: 'Ave_Mujica' },
-  { name: 'Doloris', color: '#BB9854' },
-  { name: 'Mortis', color: '#799978' },
-  { name: 'Timoris', color: '#345566' },
-  { name: 'Amoris', color: '#AB4378' },
-  { name: 'Oblivionis', color: '#7899CC' },
+  { name: 'Uika/Doloris', color: '#BB9854', cname: 'Doloris' },
+  { name: 'Mutsumi/Mortis', color: '#799978', cname: 'Mortis' },
+  { name: 'Umiri/Timoris', color: '#345566', cname: 'Timoris' },
+  { name: 'Nyamu/Amoris', color: '#AB4378', cname: 'Amoris' },
+  { name: 'Sakiko/Oblivionis', color: '#7899CC', cname: 'Oblivionis' },
   { name: 'Poppin\'Party', color: '#FF3377', cname: 'Popipa' },
   { name: 'Kasumi', color: '#FF5522' },
   { name: 'Tae', color: '#0077DD' },

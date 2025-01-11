@@ -9,8 +9,9 @@ let directoryHandle
  * Save file via FileSystemAccess API
  * @param {string|Blob} urlOrBlob
  * @param {string} fileName
+ * @param {string?} subdir
  */
-export async function saveFile(urlOrBlob, fileName) {
+export async function saveFile(urlOrBlob, fileName, subdir) {
   if (!directoryHandle) {
     directoryHandle = await localforage.getItem('fsa-dir-handle')
     if (!directoryHandle) {
@@ -21,13 +22,15 @@ export async function saveFile(urlOrBlob, fileName) {
   if (!(await verifyPermission(directoryHandle))) {
     throw new Error('Permission not granted.')
   }
-  const fileHandle = await directoryHandle.getFileHandle(fileName, { create: true })
+  const fileHandle = subdir
+    ? await getSubDirFileHandle(directoryHandle, subdir, fileName)
+    : await directoryHandle.getFileHandle(fileName, { create: true })
   if (typeof urlOrBlob == 'string') {
     await writeURLToFile(fileHandle, urlOrBlob)
   } else {
     await writeBlobToFile(fileHandle, urlOrBlob)
   }
-  return directoryHandle.name + '/' + fileName
+  return `${directoryHandle.name}${subdir ? `/${subdir}` : ''}/${fileName}`
 }
 
 /**
@@ -77,4 +80,15 @@ async function writeBlobToFile(fileHandle, blob) {
   await writable.write(blob)
   // Close the file and write the contents to disk.
   await writable.close()
+}
+
+/**
+ * @param {FileSystemDirectoryHandle} dirHandle
+ * @param {string} subDirName
+ * @param {string} fileName
+ */
+async function getSubDirFileHandle(dirHandle, subDirName, fileName) {
+  const subDirHandle = await dirHandle.getDirectoryHandle(subDirName, { create: true })
+  const fileHandle = await subDirHandle.getFileHandle(fileName, { create: true })
+  return fileHandle
 }

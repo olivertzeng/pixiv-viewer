@@ -168,10 +168,9 @@
 
 <script>
 import { Dialog } from 'vant'
-import FileSaver from 'file-saver'
 import PixivAuth from '@/api/client/pixiv-auth'
 import { i18n } from '@/i18n'
-import { checkImgAvailable, checkUrlAvailable, copyText, isURL, readTextFile } from '@/utils'
+import { checkImgAvailable, checkUrlAvailable, copyText, downloadFile, isURL, readTextFile } from '@/utils'
 import { mintVerify } from '@/utils/filter'
 import localDb from '@/utils/storage/localDb'
 // import { getCache, setCache } from '@/utils/storage/siteCache'
@@ -545,7 +544,7 @@ export default {
         settings[keyName] = localStorage.getItem(keyName)
       }
       const blob = new Blob([btoa(encodeURI(JSON.stringify(settings)))])
-      FileSaver.saveAs(blob, 'pixiv-viewer-settings.txt')
+      downloadFile(blob, '@pixiv-viewer-settings.txt')
     },
     async checkURL(val, checkFn) {
       if (!isURL(val)) {

@@ -73,11 +73,10 @@ import JSZip from 'jszip'
 import GIF from 'gif.js'
 import tsWhammy from 'ts-whammy'
 import { encode as encodeMP4 } from 'modern-mp4'
-import FileSaver from 'file-saver'
 import api from '@/api'
 import { BASE_URL } from '@/consts'
 import { LocalStorage } from '@/utils/storage'
-import { sleep, fancyboxShow, loadScript } from '@/utils'
+import { sleep, fancyboxShow, loadScript, downloadFile } from '@/utils'
 
 const imgResSel = LocalStorage.get('PXV_DTL_IMG_RES', navigator.userAgent.includes('Mobile') ? 'Medium' : 'Large')
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
@@ -197,7 +196,7 @@ export default {
       }).catch(() => 'cancel')
       if (res != 'confirm') return
       await this.$nextTick()
-      FileSaver.saveAs(src, fileName)
+      await downloadFile(src, fileName)
     },
     showFull() {
       if (this.isShrink) this.isShrink = false
@@ -333,10 +332,11 @@ export default {
         this.ugoiraPlaying = false
       }
     },
-    downloadZIP() {
-      FileSaver.saveAs(
+    async downloadZIP() {
+      await downloadFile(
         this.ugoira.zip,
-        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.zip`
+        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.zip`,
+        { subDir: 'ugoira' }
       )
     },
     // ref: https://github.com/xuejianxianzun/PixivBatchDownloader/blob/master/src/ts/ConvertUgoira/ToAPNG.ts
@@ -368,9 +368,10 @@ export default {
 
       images = null
 
-      FileSaver.saveAs(
+      await downloadFile(
         blob,
-        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.apng`
+        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.apng`,
+        { subDir: 'ugoira' }
       )
     },
     async downloadWebM() {
@@ -403,9 +404,10 @@ export default {
 
       const webm = tsWhammy.fromImageArrayWithOptions(images, { duration: duration / 1000 })
 
-      FileSaver.saveAs(
+      await downloadFile(
         webm,
-        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.webm`
+        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.webm`,
+        { subDir: 'ugoira' }
       )
     },
     async downloadGIF() {
@@ -440,10 +442,11 @@ export default {
         ctx.drawImage(frame.bmp, 0, 0, width, height)
         gif.addFrame(ctx, { copy: true, delay: frame.delay * offset })
       })
-      gif.on('finished', blob => {
-        FileSaver.saveAs(
+      gif.on('finished', async blob => {
+        await downloadFile(
           blob,
-          `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.gif`
+          `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.gif`,
+          { subDir: 'ugoira' }
         )
       })
       gif.render()
@@ -461,9 +464,10 @@ export default {
       const mp4File = await encodeMP4({ frames, width, height, audio: false })
       const blob = new Blob([mp4File], { type: 'video/mp4' })
       frames = null
-      FileSaver.saveAs(
+      await downloadFile(
         blob,
-        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.mp4`
+        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.mp4`,
+        { subDir: 'ugoira' }
       )
     },
     download(type) {

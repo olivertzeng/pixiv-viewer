@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pxve HTTP Helper
 // @namespace    https://www.nanoka.top
-// @version      0.6
+// @version      0.7
 // @description  HTTP helper for Pixiv-Viewer.
 // @author       asadahimeka
 // @license      MIT
@@ -30,6 +30,7 @@
 // @grant        unsafeWindow
 // @grant        window.close
 // @grant        GM_xmlhttpRequest
+// @grant        GM_download
 // @run-at       document-start
 // ==/UserScript==
 
@@ -49,6 +50,17 @@
         onerror: err => {
           reject(new Error(err.error || err.responseText))
         },
+      })
+    })
+  }
+  unsafeWindow.__download__ = (url, name, options) => {
+    return new Promise((resolve, reject) => {
+      GM_download({
+        url,
+        name,
+        onload: () => resolve(),
+        onerror: err => reject(new Error(err.error)),
+        ...options,
       })
     })
   }

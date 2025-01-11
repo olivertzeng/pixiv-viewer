@@ -74,6 +74,7 @@ async function initLocalApi() {
   const config = LocalStorage.get('PXV_CLIENT_CONFIG', {})
   window.APP_CONFIG = config
   if (!config.useLocalAppApi) return
+  document.querySelector('#ldio-loading .ldio-content')?.insertAdjacentHTML('beforeend', '<p class="ldio-title" style="top:180px;font-size:14px">Refreshing Access Token</p>')
   window.__localApiMap__ = await getActionMap()
   await initBookmarkCache()
 }

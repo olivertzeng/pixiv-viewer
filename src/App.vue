@@ -29,8 +29,7 @@ export default {
     fetchNotices()
   },
   mounted() {
-    const loading = document.querySelector('#ldio-loading')
-    loading && (loading.style.display = 'none')
+    document.querySelector('#ldio-loading')?.remove()
     window.umami?.track('App Mounted', { host: location.host, ver: CURRENT_APP_VERSION })
     if (!localStorage.PXV_ASSETS_LOADED) localStorage.PXV_ASSETS_LOADED = '1'
     if (LocalStorage.get('PXV_AUTO_LOAD_IMT', false)) loadImtSdk(true)

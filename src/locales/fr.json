@@ -446,5 +446,12 @@
   "j2tFt08r6GGMmsfbF4HAN": "Paramètres de téléchargement",
   "7-drBPGRIz_BsYuc9ybCm": "Paramètres réseau",
   "_AEPlcZHsKjnjPXQBX59p": "Sauvegarde et exportation",
-  "OA8ygupG-4FcNWHtwEUG-": "Charger des images via HTTP"
+  "OA8ygupG-4FcNWHtwEUG-": "Charger des images via HTTP",
+  "zHc8vUk99v88lW41lrprb": "Préférez utiliser l'API d'accès au système de fichiers pour télécharger",
+  "TvsHdAJPVAKY9rRiGoO6K": "Veuillez vous assurer que votre proxy d'image actuel prend en charge CORS. \nVous pouvez spécifier un répertoire pour enregistrer les fichiers.",
+  "pA7B6tF0GBv6m4bI9MJWY": "Répertoire de téléchargement",
+  "4v7z_VobhSO66p3-FrUt3": "Sélectionnez le répertoire où le fichier est enregistré",
+  "IQH88ofRzNxE0CTcT0-wO": "Créez un dossier avec le nom de l'auteur lors du téléchargement d'images",
+  "eZpkRjFnBvTEVV8yNj5b7": "Préférez utiliser le script Tampermonkey pour télécharger",
+  "SAs_Y4hKK7myneH47ZQKG": "Veuillez vous assurer que le script HTTP Helper est installé. \nLes images non CORS peuvent être téléchargées."
 }

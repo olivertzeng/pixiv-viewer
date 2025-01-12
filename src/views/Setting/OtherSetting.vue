@@ -43,6 +43,24 @@
           <van-switch :disabled="isLongpressBlock" :value="isLongpressDL" size="24" @change="changeLongpressDL" />
         </template>
       </van-cell>
+      <van-cell v-if="isFsaSupported" center :title="$t('zHc8vUk99v88lW41lrprb')" :label="$t('TvsHdAJPVAKY9rRiGoO6K')">
+        <template #right-icon>
+          <van-switch :disabled="appSetting.preferDownloadByTm" :value="appSetting.preferDownloadByFsa" size="24" @change="v => saveAppSetting('preferDownloadByFsa', v)" />
+        </template>
+      </van-cell>
+      <template v-if="isFsaSupported && appSetting.preferDownloadByFsa">
+        <van-cell center :title="$t('pA7B6tF0GBv6m4bI9MJWY')" is-link :label="dlDirName || $t('4v7z_VobhSO66p3-FrUt3')" @click="setDownloadDir" />
+        <van-cell center :title="$t('IQH88ofRzNxE0CTcT0-wO')" :label="$t('setting.lab.title')">
+          <template #right-icon>
+            <van-switch :value="appSetting.dlSubDirByAuthor" size="24" @change="v => saveAppSetting('dlSubDirByAuthor', v)" />
+          </template>
+        </van-cell>
+      </template>
+      <van-cell v-if="isHelperInst" center :title="$t('eZpkRjFnBvTEVV8yNj5b7')" :label="$t('SAs_Y4hKK7myneH47ZQKG')">
+        <template #right-icon>
+          <van-switch :disabled="appSetting.preferDownloadByFsa" :value="appSetting.preferDownloadByTm" size="24" @change="v => saveAppSetting('preferDownloadByTm', v)" />
+        </template>
+      </van-cell>
     </van-cell-group>
 
     <van-cell-group :title="$t('7-drBPGRIz_BsYuc9ybCm')">
@@ -52,28 +70,28 @@
         </template>
       </van-cell>
       <van-cell v-if="hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title')" is-link :label="pximgBed.value" @click="pximgBed.show = true" />
-      <van-cell v-if="!appConfig.useLocalAppApi && hideApSelect" center :title="$t('setting.api.title')" is-link :label="hibiapi.value" @click="hibiapi.show = true" />
+      <van-cell v-if="!clientConfig.useLocalAppApi && hideApSelect" center :title="$t('setting.api.title')" is-link :label="hibiapi.value" @click="hibiapi.show = true" />
       <van-cell v-if="!hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title2')" is-link :label="pximgBedLabel" @click="pximgBed_.show = true" />
-      <van-cell v-if="!appConfig.useLocalAppApi && !hideApSelect" center :title="$t('setting.api.title2')" is-link :label="hibiapiLabel" @click="hibiapi_.show = true" />
+      <van-cell v-if="!clientConfig.useLocalAppApi && !hideApSelect" center :title="$t('setting.api.title2')" is-link :label="hibiapiLabel" @click="hibiapi_.show = true" />
       <van-cell center :title="$t('lGZGzwfWz9tW_KQey3AmQ')" :label="$t('OA8ygupG-4FcNWHtwEUG-')">
         <template #right-icon>
           <van-switch :value="isDirectPximg" size="24" @change="setDirectPximg" />
         </template>
       </van-cell>
-      <template v-if="appConfig.useLocalAppApi">
+      <template v-if="clientConfig.useLocalAppApi">
         <van-cell v-if="isHelperInst" center :title="$t('setting.other.direct_mode.title')" :label="$t('setting.other.direct_mode.label')">
           <template #right-icon>
-            <van-switch :value="appConfig.directMode" :disabled="appConfig.useApiProxy" size="24" @change="setDirectMode" />
+            <van-switch :value="clientConfig.directMode" :disabled="clientConfig.useApiProxy" size="24" @change="setDirectMode" />
           </template>
         </van-cell>
         <van-cell center :title="$t('setting.other.direct_mode.proxy.title')" :label="$t('setting.other.direct_mode.proxy.label')">
           <template #right-icon>
-            <van-switch :value="appConfig.useApiProxy" :disabled="appConfig.directMode" size="24" @change="setUseApiProxy" />
+            <van-switch :value="clientConfig.useApiProxy" :disabled="clientConfig.directMode" size="24" @change="setUseApiProxy" />
           </template>
         </van-cell>
-        <van-cell v-if="appConfig.useApiProxy" center :title="$t('setting.other.api_proxy.title')" is-link :label="apiProxyLabel||$t('setting.other.api_proxy.def_ph')" @click="apiProxySel.show = true" />
-        <!-- <van-cell v-if="appConfig.directMode" center :title="$t('setting.other.direct_mode.host.title')" is-link :label="$t('setting.other.direct_mode.host.label')" @click="clearApiHosts" /> -->
-        <van-cell v-if="appConfig.refreshToken" center :title="$t('setting.other.cp_token_title')" is-link :label="$t('setting.other.cp_token_label')" @click="copyToken" />
+        <van-cell v-if="clientConfig.useApiProxy" center :title="$t('setting.other.api_proxy.title')" is-link :label="apiProxyLabel||$t('setting.other.api_proxy.def_ph')" @click="apiProxySel.show = true" />
+        <!-- <van-cell v-if="clientConfig.directMode" center :title="$t('setting.other.direct_mode.host.title')" is-link :label="$t('setting.other.direct_mode.host.label')" @click="clearApiHosts" /> -->
+        <van-cell v-if="clientConfig.refreshToken" center :title="$t('setting.other.cp_token_title')" is-link :label="$t('setting.other.cp_token_label')" @click="copyToken" />
       </template>
     </van-cell-group>
 
@@ -187,19 +205,20 @@
 <script>
 import { Dialog } from 'vant'
 import PixivAuth from '@/api/client/pixiv-auth'
+import localDb from '@/utils/storage/localDb'
+import store from '@/store'
+import { APP_API_PROXYS, DEF_HIBIAPI_MAIN, DEF_PXIMG_MAIN, HIBIAPI_ALTS, PXIMG_PROXYS } from '@/consts'
 import { i18n } from '@/i18n'
 import { checkImgAvailable, checkUrlAvailable, copyText, downloadURL, isURL, readTextFile } from '@/utils'
 import { mintVerify } from '@/utils/filter'
-import localDb from '@/utils/storage/localDb'
-// import { getCache, setCache } from '@/utils/storage/siteCache'
 import { LocalStorage, SessionStorage } from '@/utils/storage'
-import { APP_API_PROXYS, DEF_HIBIAPI_MAIN, DEF_PXIMG_MAIN, HIBIAPI_ALTS, PXIMG_PROXYS } from '@/consts'
+import { isFsaSupported, getMainDirHandle, setMainDirHandle } from '@/utils/fsa'
 
 export default {
   name: 'SettingOthers',
   data() {
     return {
-      appConfig: { ...window.APP_CONFIG },
+      clientConfig: { ...window.APP_CONFIG },
       isHelperInst: !!window.__httpRequest__,
       apiProxySel: {
         show: false,
@@ -283,6 +302,8 @@ export default {
       isDirectPximg: LocalStorage.get('PXV_PXIMG_DIRECT', false),
       actTheme: localStorage.PXV_THEME || '',
       accentColor: localStorage.PXV_ACT_COLOR || 'Default',
+      isFsaSupported,
+      dlDirName: '',
     }
   },
   head() {
@@ -296,7 +317,10 @@ export default {
       return this.hibiapi_.actions.find(e => e._value == this.hibiapi_.value)?.name || ''
     },
     apiProxyLabel() {
-      return this.apiProxySel.actions.find(e => e._value == this.appConfig.apiProxy)?.name || ''
+      return this.apiProxySel.actions.find(e => e._value == this.clientConfig.apiProxy)?.name || ''
+    },
+    appSetting() {
+      return store.state.appSetting
     },
   },
   watch: {
@@ -311,17 +335,43 @@ export default {
       }, 500)
     },
   },
+  async created() {
+    const { name } = (await getMainDirHandle()) || {}
+    if (name) this.dlDirName = name
+  },
   methods: {
     copyToken() {
-      const t = this.appConfig.refreshToken
+      const t = this.clientConfig.refreshToken
       if (!t) return
       copyText(t, () => this.$toast(this.$t('tips.copylink.succ')), err => this.$toast(this.$t('tips.copy_err') + ': ' + err))
     },
-    async saveConfig() {
-      PixivAuth.writeConfig(this.appConfig)
+    async saveClientConfig() {
+      PixivAuth.writeConfig(this.clientConfig)
       setTimeout(() => {
         location.reload()
       }, 500)
+    },
+    saveAppSetting(/** @type {keyof typeof store.state.appSetting} */ key, val) {
+      console.log(key, val)
+      window.umami?.track(`set:${key}`, { val })
+      store.commit('setAppSetting', { [key]: val })
+    },
+    async setDownloadDir() {
+      try {
+        const dir = await setMainDirHandle()
+        this.dlDirName = dir.name
+      } catch (err) {
+        console.log('err: ', err)
+      }
+    },
+    saveSetting(key, val) {
+      window.umami?.track(`set:${key}`, { val })
+      this.$nextTick(() => {
+        LocalStorage.set(key, val)
+        setTimeout(() => {
+          location.reload()
+        }, 500)
+      })
     },
     async setDirectPximg(val) {
       if (val) {
@@ -353,14 +403,14 @@ export default {
         })
         if (res == 'cancel') return
         window.umami?.track('setDirectMode', { val })
-        this.appConfig.directMode = true
+        this.clientConfig.directMode = true
         await this.$nextTick()
-        await this.saveConfig()
+        await this.saveClientConfig()
       } else {
         window.umami?.track('setDirectMode', { val })
-        this.appConfig.directMode = false
+        this.clientConfig.directMode = false
         await this.$nextTick()
-        await this.saveConfig()
+        await this.saveClientConfig()
       }
     },
     async setUseApiProxy(val) {
@@ -373,13 +423,13 @@ export default {
         })
         if (res == 'cancel') return
         window.umami?.track('setUseApiProxy')
-        this.appConfig.useApiProxy = true
+        this.clientConfig.useApiProxy = true
         await this.$nextTick()
-        await this.saveConfig()
+        await this.saveClientConfig()
       } else {
-        this.appConfig.useApiProxy = false
+        this.clientConfig.useApiProxy = false
         await this.$nextTick()
-        await this.saveConfig()
+        await this.saveClientConfig()
       }
     },
     async clearApiHosts() {
@@ -390,22 +440,13 @@ export default {
       })
       if (res == 'cancel') return
       window.umami?.track('clearApiHosts')
-      delete this.appConfig.apiHosts
-      await this.saveConfig()
+      delete this.clientConfig.apiHosts
+      await this.saveClientConfig()
     },
     async changeApiProxy({ _value }) {
-      this.appConfig.apiProxy = _value
+      this.clientConfig.apiProxy = _value
       window.umami?.track('set_api_proxy', { _value })
-      await this.saveConfig()
-    },
-    saveSetting(key, val) {
-      window.umami?.track(`set:${key}`, { val })
-      this.$nextTick(() => {
-        LocalStorage.set(key, val)
-        setTimeout(() => {
-          location.reload()
-        }, 500)
-      })
+      await this.saveClientConfig()
     },
     async changePximgBed() {
       const url = `https://${this.pximgBed.value}`
@@ -469,12 +510,9 @@ export default {
     onDarkChange(val) {
       window.umami?.track(`set_dark_${val}`)
       this.isDark = val
-      this.$nextTick(() => {
-        localStorage.setItem('PXV_DARK', val || '')
-        setTimeout(() => {
-          location.reload()
-        }, 500)
-      })
+      localStorage.setItem('PXV_DARK', val || '')
+      if (val) document.body.classList.add('dark')
+      else document.body.classList.remove('dark')
     },
     changeEnableSwipe(val) {
       this.enableSwipe = val

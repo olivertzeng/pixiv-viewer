@@ -94,11 +94,14 @@ export default {
   methods: {
     saveActColor(c) {
       window.umami?.track('set_act_color', { name: c.name })
-      localStorage.PXV_THEME = c.cname || c.name
+      const theme = c.cname || c.name
+      const doc = document.documentElement
+      doc.classList.remove('t_' + localStorage.PXV_THEME)
+      doc.classList.add('t_' + theme)
+      doc.style.setProperty('--accent-color', c.color)
+      this.actColor = c.color
+      localStorage.PXV_THEME = theme
       localStorage.PXV_ACT_COLOR = c.color
-      setTimeout(() => {
-        location.reload()
-      }, 500)
     },
   },
 }

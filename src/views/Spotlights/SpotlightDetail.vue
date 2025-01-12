@@ -180,6 +180,18 @@ export default {
       height auto
       margin 20px auto
 
+    ._clickable-image-container.fit-inner
+      position relative
+    .am__work__illust--seasonal-effect-animation
+      position absolute
+      top 0
+      left 50%
+      transform translateX(-50%)
+      width: 100%;
+      height: 100%;
+      margin 0 !important
+      box-shadow: none !important
+
     ._article-illust-eyecatch img
       max-width 100%
     .am__work__main img

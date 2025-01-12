@@ -446,5 +446,12 @@
   "j2tFt08r6GGMmsfbF4HAN": "ダウンロード設定",
   "7-drBPGRIz_BsYuc9ybCm": "ネットワーク設定",
   "_AEPlcZHsKjnjPXQBX59p": "バックアップとエクスポート",
-  "OA8ygupG-4FcNWHtwEUG-": "HTTP経由で画像をロードする"
+  "OA8ygupG-4FcNWHtwEUG-": "HTTP経由で画像をロードする",
+  "zHc8vUk99v88lW41lrprb": "ファイル システム アクセス API を使用してダウンロードすることを推奨します",
+  "TvsHdAJPVAKY9rRiGoO6K": "現在のイメージ プロキシが CORS をサポートしていることを確認してください。\nファイルを保存するディレクトリを指定できます。",
+  "pA7B6tF0GBv6m4bI9MJWY": "ダウンロードディレクトリ",
+  "4v7z_VobhSO66p3-FrUt3": "ファイルが保存されているディレクトリを選択します",
+  "IQH88ofRzNxE0CTcT0-wO": "画像をダウンロードする際に作者名のフォルダーを作成する",
+  "eZpkRjFnBvTEVV8yNj5b7": "Tampermonkey スクリプトを使用してダウンロードすることを推奨します",
+  "SAs_Y4hKK7myneH47ZQKG": "HTTP ヘルパー スクリプトがインストールされていることを確認してください。\n非 CORS イメージをダウンロードできます。"
 }

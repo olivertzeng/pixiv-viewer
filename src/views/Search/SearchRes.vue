@@ -335,7 +335,7 @@ export default {
 
       this.setSearchHistory(val)
 
-      if (!(this.$store.state.SETTING.r18 || this.$store.state.SETTING.r18g)) {
+      if (!(this.$store.state.contentSetting.r18 || this.$store.state.contentSetting.r18g)) {
         if (BLOCK_WORDS.some(e => e.test(val))) {
           this.artList = []
           this.finished = true
@@ -346,7 +346,7 @@ export default {
       }
       if (this.usersIriTag) val += ' ' + this.usersIriTag
       const params = _.pickBy(this.searchParams, Boolean)
-      // if (!this.$store.state.SETTING.ai) {
+      // if (!this.$store.state.contentSetting.ai) {
       //   params.search_ai_type = 0
       // }
       this.loading = true

@@ -446,5 +446,12 @@
   "j2tFt08r6GGMmsfbF4HAN": "Descargar configuración",
   "7-drBPGRIz_BsYuc9ybCm": "Configuración de red",
   "_AEPlcZHsKjnjPXQBX59p": "Copia de seguridad y exportación",
-  "OA8ygupG-4FcNWHtwEUG-": "Cargar imágenes a través de HTTP"
+  "OA8ygupG-4FcNWHtwEUG-": "Cargar imágenes a través de HTTP",
+  "zHc8vUk99v88lW41lrprb": "Prefiere usar la API de acceso al sistema de archivos para descargar",
+  "TvsHdAJPVAKY9rRiGoO6K": "Asegúrese de que su proxy de imagen actual sea compatible con CORS. \nPuede especificar un directorio para guardar archivos.",
+  "pA7B6tF0GBv6m4bI9MJWY": "Descargar directorio",
+  "4v7z_VobhSO66p3-FrUt3": "Seleccione el directorio donde se guarda el archivo.",
+  "IQH88ofRzNxE0CTcT0-wO": "Crea una carpeta con el nombre del autor al descargar imágenes",
+  "eZpkRjFnBvTEVV8yNj5b7": "Prefiere usar el script Tampermonkey para descargar",
+  "SAs_Y4hKK7myneH47ZQKG": "Asegúrese de que el script HTTP Helper esté instalado. \nSe pueden descargar imágenes que no sean CORS."
 }

@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { Toast } from 'vant'
 import { isFsaSupported, saveFile } from './fsa'
+import store from '@/store'
+import { i18n } from '@/i18n'
 
 export function throttleScroll(el, downFn, upFn) {
   let position = el.scrollTop
@@ -113,11 +115,15 @@ export function tryURL(url) {
   }
 }
 
-function replaceValidFileName(str = '') {
+function replaceValidFileName(str = '', isDir = false) {
   const maxLen = 128
-  const strArr = str.split('.')
-  const ext = strArr.pop()
-  str = strArr.join('').replace(/[\\/|?*:<>'"\s.]/g, '_') + '.' + ext
+  if (isDir) {
+    str = str.replace(/[\\/|?*:<>'"\s.]/g, '_')
+  } else {
+    const strArr = str.split('.')
+    const ext = strArr.pop()
+    str = strArr.join('').replace(/[\\/|?*:<>'"\s.]/g, '_') + '.' + ext
+  }
   if (str.length > maxLen) str = str.slice(-maxLen)
   return str
 }
@@ -139,17 +145,18 @@ export async function downloadFile(source, fileName, options = {}) {
     const loading = Toast.loading({
       duration: 0,
       // forbidClick: true,
-      message: options.message || ('下载中：' + fileName),
+      message: options.message || (i18n.t('tip.downloading') + ': ' + fileName),
     })
 
-    if (isFsaSupported) {
+    if (isFsaSupported && store.state.appSetting.preferDownloadByFsa) {
+      if (options.subDir) options.subDir = replaceValidFileName(options.subDir, true)
       const res = await saveFile(source, fileName, options.subDir)
       loading.clear()
-      Toast('下载完成：' + res)
-    } else if (typeof source == 'string' && window.__download__) {
+      Toast(i18n.t('tip.downloaded') + ': ' + res)
+    } else if (typeof source == 'string' && window.__download__ && store.state.appSetting.preferDownloadByTm) {
       await window.__download__(source, fileName)
       loading.clear()
-      Toast('下载完成：' + fileName)
+      Toast(i18n.t('tip.downloaded') + ': ' + fileName)
     } else {
       await downloadURL(source, fileName)
       loading.clear()
@@ -298,7 +305,7 @@ export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
             const { page } = ev.instance.carousel
             const item = artwork.images[page]
             const fileName = `${artwork.author.name}_${artwork.title}_${artwork.id}_p${page}.${item.o.split('.').pop()}`
-            await downloadFile(item.o, fileName)
+            await downloadFile(item.o, fileName, { subDir: store.state.appSetting.dlSubDirByAuthor ? artwork.author.name : undefined })
           },
         },
       },

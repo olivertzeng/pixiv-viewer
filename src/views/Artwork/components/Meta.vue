@@ -163,6 +163,7 @@ import { toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
 import CommentsArea from './Comment/CommentsArea.vue'
 import { LocalStorage } from '@/utils/storage'
+import store from '@/store'
 
 export default {
   name: 'ArtworkMeta',
@@ -397,7 +398,10 @@ export default {
       for (let index = 0; index < len; index++) {
         const item = this.artwork.images[index]
         const fileName = `${this.artwork.author.name}_${this.artwork.title}_${this.artwork.id}_p${index}.${item.o.split('.').pop()}`
-        await downloadFile(item.o, fileName, { message: `下载中 (${index + 1}/${len})` })
+        await downloadFile(item.o, fileName, {
+          message: `${this.$t('tip.downloading')} (${index + 1}/${len})`,
+          subDir: store.state.appSetting.dlSubDirByAuthor ? this.artwork.author.name : undefined,
+        })
       }
     },
     async copyId(text) {

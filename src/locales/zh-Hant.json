@@ -446,5 +446,12 @@
   "j2tFt08r6GGMmsfbF4HAN": "下載設定",
   "7-drBPGRIz_BsYuc9ybCm": "網路設定",
   "_AEPlcZHsKjnjPXQBX59p": "備份與匯出",
-  "OA8ygupG-4FcNWHtwEUG-": "以 HTTP 方式載入圖片"
+  "OA8ygupG-4FcNWHtwEUG-": "以 HTTP 方式載入圖片",
+  "zHc8vUk99v88lW41lrprb": "優先使用 File System Access API 下載",
+  "TvsHdAJPVAKY9rRiGoO6K": "請確保目前圖片Proxy支援CORS。\n可指定目錄來儲存檔案。",
+  "pA7B6tF0GBv6m4bI9MJWY": "下載目錄",
+  "4v7z_VobhSO66p3-FrUt3": "選擇檔案保存的目錄",
+  "IQH88ofRzNxE0CTcT0-wO": "下載圖片時以作者名字建立資料夾",
+  "eZpkRjFnBvTEVV8yNj5b7": "優先使用 Tampermonkey 腳本下載",
+  "SAs_Y4hKK7myneH47ZQKG": "請確保 HTTP Helper 腳本已安裝。\n可下載非CORS圖片。"
 }

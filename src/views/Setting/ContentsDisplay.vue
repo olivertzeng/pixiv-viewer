@@ -4,17 +4,17 @@
     <h3 class="af_title">{{ $t('display.title') }}</h3>
     <van-cell center :title="$t('display.r18')" :label="$t('display.r18_label')">
       <template #right-icon>
-        <van-switch active-color="#fb7299" :value="currentSETTING.r18" size="24" @input="onR18Change($event, 1)" />
+        <van-switch active-color="#fb7299" :value="currentContentSetting.r18" size="24" @input="onR18Change($event, 1)" />
       </template>
     </van-cell>
     <van-cell center :title="$t('display.r18g')" :label="$t('display.r18g_label')">
       <template #right-icon>
-        <van-switch active-color="#ff3f3f" :value="currentSETTING.r18g" size="24" @input="onR18Change($event, 2)" />
+        <van-switch active-color="#ff3f3f" :value="currentContentSetting.r18g" size="24" @input="onR18Change($event, 2)" />
       </template>
     </van-cell>
     <van-cell center :title="$t('display.ai')" :label="$t('display.ai_label')">
       <template #right-icon>
-        <van-switch active-color="#536cb8" :value="currentSETTING.ai" size="24" @input="onAIChange($event)" />
+        <van-switch active-color="#536cb8" :value="currentContentSetting.ai" size="24" @input="onAIChange($event)" />
       </template>
     </van-cell>
     <van-cell center :title="$t('3HnNTIScyvd1cNc2qAh7X')" :label="$t('qmd5JADeSGtrvucK3TnGb')">
@@ -50,10 +50,9 @@
 </template>
 
 <script>
-// import { resetCookieOnce, setCookieOnce } from '@/utils'
 import { LocalStorage } from '@/utils/storage'
 import { Dialog } from 'vant'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'SettingContentsDisplay',
@@ -61,7 +60,7 @@ export default {
     return {
       blockTags: '',
       blockUids: '',
-      currentSETTING: {
+      currentContentSetting: {
         r18: false,
         r18g: false,
         ai: false,
@@ -73,19 +72,20 @@ export default {
     return { title: this.$t('display.title') }
   },
   computed: {
-    ...mapState(['SETTING']),
+    ...mapState(['contentSetting']),
   },
   mounted() {
-    this.currentSETTING = JSON.parse(JSON.stringify(this.SETTING))
+    this.currentContentSetting = JSON.parse(JSON.stringify(this.contentSetting))
   },
   activated() {
     this.blockTags = LocalStorage.get('PXV_B_TAGS', '')
     this.blockUids = LocalStorage.get('PXV_B_UIDS', '')
   },
   methods: {
+    ...mapMutations(['saveContentSetting']),
     saveSwitchValues() {
       this.$nextTick(() => {
-        this.saveSETTING(JSON.parse(JSON.stringify(this.currentSETTING)))
+        this.saveContentSetting(JSON.parse(JSON.stringify(this.currentContentSetting)))
       })
     },
     saveBlockTags() {
@@ -110,7 +110,7 @@ export default {
       })
     },
     onAIChange(checked) {
-      this.$set(this.currentSETTING, 'ai', checked)
+      this.$set(this.currentContentSetting, 'ai', checked)
       this.saveSwitchValues()
       window.umami?.track(`set_ai_switch_${checked}`)
     },
@@ -132,11 +132,11 @@ export default {
         })
           .then(() => {
             if (type === 1) {
-              this.currentSETTING.r18 = checked
+              this.currentContentSetting.r18 = checked
               LocalStorage.set('PXV_NSFW_ON', 1)
             }
             if (type === 2) {
-              this.currentSETTING.r18g = checked
+              this.currentContentSetting.r18g = checked
               setTimeout(() => {
                 Dialog.alert({
                   message: this.$t('display.confirm_g', [name]),
@@ -157,15 +157,14 @@ export default {
           })
       } else {
         LocalStorage.remove('PXV_NSFW_ON')
-        if (type === 1) this.currentSETTING.r18 = checked
-        if (type === 2) this.currentSETTING.r18g = checked
+        if (type === 1) this.currentContentSetting.r18 = checked
+        if (type === 2) this.currentContentSetting.r18g = checked
         this.saveSwitchValues()
         setTimeout(() => {
           location.reload()
         }, 200)
       }
     },
-    ...mapActions(['saveSETTING']),
   },
 }
 </script>

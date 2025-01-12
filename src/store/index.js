@@ -1,30 +1,48 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import _ from 'lodash'
 import { LocalStorage } from '@/utils/storage'
 
 Vue.use(Vuex)
 
-const settings = LocalStorage.get('PXV_CNT_SHOW', {
-  r18: false,
-  r18g: false,
-  ai: false,
-})
-
-const enableSwipe = LocalStorage.get('PXV_IMG_DTL_SWIPE', false)
+/**
+ * @template T
+ * @param {string} key
+ * @param {T} def
+ * @returns {T}
+ */
+function getSettingDef(key, def) {
+  return LocalStorage.get(key, def)
+}
 
 export default new Vuex.Store({
   state: {
-    themeColor: '#0196fa',
+    /** @type {number[]} */
     galleryList: [],
-    searchHistory: LocalStorage.get('PIXIV_SearchHistory', []),
-    SETTING: settings,
+    /** @type {string[]} */
+    searchHistory: getSettingDef('PIXIV_SearchHistory', []),
+    contentSetting: getSettingDef('PXV_CNT_SHOW', {
+      r18: false,
+      r18g: false,
+      ai: false,
+    }),
+    /** @type {object|null} */
     user: null,
-    blockTags: LocalStorage.get('PXV_B_TAGS', '').split(',').filter(Boolean),
-    blockUids: LocalStorage.get('PXV_B_UIDS', '').split(',').filter(Boolean),
+    blockTags: getSettingDef('PXV_B_TAGS', '').split(',').filter(Boolean),
+    blockUids: getSettingDef('PXV_B_UIDS', '').split(',').filter(Boolean),
     isNovelViewShrink: true,
     isMobile: navigator.userAgent.includes('Mobile'),
+    /** @type {any[]|null} */
     appNotice: null,
+    /** @type {any[]|null} */
     seasonEffects: null,
+    appSetting: getSettingDef('PXV_APP_SETTING', {
+      /** @type {boolean} */
+      enableSwipe: LocalStorage.get('PXV_IMG_DTL_SWIPE', false),
+      preferDownloadByFsa: true,
+      preferDownloadByTm: false,
+      dlSubDirByAuthor: false,
+    }),
   },
   getters: {
     isLoggedIn(state) {
@@ -43,18 +61,18 @@ export default new Vuex.Store({
 
       if (artwork.x_restrict == 1) {
         if (artwork.illust_ai_type == 2) {
-          return !state.SETTING.r18 || !state.SETTING.ai
+          return !state.contentSetting.r18 || !state.contentSetting.ai
         }
-        return !state.SETTING.r18
+        return !state.contentSetting.r18
       }
       if (artwork.x_restrict == 2) {
         if (artwork.illust_ai_type == 2) {
-          return !state.SETTING.r18g || !state.SETTING.ai
+          return !state.contentSetting.r18g || !state.contentSetting.ai
         }
-        return !state.SETTING.r18g
+        return !state.contentSetting.r18g
       }
       if (artwork.illust_ai_type == 2) {
-        return !state.SETTING.ai
+        return !state.contentSetting.ai
       }
       return false
     },
@@ -85,7 +103,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setGalleryList(state, list = []) {
-      if (enableSwipe) state.galleryList = list.map(e => e.id)
+      if (state.appSetting.enableSwipe) state.galleryList = list.map(e => e.id)
     },
     setSearchHistory(state, obj) {
       if (obj === null) {
@@ -98,22 +116,22 @@ export default new Vuex.Store({
         LocalStorage.set('PIXIV_SearchHistory', state.searchHistory)
       }
     },
-    saveSETTING(state, obj) {
-      state.SETTING = obj
-      LocalStorage.set('PXV_CNT_SHOW', state.SETTING)
+    saveContentSetting(state, obj) {
+      state.contentSetting = obj
+      LocalStorage.set('PXV_CNT_SHOW', obj)
     },
     setUser(state, user) {
       state.user = user
     },
     setBlockTags(state, arr) {
       if (Array.isArray(arr)) {
-        state.blockTags.push(...arr)
+        state.blockTags = _.uniq([...state.blockTags, ...arr])
         LocalStorage.set('PXV_B_TAGS', state.blockTags.join(','))
       }
     },
     setBlockUids(state, arr) {
       if (Array.isArray(arr)) {
-        state.blockUids.push(...arr)
+        state.blockUids = _.uniq([...state.blockUids, ...arr])
         LocalStorage.set('PXV_B_UIDS', state.blockUids.join(','))
       }
     },
@@ -126,6 +144,11 @@ export default new Vuex.Store({
     setSeasonEffects(state, val) {
       state.seasonEffects = val
     },
+    setAppSetting(state, obj) {
+      const setting = { ...state.appSetting, ...obj }
+      state.appSetting = setting
+      LocalStorage.set('PXV_APP_SETTING', setting)
+    },
   },
   actions: {
     setGalleryList({ commit }, list) {
@@ -134,19 +157,11 @@ export default new Vuex.Store({
     setSearchHistory({ commit }, value) {
       commit('setSearchHistory', value)
     },
-    saveSETTING({ commit }, value) {
-      commit('saveSETTING', value)
-    },
     appendBlockTags({ commit }, value) {
       commit('setBlockTags', value)
     },
     appendBlockUids({ commit }, value) {
       commit('setBlockUids', value)
     },
-    setIsNovelViewShrink({ commit }, value) {
-      commit('setIsNovelViewShrink', value)
-    },
-  },
-  modules: {
   },
 })

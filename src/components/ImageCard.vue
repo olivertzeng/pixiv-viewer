@@ -63,6 +63,7 @@ import { LocalStorage } from '@/utils/storage'
 import { getCache, toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
 import { fancyboxShow, downloadFile } from '@/utils'
+import store from '@/store'
 
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
 const isLongpressBlock = LocalStorage.get('PXV_LONGPRESS_BLOCK', false)
@@ -246,11 +247,9 @@ export default {
     },
     async downloadArtwork() {
       if (this.artwork.type == 'ugoira') return
-      const src = this.artwork.images[0].o
-      const fileName = `${this.artwork.author.name}_${this.artwork.title}_${this.artwork.id}_p0.${src.split('.').pop()}`
       const res = await Dialog.confirm({
         title: this.$t('wuh4SsMnuqgjHpaOVp2rB'),
-        message: fileName,
+        message: this.artwork.title,
         lockScroll: false,
         closeOnPopstate: true,
         cancelButtonText: this.$t('common.cancel'),
@@ -258,7 +257,15 @@ export default {
       }).catch(() => 'cancel')
       if (res != 'confirm') return
       await this.$nextTick()
-      await downloadFile(src, fileName)
+      const len = this.artwork.images.length
+      for (let index = 0; index < len; index++) {
+        const item = this.artwork.images[index]
+        const fileName = `${this.artwork.author.name}_${this.artwork.title}_${this.artwork.id}_p${index}.${item.o.split('.').pop()}`
+        await downloadFile(item.o, fileName, {
+          message: `${this.$t('tip.downloading')} (${index + 1}/${len})`,
+          subDir: store.state.appSetting.dlSubDirByAuthor ? this.artwork.author.name : undefined,
+        })
+      }
     },
   },
 }

@@ -82,7 +82,7 @@ export default {
   methods: {
     showFull() {
       if (this.isShrink) {
-        this.$store.dispatch('setIsNovelViewShrink', false)
+        this.$store.commit('setIsNovelViewShrink', false)
       }
     },
     getEmbedImg(id) {

@@ -38,18 +38,18 @@ export function filterCensoredIllust(artwork) {
 
   if (artwork.x_restrict == 1) {
     if (artwork.illust_ai_type == 2) {
-      return store.state.SETTING.r18 && store.state.SETTING.ai
+      return store.state.contentSetting.r18 && store.state.contentSetting.ai
     }
-    return store.state.SETTING.r18
+    return store.state.contentSetting.r18
   }
   if (artwork.x_restrict == 2) {
     if (artwork.illust_ai_type == 2) {
-      return store.state.SETTING.r18g && store.state.SETTING.ai
+      return store.state.contentSetting.r18g && store.state.contentSetting.ai
     }
-    return store.state.SETTING.r18g
+    return store.state.contentSetting.r18g
   }
   if (artwork.illust_ai_type == 2) {
-    return store.state.SETTING.ai
+    return store.state.contentSetting.ai
   }
   return true
 }
@@ -68,7 +68,7 @@ export function isAiIllust(artwork) {
 let mint
 const presetWords = ['vpn', 'VPN', '推荐', '好用', '梯子']
 export async function mintVerify(word = '', forceCheck = false) {
-  if (!forceCheck && (store.state.SETTING.r18 || store.state.SETTING.r18g)) {
+  if (!forceCheck && (store.state.contentSetting.r18 || store.state.contentSetting.r18g)) {
     return true
   }
   if (presetWords.some(e => word.includes(e))) {

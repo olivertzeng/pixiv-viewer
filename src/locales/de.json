@@ -446,5 +446,12 @@
   "j2tFt08r6GGMmsfbF4HAN": "Laden Sie die Einstellungen herunter",
   "7-drBPGRIz_BsYuc9ybCm": "Netzwerkeinstellungen",
   "_AEPlcZHsKjnjPXQBX59p": "Sichern und exportieren",
-  "OA8ygupG-4FcNWHtwEUG-": "Bilder über HTTP laden"
+  "OA8ygupG-4FcNWHtwEUG-": "Bilder über HTTP laden",
+  "zHc8vUk99v88lW41lrprb": "Verwenden Sie zum Herunterladen lieber die File System Access API",
+  "TvsHdAJPVAKY9rRiGoO6K": "Bitte stellen Sie sicher, dass Ihr aktueller Image-Proxy CORS unterstützt. \nSie können ein Verzeichnis zum Speichern von Dateien angeben.",
+  "pA7B6tF0GBv6m4bI9MJWY": "Verzeichnis herunterladen",
+  "4v7z_VobhSO66p3-FrUt3": "Wählen Sie das Verzeichnis aus, in dem die Datei gespeichert ist",
+  "IQH88ofRzNxE0CTcT0-wO": "Erstellen Sie beim Herunterladen von Bildern einen Ordner mit dem Namen des Autors",
+  "eZpkRjFnBvTEVV8yNj5b7": "Verwenden Sie zum Herunterladen lieber das Tampermonkey-Skript",
+  "SAs_Y4hKK7myneH47ZQKG": "Bitte stellen Sie sicher, dass das HTTP-Hilfsskript installiert ist. \nNicht-CORS-Bilder können heruntergeladen werden."
 }

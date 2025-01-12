@@ -3,7 +3,7 @@ import localforage from 'localforage'
 export const isFsaSupported = 'showDirectoryPicker' in self
 
 /** @type {FileSystemDirectoryHandle} */
-let directoryHandle
+let mainDirHandle
 
 /**
  * Save file via FileSystemAccess API
@@ -12,25 +12,34 @@ let directoryHandle
  * @param {string?} subdir
  */
 export async function saveFile(urlOrBlob, fileName, subdir) {
-  if (!directoryHandle) {
-    directoryHandle = await localforage.getItem('fsa-dir-handle')
-    if (!directoryHandle) {
-      directoryHandle = await window.showDirectoryPicker({ mode: 'readwrite' })
-      await localforage.setItem('fsa-dir-handle', directoryHandle)
-    }
+  if (!mainDirHandle) {
+    mainDirHandle = await getMainDirHandle()
+    if (!mainDirHandle) mainDirHandle = await setMainDirHandle()
   }
-  if (!(await verifyPermission(directoryHandle))) {
+  if (!(await verifyPermission(mainDirHandle))) {
     throw new Error('Permission not granted.')
   }
   const fileHandle = subdir
-    ? await getSubDirFileHandle(directoryHandle, subdir, fileName)
-    : await directoryHandle.getFileHandle(fileName, { create: true })
+    ? await getSubDirFileHandle(mainDirHandle, subdir, fileName)
+    : await mainDirHandle.getFileHandle(fileName, { create: true })
   if (typeof urlOrBlob == 'string') {
     await writeURLToFile(fileHandle, urlOrBlob)
   } else {
     await writeBlobToFile(fileHandle, urlOrBlob)
   }
-  return `${directoryHandle.name}${subdir ? `/${subdir}` : ''}/${fileName}`
+  return `${mainDirHandle.name}${subdir ? `/${subdir}` : ''}/${fileName}`
+}
+
+export async function getMainDirHandle() {
+  /** @type {FileSystemDirectoryHandle|null} */
+  const directoryHandle = await localforage.getItem('fsa-dir-handle')
+  return directoryHandle
+}
+
+export async function setMainDirHandle() {
+  const directoryHandle = await window.showDirectoryPicker({ mode: 'readwrite' })
+  await localforage.setItem('fsa-dir-handle', directoryHandle)
+  return directoryHandle
 }
 
 /**

@@ -72,7 +72,7 @@ export default {
       document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })
       if (this.$route.name == 'NovelDetail') {
         setTimeout(() => {
-          this.$store.dispatch('setIsNovelViewShrink', true)
+          this.$store.commit('setIsNovelViewShrink', true)
         }, 500)
       }
     },

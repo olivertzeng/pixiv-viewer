@@ -446,5 +446,12 @@
   "j2tFt08r6GGMmsfbF4HAN": "下载设置",
   "7-drBPGRIz_BsYuc9ybCm": "网络设置",
   "_AEPlcZHsKjnjPXQBX59p": "备份与导出",
-  "OA8ygupG-4FcNWHtwEUG-": "以 HTTP 方式加载图片"
+  "OA8ygupG-4FcNWHtwEUG-": "以 HTTP 方式加载图片",
+  "zHc8vUk99v88lW41lrprb": "优先使用 File System Access API 下载",
+  "TvsHdAJPVAKY9rRiGoO6K": "请确保当前图片代理支持跨域，可指定目录保存文件。",
+  "pA7B6tF0GBv6m4bI9MJWY": "下载目录",
+  "4v7z_VobhSO66p3-FrUt3": "选择文件保存的目录",
+  "IQH88ofRzNxE0CTcT0-wO": "下载图片时以作者名字创建文件夹",
+  "eZpkRjFnBvTEVV8yNj5b7": "优先使用 Tampermonkey 用户脚本下载",
+  "SAs_Y4hKK7myneH47ZQKG": "请确保 HTTP Helper 脚本已安装，可下载非跨域图片。"
 }

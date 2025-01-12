@@ -446,5 +446,12 @@
   "j2tFt08r6GGMmsfbF4HAN": "Download settings",
   "7-drBPGRIz_BsYuc9ybCm": "Network settings",
   "_AEPlcZHsKjnjPXQBX59p": "Backup and export",
-  "OA8ygupG-4FcNWHtwEUG-": "Load images via HTTP"
+  "OA8ygupG-4FcNWHtwEUG-": "Load images via HTTP",
+  "zHc8vUk99v88lW41lrprb": "Prefer using File System Access API to download",
+  "TvsHdAJPVAKY9rRiGoO6K": "Please make sure your current image proxy supports CORS. \nYou can specify a directory to save files.",
+  "pA7B6tF0GBv6m4bI9MJWY": "Download directory",
+  "4v7z_VobhSO66p3-FrUt3": "Select the directory where the file is saved",
+  "IQH88ofRzNxE0CTcT0-wO": "Create a folder with the author's name when downloading images",
+  "eZpkRjFnBvTEVV8yNj5b7": "Prefer using Tampermonkey userscript download",
+  "SAs_Y4hKK7myneH47ZQKG": "Please make sure the HTTP Helper script is installed. \nNon-CORS images can be downloaded."
 }

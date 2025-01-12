@@ -77,6 +77,7 @@ import api from '@/api'
 import { BASE_URL } from '@/consts'
 import { LocalStorage } from '@/utils/storage'
 import { sleep, fancyboxShow, loadScript, downloadFile } from '@/utils'
+import store from '@/store'
 
 const imgResSel = LocalStorage.get('PXV_DTL_IMG_RES', navigator.userAgent.includes('Mobile') ? 'Medium' : 'Large')
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
@@ -196,7 +197,7 @@ export default {
       }).catch(() => 'cancel')
       if (res != 'confirm') return
       await this.$nextTick()
-      await downloadFile(src, fileName)
+      await downloadFile(src, fileName, { subDir: store.state.appSetting.dlSubDirByAuthor ? this.artwork.author.name : undefined })
     },
     showFull() {
       if (this.isShrink) this.isShrink = false

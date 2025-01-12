@@ -403,7 +403,7 @@ export default {
     },
     async onPntSelect(action) {
       window.umami?.track('translate_novel', { action })
-      this.$store.dispatch('setIsNovelViewShrink', false)
+      this.$store.commit('setIsNovelViewShrink', false)
       const fns = {
         imt: () => loadImtSdk(),
         sc_glm: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'glm'),

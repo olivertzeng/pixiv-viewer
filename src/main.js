@@ -1,3 +1,4 @@
+// import 'vant/lib/index.css'
 // import 'swiper/css/swiper.css'
 import '@/assets/style/base.styl'
 import '@/assets/style/theme.styl'
@@ -6,7 +7,6 @@ import '@vant/touch-emulator'
 import './polyfill'
 import './registerServiceWorker'
 
-// import { init } from 'console-ban'
 import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueMasonry from 'vue-masonry-css'
@@ -25,7 +25,6 @@ import { LocalStorage } from './utils/storage'
 import { getSelectedLang, i18n, initLocale } from './i18n'
 import { getActionMap } from './api/client/action'
 import { initBookmarkCache } from './utils/storage/siteCache'
-// import { isProduction } from './consts'
 
 setupApp()
 
@@ -39,11 +38,12 @@ async function setupApp() {
   Vue.use(Toast)
   Vue.use(ImagePreview)
   Vue.use(Lazyload, {
-    observer: true,
-    observerOptions: { rootMargin: '0px 50px 50px 0px', threshold: [0] },
+    // observer: true,
+    // observerOptions: { rootMargin: '0px 50px 50px 0px', threshold: [0] },
     lazyComponent: true,
     loading: loadingSvg(localStorage.PXV_ACT_COLOR || '#38a9f5'),
-    // preload: 1.3,
+    // loading: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==',
+    preload: 1.3,
   })
   Vue.use(Vant)
   Vue.use(VueAwesomeSwiper)
@@ -64,10 +64,6 @@ async function setupApp() {
     i18n,
     render: h => h(App),
   }).$mount('#app')
-
-  // if (isProduction) {
-  //   init()
-  // }
 }
 
 async function initLocalApi() {
@@ -129,20 +125,3 @@ async function checkBrowser() {
   }
   return true
 }
-
-// async function checkIncognito() {
-//   let flag = false
-//   try {
-//     const { quota } = await navigator.storage.estimate()
-//     if (quota.toString().length > 10) return true
-//     document.body.innerHTML = ''
-//     Dialog.alert({
-//       message: 'Please use a normal tab to continue browsing.',
-//       confirmButtonText: 'OK',
-//     })
-//     flag = true
-//   } catch (error) {
-//     return true
-//   }
-//   if (flag) throw new Error('BLOCKED.')
-// }

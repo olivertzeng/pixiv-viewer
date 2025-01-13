@@ -84,11 +84,8 @@ module.exports = {
       .test(/\.svg$/)
       .include.add(svgIconDir)
       .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
-      .options({
-        symbolId: 'icon-[name]',
-      })
+      .use('xml-loader')
+      .loader('xml-loader')
       .end()
 
     config.plugin('html')

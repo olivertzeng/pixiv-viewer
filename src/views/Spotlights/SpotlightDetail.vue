@@ -191,6 +191,7 @@ export default {
       height: 100%;
       margin 0 !important
       box-shadow: none !important
+      object-fit: cover
 
     ._article-illust-eyecatch img
       max-width 100%

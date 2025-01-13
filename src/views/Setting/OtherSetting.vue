@@ -58,7 +58,7 @@
       </template>
       <van-cell v-if="isHelperInst" center :title="$t('eZpkRjFnBvTEVV8yNj5b7')" :label="$t('SAs_Y4hKK7myneH47ZQKG')">
         <template #right-icon>
-          <van-switch :disabled="appSetting.preferDownloadByFsa" :value="appSetting.preferDownloadByTm" size="24" @change="v => saveAppSetting('preferDownloadByTm', v)" />
+          <van-switch :disabled="isFsaSupported && appSetting.preferDownloadByFsa" :value="appSetting.preferDownloadByTm" size="24" @change="v => saveAppSetting('preferDownloadByTm', v)" />
         </template>
       </van-cell>
     </van-cell-group>

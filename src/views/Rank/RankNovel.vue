@@ -96,7 +96,6 @@ export default {
   data() {
     const maxDate = dayjs().subtract(new Date().getHours() > 14 ? 1 : 2, 'days').toDate()
     return {
-      scrollTop: 0,
       minDate: dayjs('2007-09-13').toDate(),
       maxDate,
       date: maxDate,

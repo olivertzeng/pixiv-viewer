@@ -101,53 +101,55 @@
       ></div>
       <Icon v-if="isShrink" class="dropdown" name="dropdown" scale="4" />
     </div>
-    <div v-if="!isNovel " class="meta_btns" :class="{ censored }">
-      <van-button
-        v-if="isLoggedIn"
-        size="small"
-        :loading="favLoading"
-        :icon="bookmarkId ? 'like' : 'like-o'"
-        plain
-        color="#E87A90"
-        style="margin-right: 0.15rem;"
-        @click="toggleBookmark"
-      >
-        {{ bookmarkId ? $t('user.faved'): $t('user.fav') }}
-      </van-button>
-      <van-button
-        type="info"
-        icon="down"
-        size="small"
-        plain
-        color="#5DAC81"
-        style="margin-right: 0.15rem;"
-        @click="downloadArtwork()"
-      >
-        {{ $t('common.download') }}
-      </van-button>
-      <van-button
-        type="info"
-        icon="comment-o"
-        size="small"
-        plain
-        color="#005CAF"
-        @click="showComments = true"
-      >
-        <span>{{ $t('user.view_comments') }}</span>
-      </van-button>
-      <van-popup
-        v-model="showComments"
-        class="comments-popup"
-        position="right"
-        get-container="body"
-        closeable
-      >
-        <template v-if="showComments">
-          <p class="comments-title">{{ $t('hGqGftQ7v772prEac1hbJ') }}</p>
-          <CommentsArea :id="artwork.id" :count="0" :limit="10" />
-        </template>
-      </van-popup>
-    </div>
+    <template v-if="!isNovel">
+      <div v-show="isBtnsShow" class="meta_btns" :class="{ censored }">
+        <van-button
+          v-if="isLoggedIn"
+          size="small"
+          :loading="favLoading"
+          :icon="bookmarkId ? 'like' : 'like-o'"
+          plain
+          color="#E87A90"
+          style="margin-right: 0.15rem;"
+          @click="toggleBookmark"
+        >
+          {{ bookmarkId ? $t('user.faved'): $t('user.fav') }}
+        </van-button>
+        <van-button
+          type="info"
+          icon="down"
+          size="small"
+          plain
+          color="#5DAC81"
+          style="margin-right: 0.15rem;"
+          @click="downloadArtwork()"
+        >
+          {{ $t('common.download') }}
+        </van-button>
+        <van-button
+          type="info"
+          icon="comment-o"
+          size="small"
+          plain
+          color="#005CAF"
+          @click="showComments = true"
+        >
+          <span>{{ $t('user.view_comments') }}</span>
+        </van-button>
+        <van-popup
+          v-model="showComments"
+          class="comments-popup"
+          position="right"
+          get-container="body"
+          closeable
+        >
+          <template v-if="showComments">
+            <p class="comments-title">{{ $t('hGqGftQ7v772prEac1hbJ') }}</p>
+            <CommentsArea :id="artwork.id" :count="0" :limit="10" />
+          </template>
+        </van-popup>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -215,6 +217,9 @@ export default {
     },
     isAiIllust() {
       return isAiIllust(this.artwork)
+    },
+    isBtnsShow() {
+      return !this.artwork?.images.some(e => e.o.includes('common/images/limit_unknown_360.png'))
     },
   },
   watch: {

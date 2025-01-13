@@ -5,7 +5,7 @@
       <Icon class="icon" name="ex_link" />
     </div>
     <div class="main_cover">
-      <img v-lazy="spotlight.cover || ''" alt="">
+      <img :src="spotlight.cover || ''" alt="" loading="lazy">
       <div class="title_wp">
         <div class="title_cnt">
           <h1 class="title">{{ spotlight.title }}</h1>

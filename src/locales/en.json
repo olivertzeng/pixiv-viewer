@@ -375,16 +375,16 @@
     "logout_tip": "Confirm exit?",
     "o": {
       "desc1": "The Pixiv source site is about to open to log in, please make sure you can access Pixiv",
-      "desc2": "Please make sure you have installed the URLRedirector browser plugin and imported the configuration, otherwise you will not be able to log in",
-      "desc3": "URLRedirector install link:",
-      "desc4": "Click to copy URLRedirector online rule address",
-      "desc5": "Make sure you have the Tampermonkey browser plugin installed and the HTTP Helper userscript installed, otherwise API requests will not work",
+      "desc2": "Please make sure you have the Redirector1 browser extension installed and the rules imported, otherwise you will not be able to log in",
+      "desc3": "Redirector install link:",
+      "desc4": "Click to download Redirector rules",
+      "desc5": "Please make sure you have the Tampermonkey browser extension installed and the HTTP Helper user script installed, otherwise you will not be able to request the API",
       "desc6": "Tampermonkey install link:",
       "desc7": "Click Install HTTP Helper UserScript"
     },
     "succ_tip": "Login success",
     "t": {
-      "d1": "Make sure you have the Tampermonkey browser plugin installed and install the HTTP Helper userscript, otherwise turn on the AppApi proxy",
+      "d1": "Please make sure you have the Tampermonkey browser extension installed and the HTTP Helper user script installed, otherwise turn on the AppApi proxy",
       "d2": "Please fill in the RefreshToken, refer to the link below for how to obtain it",
       "d3": "Please fill in RefreshToken",
       "d4": "RefreshToken is malformed"

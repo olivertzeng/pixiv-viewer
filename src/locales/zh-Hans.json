@@ -373,15 +373,15 @@
   "login": {
     "o": {
       "desc1": "即将打开 Pixiv 源站进行登录，请确保可以访问 Pixiv",
-      "desc2": "请确保已安装 URLRedirector 浏览器插件并导入配置，否则将无法登录",
-      "desc3": "URLRedirector 安装地址：",
-      "desc4": "点击复制 URLRedirector 在线规则地址",
-      "desc5": "请确保已安装 Tampermonkey 浏览器插件并安装 HTTP Helper 用户脚本，否则将无法请求 API",
+      "desc2": "请确保已安装 Redirector 浏览器扩展并导入规则，否则将无法登录",
+      "desc3": "Redirector 安装地址：",
+      "desc4": "点击下载 Redirector 规则",
+      "desc5": "请确保已安装 Tampermonkey 浏览器扩展并安装 HTTP Helper 用户脚本，否则将无法请求 API",
       "desc6": "Tampermonkey 安装地址：",
       "desc7": "点击安装 HTTP Helper 用户脚本"
     },
     "t": {
-      "d1": "请确保已安装 Tampermonkey 浏览器插件并安装 HTTP Helper 用户脚本，否则请打开 AppApi 代理",
+      "d1": "请确保已安装 Tampermonkey 浏览器扩展并安装 HTTP Helper 用户脚本，否则请打开 AppApi 代理",
       "d2": "请填写 RefreshToken，获取方式参考如下链接",
       "d3": "请填写 RefreshToken",
       "d4": "RefreshToken 格式不正确"

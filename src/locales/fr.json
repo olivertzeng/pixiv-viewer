@@ -375,16 +375,16 @@
     "logout_tip": "Confirmer la sortie ?",
     "o": {
       "desc1": "Le site source Pixiv est sur le point d'ouvrir pour vous connecter, veuillez vous assurer que vous pouvez accéder à Pixiv",
-      "desc2": "Veuillez vous assurer que vous avez installé le plug-in de navigateur URLRedirector et importé la configuration, sinon vous ne pourrez pas vous connecter",
-      "desc3": "Lien d'installation URLRedirector :",
-      "desc4": "Cliquez pour copier l'adresse de la règle en ligne URLRedirector",
-      "desc5": "Assurez-vous que le plug-in de navigateur Tampermonkey est installé et que le script utilisateur Helper est installé, sinon les demandes d'API ne fonctionneront pas",
+      "desc2": "Veuillez vous assurer d'avoir installé l'extension du navigateur Redirector et importé la configuration, sinon vous ne pourrez pas vous connecter",
+      "desc3": "Lien d'installation Redirector :",
+      "desc4": "Cliquez pour télécharger les règles du redirecteur",
+      "desc5": "Veuillez vous assurer que l'extension de navigateur Tampermonkey et le script utilisateur HTTP Helper sont installés, sinon vous ne pourrez pas demander l'API.",
       "desc6": "Lien d'installation de Tampermonkey :",
       "desc7": "Cliquez sur Installer le script utilisateur de l'assistant"
     },
     "succ_tip": "Connexion réussie",
     "t": {
-      "d1": "Assurez-vous que le plug-in de navigateur Tampermonkey est installé et installez le script utilisateur Helper, sinon activez le proxy AppApi",
+      "d1": "Veuillez vous assurer que l'extension de navigateur Tampermonkey et le script utilisateur HTTP Helper sont installés, sinon activez le proxy AppApi.",
       "d2": "Veuillez remplir le RefreshToken, reportez-vous au lien ci-dessous pour savoir comment l'obtenir",
       "d3": "Veuillez remplir RefreshToken",
       "d4": "RefreshToken est malformé"

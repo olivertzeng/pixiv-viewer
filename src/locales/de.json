@@ -375,16 +375,16 @@
     "logout_tip": "Beenden bestätigen?",
     "o": {
       "desc1": "Die Pixiv-Quellseite wird gleich zum Anmelden geöffnet. Bitte stellen Sie sicher, dass Sie auf Pixiv zugreifen können",
-      "desc2": "Bitte stellen Sie sicher, dass Sie das URLRedirector-Browser-Plugin installiert und die Konfiguration importiert haben, sonst können Sie sich nicht anmelden",
-      "desc3": "URLRedirector-Installationslink:",
-      "desc4": "Klicken Sie hier, um die Adresse der URLRedirector-Onlineregel zu kopieren",
-      "desc5": "Stellen Sie sicher, dass das Tampermonkey-Browser-Plugin und das Helper-Benutzerskript installiert sind, da sonst API-Anfragen nicht funktionieren",
+      "desc2": "Bitte stellen Sie sicher, dass Sie die Redirector-Browsererweiterung installiert und die Konfiguration importiert haben, sonst können Sie sich nicht anmelden",
+      "desc3": "LRedirector-Installationslink:",
+      "desc4": "Klicken Sie hier, um die Redirector-Regeln herunterzuladen",
+      "desc5": "Bitte stellen Sie sicher, dass Sie die Tampermonkey-Browsererweiterung und das HTTP Helper-Benutzerskript installiert haben, andernfalls können Sie die API nicht anfordern",
       "desc6": "Tampermonkey-Installationslink:",
       "desc7": "Klicken Sie auf „Helper-UserScript installieren“."
     },
     "succ_tip": "Einloggen erfolgreich",
     "t": {
-      "d1": "Stellen Sie sicher, dass Sie das Tampermonkey-Browser-Plugin installiert haben und installieren Sie das Helper-Benutzerskript. Andernfalls schalten Sie den AppApi-Proxy ein",
+      "d1": "Bitte stellen Sie sicher, dass Sie die Tampermonkey-Browsererweiterung und das HTTP Helper-Benutzerskript installiert haben. Andernfalls schalten Sie den AppApi-Proxy ein",
       "d2": "Bitte füllen Sie das RefreshToken aus. Klicken Sie auf den Link unten, um zu erfahren, wie Sie es erhalten",
       "d3": "Bitte füllen Sie RefreshToken aus",
       "d4": "RefreshToken ist fehlerhaft"

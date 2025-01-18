@@ -375,16 +375,16 @@
     "logout_tip": "確認退出？",
     "o": {
       "desc1": "即將打開 Pixiv 源站進行登錄，請確保可以訪問 Pixiv",
-      "desc2": "請確保已安裝 URLRedirector 瀏覽器插件並導入配置，否則將無法登錄",
-      "desc3": "URLRedirector 安裝地址：",
-      "desc4": "點擊複製 URLRedirector 在線規則地址",
-      "desc5": "請確保已安裝 Tampermonkey 瀏覽器插件並安裝 HTTP Helper 用戶腳本，否則將無法請求 API",
+      "desc2": "請確保已安裝 Redirector 瀏覽器擴充功能並匯入規則，否則將無法登入",
+      "desc3": "Redirector 安裝地址：",
+      "desc4": "點擊下載 Redirector 規則",
+      "desc5": "請確保已安裝 Tampermonkey 瀏覽器擴充功能並安裝 HTTP Helper 使用者腳本，否則將無法請求 API",
       "desc6": "Tampermonkey 安裝地址：",
       "desc7": "點擊安裝 HTTP Helper 用戶腳本"
     },
     "succ_tip": "登錄成功",
     "t": {
-      "d1": "請確保已安裝 Tampermonkey 瀏覽器插件並安裝 HTTP Helper 用戶腳本，否則請打開 AppApi 代理",
+      "d1": "請確保已安裝 Tampermonkey 瀏覽器擴充功能並安裝 HTTP Helper 使用者腳本，否則請開啟 AppApi 代理",
       "d2": "請填寫 RefreshToken，獲取方式參考如下鏈接",
       "d3": "請填寫 RefreshToken",
       "d4": "RefreshToken 格式不正確"

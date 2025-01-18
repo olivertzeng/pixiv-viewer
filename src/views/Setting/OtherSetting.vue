@@ -30,7 +30,7 @@
           <van-switch :disabled="appSetting.isLongpressDL" :value="appSetting.isLongpressBlock" size="24" @change="v => saveAppSetting('isLongpressBlock', v)" />
         </template>
       </van-cell>
-      <van-cell v-if="showAutoLoadImtSwitch" center title="自动加载沉浸式翻译 SDK 并翻译" label="如已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK">
+      <van-cell v-if="showAutoLoadImtSwitch" center title="自动加载沉浸式翻译 SDK 并翻译" label="如已安装沉浸式翻译浏览器扩展则无需加载沉浸式翻译 SDK">
         <template #right-icon>
           <van-switch :value="appSetting.isAutoLoadImt" size="24" @change="changeAutoLoadImt" />
         </template>
@@ -530,7 +530,7 @@ export default {
       if (val) {
         const res = await Dialog.confirm({
           title: '自动加载沉浸式翻译 SDK',
-          message: '提示：如果已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK',
+          message: '提示：如果已安装沉浸式翻译浏览器扩展则无需加载沉浸式翻译 SDK',
           lockScroll: false,
           closeOnPopstate: true,
           cancelButtonText: '取消',

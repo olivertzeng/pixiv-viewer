@@ -117,16 +117,16 @@
     "logout_tip": "Confirmar saída?",
     "o": {
       "desc1": "O site de origem do Pixiv está prestes a abrir para fazer login, certifique-se de poder acessar o Pixiv",
-      "desc2": "Certifique-se de ter instalado o plugin do navegador URLRedirector e importado a configuração, caso contrário você não conseguirá fazer login",
-      "desc3": "Link de instalação do URLRedirector:",
-      "desc4": "Clique para copiar o endereço da regra online do URLRedirector",
-      "desc5": "Certifique-se de ter o plug-in do navegador Tampermonkey instalado e o script do usuário Helper instalado, caso contrário, as solicitações de API não funcionarão",
+      "desc2": "Certifique-se de ter instalado a extensão do navegador Redirector e importado a configuração, caso contrário você não conseguirá fazer login",
+      "desc3": "Link de instalação do Redirector:",
+      "desc4": "Clique para baixar as regras do Redirecionador",
+      "desc5": "Certifique-se de ter a extensão do navegador Tampermonkey instalada e o script de usuário HTTP Helper instalado, caso contrário você não poderá solicitar a API",
       "desc6": "Link de instalação do Tampermonkey:",
       "desc7": "Clique em Instalar UserScript auxiliar"
     },
     "succ_tip": "Sucesso no login",
     "t": {
-      "d1": "Certifique-se de ter o plugin do navegador Tampermonkey instalado e instale o script de usuário Helper, caso contrário, ative o proxy AppApi",
+      "d1": "Certifique-se de ter a extensão do navegador Tampermonkey instalada e o script de usuário HTTP Helper instalado, caso contrário, ative o proxy AppApi",
       "d2": "Por favor preencha o RefreshToken, consulte o link abaixo para saber como obtê-lo",
       "d3": "Por favor preencha RefreshToken",
       "d4": "RefreshToken está malformado"

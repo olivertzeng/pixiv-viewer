@@ -117,16 +117,16 @@
     "logout_tip": "¿Confirmar salida?",
     "o": {
       "desc1": "El sitio fuente de Pixiv está a punto de abrirse para iniciar sesión. Asegúrese de poder acceder a Pixiv.",
-      "desc2": "Asegúrese de haber instalado el complemento del navegador URLRedirector e importado la configuración; de lo contrario, no podrá iniciar sesión",
-      "desc3": "Enlace de instalación de URLRedirector:",
-      "desc4": "Haga clic para copiar la dirección de la regla en línea de URLRedirector",
-      "desc5": "Asegúrese de tener instalado el complemento del navegador Tampermonkey y el script de usuario auxiliar; de lo contrario, las solicitudes de API no funcionarán",
+      "desc2": "Asegúrese de haber instalado la extensión del navegador Redirector e importado la configuración; de lo contrario, no podrá iniciar sesión",
+      "desc3": "Enlace de instalación de Redirector:",
+      "desc4": "Haga clic para descargar las reglas del Redirector",
+      "desc5": "Asegúrese de tener instalada la extensión del navegador Tampermonkey y el script de usuario HTTP Helper; de lo contrario, no podrá solicitar la API.",
       "desc6": "Enlace de instalación de Tampermonkey:",
       "desc7": "Haga clic en Instalar UserScript auxiliar"
     },
     "succ_tip": "Acceso exitoso",
     "t": {
-      "d1": "Asegúrese de tener instalado el complemento del navegador Tampermonkey e instale el script de usuario auxiliar; de lo contrario, active el proxy AppApi",
+      "d1": "Asegúrese de tener instalada la extensión del navegador Tampermonkey y el script de usuario HTTP Helper; de lo contrario, active el proxy AppApi.",
       "d2": "Complete el RefreshToken; consulte el enlace a continuación para saber cómo obtenerlo.",
       "d3": "Por favor complete RefreshToken",
       "d4": "RefreshToken tiene un formato incorrecto"

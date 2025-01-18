@@ -16,8 +16,8 @@
     >
       <van-cell>{{ $t('login.o.desc1') }}</van-cell>
       <van-cell>{{ $t('login.o.desc2') }}</van-cell>
-      <van-cell>{{ $t('login.o.desc3') }} <a href="https://github.com/fengyc/URLRedirector" target="_blank">🔗github.com/fengyc/URLRedirector</a></van-cell>
-      <van-cell><i style="cursor: pointer;" @click="copyRule">{{ $t('login.o.desc4') }}</i></van-cell>
+      <van-cell>{{ $t('login.o.desc3') }} <a href="https://einaregilsson.com/redirector/" target="_blank">🔗einaregilsson.com/redirector/</a></van-cell>
+      <van-cell><a href="/helper/Redirector.json" target="_blank" download>{{ $t('login.o.desc4') }}</a></van-cell>
       <van-cell>{{ $t('login.o.desc5') }}</van-cell>
       <van-cell>{{ $t('login.o.desc6') }} <a href="https://www.tampermonkey.net/index.php" target="_blank">🔗www.tampermonkey.net</a></van-cell>
       <van-cell><a href="https://fastly.jsdelivr.net/gh/asadahimeka/pixiv-viewer@master/public/helper/helper.user.js" target="_blank">{{ $t('login.o.desc7') }}</a></van-cell>
@@ -52,7 +52,6 @@
 <script>
 import { getLoginURL } from '@/api/client/login'
 import PixivAuth from '@/api/client/pixiv-auth'
-import { copyText } from '@/utils'
 import { LocalStorage } from '@/utils/storage'
 import { Dialog } from 'vant'
 
@@ -122,13 +121,6 @@ export default {
       }
       await this.$nextTick()
       PixivAuth.writeConfig(this.appConfig)
-    },
-    copyRule() {
-      copyText(
-        `${location.origin}/helper/redirect.json`,
-        () => this.$toast(this.$t('tips.copylink.succ')),
-        () => {}
-      )
     },
   },
 }

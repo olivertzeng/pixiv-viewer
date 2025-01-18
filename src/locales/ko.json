@@ -375,16 +375,16 @@
     "logout_tip": "종료를 확인하시겠습니까?",
     "o": {
       "desc1": "로그인을 위해 Pixiv 소스 사이트가 곧 열립니다. Pixiv에 액세스할 수 있는지 확인하십시오.",
-      "desc2": "URLRedirector 브라우저 플러그인을 설치하고 구성을 가져왔는지 확인하십시오. 그렇지 않으면 로그인할 수 없습니다.",
-      "desc3": "URLRedirector 설치 링크:",
-      "desc4": "URLRedirector 온라인 규칙 주소를 복사하려면 클릭하십시오.",
-      "desc5": "Tampermonkey 브라우저 플러그인이 설치되어 있고 HTTP Helper 사용자 스크립트가 설치되어 있는지 확인하십시오. 그렇지 않으면 API 요청이 작동하지 않습니다.",
+      "desc2": "Redirector 브라우저 확장을 설치하고 구성을 가져왔는지 확인하세요. 그렇지 않으면 로그인할 수 없습니다.",
+      "desc3": "Redirector 설치 링크:",
+      "desc4": "Redirector 규칙을 다운로드하려면 클릭하세요.",
+      "desc5": "Tampermonkey 브라우저 확장이 설치되어 있고 HTTP Helper 사용자 스크립트가 설치되어 있는지 확인하십시오. 그렇지 않으면 API를 요청할 수 없습니다.",
       "desc6": "Tampermonkey 설치 링크:",
       "desc7": "HTTP Helper UserScript 설치를 클릭합니다."
     },
     "succ_tip": "로그인 성공",
     "t": {
-      "d1": "Tampermonkey 브라우저 플러그인이 설치되어 있는지 확인하고 HTTP Helper 사용자 스크립트를 설치하세요. 그렇지 않으면 AppApi 프록시를 켭니다.",
+      "d1": "Tampermonkey 브라우저 확장이 설치되어 있고 HTTP Helper 사용자 스크립트가 설치되어 있는지 확인하세요. 그렇지 않으면 AppApi 프록시를 켜세요.",
       "d2": "RefreshToken을 입력하세요. 획득 방법은 아래 링크를 참조하세요.",
       "d3": "RefreshToken을 입력하세요.",
       "d4": "RefreshToken의 형식이 잘못되었습니다."

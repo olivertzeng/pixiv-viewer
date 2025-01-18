@@ -453,5 +453,19 @@
   "4v7z_VobhSO66p3-FrUt3": "Selecione o diretório onde o arquivo será salvo",
   "IQH88ofRzNxE0CTcT0-wO": "Crie uma pasta com o nome do autor ao baixar imagens",
   "eZpkRjFnBvTEVV8yNj5b7": "Prefira usar o script Tampermonkey para fazer download",
-  "SAs_Y4hKK7myneH47ZQKG": "Certifique-se de que o script HTTP Helper esteja instalado. \nImagens não CORS podem ser baixadas."
+  "SAs_Y4hKK7myneH47ZQKG": "Certifique-se de que o script HTTP Helper esteja instalado. \nImagens não CORS podem ser baixadas.",
+  "m9rhO-859d7Br05Hm5b54": "Formato de nome de arquivo",
+  "QJJd8OqGWs3rIHxMwYma9": "Por favor, defina o modelo de formato do nome do arquivo de download",
+  "bmqXgC68c1dDsgtYwO1Sv": "Recomenda-se que o formato de download contenha pelo menos:",
+  "Zt3czgV8wrvas-it5b9Z0": "As variáveis ​​disponíveis no modelo são as seguintes. Você pode clicar no rótulo para defini-lo rapidamente.",
+  "VJLRKYZZDrAv5NKTHcisN": "Nome do autor",
+  "hVJXyeDWfpiwbIS7CpgEX": "ID do autor",
+  "xVDEqSshq1e1ZEmv3q-3s": "Título do trabalho",
+  "6_DlIX_02ur5HfDOc9wsb": "ID da arte",
+  "SjI_Ww3ngIBNJxTDLAszn": "Índice de obras de arte",
+  "0VXbrbumb60glupUb3cUk": "largura da ilustração",
+  "G6LGYgi1RdW54WbmYURmF": "altura da ilustração",
+  "9tIV83JmVMkNKF2B8F4LI": "Etiqueta de arte",
+  "JHBWOqLzMQN-kgmyDVSzN": "Criar horário",
+  "P2gkznjKnjtHZDGXgzYfg": "Sublinhado"
 }

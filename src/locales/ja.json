@@ -453,5 +453,19 @@
   "4v7z_VobhSO66p3-FrUt3": "ファイルが保存されているディレクトリを選択します",
   "IQH88ofRzNxE0CTcT0-wO": "画像をダウンロードする際に作者名のフォルダーを作成する",
   "eZpkRjFnBvTEVV8yNj5b7": "Tampermonkey スクリプトを使用してダウンロードすることを推奨します",
-  "SAs_Y4hKK7myneH47ZQKG": "HTTP ヘルパー スクリプトがインストールされていることを確認してください。\n非 CORS イメージをダウンロードできます。"
+  "SAs_Y4hKK7myneH47ZQKG": "HTTP ヘルパー スクリプトがインストールされていることを確認してください。\n非 CORS イメージをダウンロードできます。",
+  "m9rhO-859d7Br05Hm5b54": "ファイル名の形式",
+  "QJJd8OqGWs3rIHxMwYma9": "ダウンロードファイル名の書式テンプレートを設定してください",
+  "bmqXgC68c1dDsgtYwO1Sv": "ダウンロード形式には少なくとも以下が含まれることをお勧めします。",
+  "Zt3czgV8wrvas-it5b9Z0": "テンプレートで使用できる変数は次のとおりです。ラベルをクリックするとすぐに設定できます。",
+  "VJLRKYZZDrAv5NKTHcisN": "作者名",
+  "hVJXyeDWfpiwbIS7CpgEX": "作者ID",
+  "xVDEqSshq1e1ZEmv3q-3s": "作品名",
+  "6_DlIX_02ur5HfDOc9wsb": "作品ID",
+  "SjI_Ww3ngIBNJxTDLAszn": "作品インデックス",
+  "0VXbrbumb60glupUb3cUk": "イラストの幅",
+  "G6LGYgi1RdW54WbmYURmF": "イラストの高さ",
+  "9tIV83JmVMkNKF2B8F4LI": "アートワークタグ",
+  "JHBWOqLzMQN-kgmyDVSzN": "作成時間",
+  "P2gkznjKnjtHZDGXgzYfg": "アンダースコア"
 }

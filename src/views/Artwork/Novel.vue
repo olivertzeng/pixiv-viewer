@@ -189,6 +189,7 @@ import IconWechat from '@/assets/images/share-sheet-wechat.png'
 import IconWeibo from '@/assets/images/share-sheet-weibo.png'
 import IconTwitter from '@/assets/images/share-sheet-twi.png'
 import IconFacebook from '@/assets/images/share-sheet-facebook.png'
+import { getArtworkFileName } from '@/store/actions/filename'
 
 const textConfig = LocalStorage.get('PXV_TEXT_CONFIG', {
   size: 16,
@@ -399,7 +400,7 @@ export default {
     },
     async downloadNovel() {
       window.umami?.track('download_novel')
-      await downloadFile(new Blob([novelTextBak]), `${this.artwork.id}_${this.artwork.title}.txt`, { subDir: 'novel' })
+      await downloadFile(new Blob([novelTextBak]), `${getArtworkFileName(this.artwork)}.txt`, { subDir: 'novel' })
     },
     async onPntSelect(action) {
       window.umami?.track('translate_novel', { action })

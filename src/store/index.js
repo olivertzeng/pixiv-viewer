@@ -38,9 +38,10 @@ export default new Vuex.Store({
     seasonEffects: null,
     appSetting: getSettingDef('PXV_APP_SETTING', {
       enableSwipe: getSettingDef('PXV_IMG_DTL_SWIPE', false),
-      preferDownloadByFsa: true,
+      preferDownloadByFsa: false,
       preferDownloadByTm: false,
       dlSubDirByAuthor: false,
+      dlFileNameTpl: '{author}_{title}_{pid}_p{index}',
     }),
   },
   getters: {

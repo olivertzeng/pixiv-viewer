@@ -61,6 +61,7 @@
           <van-switch :disabled="isFsaSupported && appSetting.preferDownloadByFsa" :value="appSetting.preferDownloadByTm" size="24" @change="v => saveAppSetting('preferDownloadByTm', v)" />
         </template>
       </van-cell>
+      <van-cell center :title="$t('m9rhO-859d7Br05Hm5b54')" is-link :label="appSetting.dlFileNameTpl" @click="showDlFileNameTplDialog = true" />
     </van-cell-group>
 
     <van-cell-group :title="$t('7-drBPGRIz_BsYuc9ybCm')">
@@ -199,6 +200,63 @@
       @open="checkApiAvailable"
       @select="changeHibiapi_"
     />
+    <van-dialog
+      v-model="showDlFileNameTplDialog"
+      width="9rem"
+      :title="$t('m9rhO-859d7Br05Hm5b54')"
+      show-cancel-button
+      :cancel-button-text="$t('common.cancel')"
+      :confirm-button-text="$t('common.confirm')"
+      @confirm="saveAppSetting('dlFileNameTpl', dlFileNameTpl)"
+      @cancel="dlFileNameTpl=appSetting.dlFileNameTpl"
+    >
+      <van-cell>{{ $t('QJJd8OqGWs3rIHxMwYma9') }}</van-cell>
+      <van-cell class="tips">{{ $t('bmqXgC68c1dDsgtYwO1Sv') }}<code>{pid}</code> <code>{index}</code></van-cell>
+      <van-cell>{{ $t('Zt3czgV8wrvas-it5b9Z0') }}</van-cell>
+      <div class="dl-tpl-tags">
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='{author}'">
+          <van-tag round plain type="primary" size="large">author</van-tag>
+          <span>{{ $t('VJLRKYZZDrAv5NKTHcisN') }}</span>
+        </div>
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='{authorId}'">
+          <van-tag round plain type="primary" size="large">authorId</van-tag>
+          <span>{{ $t('hVJXyeDWfpiwbIS7CpgEX') }}</span>
+        </div>
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='{title}'">
+          <van-tag round plain type="primary" size="large">title</van-tag>
+          <span>{{ $t('xVDEqSshq1e1ZEmv3q-3s') }}</span>
+        </div>
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='{pid}'">
+          <van-tag round plain type="primary" size="large">pid</van-tag>
+          <span>{{ $t('6_DlIX_02ur5HfDOc9wsb') }}</span>
+        </div>
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='{index}'">
+          <van-tag round plain type="primary" size="large">index</van-tag>
+          <span>{{ $t('SjI_Ww3ngIBNJxTDLAszn') }}</span>
+        </div>
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='{width}'">
+          <van-tag round plain type="primary" size="large">width</van-tag>
+          <span>{{ $t('0VXbrbumb60glupUb3cUk') }}</span>
+        </div>
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='{height}'">
+          <van-tag round plain type="primary" size="large">height</van-tag>
+          <span>{{ $t('G6LGYgi1RdW54WbmYURmF') }}</span>
+        </div>
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='{tags}'">
+          <van-tag round plain type="primary" size="large">tags</van-tag>
+          <span>{{ $t('9tIV83JmVMkNKF2B8F4LI') }}</span>
+        </div>
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='{createDate}'">
+          <van-tag round plain type="primary" size="large">createDate</van-tag>
+          <span>{{ $t('JHBWOqLzMQN-kgmyDVSzN') }}</span>
+        </div>
+        <div class="dl-tpl-tag" @click="dlFileNameTpl+='_'">
+          <van-tag plain type="primary" size="large">_</van-tag>
+          <span>{{ $t('P2gkznjKnjtHZDGXgzYfg') }}</span>
+        </div>
+      </div>
+      <van-field v-model="dlFileNameTpl" :label="'模板:'" label-width="3.5em" />
+    </van-dialog>
   </div>
 </template>
 
@@ -304,6 +362,8 @@ export default {
       accentColor: localStorage.PXV_ACT_COLOR || 'Default',
       isFsaSupported,
       dlDirName: '',
+      showDlFileNameTplDialog: false,
+      dlFileNameTpl: store.state.appSetting.dlFileNameTpl,
     }
   },
   head() {
@@ -720,4 +780,21 @@ export default {
     padding-right 20px
   .van-cell-group
     margin-bottom 15px
+  .dl-tpl-tag
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    gap 5PX
+    min-width 1.2rem
+    cursor pointer
+    >span:last-child
+      color: gray
+      font-size 12PX
+    &s
+      display flex
+      align-items center
+      flex-wrap wrap
+      gap 8px
+      padding 20px
 </style>

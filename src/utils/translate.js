@@ -7,7 +7,7 @@ export async function loadImtSdk(isAutoLoadImt = false) {
   if (!isAutoLoadImt && !localStorage.getItem('PXV_IMT_SDK_CFMED')) {
     const res = await Dialog.confirm({
       title: '加载沉浸式翻译 SDK',
-      message: '提示：如果已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK',
+      message: '提示：如果已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK。可在偏好设置中打开自动加载沉浸式翻译 SDK。',
       lockScroll: false,
       closeOnPopstate: true,
       cancelButtonText: '取消',

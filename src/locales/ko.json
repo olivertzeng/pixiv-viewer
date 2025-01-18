@@ -453,5 +453,19 @@
   "4v7z_VobhSO66p3-FrUt3": "파일이 저장된 디렉토리를 선택하세요",
   "IQH88ofRzNxE0CTcT0-wO": "이미지 다운로드 시 작성자 이름으로 폴더 생성",
   "eZpkRjFnBvTEVV8yNj5b7": "다운로드하려면 Tampermonkey 스크립트를 사용하는 것이 좋습니다.",
-  "SAs_Y4hKK7myneH47ZQKG": "HTTP Helper 스크립트가 설치되어 있는지 확인하세요. \nCORS가 아닌 이미지를 다운로드할 수 있습니다."
+  "SAs_Y4hKK7myneH47ZQKG": "HTTP Helper 스크립트가 설치되어 있는지 확인하세요. \nCORS가 아닌 이미지를 다운로드할 수 있습니다.",
+  "m9rhO-859d7Br05Hm5b54": "파일 이름 형식",
+  "QJJd8OqGWs3rIHxMwYma9": "다운로드 파일 이름의 형식 템플릿을 설정하십시오.",
+  "bmqXgC68c1dDsgtYwO1Sv": "다운로드 형식에는 최소한 다음이 포함되는 것이 좋습니다.",
+  "Zt3czgV8wrvas-it5b9Z0": "템플릿에서 사용할 수 있는 변수는 다음과 같습니다. 라벨을 클릭하면 빠르게 설정할 수 있습니다.",
+  "VJLRKYZZDrAv5NKTHcisN": "저자 이름",
+  "hVJXyeDWfpiwbIS7CpgEX": "작성자 ID",
+  "xVDEqSshq1e1ZEmv3q-3s": "작품명",
+  "6_DlIX_02ur5HfDOc9wsb": "작품 ID",
+  "SjI_Ww3ngIBNJxTDLAszn": "작품 색인",
+  "0VXbrbumb60glupUb3cUk": "그림 너비",
+  "G6LGYgi1RdW54WbmYURmF": "그림 높이",
+  "9tIV83JmVMkNKF2B8F4LI": "작품 태그",
+  "JHBWOqLzMQN-kgmyDVSzN": "시간을 창조하다",
+  "P2gkznjKnjtHZDGXgzYfg": "밑줄"
 }

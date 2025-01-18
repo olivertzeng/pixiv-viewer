@@ -453,5 +453,19 @@
   "4v7z_VobhSO66p3-FrUt3": "Sélectionnez le répertoire où le fichier est enregistré",
   "IQH88ofRzNxE0CTcT0-wO": "Créez un dossier avec le nom de l'auteur lors du téléchargement d'images",
   "eZpkRjFnBvTEVV8yNj5b7": "Préférez utiliser le script Tampermonkey pour télécharger",
-  "SAs_Y4hKK7myneH47ZQKG": "Veuillez vous assurer que le script HTTP Helper est installé. \nLes images non CORS peuvent être téléchargées."
+  "SAs_Y4hKK7myneH47ZQKG": "Veuillez vous assurer que le script HTTP Helper est installé. \nLes images non CORS peuvent être téléchargées.",
+  "m9rhO-859d7Br05Hm5b54": "Format du nom de fichier",
+  "QJJd8OqGWs3rIHxMwYma9": "Veuillez définir le modèle de format du nom du fichier téléchargé",
+  "bmqXgC68c1dDsgtYwO1Sv": "Il est recommandé que le format de téléchargement contienne au moins :",
+  "Zt3czgV8wrvas-it5b9Z0": "Les variables disponibles dans le modèle sont les suivantes. Vous pouvez cliquer sur l'étiquette pour la définir rapidement.",
+  "VJLRKYZZDrAv5NKTHcisN": "Nom de l'auteur",
+  "hVJXyeDWfpiwbIS7CpgEX": "Identifiant de l'auteur",
+  "xVDEqSshq1e1ZEmv3q-3s": "Titre de l'œuvre",
+  "6_DlIX_02ur5HfDOc9wsb": "Identifiant de l'œuvre",
+  "SjI_Ww3ngIBNJxTDLAszn": "Index des œuvres",
+  "0VXbrbumb60glupUb3cUk": "largeur d'illustration",
+  "G6LGYgi1RdW54WbmYURmF": "hauteur d'illustration",
+  "9tIV83JmVMkNKF2B8F4LI": "Étiquette d'œuvre d'art",
+  "JHBWOqLzMQN-kgmyDVSzN": "Créer du temps",
+  "P2gkznjKnjtHZDGXgzYfg": "Souligner"
 }

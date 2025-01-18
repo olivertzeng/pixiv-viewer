@@ -3,6 +3,7 @@ import { Toast } from 'vant'
 import { isFsaSupported, saveFile } from './fsa'
 import store from '@/store'
 import { i18n } from '@/i18n'
+import { getArtworkFileName } from '@/store/actions/filename'
 
 export function throttleScroll(el, downFn, upFn) {
   let position = el.scrollTop
@@ -272,8 +273,8 @@ export async function checkUrlAvailable(url) {
 
 export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
   if (!window.Fancybox) {
-    document.head.insertAdjacentHTML('beforeend', '<link href="https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
-    await loadScript('https://lib.baomitu.com/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
+    document.head.insertAdjacentHTML('beforeend', '<link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
   }
   const isMobile = navigator.userAgent.includes('Mobile')
   // eslint-disable-next-line no-new
@@ -304,7 +305,7 @@ export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
             console.log('ev: ', ev)
             const { page } = ev.instance.carousel
             const item = artwork.images[page]
-            const fileName = `${artwork.author.name}_${artwork.title}_${artwork.id}_p${page}.${item.o.split('.').pop()}`
+            const fileName = `${getArtworkFileName(artwork, page)}.${item.o.split('.').pop()}`
             await downloadFile(item.o, fileName, { subDir: store.state.appSetting.dlSubDirByAuthor ? artwork.author.name : undefined })
           },
         },

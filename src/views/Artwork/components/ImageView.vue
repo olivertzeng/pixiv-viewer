@@ -78,6 +78,7 @@ import { BASE_URL } from '@/consts'
 import { LocalStorage } from '@/utils/storage'
 import { sleep, fancyboxShow, loadScript, downloadFile } from '@/utils'
 import store from '@/store'
+import { getArtworkFileName } from '@/store/actions/filename'
 
 const imgResSel = LocalStorage.get('PXV_DTL_IMG_RES', navigator.userAgent.includes('Mobile') ? 'Medium' : 'Large')
 const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
@@ -186,7 +187,7 @@ export default {
       }
       ev.preventDefault()
       const src = this.artwork.images[index].o
-      const fileName = `${this.artwork.author.name}_${this.artwork.title}_${this.artwork.id}_p${index}.${src.split('.').pop()}`
+      const fileName = `${getArtworkFileName(this.artwork, index)}.${src.split('.').pop()}`
       const res = await Dialog.confirm({
         title: this.$t('wuh4SsMnuqgjHpaOVp2rB'),
         message: fileName,
@@ -334,17 +335,13 @@ export default {
       }
     },
     async downloadZIP() {
-      await downloadFile(
-        this.ugoira.zip,
-        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.zip`,
-        { subDir: 'ugoira' }
-      )
+      await downloadFile(this.ugoira.zip, `${getArtworkFileName(this.artwork)}.zip`, { subDir: 'ugoira' })
     },
     // ref: https://github.com/xuejianxianzun/PixivBatchDownloader/blob/master/src/ts/ConvertUgoira/ToAPNG.ts
     async downloadAPNG() {
       if (!window.UPNG) {
-        await loadScript('https://lib.baomitu.com/pako/2.1.0/pako_deflate.min.js')
-        await loadScript('https://lib.baomitu.com/upng-js/2.1.0/UPNG.min.js')
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako_deflate.min.js')
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/upng-js/2.1.0/UPNG.min.js')
       }
 
       this.$toast(this.$t('tip.down_wait'))
@@ -369,11 +366,7 @@ export default {
 
       images = null
 
-      await downloadFile(
-        blob,
-        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.apng`,
-        { subDir: 'ugoira' }
-      )
+      await downloadFile(blob, `${getArtworkFileName(this.artwork)}.apng`, { subDir: 'ugoira' })
     },
     async downloadWebM() {
       this.$toast(this.$t('tip.down_wait'))
@@ -405,11 +398,7 @@ export default {
 
       const webm = tsWhammy.fromImageArrayWithOptions(images, { duration: duration / 1000 })
 
-      await downloadFile(
-        webm,
-        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.webm`,
-        { subDir: 'ugoira' }
-      )
+      await downloadFile(webm, `${getArtworkFileName(this.artwork)}.webm`, { subDir: 'ugoira' })
     },
     async downloadGIF() {
       this.$toast(this.$t('tip.down_wait'))
@@ -444,11 +433,7 @@ export default {
         gif.addFrame(ctx, { copy: true, delay: frame.delay * offset })
       })
       gif.on('finished', async blob => {
-        await downloadFile(
-          blob,
-          `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.gif`,
-          { subDir: 'ugoira' }
-        )
+        await downloadFile(blob, `${getArtworkFileName(this.artwork)}.gif`, { subDir: 'ugoira' })
       })
       gif.render()
     },
@@ -465,11 +450,7 @@ export default {
       const mp4File = await encodeMP4({ frames, width, height, audio: false })
       const blob = new Blob([mp4File], { type: 'video/mp4' })
       frames = null
-      await downloadFile(
-        blob,
-        `[${this.artwork.author.name}] ${this.artwork.title} - ${this.artwork.id}.mp4`,
-        { subDir: 'ugoira' }
-      )
+      await downloadFile(blob, `${getArtworkFileName(this.artwork)}.mp4`, { subDir: 'ugoira' })
     },
     download(type) {
       const needPlay = !['MP4(Server)', 'Other'].includes(type)

@@ -46,6 +46,7 @@
   - [x] 图片信息流布局选择
   - [x] 图片详情画质选择
   - [x] 深色模式
+  - [x] 应用主题色
   - [x] 左右滑动浏览作品
   - [x] 多图床选择
   - [x] 多 API 实例选择
@@ -55,17 +56,22 @@
   - [x] 列表图片长按下载
   - [x] 列表图片长按屏蔽
   - [x] pximg 图片直连模式
+  - [x] 使用 File System Access API 下载
+  - [x] 使用 Tampermonkey 用户脚本下载
+  - [x] 下载文件名格式
 - [x] 作品页面
   - [x] 插画收藏/取消收藏/下载/查看评论/分享
   - [x] 源站链接/ID 复制
   - [x] 动图播放
-  - [x] 动图下载(ZIP/GIF/WebM/MP4)
+  - [x] 动图下载(ZIP/GIF/WebM/APNG/MP4)
   - [x] 小说下载
   - [x] 小说阅读设置(字体/颜色/方向等)
+  - [x] 小说翻译
 - [x] 作者信息页面
   - [x] 关注/取关
   - [x] 查看作者插画/漫画/收藏/小说
   - [x] 查看漫画系列/小说系列
+  - [x] 作者插画标签
   - [x] 相关用户
 
 - [x] 本地 IndexedDB 缓存存储
@@ -140,12 +146,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 自建的话如何预设图床与 API 实例
 
-参照 [#10](https://github.com/asadahimeka/pixiv-viewer/discussions/10) 与 [#13](https://github.com/asadahimeka/pixiv-viewer/discussions/13) 设置环境变量。可以在项目根目录下新建 `.env` 文件，按如下格式填入环境变量：
+参照 [#10](https://github.com/asadahimeka/pixiv-viewer/discussions/10) 与 [#13](https://github.com/asadahimeka/pixiv-viewer/discussions/13) 设置环境变量。
 
-```env
-TEST="lalala"
-ABC=DEF
-```
+可以在项目根目录下新建 `.env` 文件，参照 `.env.example` 的格式填入环境变量：
 
 ### 一直提示 API 超限或者 Rate Limit
 

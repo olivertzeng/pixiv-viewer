@@ -61,8 +61,6 @@ export default {
     },
     icon() {
       const xml = require(`./svg/${this.name}.svg`)
-      console.log('this.name: ', this.name)
-      console.log('xml: ', xml)
       const t = xml.svg.$.viewBox.split(' ')
       return {
         width: t[2],

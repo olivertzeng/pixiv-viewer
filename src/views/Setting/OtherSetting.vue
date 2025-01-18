@@ -211,7 +211,7 @@
       @cancel="dlFileNameTpl=appSetting.dlFileNameTpl"
     >
       <van-cell>{{ $t('QJJd8OqGWs3rIHxMwYma9') }}</van-cell>
-      <van-cell class="tips">{{ $t('bmqXgC68c1dDsgtYwO1Sv') }}<code>{pid}</code> <code>{index}</code></van-cell>
+      <van-cell class="tips">{{ $t('bmqXgC68c1dDsgtYwO1Sv') }} <code>{pid}</code> <code>{index}</code></van-cell>
       <van-cell>{{ $t('Zt3czgV8wrvas-it5b9Z0') }}</van-cell>
       <div class="dl-tpl-tags">
         <div class="dl-tpl-tag" @click="dlFileNameTpl+='{author}'">

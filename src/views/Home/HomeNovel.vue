@@ -8,12 +8,8 @@
     <div class="home-n">
       <NovelRankCard />
       <NovelRecommendCard v-if="isSelfHibi" />
-      <lazy-component>
-        <RandomNovel />
-      </lazy-component>
-      <lazy-component v-if="isSelfHibi">
-        <LatestNovelCard />
-      </lazy-component>
+      <RandomNovel />
+      <LatestNovelCard v-if="isSelfHibi" />
     </div>
   </div>
 </template>

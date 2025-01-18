@@ -95,7 +95,7 @@
       </template>
     </van-cell-group>
 
-    <van-cell-group :title="$t('setting.lab.title')">
+    <van-cell-group :title="$t('6oe7JPS26HGAlcjQdmHZ4')">
       <van-cell center :title="$t('qLUWER5bf4X2lE0RjKTBj')">
         <template #right-icon>
           <van-switch :value="appSetting.isUseFancybox" size="24" @change="v => saveAppSetting('isUseFancybox', v)" />
@@ -109,6 +109,16 @@
       <van-cell center :title="$t('eioSClGw9BqryzojTwr8j')">
         <template #right-icon>
           <van-switch :value="appSetting.isPageEffectOn" size="24" @change="v => saveAppSetting('isPageEffectOn', v)" />
+        </template>
+      </van-cell>
+      <van-cell center :title="$t('GnyWarxXoDw49xCft4IlS')">
+        <template #right-icon>
+          <van-switch :value="appSetting.notImgLazy" size="24" @change="v => saveAppSetting('notImgLazy', v, true)" />
+        </template>
+      </van-cell>
+      <van-cell center :title="$t('2CmJxHkq8O-uA68cU90Lx')">
+        <template #right-icon>
+          <van-switch :value="appSetting.isImgLazyOb" size="24" @change="v => saveAppSetting('isImgLazyOb', v, true)" />
         </template>
       </van-cell>
     </van-cell-group>
@@ -393,10 +403,11 @@ export default {
         location.reload()
       }, 500)
     },
-    saveAppSetting(/** @type {keyof typeof store.state.appSetting} */ key, val) {
+    saveAppSetting(/** @type {keyof typeof store.state.appSetting} */ key, val, needReload = false) {
       console.log(key, val)
       window.umami?.track(`set:${key}`, { val })
       store.commit('setAppSetting', { [key]: val })
+      if (needReload) setTimeout(() => location.reload(), 200)
     },
     async setDownloadDir() {
       try {
@@ -423,7 +434,7 @@ export default {
           return
         }
       }
-      this.saveAppSetting('isDirectPximg', val)
+      this.saveAppSetting('isDirectPximg', val, true)
     },
     async setDirectMode(val) {
       if (val) {
@@ -538,10 +549,7 @@ export default {
         }).catch(() => 'cancel')
         if (res != 'confirm') return
       }
-      this.saveAppSetting('isAutoLoadImt', val)
-      setTimeout(() => {
-        location.reload()
-      }, 200)
+      this.saveAppSetting('isAutoLoadImt', val, true)
     },
     changeLang({ name }) {
       this.lang.value = name

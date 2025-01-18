@@ -8,12 +8,8 @@
     <div class="home-m">
       <MangaRankCard />
       <MangaRecommendCard v-if="isSelfHibi" />
-      <lazy-component>
-        <RandomManga />
-      </lazy-component>
-      <lazy-component v-if="isSelfHibi">
-        <LatestMangaCard />
-      </lazy-component>
+      <RandomManga />
+      <LatestMangaCard v-if="isSelfHibi" />
     </div>
   </div>
 </template>

@@ -658,3 +658,23 @@ html:has(.novel_text) #immersive-translate-popup
 .van-popover__action
   &.imt,&.sc,&.ms,&.gg
     width 220px
+
+#app .ia-left .image-box .img3
+  transition opacity,transform 0.5s
+  opacity 1
+  &[lazy="loading"]
+    opacity 0
+.ia-left .image-box:has(.img3[lazy="loading"])
+  &::after
+    content ''
+    position absolute
+    top: 50%;
+    left: 50%;
+    width: 1.6rem !important;
+    height: 1.6rem !important;
+    margin-left: -0.8rem !important;
+    margin-top: -0.8rem !important;
+    transform: scale(0.9);
+    background url('@/icons/loading.svg') no-repeat center center / contain
+    border-radius: 5PX;
+    box-shadow: 0 0 transparent, 0 0 transparent, 0 1PX 3PX 0 rgba(0, 0, 0, 0.1), 0 1PX 2PX -1PX rgba(0, 0, 0, 0.1);

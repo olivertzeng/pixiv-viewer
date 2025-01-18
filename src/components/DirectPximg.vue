@@ -1,6 +1,16 @@
 <template>
   <img v-if="direct" :class="{'fadeIn':!loading}" :src="directSrc" :style="bgStyle" :lazy="lazy" :alt="alt" @load="revokeURL">
-  <img v-else v-lazy="src" :alt="alt">
+  <img v-else-if="isVLazy" v-lazy="src" :alt="alt">
+  <img
+    v-else
+    class="img3"
+    loading="lazy"
+    :src="src"
+    :alt="alt"
+    :style="bgStyle"
+    :lazy="lazy"
+    @load="loading=false"
+  >
 </template>
 
 <script>
@@ -34,8 +44,11 @@ export default {
     }
   },
   computed: {
+    isVLazy() {
+      return !store.state.appSetting.notImgLazy
+    },
     lazy() {
-      return this.nobg && this.loading ? 'loading' : undefined
+      return this.nobg && this.loading ? 'loading' : 'loaded'
     },
     bgStyle() {
       return { background: !this.nobg && this.loading ? randomBg() : 'none' }

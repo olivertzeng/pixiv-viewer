@@ -54,6 +54,8 @@ export default new Vuex.Store({
       isHideRankManga: getSettingDef('PXV_HIDE_RANK_MANGA', false),
       wfType: getSettingDef('PXV_WF_TYPE', 'Masonry'),
       imgReso: getSettingDef('PXV_DTL_IMG_RES', isMobile ? 'Medium' : 'Large'),
+      notImgLazy: false,
+      isImgLazyOb: false,
     }),
   },
   getters: {

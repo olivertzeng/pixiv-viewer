@@ -85,7 +85,7 @@ export default {
       const nextUrl = tryURL(this.nextUrl)
       const res = await api.getRelated(this.artwork.id, this.curPage, nextUrl?.search.slice(1))
       if (res.status === 0) {
-        if (res.data.length) {
+        if (res.data.length && res.data.nextUrl) {
           this.artList = _.uniqBy([
             ...this.artList,
             ...res.data,

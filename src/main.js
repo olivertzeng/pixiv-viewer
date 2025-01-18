@@ -37,13 +37,15 @@ async function setupApp() {
 
   Vue.use(Toast)
   Vue.use(ImagePreview)
-  Vue.use(Lazyload, {
-    // observer: true,
-    // observerOptions: { rootMargin: '0px 50px 50px 0px', threshold: [0] },
-    lazyComponent: true,
-    loading: loadingSvg(localStorage.PXV_ACT_COLOR || '#38a9f5'),
-    preload: 1.3,
-  })
+  if (!store.state.appSetting.notImgLazy) {
+    Vue.use(Lazyload, {
+      observer: store.state.appSetting.isImgLazyOb,
+      observerOptions: { rootMargin: '0px 50px 50px 0px', threshold: [0] },
+      lazyComponent: false,
+      loading: loadingSvg(localStorage.PXV_ACT_COLOR || '#38a9f5'),
+      preload: 1.3,
+    })
+  }
   Vue.use(Vant)
   Vue.use(VueAwesomeSwiper)
   Vue.use(VueMasonry)

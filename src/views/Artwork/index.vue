@@ -76,7 +76,7 @@ import IconWechat from '@/assets/images/share-sheet-wechat.png'
 import IconWeibo from '@/assets/images/share-sheet-weibo.png'
 import IconTwitter from '@/assets/images/share-sheet-twi.png'
 import IconFacebook from '@/assets/images/share-sheet-facebook.png'
-import { LocalStorage } from '@/utils/storage'
+import store from '@/store'
 
 export default {
   name: 'Artwork',
@@ -131,10 +131,8 @@ export default {
         { name: 'Twitter', icon: IconTwitter },
         { name: 'Facebook', icon: IconFacebook },
       ],
-      disableSwipe: !LocalStorage.get('PXV_IMG_DTL_SWIPE', false),
       maybeAiAuthor: false,
       isSafari: isSafari(),
-      isAutoLoadImt: LocalStorage.get('PXV_AUTO_LOAD_IMT', false),
     }
   },
   head() {
@@ -146,6 +144,12 @@ export default {
   },
   computed: {
     ...mapGetters(['isCensored']),
+    isAutoLoadImt() {
+      return store.state.appSetting.isAutoLoadImt
+    },
+    disableSwipe() {
+      return !store.state.appSetting.isEnableSwipe
+    },
   },
   watch: {
     $route() {

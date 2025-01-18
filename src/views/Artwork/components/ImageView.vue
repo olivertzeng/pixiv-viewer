@@ -75,14 +75,9 @@ import tsWhammy from 'ts-whammy'
 import { encode as encodeMP4 } from 'modern-mp4'
 import api from '@/api'
 import { BASE_URL } from '@/consts'
-import { LocalStorage } from '@/utils/storage'
 import { sleep, fancyboxShow, loadScript, downloadFile } from '@/utils'
 import store from '@/store'
 import { getArtworkFileName } from '@/store/actions/filename'
-
-const imgResSel = LocalStorage.get('PXV_DTL_IMG_RES', navigator.userAgent.includes('Mobile') ? 'Medium' : 'Large')
-const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
-const useFancybox = LocalStorage.get('PXV_USE_FANCYBOX', false)
 
 export default {
   props: {
@@ -90,26 +85,15 @@ export default {
       type: Object,
       required: true,
     },
-    // lazy: {
-    //   type: Boolean,
-    //   default: true,
-    // },
-    // maybeAiAuthor: {
-    //   type: Boolean,
-    //   default: false,
-    // },
   },
   data() {
     return {
-      // displayWidth: 0,
-      // displayHeight: 0,
       isShrink: false,
       ugoira: null,
       ugoiraPlaying: false,
       curIndex: 0,
       progressShow: false,
       progress: 0,
-      isLongpressDL,
     }
   },
   computed: {
@@ -130,6 +114,12 @@ export default {
         return true
       })
       return src
+    },
+    isLongpressDL() {
+      return store.state.appSetting.isLongpressDL
+    },
+    imgResoSel() {
+      return store.state.appSetting.imgReso
     },
   },
   watch: {
@@ -152,7 +142,7 @@ export default {
         Large: urls.l.replace(/\/c\/\d+x\d+(_\d+)?\//g, '/'),
         Original: urls.o,
       }
-      return urlMap[imgResSel] || urls.l
+      return urlMap[this.imgResoSel] || urls.l
     },
     async view(index) {
       if (this.censored) {
@@ -162,7 +152,7 @@ export default {
         })
         return
       }
-      if (useFancybox) {
+      if (store.state.appSetting.isUseFancybox) {
         fancyboxShow(this.artwork, index)
       } else {
         ImagePreview({
@@ -175,14 +165,14 @@ export default {
       }
     },
     preventContext(/** @type {Event} */ event) {
-      if (!isLongpressDL) return true
+      if (!this.isLongpressDL) return true
       event.preventDefault()
       event.stopPropagation()
       return false
     },
     async downloadArtwork(/** @type {Event} */ ev, index) {
       console.log('ev: ', ev)
-      if (!isLongpressDL || this.artwork.type == 'ugoira') {
+      if (!this.isLongpressDL || this.artwork.type == 'ugoira') {
         return
       }
       ev.preventDefault()

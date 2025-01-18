@@ -13,26 +13,26 @@
     </van-cell-group>
 
     <van-cell-group :title="$t('9X179hdP1zzapzk5Rvqx2')">
-      <van-cell center :title="$t('setting.layout.title')" is-link :label="wfType.value" @click="wfType.show = true" />
-      <van-cell center :title="$t('setting.img_res.title')" is-link :label="imgRes.value" @click="imgRes.show = true" />
+      <van-cell center :title="$t('setting.layout.title')" is-link :label="appSetting.wfType" @click="wfType.show = true" />
+      <van-cell center :title="$t('setting.img_res.title')" is-link :label="appSetting.imgReso" @click="imgRes.show = true" />
       <van-cell center :title="$t('ZO7u4XT4flW6_nmyvmXt7')" :label="$t('WdS4RTIeeWqdaqLtvk7ZO')">
         <template #right-icon>
-          <van-switch :value="isImageCardOuterMeta" size="24" @change="changeImageCardOuterMeta" />
+          <van-switch :value="appSetting.isImageCardOuterMeta" size="24" @change="v => saveAppSetting('isImageCardOuterMeta', v)" />
         </template>
       </van-cell>
       <van-cell center :title="$t('mR4YFHYUnr00zmzYydrMv')" :label="$t('V-KoSeNoEiNct7oZJgCcD')">
         <template #right-icon>
-          <van-switch :value="isImageFitScreen" size="24" @change="changeImageFitScreen" />
+          <van-switch :value="appSetting.isImageFitScreen" size="24" @change="v => saveAppSetting('isImageFitScreen', v)" />
         </template>
       </van-cell>
       <van-cell center :title="$t('kFOiZTwKWwXy-sxaspqSD')" :label="$t('NgE24V8lvXN2c15W_2gnE')">
         <template #right-icon>
-          <van-switch :disabled="isLongpressDL" :value="isLongpressBlock" size="24" @change="changeLongpressBlock" />
+          <van-switch :disabled="appSetting.isLongpressDL" :value="appSetting.isLongpressBlock" size="24" @change="v => saveAppSetting('isLongpressBlock', v)" />
         </template>
       </van-cell>
       <van-cell v-if="showAutoLoadImtSwitch" center title="自动加载沉浸式翻译 SDK 并翻译" label="如已安装沉浸式翻译浏览器插件则无需加载沉浸式翻译 SDK">
         <template #right-icon>
-          <van-switch :value="isAutoLoadImt" size="24" @change="changeAutoLoadImt" />
+          <van-switch :value="appSetting.isAutoLoadImt" size="24" @change="changeAutoLoadImt" />
         </template>
       </van-cell>
     </van-cell-group>
@@ -40,7 +40,7 @@
     <van-cell-group :title="$t('j2tFt08r6GGMmsfbF4HAN')">
       <van-cell center :title="$t('5syY7l774noiN5LHKUnqF')" :label="$t('QRASoWf3qDfwihoIa84C9')">
         <template #right-icon>
-          <van-switch :disabled="isLongpressBlock" :value="isLongpressDL" size="24" @change="changeLongpressDL" />
+          <van-switch :disabled="appSetting.isLongpressBlock" :value="appSetting.isLongpressDL" size="24" @change="v => saveAppSetting('isLongpressDL', v)" />
         </template>
       </van-cell>
       <van-cell v-if="isFsaSupported" center :title="$t('zHc8vUk99v88lW41lrprb')" :label="$t('TvsHdAJPVAKY9rRiGoO6K')">
@@ -70,13 +70,13 @@
           <van-switch v-model="hideApSelect" size="24" />
         </template>
       </van-cell>
-      <van-cell v-if="hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title')" is-link :label="pximgBed.value" @click="pximgBed.show = true" />
+      <van-cell v-if="hideApSelect && !appSetting.isDirectPximg" center :title="$t('setting.img_proxy.title')" is-link :label="pximgBed.value" @click="pximgBed.show = true" />
       <van-cell v-if="!clientConfig.useLocalAppApi && hideApSelect" center :title="$t('setting.api.title')" is-link :label="hibiapi.value" @click="hibiapi.show = true" />
-      <van-cell v-if="!hideApSelect && !isDirectPximg" center :title="$t('setting.img_proxy.title2')" is-link :label="pximgBedLabel" @click="pximgBed_.show = true" />
+      <van-cell v-if="!hideApSelect && !appSetting.isDirectPximg" center :title="$t('setting.img_proxy.title2')" is-link :label="pximgBedLabel" @click="pximgBed_.show = true" />
       <van-cell v-if="!clientConfig.useLocalAppApi && !hideApSelect" center :title="$t('setting.api.title2')" is-link :label="hibiapiLabel" @click="hibiapi_.show = true" />
       <van-cell center :title="$t('lGZGzwfWz9tW_KQey3AmQ')" :label="$t('OA8ygupG-4FcNWHtwEUG-')">
         <template #right-icon>
-          <van-switch :value="isDirectPximg" size="24" @change="setDirectPximg" />
+          <van-switch :value="appSetting.isDirectPximg" size="24" @change="setDirectPximg" />
         </template>
       </van-cell>
       <template v-if="clientConfig.useLocalAppApi">
@@ -91,7 +91,6 @@
           </template>
         </van-cell>
         <van-cell v-if="clientConfig.useApiProxy" center :title="$t('setting.other.api_proxy.title')" is-link :label="apiProxyLabel||$t('setting.other.api_proxy.def_ph')" @click="apiProxySel.show = true" />
-        <!-- <van-cell v-if="clientConfig.directMode" center :title="$t('setting.other.direct_mode.host.title')" is-link :label="$t('setting.other.direct_mode.host.label')" @click="clearApiHosts" /> -->
         <van-cell v-if="clientConfig.refreshToken" center :title="$t('setting.other.cp_token_title')" is-link :label="$t('setting.other.cp_token_label')" @click="copyToken" />
       </template>
     </van-cell-group>
@@ -99,17 +98,17 @@
     <van-cell-group :title="$t('setting.lab.title')">
       <van-cell center :title="$t('qLUWER5bf4X2lE0RjKTBj')">
         <template #right-icon>
-          <van-switch :value="useFancybox" size="24" @change="changeUseFancybox" />
+          <van-switch :value="appSetting.isUseFancybox" size="24" @change="v => saveAppSetting('isUseFancybox', v)" />
         </template>
       </van-cell>
       <van-cell center :title="$t('setting.other.swipe_toggle')">
         <template #right-icon>
-          <van-switch :value="enableSwipe" size="24" @change="changeEnableSwipe" />
+          <van-switch :value="appSetting.isEnableSwipe" size="24" @change="v => saveAppSetting('isEnableSwipe', v)" />
         </template>
       </van-cell>
       <van-cell center :title="$t('eioSClGw9BqryzojTwr8j')">
         <template #right-icon>
-          <van-switch :value="isPageEffectOn" size="24" @change="changePageEffect" />
+          <van-switch :value="appSetting.isPageEffectOn" size="24" @change="v => saveAppSetting('isPageEffectOn', v)" />
         </template>
       </van-cell>
     </van-cell-group>
@@ -161,7 +160,7 @@
       :cancel-text="$t('common.cancel')"
       :description="$t('setting.layout.ph')"
       close-on-click-action
-      @select="changeWfType"
+      @select="v => saveAppSetting('wfType', v.name)"
     />
     <van-action-sheet
       v-model="imgRes.show"
@@ -169,7 +168,7 @@
       :cancel-text="$t('common.cancel')"
       :description="$t('setting.img_res.ph')"
       close-on-click-action
-      @select="changeImgRes"
+      @select="v => saveAppSetting('imgReso', v.name)"
     />
     <van-action-sheet
       v-model="lang.show"
@@ -185,8 +184,6 @@
       :cancel-text="$t('common.cancel')"
       :description="$t('setting.img_proxy.ph')"
       close-on-click-action
-      :class="{ 'img-chk': !pximgChecked }"
-      @open="checkImgAvailable"
       @select="changePximgBed_"
     />
     <van-action-sheet
@@ -196,8 +193,6 @@
       :description="$t('setting.api.ph')"
       close-on-click-action
       class="hibiapi-actions"
-      :class="{ 'api-chk': !apiChecked }"
-      @open="checkApiAvailable"
       @select="changeHibiapi_"
     />
     <van-dialog
@@ -310,7 +305,6 @@ export default {
       },
       wfType: {
         show: false,
-        value: LocalStorage.get('PXV_WF_TYPE', 'Masonry'),
         actions: [
           { name: 'Masonry', subname: this.$t('setting.layout.m') },
           { name: 'Grid', subname: this.$t('setting.layout.g') },
@@ -319,7 +313,6 @@ export default {
       },
       imgRes: {
         show: false,
-        value: LocalStorage.get('PXV_DTL_IMG_RES', navigator.userAgent.includes('Mobile') ? 'Medium' : 'Large'),
         actions: [
           { name: 'Medium', subname: this.$t('setting.img_res.m') },
           { name: 'Large', subname: this.$t('setting.img_res.l') },
@@ -344,20 +337,9 @@ export default {
           { name: 'el', subname: 'Ελληνικά' },
         ],
       },
-      pximgChecked: true,
-      apiChecked: true,
       hideApSelect: LocalStorage.get('__HIDE_AP_SEL', false),
       isDark: !!localStorage.getItem('PXV_DARK'),
-      enableSwipe: LocalStorage.get('PXV_IMG_DTL_SWIPE', false),
-      useFancybox: LocalStorage.get('PXV_USE_FANCYBOX', false),
-      isAutoLoadImt: LocalStorage.get('PXV_AUTO_LOAD_IMT', false),
       showAutoLoadImtSwitch: i18n.locale.includes('zh'),
-      isPageEffectOn: LocalStorage.get('PXV_PAGE_EFFECT', false),
-      isLongpressDL: LocalStorage.get('PXV_LONGPRESS_DL', false),
-      isLongpressBlock: LocalStorage.get('PXV_LONGPRESS_BLOCK', false),
-      isImageCardOuterMeta: LocalStorage.get('PXV_IMG_META_OUTER', true),
-      isImageFitScreen: LocalStorage.get('PXV_IMG_FIT_SCREEN', true),
-      isDirectPximg: LocalStorage.get('PXV_PXIMG_DIRECT', false),
       actTheme: localStorage.PXV_THEME || '',
       accentColor: localStorage.PXV_ACT_COLOR || 'Default',
       isFsaSupported,
@@ -424,15 +406,6 @@ export default {
         console.log('err: ', err)
       }
     },
-    saveSetting(key, val) {
-      window.umami?.track(`set:${key}`, { val })
-      this.$nextTick(() => {
-        LocalStorage.set(key, val)
-        setTimeout(() => {
-          location.reload()
-        }, 500)
-      })
-    },
     async setDirectPximg(val) {
       if (val) {
         const res = await Dialog.confirm({
@@ -450,8 +423,7 @@ export default {
           return
         }
       }
-      this.isDirectPximg = val
-      this.saveSetting('PXV_PXIMG_DIRECT', val)
+      this.saveAppSetting('isDirectPximg', val)
     },
     async setDirectMode(val) {
       if (val) {
@@ -492,21 +464,19 @@ export default {
         await this.saveClientConfig()
       }
     },
-    async clearApiHosts() {
-      const res = await Dialog.confirm({
-        message: this.$t('setting.other.direct_mode.host_msg'),
-        confirmButtonText: this.$t('common.confirm'),
-        cancelButtonText: this.$t('common.cancel'),
-      })
-      if (res == 'cancel') return
-      window.umami?.track('clearApiHosts')
-      delete this.clientConfig.apiHosts
-      await this.saveClientConfig()
-    },
     async changeApiProxy({ _value }) {
       this.clientConfig.apiProxy = _value
       window.umami?.track('set_api_proxy', { _value })
       await this.saveClientConfig()
+    },
+    saveSetting(key, val) {
+      window.umami?.track(`set:${key}`, { val })
+      this.$nextTick(() => {
+        LocalStorage.set(key, val)
+        setTimeout(() => {
+          location.reload()
+        }, 500)
+      })
     },
     async changePximgBed() {
       const url = `https://${this.pximgBed.value}`
@@ -519,11 +489,6 @@ export default {
       this.saveSetting('PXIMG_PROXY', this.pximgBed.value)
     },
     async changePximgBed_({ _value }) {
-      // this.pximgBed_.value = _value
-      // SessionStorage.clear()
-      // await localDb.clear()
-      // this.saveSetting('PXIMG_PROXY', _value)
-
       const url = `https://${_value}`
       const res = await this.checkURL(url, () => {
         return checkImgAvailable(`${url}/user-profile/img/2022/02/03/15/54/20/22159592_fce9f5c7a908c9b601dc7e9da7a412a3_50.jpg?_t=${Date.now()}`)
@@ -545,11 +510,6 @@ export default {
       this.saveSetting('HIBIAPI_BASE', this.hibiapi.value)
     },
     async changeHibiapi_({ _value }) {
-      // this.hibiapi_.value = _value
-      // SessionStorage.clear()
-      // await localDb.clear()
-      // this.saveSetting('HIBIAPI_BASE', _value)
-
       const res = await this.checkURL(_value, () => {
         return checkUrlAvailable(`${_value}/rank?_t=${Date.now()}`)
       })
@@ -559,28 +519,12 @@ export default {
       await localDb.clear()
       this.saveSetting('HIBIAPI_BASE', _value)
     },
-    changeWfType({ name }) {
-      this.wfType.value = name
-      this.saveSetting('PXV_WF_TYPE', name)
-    },
-    changeImgRes({ name }) {
-      this.imgRes.value = name
-      this.saveSetting('PXV_DTL_IMG_RES', name)
-    },
     onDarkChange(val) {
       window.umami?.track(`set_dark_${val}`)
       this.isDark = val
       localStorage.setItem('PXV_DARK', val || '')
       if (val) document.body.classList.add('dark')
       else document.body.classList.remove('dark')
-    },
-    changeEnableSwipe(val) {
-      this.enableSwipe = val
-      this.saveSetting('PXV_IMG_DTL_SWIPE', val)
-    },
-    changeUseFancybox(val) {
-      this.useFancybox = val
-      this.saveSetting('PXV_USE_FANCYBOX', val)
     },
     async changeAutoLoadImt(val) {
       if (val) {
@@ -594,32 +538,13 @@ export default {
         }).catch(() => 'cancel')
         if (res != 'confirm') return
       }
-      this.isAutoLoadImt = val
-      this.saveSetting('PXV_AUTO_LOAD_IMT', val)
-    },
-    changePageEffect(val) {
-      this.isPageEffectOn = val
-      this.saveSetting('PXV_PAGE_EFFECT', val)
-    },
-    changeLongpressDL(val) {
-      this.isLongpressDL = val
-      this.saveSetting('PXV_LONGPRESS_DL', val)
-    },
-    changeLongpressBlock(val) {
-      this.isLongpressBlock = val
-      this.saveSetting('PXV_LONGPRESS_BLOCK', val)
-    },
-    changeImageCardOuterMeta(val) {
-      this.isImageCardOuterMeta = val
-      this.saveSetting('PXV_IMG_META_OUTER', val)
-    },
-    changeImageFitScreen(val) {
-      this.isImageFitScreen = false
-      this.saveSetting('PXV_IMG_FIT_SCREEN', val)
+      this.saveAppSetting('isAutoLoadImt', val)
+      setTimeout(() => {
+        location.reload()
+      }, 200)
     },
     changeLang({ name }) {
       this.lang.value = name
-      // i18n.locale = name
       window.umami?.track('set_lang', { lang: name })
       localStorage.setItem('PXV_LANG', name)
       setTimeout(() => {
@@ -704,68 +629,6 @@ export default {
         })
         return false
       }
-    },
-    async checkApiAvailable() {
-      // const ck = 'setting.apiChk'
-      // const isChk = await getCache(ck, false)
-      // this.apiChecked = isChk
-      // if (isChk) return
-      // this.hibiapi_.actions.forEach(async e => {
-      //   this.$set(e, 'loading', true)
-      //   const startTime = Date.now()
-      //   try {
-      //     const resp = await fetch(`${e._value}/rank?_t=${startTime}`)
-      //     if (!resp.ok) throw new Error('Resp not ok.')
-      //     const duration = (Date.now() - startTime) / 1000
-      //     this.$set(e, 'subname', `${duration}s`)
-      //     this.$set(e, 'loading', false)
-      //     if (duration > 1) {
-      //       this.$set(e, 'color', 'grey')
-      //     } else if (duration < 0.5) {
-      //       this.$set(e, 'color', 'green')
-      //     } else {
-      //       this.$set(e, 'color', 'orange')
-      //     }
-      //   } catch (error) {
-      //     this.$set(e, 'loading', false)
-      //     this.$set(e, 'subname', '-1ms')
-      //     this.$set(e, 'color', 'red')
-      //   }
-      // })
-      // setCache(ck, true, 60 * 60 * 6)
-    },
-    async checkImgAvailable() {
-      // const ck = 'setting.imgChk'
-      // const isChk = await getCache(ck, false)
-      // this.pximgChecked = isChk
-      // if (isChk) return
-      // this.pximgBed_.actions.forEach(async e => {
-      //   this.$set(e, 'loading', true)
-      //   const startTime = Date.now()
-      //   let img = document.createElement('img')
-      //   img.referrerPolicy = 'no-referrer'
-      //   img.src = `https://${e._value}/user-profile/img/2022/02/03/15/54/20/22159592_fce9f5c7a908c9b601dc7e9da7a412a3_50.jpg?_t=${startTime}`
-      //   img.onload = () => {
-      //     const duration = (Date.now() - startTime) / 1000
-      //     this.$set(e, 'subname', `${duration}s`)
-      //     this.$set(e, 'loading', false)
-      //     if (duration > 1) {
-      //       this.$set(e, 'color', '#969799')
-      //     } else if (duration < 0.5) {
-      //       this.$set(e, 'color', 'green')
-      //     } else {
-      //       this.$set(e, 'color', 'orange')
-      //     }
-      //     img = null
-      //   }
-      //   img.onerror = () => {
-      //     this.$set(e, 'loading', false)
-      //     this.$set(e, 'subname', '-1ms')
-      //     this.$set(e, 'color', 'red')
-      //     img = null
-      //   }
-      // })
-      // setCache(ck, true, 60 * 60 * 6)
     },
   },
 }

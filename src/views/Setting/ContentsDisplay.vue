@@ -19,7 +19,7 @@
     </van-cell>
     <van-cell center :title="$t('3HnNTIScyvd1cNc2qAh7X')" :label="$t('qmd5JADeSGtrvucK3TnGb')">
       <template #right-icon>
-        <van-switch v-model="isHideRankManga" size="24" @change="changeHideRankManga" />
+        <van-switch :value="isHideRankManga" size="24" @change="changeHideRankManga" />
       </template>
     </van-cell>
     <van-field
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import store from '@/store'
 import { LocalStorage } from '@/utils/storage'
 import { Dialog } from 'vant'
 import { mapState, mapMutations } from 'vuex'
@@ -65,7 +66,6 @@ export default {
         r18g: false,
         ai: false,
       },
-      isHideRankManga: LocalStorage.get('PXV_HIDE_RANK_MANGA', false),
     }
   },
   head() {
@@ -73,6 +73,9 @@ export default {
   },
   computed: {
     ...mapState(['contentSetting']),
+    isHideRankManga() {
+      return store.state.appSetting.isHideRankManga
+    },
   },
   mounted() {
     this.currentContentSetting = JSON.parse(JSON.stringify(this.contentSetting))
@@ -101,13 +104,11 @@ export default {
       }, 100)
     },
     changeHideRankManga(val) {
-      this.isHideRankManga = val
-      this.$nextTick(() => {
-        LocalStorage.set('PXV_HIDE_RANK_MANGA', val)
-        setTimeout(() => {
-          location.reload()
-        }, 500)
-      })
+      window.umami?.track('set:isHideRankManga', { val })
+      store.commit('setAppSetting', { isHideRankManga: val })
+      setTimeout(() => {
+        location.reload()
+      }, 200)
     },
     onAIChange(checked) {
       this.$set(this.currentContentSetting, 'ai', checked)

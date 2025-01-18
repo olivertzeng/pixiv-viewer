@@ -31,7 +31,7 @@ export async function loadImtSdk(isAutoLoadImt = false) {
         '.live_detail .content .title',
         '.live_detail .content .chat-item span:last-child',
       ],
-      translationClasses: ['color-gray'],
+      translationClasses: ['imt-res-text'],
     },
   }
   await loadScript('https://download.immersivetranslate.com/immersive-translate-sdk-latest.js')

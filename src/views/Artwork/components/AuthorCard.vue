@@ -11,7 +11,7 @@
         <span class="title">{{ author.name }} {{ $t('user.of_other_art') }}</span>
       </template>
     </van-cell>
-    <div v-if="memberArtwork.length>=10" class="artwork-list-wrap">
+    <div v-show="memberArtwork.length>=10" class="artwork-list-wrap">
       <!-- <div class="artwork-list" :style="{width:`${(memberArtwork.length-5)/2.3*100}%`}"> -->
       <swiper ref="mySwiper" class="artwork-list" :options="swiperOption">
         <swiper-slide

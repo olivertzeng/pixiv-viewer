@@ -59,17 +59,11 @@
 import { Dialog, ImagePreview } from 'vant'
 import { mapGetters } from 'vuex'
 import { localApi } from '@/api'
-import { LocalStorage } from '@/utils/storage'
 import { getCache, toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
 import { fancyboxShow, downloadFile } from '@/utils'
 import store from '@/store'
 import { getArtworkFileName } from '@/store/actions/filename'
-
-const isLongpressDL = LocalStorage.get('PXV_LONGPRESS_DL', false)
-const isLongpressBlock = LocalStorage.get('PXV_LONGPRESS_BLOCK', false)
-const isOuterMeta = LocalStorage.get('PXV_IMG_META_OUTER', true)
-const useFancybox = LocalStorage.get('PXV_USE_FANCYBOX', false)
 
 export default {
   props: {
@@ -100,11 +94,15 @@ export default {
       showBookmarkBtn: window.APP_CONFIG.useLocalAppApi,
       bLoading: false,
       isBookmarked: false,
-      isTriggerLongpress: isLongpressDL || isLongpressBlock,
-      isOuterMeta,
     }
   },
   computed: {
+    isOuterMeta() {
+      return store.state.appSetting.isImageCardOuterMeta
+    },
+    isTriggerLongpress() {
+      return store.state.appSetting.isLongpressDL || store.state.appSetting.isLongpressBlock
+    },
     imgSrc() {
       if (this.square) {
         return this.artwork.images[0].s
@@ -195,11 +193,11 @@ export default {
     onLongpress(/** @type {Event} */ ev) {
       if (!this.isTriggerLongpress) return
       ev.preventDefault()
-      isLongpressDL ? this.downloadArtwork() : this.showBlockDialog()
+      store.state.appSetting.isLongpressDL ? this.downloadArtwork() : this.showBlockDialog()
     },
     onImageTitleClick() {
       const getSrc = e => e.l.replace(/\/c\/\d+x\d+(_\d+)?\//g, '/')
-      if (useFancybox) {
+      if (store.state.appSetting.isUseFancybox) {
         fancyboxShow(this.artwork, 0, getSrc)
       } else {
         ImagePreview({

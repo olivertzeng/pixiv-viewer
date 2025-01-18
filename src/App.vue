@@ -7,10 +7,10 @@
 
 <script>
 import Preload from '@/components/Preload'
+import store from './store'
 import { CURRENT_APP_VERSION } from './consts'
 import { checkIsLogin } from './store/actions/check-login'
 import { fetchNotices } from './store/actions/fetch-notice'
-import { LocalStorage } from './utils/storage'
 import { loadImtSdk } from './utils/translate'
 
 export default {
@@ -32,7 +32,7 @@ export default {
     document.querySelector('#ldio-loading')?.remove()
     window.umami?.track('App Mounted', { host: location.host, ver: CURRENT_APP_VERSION })
     if (!localStorage.PXV_ASSETS_LOADED) localStorage.PXV_ASSETS_LOADED = '1'
-    if (LocalStorage.get('PXV_AUTO_LOAD_IMT', false)) loadImtSdk(true)
+    if (store.state.appSetting.isAutoLoadImt) loadImtSdk(true)
   },
 }
 </script>

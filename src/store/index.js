@@ -15,6 +15,7 @@ function getSettingDef(key, def) {
   return LocalStorage.get(key, def)
 }
 
+const isMobile = navigator.userAgent.includes('Mobile')
 export default new Vuex.Store({
   state: {
     /** @type {number[]} */
@@ -31,17 +32,28 @@ export default new Vuex.Store({
     blockTags: getSettingDef('PXV_B_TAGS', '').split(',').filter(Boolean),
     blockUids: getSettingDef('PXV_B_UIDS', '').split(',').filter(Boolean),
     isNovelViewShrink: true,
-    isMobile: navigator.userAgent.includes('Mobile'),
+    isMobile,
     /** @type {any[]|null} */
     appNotice: null,
     /** @type {any[]|null} */
     seasonEffects: null,
     appSetting: getSettingDef('PXV_APP_SETTING', {
-      enableSwipe: getSettingDef('PXV_IMG_DTL_SWIPE', false),
       preferDownloadByFsa: false,
       preferDownloadByTm: false,
       dlSubDirByAuthor: false,
       dlFileNameTpl: '{author}_{title}_{pid}_p{index}',
+      isImageCardOuterMeta: getSettingDef('PXV_IMG_META_OUTER', false),
+      isImageFitScreen: getSettingDef('PXV_IMG_FIT_SCREEN', true),
+      isLongpressBlock: getSettingDef('PXV_LONGPRESS_BLOCK', false),
+      isLongpressDL: getSettingDef('PXV_LONGPRESS_DL', false),
+      isAutoLoadImt: getSettingDef('PXV_AUTO_LOAD_IMT', false),
+      isDirectPximg: getSettingDef('PXV_PXIMG_DIRECT', false),
+      isUseFancybox: getSettingDef('PXV_USE_FANCYBOX', false),
+      isEnableSwipe: getSettingDef('PXV_IMG_DTL_SWIPE', false),
+      isPageEffectOn: getSettingDef('PXV_PAGE_EFFECT', false),
+      isHideRankManga: getSettingDef('PXV_HIDE_RANK_MANGA', false),
+      wfType: getSettingDef('PXV_WF_TYPE', 'Masonry'),
+      imgReso: getSettingDef('PXV_DTL_IMG_RES', isMobile ? 'Medium' : 'Large'),
     }),
   },
   getters: {
@@ -103,7 +115,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setGalleryList(state, list = []) {
-      if (state.appSetting.enableSwipe) state.galleryList = list.map(e => e.id)
+      if (state.appSetting.isEnableSwipe) state.galleryList = list.map(e => e.id)
     },
     setSearchHistory(state, obj) {
       if (obj === null) {

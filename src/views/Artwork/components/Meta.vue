@@ -164,7 +164,6 @@ import { localApi } from '@/api'
 import { toggleBookmarkCache } from '@/utils/storage/siteCache'
 import { isAiIllust } from '@/utils/filter'
 import CommentsArea from './Comment/CommentsArea.vue'
-import { LocalStorage } from '@/utils/storage'
 import store from '@/store'
 import { getArtworkFileName } from '@/store/actions/filename'
 
@@ -205,7 +204,6 @@ export default {
       bookmarkId: null,
       favLoading: false,
       showComments: false,
-      isAutoLoadImt: LocalStorage.get('PXV_AUTO_LOAD_IMT', false),
     }
   },
   computed: {
@@ -221,6 +219,9 @@ export default {
     },
     isBtnsShow() {
       return !this.artwork?.images.some(e => e.o.includes('common/images/limit_unknown_360.png'))
+    },
+    isAutoLoadImt() {
+      return store.state.appSetting.isAutoLoadImt
     },
   },
   watch: {

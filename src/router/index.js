@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import nprogress from 'nprogress'
-import { LocalStorage } from '@/utils/storage'
 import { BASE_URL } from '@/consts'
 
 import BaseLayout from '@/layouts/BaseLayout.vue'
@@ -49,6 +48,7 @@ import Session from '@/views/Account/Session.vue'
 import Login from '@/views/Account/Login.vue'
 import OAuthCallback from '@/views/Account/OAuthCallback.vue'
 import NotFound from '@/views/NotFound.vue'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -350,15 +350,13 @@ const routes = [
   },
 ]
 
-const isPageEffectOn = LocalStorage.get('PXV_PAGE_EFFECT', false)
-
 const router = new VueRouter({
   routes,
   mode: 'history',
   base: BASE_URL,
   scrollBehavior(_, __, pos) {
     console.log('pos: ', pos)
-    if (isPageEffectOn) {
+    if (store.state.appSetting.isPageEffectOn) {
       return new Promise(resolve => {
         setTimeout(() => {
           resolve(pos || { x: 0, y: 0 })
@@ -373,13 +371,13 @@ const router = new VueRouter({
 const isDark = !!localStorage.PXV_DARK
 
 router.beforeEach((to, from, next) => {
-  if (!isPageEffectOn && !isDark) document.body.classList.add('fadeIn')
+  if (!store.state.appSetting.isPageEffectOn && !isDark) document.body.classList.add('fadeIn')
   nprogress.start()
   next()
 })
 
 router.afterEach((to, from) => {
-  if (!isPageEffectOn && !isDark) {
+  if (!store.state.appSetting.isPageEffectOn && !isDark) {
     setTimeout(() => {
       document.body.classList.remove('fadeIn')
     }, 500)

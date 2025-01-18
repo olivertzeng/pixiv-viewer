@@ -51,7 +51,7 @@
           </van-popover>
         </div>
         <keep-alive>
-          <AuthorNovelCard v-if="artwork.author" :id="artwork.author.id" :key="artwork.id" />
+          <AuthorNovelCard v-show="artwork.author" :id="artwork.author.id" :key="artwork.id" />
         </keep-alive>
       </div>
     </div>
@@ -190,6 +190,7 @@ import IconWeibo from '@/assets/images/share-sheet-weibo.png'
 import IconTwitter from '@/assets/images/share-sheet-twi.png'
 import IconFacebook from '@/assets/images/share-sheet-facebook.png'
 import { getArtworkFileName } from '@/store/actions/filename'
+import store from '@/store'
 
 const textConfig = LocalStorage.get('PXV_TEXT_CONFIG', {
   size: 16,
@@ -249,7 +250,6 @@ export default {
         { text: '微软翻译', className: 'ms', key: 'ms' },
         { text: '谷歌翻译', className: 'gg', key: 'gg' },
       ],
-      isAutoLoadImt: LocalStorage.get('PXV_AUTO_LOAD_IMT', false),
     }
   },
   head() {
@@ -262,7 +262,7 @@ export default {
   computed: {
     ...mapGetters(['isCensored']),
     showPntBtn() {
-      return !this.isAutoLoadImt && i18n.locale.includes('zh') && !/中文|中国语|Chinese|中國語|中国語/.test(JSON.stringify(this.artwork.tags))
+      return !store.state.appSetting.isAutoLoadImt && i18n.locale.includes('zh') && !/中文|中国语|Chinese|中國語|中国語/.test(JSON.stringify(this.artwork.tags))
     },
   },
   watch: {

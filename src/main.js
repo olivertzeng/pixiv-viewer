@@ -42,7 +42,6 @@ async function setupApp() {
     // observerOptions: { rootMargin: '0px 50px 50px 0px', threshold: [0] },
     lazyComponent: true,
     loading: loadingSvg(localStorage.PXV_ACT_COLOR || '#38a9f5'),
-    // loading: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==',
     preload: 1.3,
   })
   Vue.use(Vant)

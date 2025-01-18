@@ -19,11 +19,8 @@
 
 <script>
 import Nav from '@/components/Nav'
+import store from '@/store'
 import { throttleScroll } from '@/utils'
-import { LocalStorage } from '@/utils/storage'
-
-const isPageEffectOn = LocalStorage.get('PXV_PAGE_EFFECT', false)
-const noImgFillScreen = !LocalStorage.get('PXV_IMG_FIT_SCREEN', true)
 
 export default {
   components: {
@@ -41,15 +38,21 @@ export default {
   },
   data() {
     return {
-      noImgFillScreen,
-      isPageEffectOn,
-      transitionName: isPageEffectOn ? 'fade' : '',
+      transitionName: store.state.appSetting.isPageEffectOn ? 'fade' : '',
       isNavAppear: true,
     }
   },
+  computed: {
+    noImgFillScreen() {
+      return !store.state.appSetting.isImageFitScreen
+    },
+    isPageEffectOn() {
+      return store.state.appSetting.isPageEffectOn
+    },
+  },
   watch: {
     '$route'(to, from) {
-      if (!isPageEffectOn) return
+      if (!this.isPageEffectOn) return
       const toDepth = to.meta.__depth
       const fromDepth = from.meta.__depth
       if (toDepth == fromDepth) {

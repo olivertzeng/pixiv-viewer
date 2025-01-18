@@ -276,15 +276,14 @@ export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
     document.head.insertAdjacentHTML('beforeend', '<link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
     await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
   }
-  const isMobile = navigator.userAgent.includes('Mobile')
   // eslint-disable-next-line no-new
   new window.Fancybox(artwork.images.map(e => ({
     src: getSrc(e),
     thumb: e.m,
   })), {
-    compact: isMobile,
+    compact: store.state.isMobile,
     backdropClick: 'close',
-    contentClick: isMobile ? 'close' : 'toggleZoom',
+    contentClick: store.state.isMobile ? 'close' : 'toggleZoom',
     startIndex: index,
     hideScrollbar: false,
     placeFocusBack: false,

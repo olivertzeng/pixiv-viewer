@@ -84,9 +84,9 @@ import Nav from './components/Nav'
 import _ from 'lodash'
 import api from '@/api'
 import { i18n } from '@/i18n'
-import { LocalStorage } from '@/utils/storage'
 import { isAiIllust } from '@/utils/filter'
 import { getCache } from '@/utils/storage/siteCache'
+import store from '@/store'
 
 const getRankMenus = () => ({
   daily: { name: i18n.t('rank.day'), io: 'day', cat: '0' },
@@ -154,7 +154,7 @@ export default {
       showFilterFavsBtn: window.APP_CONFIG.useLocalAppApi,
       showFilterFavsPop: false,
       isFilterFavs: false,
-      isHideManga: LocalStorage.get('PXV_HIDE_RANK_MANGA', false),
+      isHideManga: store.state.appSetting.isHideRankManga,
     }
   },
   head() {

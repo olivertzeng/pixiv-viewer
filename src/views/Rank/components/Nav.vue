@@ -44,8 +44,7 @@ export default {
       return true
     },
     init() {
-      const cur = document.querySelector('.cur')
-      cur && cur.scrollIntoView()
+      document.querySelector('.nav .cur')?.scrollIntoView?.()
     },
   },
 }

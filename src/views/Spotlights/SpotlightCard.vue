@@ -75,11 +75,11 @@ export default {
     },
   },
   mounted() {
-    // this.$nextTick(() => {
-    //   setTimeout(() => {
-    this.getList()
-    //   }, 100)
-    // })
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.getList()
+      }, 100)
+    })
   },
   methods: {
     async getList() {

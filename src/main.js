@@ -1,5 +1,5 @@
-// import 'vant/lib/index.css'
-// import 'swiper/css/swiper.css'
+import 'vant/lib/index.css'
+import 'swiper/css/swiper.css'
 import '@/assets/style/base.styl'
 import '@/assets/style/theme.styl'
 

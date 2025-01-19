@@ -97,7 +97,7 @@ export default {
       const theme = c.cname || c.name
       const doc = document.documentElement
       doc.classList.remove('t_' + localStorage.PXV_THEME)
-      doc.classList.add('t_' + theme)
+      doc.classList.add('custom_theme', 't_' + theme)
       doc.style.setProperty('--accent-color', c.color)
       this.actColor = c.color
       localStorage.PXV_THEME = theme

@@ -7,22 +7,22 @@ const svgIconDir = path.join(__dirname, 'src/icons/svg')
 
 const cdn = {
   css: [
-    'https://cdnjs.cloudflare.com/ajax/libs/vant/2.12.54/index.min.css',
-    'https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.min.css',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/vant/2.12.54/index.min.css',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.min.css',
     'https://lib.baomitu.com/lxgw-wenkai-screen-webfont/1.7.0/style.min.css',
   ],
   js: [
-    'https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.6.5/vue-router.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/vuex/3.6.2/vuex.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/vant/2.12.54/vant.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/js/swiper.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.28.2/vue-i18n.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.6.5/vue-router.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/vuex/3.6.2/vuex.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/vant/2.12.54/vant.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/js/swiper.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js',
   ],
 }
 
@@ -45,19 +45,19 @@ module.exports = {
   configureWebpack: config => {
     if (isProduction) {
       config.optimization.minimizer[0].options.minimizer.options.compress.drop_console = true
-      config.externals = {
-        'vue': 'Vue',
-        'vue-i18n': 'VueI18n',
-        'vant': 'vant',
-        'vue-router': 'VueRouter',
-        'vuex': 'Vuex',
-        'axios': 'axios',
-        'swiper': 'Swiper',
-        'jszip': 'JSZip',
-        'lodash': '_',
-        'localforage': 'localforage',
-        'crypto-js': 'CryptoJS',
-      }
+      // config.externals = {
+      //   'vue': 'Vue',
+      //   'vue-i18n': 'VueI18n',
+      //   'vant': 'vant',
+      //   'vue-router': 'VueRouter',
+      //   'vuex': 'Vuex',
+      //   'axios': 'axios',
+      //   'swiper': 'Swiper',
+      //   'jszip': 'JSZip',
+      //   'lodash': '_',
+      //   'localforage': 'localforage',
+      //   'crypto-js': 'CryptoJS',
+      // }
     }
   },
   chainWebpack: config => {

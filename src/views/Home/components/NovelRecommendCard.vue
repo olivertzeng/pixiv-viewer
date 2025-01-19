@@ -57,11 +57,11 @@ export default {
     }
   },
   mounted() {
-    // this.$nextTick(() => {
-    //   setTimeout(() => {
-    this.getRankList()
-    //   }, 200)
-    // })
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.getRankList()
+      }, 200)
+    })
   },
   methods: {
     novelTagsText(el) {

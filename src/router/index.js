@@ -350,13 +350,15 @@ const routes = [
   },
 ]
 
+const isPageEffectOn = store.state.appSetting.isPageEffectOn
+
 const router = new VueRouter({
   routes,
   mode: 'history',
   base: BASE_URL,
   scrollBehavior(_, __, pos) {
     console.log('pos: ', pos)
-    if (store.state.appSetting.isPageEffectOn) {
+    if (isPageEffectOn) {
       return new Promise(resolve => {
         setTimeout(() => {
           resolve(pos || { x: 0, y: 0 })
@@ -371,13 +373,13 @@ const router = new VueRouter({
 const isDark = !!localStorage.PXV_DARK
 
 router.beforeEach((to, from, next) => {
-  if (!store.state.appSetting.isPageEffectOn && !isDark) document.body.classList.add('fadeIn')
+  if (!isPageEffectOn && !isDark) document.body.classList.add('fadeIn')
   nprogress.start()
   next()
 })
 
 router.afterEach((to, from) => {
-  if (!store.state.appSetting.isPageEffectOn && !isDark) {
+  if (!isPageEffectOn && !isDark) {
     setTimeout(() => {
       document.body.classList.remove('fadeIn')
     }, 500)

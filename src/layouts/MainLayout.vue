@@ -22,6 +22,8 @@ import Nav from '@/components/Nav'
 import store from '@/store'
 import { throttleScroll } from '@/utils'
 
+const isPageEffectOn = store.state.appSetting.isPageEffectOn
+
 export default {
   components: {
     'my-nav': Nav,
@@ -38,7 +40,8 @@ export default {
   },
   data() {
     return {
-      transitionName: store.state.appSetting.isPageEffectOn ? 'fade' : '',
+      isPageEffectOn,
+      transitionName: isPageEffectOn ? 'fade' : '',
       isNavAppear: true,
     }
   },
@@ -46,13 +49,10 @@ export default {
     noImgFillScreen() {
       return !store.state.appSetting.isImageFitScreen
     },
-    isPageEffectOn() {
-      return store.state.appSetting.isPageEffectOn
-    },
   },
   watch: {
     '$route'(to, from) {
-      if (!this.isPageEffectOn) return
+      if (!isPageEffectOn) return
       const toDepth = to.meta.__depth
       const fromDepth = from.meta.__depth
       if (toDepth == fromDepth) {

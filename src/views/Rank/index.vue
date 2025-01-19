@@ -125,7 +125,7 @@ const getRankCatLabels = () => [i18n.t('common.overall'), i18n.t('common.illust'
 const getRankCatActions = () => getRankCatLabels().map((e, i) => ({ text: e, _v: i.toString() }))
 
 const AUTHORS_NO_TYPE_MANGA = [19585163, 16776564, 1453344, 18923, 18688682, 16106315, 10760589]
-const AUTHORS_NO_TYPE_AI = [10758107, 88598928, 31909437, 21470736]
+const AUTHORS_NO_TYPE_AI = [10758107, 88598928, 31909437, 21470736, 14225123]
 const isHideManga = store.state.appSetting.isHideRankManga
 
 export default {

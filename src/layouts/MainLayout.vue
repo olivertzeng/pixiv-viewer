@@ -1,12 +1,7 @@
 <template>
   <div class="main-layout" :class="{ noImgFillScreen, 'safe-area': safeArea }">
     <div class="app-main">
-      <transition v-if="isPageEffectOn" :name="transitionName" mode="out-in">
-        <keep-alive :max="10">
-          <router-view />
-        </keep-alive>
-      </transition>
-      <keep-alive v-else :max="10">
+      <keep-alive :max="10">
         <router-view />
       </keep-alive>
     </div>
@@ -21,8 +16,6 @@
 import Nav from '@/components/Nav'
 import store from '@/store'
 import { throttleScroll } from '@/utils'
-
-const isPageEffectOn = store.state.appSetting.isPageEffectOn
 
 export default {
   components: {
@@ -40,27 +33,12 @@ export default {
   },
   data() {
     return {
-      isPageEffectOn,
-      transitionName: isPageEffectOn ? 'fade' : '',
       isNavAppear: true,
     }
   },
   computed: {
     noImgFillScreen() {
       return !store.state.appSetting.isImageFitScreen
-    },
-  },
-  watch: {
-    '$route'(to, from) {
-      if (!isPageEffectOn) return
-      const toDepth = to.meta.__depth
-      const fromDepth = from.meta.__depth
-      if (toDepth == fromDepth) {
-        this.transitionName = 'fade'
-      } else {
-        this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-      }
-      console.log('this.transitionName: ', this.transitionName)
     },
   },
   mounted() {

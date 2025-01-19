@@ -108,12 +108,7 @@ export default {
       this.loading = false
     },
     init() {
-      const { list } = this.$route.params
-      console.log('list: ', list)
-      if (list) {
-        this.artList = list
-        this.nextUrl = list.nextUrl
-      } else if (this.notFromDetail) {
+      if (this.notFromDetail) {
         this.getArtList()
       }
     },

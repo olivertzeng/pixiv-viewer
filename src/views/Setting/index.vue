@@ -34,7 +34,7 @@
     <van-cell size="large" center :title="$t('cache.title')" icon="delete-o" is-link to="/setting/clearcache" />
     <van-cell size="large" center :title="$t('setting.other.title')" icon="setting-o" is-link to="/setting/preference" />
     <van-cell size="large" center :title="$t('setting.down_app')" icon="apps-o" is-link @click="openDlLink" />
-    <van-cell size="large" center :title="$t('setting.recomm.title')" icon="bookmark-o" is-link to="/setting/recommend" />
+    <van-cell size="large" center :title="$t('setting.recomm.title')" icon="bookmark-o" is-link to="/setting/osusume" />
     <van-cell size="large" center :title="$t('setting.about')" icon="info-o" is-link to="/setting/about" />
     <div v-if="isLoggedIn" style="width: 60%;margin: 1rem auto 0;">
       <van-button round plain block type="danger" size="small" @click="logoutApp">{{ $t('user.sess.out') }}</van-button>

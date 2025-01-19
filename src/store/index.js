@@ -50,7 +50,6 @@ export default new Vuex.Store({
       isDirectPximg: getSettingDef('PXV_PXIMG_DIRECT', false),
       isUseFancybox: getSettingDef('PXV_USE_FANCYBOX', false),
       isEnableSwipe: getSettingDef('PXV_IMG_DTL_SWIPE', false),
-      isPageEffectOn: getSettingDef('PXV_PAGE_EFFECT', false),
       isHideRankManga: getSettingDef('PXV_HIDE_RANK_MANGA', false),
       wfType: getSettingDef('PXV_WF_TYPE', 'Masonry'),
       imgReso: getSettingDef('PXV_DTL_IMG_RES', isMobile ? 'Medium' : 'Large'),

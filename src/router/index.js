@@ -48,7 +48,6 @@ import Session from '@/views/Account/Session.vue'
 import Login from '@/views/Account/Login.vue'
 import OAuthCallback from '@/views/Account/OAuthCallback.vue'
 import NotFound from '@/views/NotFound.vue'
-import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -265,7 +264,8 @@ const routes = [
             meta: { __depth: 2 },
           },
           {
-            path: '/setting/recommend',
+            path: '/setting/osusume',
+            alias: ['/setting/recommend'],
             name: 'SettingRecommend',
             component: Recommend,
             meta: { __depth: 2 },
@@ -283,7 +283,8 @@ const routes = [
             meta: { __depth: 2 },
           },
           {
-            path: '/recom_illust',
+            path: '/osusume_illust',
+            alias: ['/recom_illust'],
             name: 'RecommendIllust',
             component: RecommendIllust,
             meta: { __depth: 2 },
@@ -350,40 +351,22 @@ const routes = [
   },
 ]
 
-const isPageEffectOn = store.state.appSetting.isPageEffectOn
-
 const router = new VueRouter({
   routes,
   mode: 'history',
   base: BASE_URL,
   scrollBehavior(_, __, pos) {
     console.log('pos: ', pos)
-    if (isPageEffectOn) {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          resolve(pos || { x: 0, y: 0 })
-        }, 225)
-      })
-    } else {
-      return pos || { x: 0, y: 0 }
-    }
+    return pos || { x: 0, y: 0 }
   },
 })
 
-const isDark = !!localStorage.PXV_DARK
-
 router.beforeEach((to, from, next) => {
-  if (!isPageEffectOn && !isDark) document.body.classList.add('fadeIn')
   nprogress.start()
   next()
 })
 
 router.afterEach((to, from) => {
-  if (!isPageEffectOn && !isDark) {
-    setTimeout(() => {
-      document.body.classList.remove('fadeIn')
-    }, 500)
-  }
   nprogress.done()
   console.log('afterEach to', to.fullPath)
   console.log('afterEach from', from.fullPath)

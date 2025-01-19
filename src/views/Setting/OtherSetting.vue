@@ -106,11 +106,6 @@
           <van-switch :value="appSetting.isEnableSwipe" size="24" @change="v => saveAppSetting('isEnableSwipe', v)" />
         </template>
       </van-cell>
-      <van-cell center :title="$t('eioSClGw9BqryzojTwr8j')">
-        <template #right-icon>
-          <van-switch :value="appSetting.isPageEffectOn" size="24" @change="v => saveAppSetting('isPageEffectOn', v, true)" />
-        </template>
-      </van-cell>
       <van-cell center :title="$t('GnyWarxXoDw49xCft4IlS')">
         <template #right-icon>
           <van-switch :value="appSetting.notImgLazy" size="24" @change="v => saveAppSetting('notImgLazy', v, true)" />

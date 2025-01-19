@@ -59,7 +59,7 @@ export function filterCensoredIllusts(list = []) {
   return list.filter(filterCensoredIllust)
 }
 
-const aiTags = ['AI', 'AI生成', 'AI生成作品', 'AI作画', 'AIイラスト', 'AIgenerated', 'AI-generated'].map(e => e.toLowerCase())
+const aiTags = ['AI', 'AI生成', 'AI生成作品', 'AI作画', 'AIイラスト', 'AIgenerated', 'AI-generated', 'AI-assisted', 'AI辅助', 'AIアシスタンス'].map(e => e.toLowerCase())
 export function isAiIllust(artwork) {
   return artwork.illust_ai_type == 2 || !!artwork.tags?.some(e => aiTags.includes(e.name?.toLowerCase()))
 }

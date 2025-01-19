@@ -35,7 +35,6 @@ import ImageCard from '@/components/ImageCard'
 import ImageSlide from '@/components/ImageSlide'
 import api from '@/api'
 import { filterRecommIllust } from '@/utils/filter'
-import _ from 'lodash'
 
 export default {
   name: 'RecommendIllustCard',
@@ -85,7 +84,7 @@ export default {
       this.loading = true
       const res = await api.getRecommendedIllust()
       if (res.status === 0) {
-        this.artList = _.shuffle(res.data.filter(filterRecommIllust))
+        this.artList = res.data.filter(filterRecommIllust)
         this.artList.nextUrl = res.data.nextUrl
       } else {
         this.$toast({
@@ -98,7 +97,6 @@ export default {
     toList() {
       this.$router.push({
         name: 'RecommendIllust',
-        params: { list: this.artList },
       })
     },
     toArtwork(id) {

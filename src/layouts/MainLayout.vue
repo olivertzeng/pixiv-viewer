@@ -17,6 +17,8 @@ import Nav from '@/components/Nav'
 import store from '@/store'
 import { throttleScroll } from '@/utils'
 
+const { isImageFitScreen } = store.state.appSetting
+
 export default {
   components: {
     'my-nav': Nav,
@@ -34,12 +36,8 @@ export default {
   data() {
     return {
       isNavAppear: true,
+      noImgFillScreen: !isImageFitScreen,
     }
-  },
-  computed: {
-    noImgFillScreen() {
-      return !store.state.appSetting.isImageFitScreen
-    },
   },
   mounted() {
     addEventListener('scroll', throttleScroll(document.documentElement, scroll => {

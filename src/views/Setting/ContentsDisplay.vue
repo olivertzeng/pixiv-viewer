@@ -55,17 +55,20 @@ import { LocalStorage } from '@/utils/storage'
 import { Dialog } from 'vant'
 import { mapState, mapMutations } from 'vuex'
 
+const { isHideRankManga } = store.state.appSetting
+
 export default {
   name: 'SettingContentsDisplay',
   data() {
     return {
-      blockTags: '',
-      blockUids: '',
       currentContentSetting: {
         r18: false,
         r18g: false,
         ai: false,
       },
+      blockTags: '',
+      blockUids: '',
+      isHideRankManga,
     }
   },
   head() {
@@ -73,9 +76,6 @@ export default {
   },
   computed: {
     ...mapState(['contentSetting']),
-    isHideRankManga() {
-      return store.state.appSetting.isHideRankManga
-    },
   },
   mounted() {
     this.currentContentSetting = JSON.parse(JSON.stringify(this.contentSetting))

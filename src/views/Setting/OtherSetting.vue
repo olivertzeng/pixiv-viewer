@@ -17,17 +17,17 @@
       <van-cell center :title="$t('setting.img_res.title')" is-link :label="appSetting.imgReso" @click="imgRes.show = true" />
       <van-cell center :title="$t('ZO7u4XT4flW6_nmyvmXt7')" :label="$t('WdS4RTIeeWqdaqLtvk7ZO')">
         <template #right-icon>
-          <van-switch :value="appSetting.isImageCardOuterMeta" size="24" @change="v => saveAppSetting('isImageCardOuterMeta', v)" />
+          <van-switch :value="appSetting.isImageCardOuterMeta" size="24" @change="v => saveAppSetting('isImageCardOuterMeta', v, true)" />
         </template>
       </van-cell>
       <van-cell center :title="$t('mR4YFHYUnr00zmzYydrMv')" :label="$t('V-KoSeNoEiNct7oZJgCcD')">
         <template #right-icon>
-          <van-switch :value="appSetting.isImageFitScreen" size="24" @change="v => saveAppSetting('isImageFitScreen', v)" />
+          <van-switch :value="appSetting.isImageFitScreen" size="24" @change="v => saveAppSetting('isImageFitScreen', v, true)" />
         </template>
       </van-cell>
       <van-cell center :title="$t('kFOiZTwKWwXy-sxaspqSD')" :label="$t('NgE24V8lvXN2c15W_2gnE')">
         <template #right-icon>
-          <van-switch :disabled="appSetting.isLongpressDL" :value="appSetting.isLongpressBlock" size="24" @change="v => saveAppSetting('isLongpressBlock', v)" />
+          <van-switch :disabled="appSetting.isLongpressDL" :value="appSetting.isLongpressBlock" size="24" @change="v => saveAppSetting('isLongpressBlock', v, true)" />
         </template>
       </van-cell>
       <van-cell v-if="showAutoLoadImtSwitch" center title="自动加载沉浸式翻译 SDK 并翻译" label="如已安装沉浸式翻译浏览器扩展则无需加载沉浸式翻译 SDK">
@@ -40,7 +40,7 @@
     <van-cell-group :title="$t('j2tFt08r6GGMmsfbF4HAN')">
       <van-cell center :title="$t('5syY7l774noiN5LHKUnqF')" :label="$t('QRASoWf3qDfwihoIa84C9')">
         <template #right-icon>
-          <van-switch :disabled="appSetting.isLongpressBlock" :value="appSetting.isLongpressDL" size="24" @change="v => saveAppSetting('isLongpressDL', v)" />
+          <van-switch :disabled="appSetting.isLongpressBlock" :value="appSetting.isLongpressDL" size="24" @change="v => saveAppSetting('isLongpressDL', v, true)" />
         </template>
       </van-cell>
       <van-cell v-if="isFsaSupported" center :title="$t('zHc8vUk99v88lW41lrprb')" :label="$t('TvsHdAJPVAKY9rRiGoO6K')">
@@ -103,12 +103,12 @@
       </van-cell>
       <van-cell center :title="$t('setting.other.swipe_toggle')">
         <template #right-icon>
-          <van-switch :value="appSetting.isEnableSwipe" size="24" @change="v => saveAppSetting('isEnableSwipe', v)" />
+          <van-switch :value="appSetting.isEnableSwipe" size="24" @change="v => saveAppSetting('isEnableSwipe', v, true)" />
         </template>
       </van-cell>
       <van-cell center :title="$t('GnyWarxXoDw49xCft4IlS')">
         <template #right-icon>
-          <van-switch :value="appSetting.notImgLazy" size="24" @change="v => saveAppSetting('notImgLazy', v, true)" />
+          <van-switch :value="appSetting.isImgLazy" size="24" @change="v => saveAppSetting('isImgLazy', v, true)" />
         </template>
       </van-cell>
       <van-cell center :title="$t('2CmJxHkq8O-uA68cU90Lx')">
@@ -165,7 +165,7 @@
       :cancel-text="$t('common.cancel')"
       :description="$t('setting.layout.ph')"
       close-on-click-action
-      @select="v => saveAppSetting('wfType', v.name)"
+      @select="v => saveAppSetting('wfType', v.name, true)"
     />
     <van-action-sheet
       v-model="imgRes.show"
@@ -173,7 +173,7 @@
       :cancel-text="$t('common.cancel')"
       :description="$t('setting.img_res.ph')"
       close-on-click-action
-      @select="v => saveAppSetting('imgReso', v.name)"
+      @select="v => saveAppSetting('imgReso', v.name, true)"
     />
     <van-action-sheet
       v-model="lang.show"

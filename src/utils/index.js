@@ -4,6 +4,7 @@ import { isFsaSupported, saveFile } from './fsa'
 import store from '@/store'
 import { i18n } from '@/i18n'
 import { getArtworkFileName } from '@/store/actions/filename'
+import { BASE_URL } from '@/consts'
 
 export function throttleScroll(el, downFn, upFn) {
   let position = el.scrollTop
@@ -273,8 +274,8 @@ export async function checkUrlAvailable(url) {
 
 export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
   if (!window.Fancybox) {
-    document.head.insertAdjacentHTML('beforeend', '<link href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css" rel="stylesheet">')
-    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js')
+    document.head.insertAdjacentHTML('beforeend', `<link href="${BASE_URL}static/css/fancybox.min.css" rel="stylesheet">`)
+    await loadScript(`${BASE_URL}static/js/fancybox.umd.min.js`)
   }
   // eslint-disable-next-line no-new
   new window.Fancybox(artwork.images.map(e => ({

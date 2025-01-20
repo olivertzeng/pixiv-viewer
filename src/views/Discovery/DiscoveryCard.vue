@@ -73,11 +73,7 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.getRankList()
-      }, 500)
-    })
+    this.getRankList()
   },
   methods: {
     async getRankList() {

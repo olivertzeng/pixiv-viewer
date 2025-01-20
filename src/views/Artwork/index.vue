@@ -78,6 +78,8 @@ import IconTwitter from '@/assets/images/share-sheet-twi.png'
 import IconFacebook from '@/assets/images/share-sheet-facebook.png'
 import store from '@/store'
 
+const { isAutoLoadImt, isEnableSwipe } = store.state.appSetting
+
 export default {
   name: 'Artwork',
   components: {
@@ -133,6 +135,8 @@ export default {
       ],
       maybeAiAuthor: false,
       isSafari: isSafari(),
+      isAutoLoadImt,
+      disableSwipe: !isEnableSwipe,
     }
   },
   head() {
@@ -144,12 +148,6 @@ export default {
   },
   computed: {
     ...mapGetters(['isCensored']),
-    isAutoLoadImt() {
-      return store.state.appSetting.isAutoLoadImt
-    },
-    disableSwipe() {
-      return !store.state.appSetting.isEnableSwipe
-    },
   },
   watch: {
     $route() {

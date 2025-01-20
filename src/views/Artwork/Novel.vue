@@ -51,7 +51,7 @@
           </van-popover>
         </div>
         <keep-alive>
-          <AuthorNovelCard v-show="artwork.author" :id="artwork.author.id" :key="artwork.id" />
+          <AuthorNovelCard v-if="artwork.author" :id="artwork.author.id" :key="artwork.id" />
         </keep-alive>
       </div>
     </div>
@@ -192,6 +192,7 @@ import IconFacebook from '@/assets/images/share-sheet-facebook.png'
 import { getArtworkFileName } from '@/store/actions/filename'
 import store from '@/store'
 
+const { isAutoLoadImt } = store.state.appSetting
 const textConfig = LocalStorage.get('PXV_TEXT_CONFIG', {
   size: 16,
   height: 2,
@@ -262,7 +263,7 @@ export default {
   computed: {
     ...mapGetters(['isCensored']),
     showPntBtn() {
-      return !store.state.appSetting.isAutoLoadImt && i18n.locale.includes('zh') && !/中文|中国语|Chinese|中國語|中国語/.test(JSON.stringify(this.artwork.tags))
+      return !isAutoLoadImt && i18n.locale.includes('zh') && !/中文|中国语|Chinese|中國語|中国語/.test(JSON.stringify(this.artwork.tags))
     },
   },
   watch: {

@@ -65,6 +65,8 @@ import { fancyboxShow, downloadFile } from '@/utils'
 import store from '@/store'
 import { getArtworkFileName } from '@/store/actions/filename'
 
+const { isImageCardOuterMeta, isLongpressDL, isLongpressBlock } = store.state.appSetting
+
 export default {
   props: {
     artwork: {
@@ -94,15 +96,11 @@ export default {
       showBookmarkBtn: window.APP_CONFIG.useLocalAppApi,
       bLoading: false,
       isBookmarked: false,
+      isOuterMeta: isImageCardOuterMeta,
+      isTriggerLongpress: isLongpressDL || isLongpressBlock,
     }
   },
   computed: {
-    isOuterMeta() {
-      return store.state.appSetting.isImageCardOuterMeta
-    },
-    isTriggerLongpress() {
-      return store.state.appSetting.isLongpressDL || store.state.appSetting.isLongpressBlock
-    },
     imgSrc() {
       if (this.square) {
         return this.artwork.images[0].s
@@ -193,7 +191,7 @@ export default {
     onLongpress(/** @type {Event} */ ev) {
       if (!this.isTriggerLongpress) return
       ev.preventDefault()
-      store.state.appSetting.isLongpressDL ? this.downloadArtwork() : this.showBlockDialog()
+      isLongpressDL ? this.downloadArtwork() : this.showBlockDialog()
     },
     onImageTitleClick() {
       const getSrc = e => e.l.replace(/\/c\/\d+x\d+(_\d+)?\//g, '/')

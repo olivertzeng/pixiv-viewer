@@ -12,6 +12,30 @@
 <script>
 import store from '@/store'
 
+const { wfType, isImageFitScreen } = store.state.appSetting
+const masonryProps = {
+  gutter: '10px',
+  cols: isImageFitScreen
+    ? {
+        300: 1,
+        600: 2,
+        900: 3,
+        1200: 4,
+        1600: 5,
+        1920: 6,
+        2400: 7,
+        2700: 8,
+        3000: 9,
+        default: 6,
+      }
+    : {
+        300: 1,
+        600: 2,
+        1200: 3,
+        default: 4,
+      },
+}
+
 export default {
   props: {
     layout: {
@@ -19,34 +43,13 @@ export default {
       required: false,
     },
   },
+  data() {
+    return {
+      wfType,
+      masonryProps,
+    }
+  },
   computed: {
-    wfType() {
-      return store.state.appSetting.wfType
-    },
-    masonryProps() {
-      return {
-        gutter: '10px',
-        cols: store.state.appSetting.isImageFitScreen
-          ? {
-              300: 1,
-              600: 2,
-              900: 3,
-              1200: 4,
-              1600: 5,
-              1920: 6,
-              2400: 7,
-              2700: 8,
-              3000: 9,
-              default: 6,
-            }
-          : {
-              300: 1,
-              600: 2,
-              1200: 3,
-              default: 4,
-            },
-      }
-    },
     isMasonry() {
       if (['Masonry', 'Grid'].includes(this.layout)) return true
       if (this.layout == 'Justified') return false

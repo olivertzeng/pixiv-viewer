@@ -75,11 +75,7 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.getList()
-      }, 100)
-    })
+    this.getList()
   },
   methods: {
     async getList() {

@@ -127,7 +127,16 @@ module.exports = {
     workboxOptions: {
       skipWaiting: true,
       clientsClaim: true,
-      exclude: [/_headers/, /_redirects/, /\.map$/, /^manifest.*\.js$/, /lang-.*-json\..*\.js$/],
+      exclude: [
+        /_headers/,
+        /_redirects/,
+        /\.map$/,
+        /^manifest.*\.js$/,
+        /lang-.*-json\..*\.js$/,
+        /robots\.txt$/,
+        /sitemap\.txt$/,
+        /helper\.user\.js$/,
+      ],
       navigateFallbackDenylist: [/^\/prks\//],
       runtimeCaching: [
         {

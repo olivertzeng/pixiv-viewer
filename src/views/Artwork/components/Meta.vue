@@ -167,6 +167,8 @@ import CommentsArea from './Comment/CommentsArea.vue'
 import store from '@/store'
 import { getArtworkFileName } from '@/store/actions/filename'
 
+const { isAutoLoadImt } = store.state.appSetting
+
 export default {
   name: 'ArtworkMeta',
   components: { CommentsArea },
@@ -204,6 +206,7 @@ export default {
       bookmarkId: null,
       favLoading: false,
       showComments: false,
+      isAutoLoadImt,
     }
   },
   computed: {
@@ -219,9 +222,6 @@ export default {
     },
     isBtnsShow() {
       return !this.artwork?.images.some(e => e.o.includes('common/images/limit_unknown_360.png'))
-    },
-    isAutoLoadImt() {
-      return store.state.appSetting.isAutoLoadImt
     },
   },
   watch: {

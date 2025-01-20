@@ -69,15 +69,17 @@
 import { mapGetters } from 'vuex'
 import { Dialog, ImagePreview } from 'vant'
 import axios from 'axios'
-import JSZip from 'jszip'
-import GIF from 'gif.js'
-import tsWhammy from 'ts-whammy'
-import { encode as encodeMP4 } from 'modern-mp4'
+// import JSZip from 'jszip'
+// import GIF from 'gif.js'
+// import tsWhammy from 'ts-whammy'
+// import { encode as encodeMP4 } from 'modern-mp4'
 import api from '@/api'
 import { BASE_URL } from '@/consts'
 import { sleep, fancyboxShow, loadScript, downloadFile } from '@/utils'
 import store from '@/store'
 import { getArtworkFileName } from '@/store/actions/filename'
+
+const { isLongpressDL, imgReso } = store.state.appSetting
 
 export default {
   props: {
@@ -94,6 +96,7 @@ export default {
       curIndex: 0,
       progressShow: false,
       progress: 0,
+      isLongpressDL,
     }
   },
   computed: {
@@ -114,12 +117,6 @@ export default {
         return true
       })
       return src
-    },
-    isLongpressDL() {
-      return store.state.appSetting.isLongpressDL
-    },
-    imgResoSel() {
-      return store.state.appSetting.imgReso
     },
   },
   watch: {
@@ -142,7 +139,7 @@ export default {
         Large: urls.l.replace(/\/c\/\d+x\d+(_\d+)?\//g, '/'),
         Original: urls.o,
       }
-      return urlMap[this.imgResoSel] || urls.l
+      return urlMap[imgReso] || urls.l
     },
     async view(index) {
       if (this.censored) {
@@ -231,63 +228,42 @@ export default {
       }
 
       const ugoira = await this.ugoiraMetadata()
-      const frames = {}
-      ugoira.frames.forEach(frame => {
-        frames[frame.file] = frame
-      })
-
       this.ugoira = {
-        frames,
         zip: ugoira.zip,
+        frames: ugoira.frames.reduce((res, frame) => {
+          res[frame.file] = frame
+          return res
+        }, {}),
       }
-      // console.log(this.ugoira);
+
       this.progressShow = true
-      axios
-        .get(ugoira.zip, {
+      try {
+        const resp = await axios.get(ugoira.zip, {
           responseType: 'blob',
           timeout: 1000 * 60,
           onDownloadProgress: progress => {
             this.progress = progress.loaded / progress.total
           },
         })
-        .then(resp => {
-          const jszip = new JSZip()
-          jszip.loadAsync(resp.data).then(zip => {
-            let index = 0
-            const files = Object.keys(zip.files)
-            files.forEach(name => {
-              zip
-                .file(name)
-                .async('blob')
-                .then(async blob => {
-                  return {
-                    blob,
-                    bmp: await createImageBitmap(blob),
-                  }
-                })
-                .then(({ blob, bmp }) => {
-                  this.ugoira.frames[name].blob = blob
-                  this.ugoira.frames[name].bmp = bmp
-
-                  if (++index === files.length) {
-                    console.info(
-                      'Frames loaded:',
-                      `frames ${files.length}`,
-                      `size ${resp.data.size}`
-                    )
-                    this.progressShow = false
-                    this.drawCanvas('play')
-                  }
-                })
-            })
-          })
+        const { default: JSZip } = await import('jszip')
+        const jszip = new JSZip()
+        const zip = await jszip.loadAsync(resp.data)
+        const files = Object.keys(zip.files)
+        await Promise.all(files.map(async name => {
+          const blob = await zip.file(name).async('blob')
+          const bmp = await createImageBitmap(blob)
+          this.ugoira.frames[name].blob = blob
+          this.ugoira.frames[name].bmp = bmp
+        }))
+        console.info('Frames loaded:', `frames ${files.length}`, `size ${resp.data.size}`)
+        this.progressShow = false
+        this.drawCanvas('play')
+      } catch (err) {
+        this.resetUgoira()
+        this.$toast({
+          message: err.message,
         })
-        .catch(error => {
-          this.resetUgoira()
-          this.$toast({
-            message: error.message,
-          })
-        })
+      }
     },
     drawCanvas(action) {
       const ctx = this.$refs.ugoira[0].getContext('2d')
@@ -329,12 +305,13 @@ export default {
     },
     // ref: https://github.com/xuejianxianzun/PixivBatchDownloader/blob/master/src/ts/ConvertUgoira/ToAPNG.ts
     async downloadAPNG() {
+      this.$toast(this.$t('tip.down_wait'))
+
       if (!window.UPNG) {
-        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako_deflate.min.js')
-        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/upng-js/2.1.0/UPNG.min.js')
+        await loadScript(`${BASE_URL}static/js/pako_deflate.min.js`)
+        await loadScript(`${BASE_URL}static/js/UPNG.min.js`)
       }
 
-      this.$toast(this.$t('tip.down_wait'))
       await sleep(200)
 
       const { width, height } = this.artwork
@@ -386,20 +363,20 @@ export default {
         duration += frame.delay
       })
 
+      const { default: tsWhammy } = await import('ts-whammy')
       const webm = tsWhammy.fromImageArrayWithOptions(images, { duration: duration / 1000 })
 
       await downloadFile(webm, `${getArtworkFileName(this.artwork)}.webm`, { subDir: 'ugoira' })
     },
     async downloadGIF() {
       this.$toast(this.$t('tip.down_wait'))
-      // await sleep(1000)
 
       let images = Object.values(this.ugoira.frames)
       let offset = 1
       if (images.length >= 100) {
         // 抽帧间隔
         offset = 2
-        images = images.filter((frame, idx) => idx % offset === 0) // 抽帧
+        images = images.filter((_, idx) => idx % offset === 0) // 抽帧
         // .map(frame => URL.createObjectURL(frame.blob));
       }
 
@@ -410,6 +387,7 @@ export default {
       cacheCanvas.height = height
       const ctx = cacheCanvas.getContext('2d')
 
+      const { default: GIF } = await import('gif.js')
       const gif = new GIF({
         workers: 10,
         quality: 10,
@@ -437,7 +415,8 @@ export default {
         duration: frame.delay,
       }))
       this.resetUgoira()
-      const mp4File = await encodeMP4({ frames, width, height, audio: false })
+      const { encode } = await import('modern-mp4')
+      const mp4File = await encode({ frames, width, height, audio: false })
       const blob = new Blob([mp4File], { type: 'video/mp4' })
       frames = null
       await downloadFile(blob, `${getArtworkFileName(this.artwork)}.mp4`, { subDir: 'ugoira' })
@@ -449,39 +428,17 @@ export default {
         return
       }
       window.umami?.track('download_ugoira', { dl_type: type })
+      const actions = {
+        'ZIP': () => this.downloadZIP(),
+        'GIF': () => this.downloadGIF(),
+        'WebM': () => this.downloadWebM(),
+        'APNG': () => this.downloadAPNG(),
+        'MP4(Browser)': () => this.downloadMP4(),
+        'MP4(Server)': () => window.open(`https://ugoira-mp4-dl.cocomi.eu.org/${this.artwork.id}`, '_blank', 'noopener'),
+        'Other': () => window.open(`https://ugoira.cocomi.eu.org/?id=${this.artwork.id}`, '_blank', 'noopener'),
+      }
       try {
-        switch (type) {
-          case 'ZIP':
-            this.downloadZIP()
-            break
-
-          case 'GIF':
-            this.downloadGIF()
-            break
-
-          case 'WebM':
-            this.downloadWebM()
-            break
-
-          case 'APNG':
-            this.downloadAPNG()
-            break
-
-          case 'MP4(Browser)':
-            this.downloadMP4()
-            break
-
-          case 'MP4(Server)':
-            window.open(`https://ugoira-mp4-dl.cocomi.eu.org/${this.artwork.id}`, '_blank', 'noopener')
-            break
-
-          case 'Other':
-            window.open(`https://ugoira.cocomi.eu.org/?id=${this.artwork.id}`, '_blank', 'noopener')
-            break
-
-          default:
-            break
-        }
+        actions[type]?.()
       } catch (err) {
         window.umami?.track('download_ugoira_err', { error: err.message })
         this.$toast({

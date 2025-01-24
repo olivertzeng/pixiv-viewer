@@ -15,8 +15,8 @@ importers:
         specifier: 0.29.0
         version: 0.29.0
       core-js:
-        specifier: 3.39.0
-        version: 3.39.0
+        specifier: 3.40.0
+        version: 3.40.0
       crypto-js:
         specifier: 4.2.0
         version: 4.2.0
@@ -39,8 +39,8 @@ importers:
         specifier: 4.0.3
         version: 4.0.3
       modern-mp4:
-        specifier: 0.1.2
-        version: 0.1.2(mp4box@0.5.3)
+        specifier: 0.2.0
+        version: 0.2.0(mp4box@0.5.3)
       nprogress:
         specifier: 0.2.0
         version: 0.2.0
@@ -95,7 +95,7 @@ importers:
         version: 2023.10.5
       '@vue/cli-plugin-babel':
         specifier: 5.0.8
-        version: 5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.5.13)(ejs@3.1.10)(lodash@4.17.21)(stylus-loader@7.1.3(stylus@0.64.0)(webpack@5.97.1))(vue@2.7.16)(webpack-sources@3.2.3))(core-js@3.39.0)(vue@2.7.16)
+        version: 5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.5.13)(ejs@3.1.10)(lodash@4.17.21)(stylus-loader@7.1.3(stylus@0.64.0)(webpack@5.97.1))(vue@2.7.16)(webpack-sources@3.2.3))(core-js@3.40.0)(vue@2.7.16)
       '@vue/cli-plugin-eslint':
         specifier: 5.0.8
         version: 5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.5.13)(ejs@3.1.10)(lodash@4.17.21)(stylus-loader@7.1.3(stylus@0.64.0)(webpack@5.97.1))(vue@2.7.16)(webpack-sources@3.2.3))(eslint@8.57.0)
@@ -1759,8 +1759,8 @@ packages:
   core-js-compat@3.40.0:
     resolution: {integrity: sha512-0XEDpr5y5mijvw8Lbc6E5AkjrHfp7eEoPlu36SWeAbcL8fn1G1ANe8DBlo2XoNN89oVpxWwOjYIPVzR4ZvsKCQ==}
 
-  core-js@3.39.0:
-    resolution: {integrity: sha512-raM0ew0/jJUqkJ0E6e8UDtl+y/7ktFivgWvqw8dNSQeNWoSDLvQ1H/RN3aPXB9tBd4/FhyR4RDPGhsNIMsAn7g==}
+  core-js@3.40.0:
+    resolution: {integrity: sha512-7vsMc/Lty6AGnn7uFpYT56QesI5D2Y/UkgKounk87OP9Z2H9Z8kj6jzcSGAxFmUtDOS0ntK6lbQz+Nsa0Jj6mQ==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -3152,8 +3152,8 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
-  modern-mp4@0.1.2:
-    resolution: {integrity: sha512-aq7QGC5A053w5P/yns+gJVCrjfexGPlNAC4rJMaGMYtQrZKguHl7Tyh5YKPvxvg4ik/EhddYrqFTc72E6H0Hqg==}
+  modern-mp4@0.2.0:
+    resolution: {integrity: sha512-Z2X7+B1Kru8MTI2E6mpcSqm1E7FMxYg61DXoTkwq/KnMMfeyFcMCY4UVjvklFtdw4/NnvKA93bxw7XsqtMB1Tw==}
     peerDependencies:
       mp4box: '*'
 
@@ -5757,7 +5757,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vue/babel-preset-app@5.0.8(@babel/core@7.26.0)(core-js@3.39.0)(vue@2.7.16)':
+  '@vue/babel-preset-app@5.0.8(@babel/core@7.26.0)(core-js@3.40.0)(vue@2.7.16)':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-compilation-targets': 7.26.5
@@ -5775,7 +5775,7 @@ snapshots:
       core-js-compat: 3.40.0
       semver: 7.6.3
     optionalDependencies:
-      core-js: 3.39.0
+      core-js: 3.40.0
       vue: 2.7.16
     transitivePeerDependencies:
       - supports-color
@@ -5839,10 +5839,10 @@ snapshots:
 
   '@vue/cli-overlay@5.0.8': {}
 
-  '@vue/cli-plugin-babel@5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.5.13)(ejs@3.1.10)(lodash@4.17.21)(stylus-loader@7.1.3(stylus@0.64.0)(webpack@5.97.1))(vue@2.7.16)(webpack-sources@3.2.3))(core-js@3.39.0)(vue@2.7.16)':
+  '@vue/cli-plugin-babel@5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.5.13)(ejs@3.1.10)(lodash@4.17.21)(stylus-loader@7.1.3(stylus@0.64.0)(webpack@5.97.1))(vue@2.7.16)(webpack-sources@3.2.3))(core-js@3.40.0)(vue@2.7.16)':
     dependencies:
       '@babel/core': 7.26.0
-      '@vue/babel-preset-app': 5.0.8(@babel/core@7.26.0)(core-js@3.39.0)(vue@2.7.16)
+      '@vue/babel-preset-app': 5.0.8(@babel/core@7.26.0)(core-js@3.40.0)(vue@2.7.16)
       '@vue/cli-service': 5.0.8(@vue/compiler-sfc@3.5.13)(ejs@3.1.10)(lodash@4.17.21)(stylus-loader@7.1.3(stylus@0.64.0)(webpack@5.97.1))(vue@2.7.16)(webpack-sources@3.2.3)
       '@vue/cli-shared-utils': 5.0.8
       babel-loader: 8.4.1(@babel/core@7.26.0)(webpack@5.97.1)
@@ -6739,7 +6739,7 @@ snapshots:
     dependencies:
       browserslist: 4.24.4
 
-  core-js@3.39.0: {}
+  core-js@3.40.0: {}
 
   core-util-is@1.0.3: {}
 
@@ -8234,7 +8234,7 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
-  modern-mp4@0.1.2(mp4box@0.5.3):
+  modern-mp4@0.2.0(mp4box@0.5.3):
     dependencies:
       mp4box: 0.5.3
 

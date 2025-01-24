@@ -40,6 +40,7 @@ export default {
     }
   },
   mounted() {
+    console.log('main-layout mounted')
     addEventListener('scroll', throttleScroll(document.documentElement, scroll => {
       if (scroll > 160) this.isNavAppear = false
     }, () => {

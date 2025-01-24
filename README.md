@@ -14,7 +14,7 @@
 
 预览: 🔗 [pixiv.pictures](https://pixiv.pictures)
 
-下载: ⏬ [App Center](https://install.appcenter.ms/users/yumine/apps/pixiv-viewer/distribution_groups/beta) | [GitHub Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
+下载: ⏬ [GitHub Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
 
 ## Features
 - [x] 首页

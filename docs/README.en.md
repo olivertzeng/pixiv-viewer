@@ -1,6 +1,7 @@
-<p align="center"><img src="https://api.moedog.org/count/@asadahimeka-pixiv-viewer-github-en" alt="pixiv-viewer"></p>
+<p align="center"><img src="https://api.moedog.org/count/@himeka-pxve-github-en" alt="pixiv-viewer"></p>
 
 <h1 align="center">Pixiv Viewer <sup><small>Kai</small></sup></h1>
+<p align="center">Yet Another Pixiv Illust&Novel Viewer.</p>
 
 ![](https://img.shields.io/github/package-json/v/asadahimeka/pixiv-viewer)
 ![](https://img.shields.io/badge/license-MIT-green)
@@ -11,36 +12,68 @@
 
 Demo: 🔗 [pixiv.pictures](https://pixiv.pictures)
 
-Download: ⏬ [App Center](https://install.appcenter.ms/users/yumine/apps/pixiv-viewer/distribution_groups/beta) | [GitHub Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
+Download: ⏬ [GitHub Releases](https://github.com/asadahimeka/pixiv-viewer/releases)
 
 ## Features
-- [x] Basic Pages
-  - [x] Home Waterfall Layout
-  - [x] Ranking(including AI)
-  - [x] Artworks Page
-  - [x] Users Page
-  - [x] Setting Page
-- [x] Search Tags
-- [x] Search with images
-- [x] Play Ugoira
-- [x] Download Ugoira(ZIP/GIF/WebM)
-- [x] Local Caching with localforage
-- [x] View History
-- [x] Mobile and Desktop Style Responsive
-- [x] Support PWA
-- [x] R18 and AI Artworks Display Switch
-- [x] Select Waterfull Layout(Masonry/Grid/Flexbin)
-- [x] Select Pximg Proxy
-- [x] Select HibiAPI Instance
-- [x] Spotlights/Recommend/Discovery/New Illustration
-- [x] Search Tags Autocomplete
-- [x] Search Popular Works Preview
-- [x] Search Params Support
-- [x] Novel Support
-- [x] Login/Bookmark/Follow
-- [x] I18n Support
-- [x] Dark Mode
-- [x] Swipe to toggle artworks
+- [x] Home
+  - [x] Illustrations/Mangas/Novels/Lives
+  - [x] Rankings/Spotlights/Recommended/Discover/New Artworks
+  - [x] Random Artworks
+- [x] Searching (Illustrations·Mangas/Novels/Users)
+  - [x] Search Hotwords (Long-press to view tags covers)
+  - [x] Search Auto-complete
+  - [x] Preview of Popular Artworks
+  - [x] Search Params Support
+  - [x] Image Search
+- [x] Rankings
+  - [x] Overall/Illustrations/Manga/AnimeGifs/Novels Rankings
+  - [x] R18/AI Rankings
+  - [x] View Rankings by Date
+- [x] Feeds
+  - [x] New Artworks Following
+  - [x] My Bookmarks
+  - [x] Followed Users
+  - [x] Latest from Entire Site
+- [x] Settings
+  - [x] Login (RefreshToken/OAuth/Cookie)
+  - [x] History
+  - [x] Toggle for R18 and AI Artworks
+  - [x] Local Blacklist
+  - [x] Clear Cache
+  - [x] Multi-language Support
+  - [x] Image Waterfull Layout Selection
+  - [x] Image Quality Selection for Image Details
+  - [x] Dark Mode
+  - [x] App Theme Color
+  - [x] Swipe Left/Right to Browse Artworks
+  - [x] Multiple Image proxy Selection
+  - [x] Multiple API Instance Selection
+  - [x] Export RefreshToken
+  - [x] Proxy Service for AppAPI
+  - [x] Long-press to Download Images from Lists
+  - [x] Long-press to Block Images from Lists
+  - [x] Download via File System Access API
+  - [x] Download via Tampermonkey User Script
+  - [x] Format for Downloaded File Names
+- [x] Artwork Detail Page
+  - [x] Bookmark/Download/View Comments/Share
+  - [x] Source Site Link/ID Copy
+  - [x] Ugoira Play
+  - [x] Ugoira Download (ZIP/GIF/WebM/APNG/MP4)
+  - [x] Novel Download
+  - [x] Novel Reading Settings (Font/Colors/Direction etc.)
+- [x] Author Detail Page
+  - [x] Follow/Unfollow
+  - [x] View Author’s Illustrations/Mangas/Bookmarks/Novels
+  - [x] View Manga Series/Novel Series
+  - [x] Author Illustration Tags
+  - [x] Related Users
+
+- [x] Local IndexedDB Cache Storage
+- [x] Multi-end Style Adaptation
+- [x] PWA Support
+- [x] Android/Windows Version
+- [x] iOS/macOS Version
 
 ## Feedback
 

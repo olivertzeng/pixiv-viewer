@@ -13,7 +13,7 @@
   "dependencies": {
     "@vant/touch-emulator": "1.4.0",
     "axios": "0.29.0",
-    "core-js": "3.39.0",
+    "core-js": "3.40.0",
     "crypto-js": "4.2.0",
     "dayjs": "1.11.13",
     "gif.js": "0.2.0",
@@ -21,7 +21,7 @@
     "localforage": "1.10.0",
     "lodash": "4.17.21",
     "mint-filter": "4.0.3",
-    "modern-mp4": "0.1.2",
+    "modern-mp4": "0.2.0",
     "nprogress": "0.2.0",
     "register-service-worker": "1.7.2",
     "swiper": "5.4.5",

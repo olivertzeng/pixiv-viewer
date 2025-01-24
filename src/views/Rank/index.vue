@@ -186,10 +186,12 @@ export default {
         // window.umami?.track('change_rank_date', { rank_date: val?.toLocaleDateString() })
       }
     },
-    isFilterFavs() {
+    isFilterFavs(val) {
+      window.umami?.track('rank_filter_fav_change', { val })
       this.onFilterFavsChange()
     },
-    isHideManga() {
+    isHideManga(val) {
+      window.umami?.track('rank_hide_manga_change', { val })
       this.onFilterFavsChange()
     },
   },

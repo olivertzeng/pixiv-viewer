@@ -404,7 +404,7 @@ export default {
       await downloadFile(new Blob([novelTextBak]), `${getArtworkFileName(this.artwork)}.txt`, { subDir: 'novel' })
     },
     async onPntSelect(action) {
-      window.umami?.track('translate_novel', { action })
+      window.umami?.track('translate_novel', { with: action.text })
       this.$store.commit('setIsNovelViewShrink', false)
       const fns = {
         imt: () => loadImtSdk(),
@@ -414,7 +414,9 @@ export default {
         gg: () => this.fanyi('gg'),
       }
       const fn = fns[action.key]
-      fn && (await fn())
+      if (fn) {
+        await fn()
+      }
     },
     async fanyi(srv, nots = '', aiModel = 'glm') {
       try {

@@ -314,18 +314,16 @@ export async function fancyboxShow(artwork, index = 0, getSrc = e => e.o) {
   })
 }
 
-const intlNumberFormater = new Intl.NumberFormat(i18n.locale, {
-  notation: 'compact',
-  compactDisplay: 'short',
-})
 export function formatIntlNumber(/** @type {number} */ num) {
-  return intlNumberFormater.format(num)
+  return new Intl.NumberFormat(i18n.locale, {
+    notation: 'compact',
+    compactDisplay: 'short',
+  }).format(num)
 }
 
-const intlDateFormater = new Intl.DateTimeFormat(i18n.locale, {
-  dateStyle: 'short',
-  timeStyle: 'short',
-})
 export function formatIntlDate(/** @type {Date} */ date) {
-  return intlDateFormater.format(date)
+  return new Intl.DateTimeFormat(i18n.locale, {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  }).format(date)
 }

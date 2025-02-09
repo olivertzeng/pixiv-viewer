@@ -1,7 +1,7 @@
 <template>
   <div class="setting-page">
     <top-bar id="top-bar-wrap" />
-    <h3 class="af_title">{{ $t('setting.other.title') }}</h3>
+    <h3 class="af_title" @dblclick="showAnaSwitch=true">{{ $t('setting.other.title') }}</h3>
     <van-cell-group :title="$t('GS0J0mAbmiqPGKw20ORPi')">
       <van-cell center :title="$t('setting.other.lang')" is-link :label="lang.value" @click="lang.show = true" />
       <van-cell center :title="$t('psoXLFqv51j1SeKjTbnms')" is-link :label="`${accentColor} ${actTheme}`" to="/setting/accent_color" />
@@ -114,6 +114,11 @@
       <van-cell center :title="$t('2CmJxHkq8O-uA68cU90Lx')">
         <template #right-icon>
           <van-switch :value="appSetting.isImgLazyOb" size="24" @change="v => saveAppSetting('isImgLazyOb', v, true)" />
+        </template>
+      </van-cell>
+      <van-cell v-if="showAnaSwitch" center title="Enable Umami Analytics">
+        <template #right-icon>
+          <van-switch :value="isAnalyticsOn" size="24" @change="onAnalyticsChange" />
         </template>
       </van-cell>
     </van-cell-group>
@@ -351,6 +356,8 @@ export default {
       dlDirName: '',
       showDlFileNameTplDialog: false,
       dlFileNameTpl: store.state.appSetting.dlFileNameTpl,
+      showAnaSwitch: false,
+      isAnalyticsOn: LocalStorage.get('PXV_ANALYTICS', true),
     }
   },
   head() {
@@ -553,6 +560,12 @@ export default {
       setTimeout(() => {
         location.reload()
       }, 500)
+    },
+    onAnalyticsChange(val) {
+      window.umami?.track('AnalyticsChange', { val })
+      this.isAnalyticsOn = val
+      LocalStorage.set('PXV_ANALYTICS', val)
+      val ? localStorage.removeItem('umami.disabled') : localStorage.setItem('umami.disabled', 'true')
     },
     importSettings() {
       const input = document.createElement('input')

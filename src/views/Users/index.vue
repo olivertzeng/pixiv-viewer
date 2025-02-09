@@ -40,45 +40,77 @@
                 {{ isFollowed ? $t('user.followed') : $t('user.follow') }}
               </van-button>
             </div>
-            <ul class="site-list">
-              <li class="site user_account">
-                <a target="_blank" rel="noreferrer" :href="'https://pixiv.me/' + userInfo.account">
-                  @{{ userInfo.account }}
-                </a>
-              </li>
-              <li class="site">·</li>
-              <li v-longpress="onUidLongpress" class="site" @click="copyId">
-                <span class="user_id">ID:{{ userInfo.id }}</span>
-                <Icon name="copy" />
-              </li>
-              <!-- <li v-if="userInfo.region" class="site">
-                <Icon class="icon loc" name="loc" />
+            <div class="share_btn" @click="share">
+              <Icon class="icon" name="share" />
+            </div>
+            <div>
+              <ul class="site-list">
+                <li class="site user_account">
+                  <a target="_blank" rel="noreferrer" :href="'https://pixiv.me/' + userInfo.account">
+                    @{{ userInfo.account }}
+                  </a>
+                </li>
+                <li class="site">·</li>
+                <li v-longpress="onUidLongpress" class="site" @click="copyId">
+                  <span class="user_id">ID:{{ userInfo.id }}</span>
+                  <Icon name="copy" />
+                </li>
+                <!-- <li v-if="userInfo.region" class="site">
+                  <Icon class="icon loc" name="loc" />
+                  <span>{{ userInfo.region }}</span>
+                </li> -->
+              </ul>
+              <ul class="site-list" :class="{ multi: userInfo.webpage && userInfo.twitter_url }">
+                <li v-if="userInfo.webpage" class="site">
+                  <Icon class="icon home" name="home-s" />
+                  <a :href="userInfo.webpage" target="_blank">{{ userInfo.webpage | hostname }}</a>
+                </li>
+                <li v-if="userInfo.twitter_url" class="site">
+                  <Icon class="icon twitter" name="twitter" />
+                  <a :href="userInfo.twitter_url" target="_blank">@{{ userInfo.twitter_account }}</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <span v-if="isCurrentUser" class="follow" style="cursor: pointer;" @click="toFollowedUsers">
+                {{ $t('user.following') }}
+                <span class="num">
+                  <a :href="`https://www.pixiv.net/users/${userInfo.id}/following`" target="_blank" rel="noopener noreferrer">
+                    {{ userInfo.follow }}
+                  </a>
+                </span>
+              </span>
+              <span v-else class="follow">
+                {{ $t('user.following') }}
+                <span class="num">
+                  <a
+                    :href="`https://www.pixiv.net/users/${userInfo.id}/following`"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="margin-left: -.3em;;color: inherit;"
+                  >
+                    {{ userInfo.follow }}
+                  </a>
+                </span>
+              </span>
+              <span v-if="userInfo.friend" class="friend">
+                {{ $t('user.friend') }}
+                <span class="num">
+                  <a
+                    :href="`https://www.pixiv.net/users/${userInfo.id}/mypixiv`"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="margin-left: -.3em;;color: inherit;"
+                  >
+                    {{ userInfo.friend }}
+                  </a>
+                </span>
+              </span>
+              <span v-if="userInfo.region" class="follow">
+                <Icon name="loc" />
                 <span>{{ userInfo.region }}</span>
-              </li> -->
-            </ul>
-            <ul class="site-list" :class="{ multi: userInfo.webpage && userInfo.twitter_url }">
-              <li v-if="userInfo.webpage" class="site">
-                <Icon class="icon home" name="home-s" />
-                <a :href="userInfo.webpage" target="_blank">{{ userInfo.webpage | hostname }}</a>
-              </li>
-              <li v-if="userInfo.twitter_url" class="site">
-                <Icon class="icon twitter" name="twitter" />
-                <a :href="userInfo.twitter_url" target="_blank">@{{ userInfo.twitter_account }}</a>
-              </li>
-            </ul>
-            <span v-if="isCurrentUser" class="follow" style="cursor: pointer;" @click="toFollowedUsers">
-              {{ $t('user.following') }}<span class="num">{{ userInfo.follow }}</span>
-            </span>
-            <span v-else class="follow">
-              {{ $t('user.following') }}<span class="num">{{ userInfo.follow }}</span>
-            </span>
-            <span v-if="userInfo.friend" class="friend">
-              {{ $t('user.friend') }}<span class="num">{{ userInfo.friend }}</span>
-            </span>
-            <span v-if="userInfo.region" class="follow">
-              <Icon name="loc" />
-              <span>{{ userInfo.region }}</span>
-            </span>
+              </span>
+            </div>
             <div class="user_link">
               <span>🔗</span>
               <a

@@ -685,3 +685,70 @@ html:has(.novel_text) #immersive-translate-popup
   @media screen and (max-width: 999px)
     .Home .com_sel_tabs .home-title
       display none !important
+
+#app .users .info-container .info .detail.ex
+  max-height: 5.33333rem
+  overflow-y auto
+  &::-webkit-scrollbar
+    width: 0.17333rem
+#app .users .info-container .info .share_btn
+  display none
+@media screen and (min-width: 1280px)
+  #app .users
+    .van-tabs__nav
+      padding-left 5vw
+      padding-right 5vw
+      .van-tab
+        flex none
+        min-width 2rem
+        &:first-child
+          margin-left 0.21333rem
+      .van-tabs__line
+        width 1.2rem
+        height 4PX
+        border-radius 0
+    .share_btn
+      display none
+    .info-container .info
+      display flex
+      flex-direction column
+      justify-content start
+      padding-left: 5rem;
+      padding-right: 5rem;
+      padding-top: 0.4rem;
+      .avatar
+        top: -0.7rem
+        left: 5.5rem;
+        transform: none;
+      >*:not(.avatar)
+        margin-left 0
+        margin-right 0
+        padding-left 3.7rem !important
+        padding-right 0
+        text-align left
+      >span
+        display inline-block
+        width fit-content
+      .name
+        max-width calc(100% - 7rem)
+        margin-bottom 0.5rem
+      .follow_btn
+        position: absolute;
+        top: 0.1rem;
+        right: 6rem;
+        padding-left 0 !important
+      .share_btn
+        position absolute
+        top: 0.25rem;
+        right: 5rem;
+        display block
+        padding-left 0 !important
+      .site-list
+        display inline-flex
+        justify-content start
+      .detail
+        margin-top: 0.26667rem;
+        padding-right 0 !important
+        .content
+          margin-left 0 !important
+          margin-right 0 !important

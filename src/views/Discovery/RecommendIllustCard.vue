@@ -35,6 +35,7 @@ import ImageCard from '@/components/ImageCard'
 import ImageSlide from '@/components/ImageSlide'
 import api from '@/api'
 import { filterRecommIllust } from '@/utils/filter'
+import { SessionStorage } from '@/utils/storage'
 
 export default {
   name: 'RecommendIllustCard',
@@ -91,6 +92,7 @@ export default {
       this.loading = false
     },
     toList() {
+      SessionStorage.set('recommended.illust', this.artList)
       this.$router.push({
         name: 'RecommendIllust',
       })

@@ -31,10 +31,11 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import api from '@/api'
+import { SessionStorage } from '@/utils/storage'
 import ImageCard from '@/components/ImageCard'
 import ImageSlide from '@/components/ImageSlide'
-import api from '@/api'
-import _ from 'lodash'
 
 export default {
   name: 'DiscoveryCard',
@@ -90,9 +91,9 @@ export default {
       this.loading = false
     },
     toDiscovery() {
+      SessionStorage.set('discovery.illusts', this.artList)
       this.$router.push({
         name: 'Discovery',
-        params: { list: this.artList },
       })
     },
     toArtwork(id) {

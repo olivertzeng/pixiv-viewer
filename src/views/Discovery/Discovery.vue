@@ -19,6 +19,7 @@
 import TopBar from '@/components/TopBar'
 import ImageCard from '@/components/ImageCard'
 import api from '@/api'
+import { SessionStorage } from '@/utils/storage'
 
 export default {
   name: 'Discovery',
@@ -28,14 +29,14 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.notFromDetail = from.name !== 'Artwork'
+      vm.isFromDetail = ['Artwork', 'Users'].includes(from.name)
     })
   },
   data() {
     return {
       loading: false,
       artList: [],
-      notFromDetail: true,
+      isFromDetail: false,
     }
   },
   head() {
@@ -68,10 +69,11 @@ export default {
       this.loading = false
     },
     init() {
-      const { list } = this.$route.params
+      if (this.isFromDetail && this.artList.length) return
+      const list = SessionStorage.get('discovery.illusts')
       if (list) {
         this.artList = list
-      } else if (this.notFromDetail) {
+      } else {
         this.getArtList()
       }
     },

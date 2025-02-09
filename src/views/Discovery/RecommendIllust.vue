@@ -28,6 +28,7 @@ import { filterRecommIllust } from '@/utils/filter'
 import { tryURL } from '@/utils'
 import TopBar from '@/components/TopBar'
 import ImageCard from '@/components/ImageCard'
+import { SessionStorage } from '@/utils/storage'
 
 export default {
   name: 'RecommendIllust',
@@ -37,14 +38,14 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.notFromDetail = !['Artwork', 'Users'].includes(from.name)
+      vm.isFromDetail = ['Artwork', 'Users'].includes(from.name)
     })
   },
   data() {
     return {
       loading: false,
       artList: [],
-      notFromDetail: true,
+      isFromDetail: false,
       finished: false,
       nextUrl: null,
       showLoadMoreBtn: window.APP_CONFIG.useLocalAppApi,
@@ -108,7 +109,13 @@ export default {
       this.loading = false
     },
     init() {
-      if (this.notFromDetail) {
+      if (this.isFromDetail && this.artList.length) return
+      const list = SessionStorage.get('recommended.illust')
+      console.log('list: ', list)
+      if (list) {
+        this.artList = list
+        this.nextUrl = list.nextUrl
+      } else {
         this.getArtList()
       }
     },

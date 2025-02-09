@@ -194,6 +194,10 @@ export default {
       isLongpressDL ? this.downloadArtwork() : this.showBlockDialog()
     },
     onImageTitleClick() {
+      if (this.artwork.novel_ai_type) {
+        this.click(this.artwork.id)
+        return
+      }
       const getSrc = e => e.l.replace(/\/c\/\d+x\d+(_\d+)?\//g, '/')
       if (store.state.appSetting.isUseFancybox) {
         fancyboxShow(this.artwork, 0, getSrc)

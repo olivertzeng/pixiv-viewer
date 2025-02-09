@@ -94,7 +94,6 @@ export default {
     toList() {
       this.$router.push({
         name: 'Spotlights',
-        params: { list: this.spotlights },
       })
     },
     toDetail(id) {

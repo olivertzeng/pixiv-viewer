@@ -144,13 +144,7 @@ export default {
       }
     }, 1500),
     init() {
-      const { list } = this.$route.params
-      if (list) {
-        this.artList = list.articles
-        this.rankList = list.rank
-        this.recomList = list.recommend
-        this.curPage++
-      } else if (this.notFromDetail) {
+      if (this.notFromDetail) {
         this.getList()
       }
     },

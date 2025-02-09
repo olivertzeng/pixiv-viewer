@@ -242,7 +242,7 @@ export default {
       return formatIntlNumber(+val)
     },
     formatDate(val) {
-      return formatIntlDate(new Date(val))
+      return formatIntlDate(val)
     },
     checkBookmarked() {
       if (!this.artwork.id) return

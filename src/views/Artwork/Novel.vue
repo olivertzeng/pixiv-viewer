@@ -246,10 +246,14 @@ export default {
       showPntPopover: false,
       pntActions: [
         { text: '加载沉浸式翻译 SDK', className: 'imt', key: 'imt' },
-        { text: '硅基流动 AI 翻译(glm4)', className: 'sc', key: 'sc_glm' },
-        { text: '硅基流动 AI 翻译(Qwen2)', className: 'sc', key: 'sc_qwen' },
+        { text: 'AI 翻译(glm_4_9b)', className: 'sc', key: 'sc_glm' },
+        { text: 'AI 翻译(Qwen2_7B)', className: 'sc', key: 'sc_qwen2' },
+        // { text: 'AI 翻译(Qwen2.5_7B)', className: 'sc', key: 'sc_qwen2_5' },
+        { text: 'AI 翻译(DS_R1_Llama_8B)', className: 'sc', key: 'sc_ds_r1_llama' },
+        // { text: 'AI 翻译(DS_R1_Qwen_7B)', className: 'sc', key: 'sc_ds_r1_qwen' },
         { text: '微软翻译', className: 'ms', key: 'ms' },
         { text: '谷歌翻译', className: 'gg', key: 'gg' },
+        { text: '有道翻译', className: 'yd', key: 'yd' },
       ],
     }
   },
@@ -409,9 +413,13 @@ export default {
       const fns = {
         imt: () => loadImtSdk(),
         sc_glm: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'glm'),
-        sc_qwen: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'qwen'),
+        sc_qwen2: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'qwen2'),
+        sc_qwen2_5: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'qwen2_5'),
+        sc_ds_r1_llama: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'ds_r1_llama'),
+        sc_ds_r1_qwen: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'ds_r1_qwen'),
         ms: async () => this.fanyi('ms', await getNoTranslateWords(this.artwork.tags)),
         gg: () => this.fanyi('gg'),
+        yd: () => this.fanyi('yd'),
       }
       const fn = fns[action.key]
       if (fn) {
@@ -421,34 +429,7 @@ export default {
     async fanyi(srv, nots = '', aiModel = 'glm') {
       try {
         if (SILICON_CLOUD_API_KEY && srv == 'sc') {
-          const cacheKey = `novel.translate.${this.artwork.id}.sc.${aiModel}.${nots}`
-          const cacheText = await getCache(cacheKey)
-          if (cacheText) {
-            this.novelText.text = cacheText
-            return
-          }
-          const notsArr = nots ? nots.split(',') : []
-          const novelElement = document.querySelector('.novel_text')
-          let resText = ''
-          this.novelText.text = 'Loading...'
-          siliconCloudTranslate(novelTextBak, notsArr, aiModel, chunk => {
-            if (chunk.done) {
-              novelElement.innerHTML = resText
-              this.novelText.text = resText
-              setCache(cacheKey, resText)
-              return
-            }
-
-            resText += chunk
-            notsArr.forEach((e, i) => {
-              resText = resText.replaceAll(`[名字${i}]`, e)
-              resText = resText.replaceAll(`名字${i}`, e)
-            })
-            resText = resText.replace(/\n/g, '<br>')
-            requestAnimationFrame(() => {
-              novelElement.innerHTML = resText
-            })
-          })
+          this.aiTranslate(nots, aiModel)
           return
         }
 
@@ -471,6 +452,41 @@ export default {
       } catch (err) {
         console.log('fanyi err: ', err)
       }
+    },
+    async aiTranslate(nots = '', aiModel = 'glm') {
+      const cacheKey = `novel.translate.${this.artwork.id}.sc.${aiModel}.${nots}`
+      const cacheText = await getCache(cacheKey)
+      if (cacheText) {
+        this.novelText.text = cacheText
+        return
+      }
+      const notsArr = nots ? nots.split(',') : []
+      const novelElement = document.querySelector('.novel_text')
+      let resText = ''
+      this.novelText.text = this.$t('tips.loading')
+      siliconCloudTranslate(novelTextBak, notsArr, aiModel, chunk => {
+        if (chunk.done) {
+          novelElement.innerHTML = resText
+          this.novelText.text = resText
+          setCache(cacheKey, resText)
+          return
+        }
+
+        if (chunk.reasoning) {
+          resText += `<span style="color:gray;font-size:0.8em">${chunk.content}</span>`
+        } else {
+          resText += chunk.content
+        }
+
+        notsArr.forEach((e, i) => {
+          resText = resText.replaceAll(`[名字${i}]`, e)
+          resText = resText.replaceAll(`名字${i}`, e)
+        })
+        resText = resText.replace(/\n/g, '<br>')
+        requestAnimationFrame(() => {
+          novelElement.innerHTML = resText
+        })
+      })
     },
   },
 }

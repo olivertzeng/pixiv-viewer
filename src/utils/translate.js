@@ -96,8 +96,10 @@ export function getNoTranslateWords(tags = []) {
 
 const aiModelMap = {
   glm: 'THUDM/glm-4-9b-chat',
-  // qwen: 'Qwen/Qwen2-7B-Instruct',
-  qwen: 'Qwen/Qwen2.5-7B-Instruct',
+  qwen2: 'Qwen/Qwen2-7B-Instruct',
+  qwen2_5: 'Qwen/Qwen2.5-7B-Instruct',
+  ds_r1_llama: 'deepseek-ai/DeepSeek-R1-Distill-Llama-8B',
+  ds_r1_qwen: 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B',
 }
 export async function siliconCloudTranslate(novelText = '', notsArr = [], aimd = 'glm', onRead = console.log) {
   try {
@@ -116,19 +118,21 @@ export async function siliconCloudTranslate(novelText = '', notsArr = [], aimd =
       },
       body: JSON.stringify({
         model: aiModelMap[aimd],
-        temperature: aimd == 'glm' ? 0.01 : 0,
+        // temperature: aimd == 'glm' ? 0.01 : 0,
         stream: true,
         messages: [
           {
             role: 'system',
-            content: 'You are a professional, authentic machine translation engine.',
+            // content: 'You are a professional, authentic machine translation engine.',
+            content: '你是一个专业的、正宗的机器翻译引擎。',
             // content: 'You are a highly skilled translation engine with expertise in eBook translation. Your function is to translate eBook texts accurately into the Simplified Chinese Language, maintaining the original tone, style, and formatting. Focus on delivering translations that resonate with the intended audience while ensuring the essence of the original text is preserved.',
             // content: 'You are a highly skilled translation engine with expertise in fiction literature. Your function is to translate texts into the Simplified Chinese Language, capturing the narrative depth and emotional nuances of the original work. Maintain the original storytelling elements and cultural references without adding any explanations or annotations.',
           },
           {
             role: 'user',
             // content: `Translate the text starting on the next line into Simplified Chinese Language, output translation ONLY. NO explanations. NO notes. The content in "「」" also needs to be translated. Input:\n${novelText}`,
-            content: `Translate the following source text to Simplified Chinese Language, Output translation directly without any additional text.\nSource Text: ${novelText}`,
+            // content: `Translate the following source text to Simplified Chinese Language, Output translation directly without any additional text.\nSource Text: ${novelText}`,
+            content: `将下面的文本翻译为简体中文，直接输出翻译结果，不附加其他文本。\n${novelText}`,
           },
         ],
       }),
@@ -149,9 +153,13 @@ export async function siliconCloudTranslate(novelText = '', notsArr = [], aimd =
           return
         }
         const json = JSON.parse(jsonLine)
-        const token = json.choices[0].delta.content
+        const { content, reasoning_content: reason } = json.choices[0].delta
 
-        if (token) onRead(token)
+        if (content) {
+          onRead({ done: false, content })
+        } else if (reason) {
+          onRead({ done: false, content: reason, reasoning: true })
+        }
       }
     }
   } catch (err) {

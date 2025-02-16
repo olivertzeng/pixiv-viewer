@@ -54,6 +54,13 @@
     function randomEl(arr) {
       return arr[parseInt(Math.random() * arr.length, 10)]
     }
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
     function reload() {
       location.reload()
     }
@@ -62,14 +69,25 @@
       fetch('./captcha.json').then(function (resp) {
         return resp.json()
       }).then(function (arr) {
-        const el = randomEl(arr)
-        q('#q_title').innerText = el.q
-        q('#q_imgs').innerHTML = el.i.map((e, i) => `<div data-index=${i + 1}><img src="${e}" alt></div>`).join('')
-        ans = el.a
+        let lastIndex = localStorage.getItem('_PXV_CAPTCHA_INDEX') || 0
+        const el = arr[lastIndex]
+        lastIndex = Number(lastIndex) + 1
+        if (lastIndex >= arr.length) lastIndex = 0
+        localStorage.setItem('_PXV_CAPTCHA_INDEX', lastIndex)
+        if (el.a) {
+          q('#q_title').innerText = el.q
+          q('#q_imgs').innerHTML = el.i.map((e, i) => `<div data-index=${i + 1}><img src="${e}" alt></div>`).join('')
+          ans = el.a
+        } else {
+          const imgs = shuffleArray(el.i)
+          q('#q_title').innerText = el.q
+          q('#q_imgs').innerHTML = imgs.map((e, i) => `<div data-index=${i + 1}><img src="${e.replace('y:', '')}" alt></div>`).join('')
+          ans = imgs.map((e, i) => e.startsWith('y:') ? i + 1 : null).filter(Boolean)
+        }
       })
       q('#sub_btn').onclick = function () {
         const val = q('#ans').value
-        window.umami.track('captcha_answer', { val: q('#q_title').innerText + ': ' + val + '(' + ans + ')'})
+        window.umami.track('captcha_answer', { val: q('#q_title').innerText + ': ' + val + '(' + ans + ')' })
         if (val == ans) {
           alert('回答正确')
           localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')

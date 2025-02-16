@@ -170,10 +170,10 @@
     />
     <van-cell
       center
-      title="ani (Android,iOS,Linux,macOS,Windows)"
+      title="Animeko (Android,iOS,Linux,macOS,Windows)"
       is-link
       label="集找番、追番、看番的一站式弹幕追番平台"
-      @click="openLink('https://github.com/open-ani/ani')"
+      @click="openLink('https://github.com/open-ani/animeko')"
     />
     <van-cell
       center

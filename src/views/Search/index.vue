@@ -26,6 +26,10 @@
     <div v-if="focus" class="search-dropdown">
       <div v-if="keywords.trim()" class="pid-n-uid">
         <div class="keyword" @click="onSearch">{{ $t('search.seach_tag') }} {{ keywords.trim() }} </div>
+        <template v-if="isR18On && !pidOrUidList.length">
+          <div class="keyword" @click="onSearch('R18')">{{ '搜索标签(仅R-18)' }} {{ keywords.trim() }} </div>
+          <div class="keyword" @click="onSearch('safe')">{{ '搜索标签(全年龄)' }} {{ keywords.trim() }} </div>
+        </template>
         <div v-if="isSelfHibi" class="keyword" @click="searchUser">
           {{ $t('search.search_user') }} {{ keywords.trim() }}
         </div>
@@ -75,6 +79,7 @@ import { mapState, mapActions } from 'vuex'
 import { notSelfHibiApi } from '@/consts'
 import { i18n } from '@/i18n'
 import api from '@/api'
+import store from '@/store'
 import Tags from './components/Tags'
 import ImageSearch from './components/ImageSearch'
 
@@ -102,6 +107,9 @@ export default {
     ...mapState(['searchHistory']),
     pidOrUidList() {
       return this.keywords.match(/(\d+)/g) || []
+    },
+    isR18On() {
+      return store.state.contentSetting.r18 || store.state.contentSetting.r18g
     },
   },
   watch: {
@@ -180,12 +188,14 @@ export default {
     onFocus() {
       this.focus = true // 获取焦点
     },
-    async onSearch() {
+    async onSearch(searchType) {
       console.log('onSearch: ', this.keywords)
       this.focus = false
-      const { keywords } = this
+      let words = this.keywords
       this.reset()
-      this.$router.push(`/search/${encodeURIComponent(keywords.trim())}`)
+      if (searchType == 'R18') words = words.trim() + ' R-18'
+      if (searchType == 'safe') words = words.trim() + ' -R-18 -R18 -18+'
+      this.$router.push(`/search/${encodeURIComponent(words.trim())}`)
     },
     searchTag(keywords) {
       console.log('------- searchTag: ', keywords)

@@ -27,8 +27,8 @@
       <div v-if="keywords.trim()" class="pid-n-uid">
         <div class="keyword" @click="onSearch">{{ $t('search.seach_tag') }} {{ keywords.trim() }} </div>
         <template v-if="isR18On && !pidOrUidList.length">
-          <div class="keyword" @click="onSearch('R18')">{{ '搜索标签(仅R-18)' }} {{ keywords.trim() }} </div>
-          <div class="keyword" @click="onSearch('safe')">{{ '搜索标签(全年龄)' }} {{ keywords.trim() }} </div>
+          <div class="keyword" @click="onSearch('R18')">{{ $t('pL1gF_vTo1c_iF5GpBIDA') }} {{ keywords.trim() }} </div>
+          <div class="keyword" @click="onSearch('safe')">{{ $t('IxG-Y2odr_0OKUJbaqV0-') }} {{ keywords.trim() }} </div>
         </template>
         <div v-if="isSelfHibi" class="keyword" @click="searchUser">
           {{ $t('search.search_user') }} {{ keywords.trim() }}

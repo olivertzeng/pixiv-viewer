@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="no-referrer">
   <title>Question</title>
-  <script async defer="defer" src="https://um.nanoka.top/script.js" data-website-id="69717e89-51a1-409a-80e6-89210a688efd" data-cache="true"></script>
+  <script src="https://um.nanoka.top/script.js" data-website-id="69717e89-51a1-409a-80e6-89210a688efd" data-cache="true"></script>
 </head>
 
 <body>
@@ -21,7 +21,9 @@
     </p>
   </div>
   <script>
-    window.umami = window.umami || { track: () => {} }
+    function track (key, val) {
+      window.umami && window.umami.track(key, val)
+    }
     function randomEl(arr) {
       return arr[parseInt(Math.random() * arr.length, 10)]
     }
@@ -40,7 +42,7 @@
       })
       q('#sub_btn').onclick = function () {
         if (q('#ans').value == ans) {
-          window.umami.track('math_answer_correct', { val: ans })
+          track('math_answer_correct', { val: ans })
           alert('回答正确')
           localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')
           location.replace('/')

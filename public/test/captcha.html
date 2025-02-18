@@ -51,7 +51,7 @@
       object-fit: cover;
     }
   </style>
-  <script async defer="defer" src="https://um.nanoka.top/script.js"
+  <script src="https://um.nanoka.top/script.js"
     data-website-id="69717e89-51a1-409a-80e6-89210a688efd" data-cache="true"></script>
 </head>
 
@@ -62,7 +62,9 @@
     <p id="q_imgs"></p>
   </div>
   <script>
-    window.umami = window.umami || { track: () => {} }
+    function track (key, val) {
+      window.umami && window.umami.track(key, val)
+    }
     function shuffleArray(arr) {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -96,7 +98,7 @@
       })
       q('#sub_btn').onclick = function () {
         const val = [...document.querySelectorAll('#q_imgs .act')].map(e => e.getAttribute('data-index')).join(',')
-        window.umami.track('captcha_answer', { val: q('#q_title').innerText + ': ' + val + '(' + ans + ')' })
+        track('captcha_answer', { val: q('#q_title').innerText + ': ' + val + '(' + ans + ')' })
         if (val == ans) {
           alert('回答正确')
           localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')

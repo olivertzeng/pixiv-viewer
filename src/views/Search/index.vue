@@ -194,7 +194,7 @@ export default {
       let words = this.keywords
       this.reset()
       if (searchType == 'R18') words = words.trim() + ' R-18'
-      if (searchType == 'safe') words = words.trim() + ' -R-18 -R18 -18+'
+      if (searchType == 'safe') words = words.trim() + ' -R-18'
       this.$router.push(`/search/${encodeURIComponent(words.trim())}`)
     },
     searchTag(keywords) {

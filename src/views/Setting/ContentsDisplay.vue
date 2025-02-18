@@ -19,9 +19,21 @@
     </van-cell>
     <van-cell center :title="$t('3HnNTIScyvd1cNc2qAh7X')" :label="$t('qmd5JADeSGtrvucK3TnGb')">
       <template #right-icon>
-        <van-switch :value="isHideRankManga" size="24" @change="changeHideRankManga" />
+        <van-switch :value="appSetting.isHideRankManga" size="24" @change="v => saveAppSetting('isHideRankManga', v)" />
       </template>
     </van-cell>
+    <van-field
+      v-if="clientConfig.useLocalAppApi"
+      v-model="searchMinFavNum"
+      type="digit"
+      class="searchMinFavNum_field"
+      :label="$t('mIfQo6LqzPPlvkV0XZM4X')"
+      placeholder=" "
+    >
+      <template #button>
+        <van-button size="small" type="info" @click="saveAppSetting('searchListMinFavNum', searchMinFavNum || '0')">{{ $t('common.save') }}</van-button>
+      </template>
+    </van-field>
     <van-field
       v-model="blockTags"
       rows="2"
@@ -50,35 +62,30 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import { Dialog } from 'vant'
+import { mapMutations } from 'vuex'
 import store from '@/store'
 import { LocalStorage } from '@/utils/storage'
-import { Dialog } from 'vant'
-import { mapState, mapMutations } from 'vuex'
-
-const { isHideRankManga } = store.state.appSetting
 
 export default {
   name: 'SettingContentsDisplay',
   data() {
     return {
-      currentContentSetting: {
-        r18: false,
-        r18g: false,
-        ai: false,
-      },
+      currentContentSetting: _.cloneDeep(store.state.contentSetting),
       blockTags: '',
       blockUids: '',
-      isHideRankManga,
+      clientConfig: { ...window.APP_CONFIG },
+      searchMinFavNum: store.state.appSetting.searchListMinFavNum,
     }
   },
   head() {
     return { title: this.$t('display.title') }
   },
   computed: {
-    ...mapState(['contentSetting']),
-  },
-  mounted() {
-    this.currentContentSetting = JSON.parse(JSON.stringify(this.contentSetting))
+    appSetting() {
+      return store.state.appSetting
+    },
   },
   activated() {
     this.blockTags = LocalStorage.get('PXV_B_TAGS', '')
@@ -88,7 +95,7 @@ export default {
     ...mapMutations(['saveContentSetting']),
     saveSwitchValues() {
       this.$nextTick(() => {
-        this.saveContentSetting(JSON.parse(JSON.stringify(this.currentContentSetting)))
+        this.saveContentSetting(_.cloneDeep(this.currentContentSetting))
       })
     },
     saveBlockTags() {
@@ -103,12 +110,10 @@ export default {
         location.reload()
       }, 100)
     },
-    changeHideRankManga(val) {
-      window.umami?.track('set:isHideRankManga', { val })
-      store.commit('setAppSetting', { isHideRankManga: val })
-      setTimeout(() => {
-        location.reload()
-      }, 200)
+    saveAppSetting(key, val) {
+      window.umami?.track(`set:${key}`, { val })
+      store.commit('setAppSetting', { [key]: val })
+      setTimeout(() => location.reload(), 200)
     },
     onAIChange(checked) {
       this.$set(this.currentContentSetting, 'ai', checked)
@@ -170,6 +175,15 @@ export default {
 }
 </script>
 
+<style lang="stylus">
+.setting-page
+  .searchMinFavNum_field
+    .van-field__label
+      width 4rem
+    .van-field__value .van-field__control
+      padding-right .2rem
+      text-align right
+</style>
 <style lang="stylus" scoped>
 .setting-page
   .van-cell__title

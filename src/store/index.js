@@ -37,7 +37,7 @@ export default new Vuex.Store({
     appNotice: null,
     /** @type {any[]|null} */
     seasonEffects: null,
-    appSetting: getSettingDef('PXV_APP_SETTING', {
+    appSetting: {
       preferDownloadByFsa: false,
       preferDownloadByTm: false,
       dlSubDirByAuthor: false,
@@ -55,7 +55,9 @@ export default new Vuex.Store({
       imgReso: getSettingDef('PXV_DTL_IMG_RES', isMobile ? 'Medium' : 'Large'),
       isImgLazy: false,
       isImgLazyOb: false,
-    }),
+      searchListMinFavNum: '5',
+      ...getSettingDef('PXV_APP_SETTING', {}),
+    },
   },
   getters: {
     isLoggedIn(state) {

@@ -33,6 +33,10 @@
     <div v-if="focus" class="search-dropdown">
       <div v-if="keywords.trim()" class="pid-n-uid">
         <div class="keyword" @click="onSearch">{{ $t('search.seach_tag') }} {{ keywords.trim() }} </div>
+        <template v-if="showR18OrSafeQuickTag">
+          <div class="keyword" @click="onSearch('R18')">{{ $t('pL1gF_vTo1c_iF5GpBIDA') }} {{ keywords.trim() }} </div>
+          <div class="keyword" @click="onSearch('safe')">{{ $t('IxG-Y2odr_0OKUJbaqV0-') }} {{ keywords.trim() }} </div>
+        </template>
         <div v-if="isSelfHibi" class="keyword" @click="searchUser">
           {{ $t('search.search_user') }} {{ keywords.trim() }}
         </div>
@@ -128,6 +132,7 @@ import { mapState, mapActions } from 'vuex'
 import _ from 'lodash'
 import dayjs from 'dayjs'
 import api from '@/api'
+import store from '@/store'
 import { notSelfHibiApi } from '@/consts'
 import { mintVerify } from '@/utils/filter'
 import { i18n } from '@/i18n'
@@ -200,6 +205,11 @@ export default {
     pidOrUidList() {
       return this.keywords.match(/(\d+)/g) || []
     },
+    showR18OrSafeQuickTag() {
+      return (store.state.contentSetting.r18 || store.state.contentSetting.r18g) &&
+        !this.pidOrUidList.length &&
+        !this.keywords.includes('R-18')
+    },
   },
   watch: {
     usersIriTag() {
@@ -251,19 +261,40 @@ export default {
         listWrap && listWrap.scrollTo({ top: 0 })
       })
     },
+    $route() {
+      if (this.$route.name != 'SearchKeyword') return
+      const keyword = (this.$route.params.keyword || '').trim()
+      console.log('watch route SearchKeyword: ', keyword)
+      console.log('watch route this.keywords: ', this.keywords)
+      if (!keyword || keyword == this.keywords.trim()) return
+      console.log('watch route Searching')
+      this.showPopPreview = false
+      this.keywords = keyword + ' '
+      this.reset()
+      this.doSearch(this.keywords)
+    },
   },
-  activated() {
-    console.log('-------------activated: SearchKeyword')
-    if (this.$route.name != 'SearchKeyword') return
+  mounted() {
     const keyword = (this.$route.params.keyword || '').trim()
-    console.log('keyword: ', keyword)
-    console.log('this.keywords: ', this.keywords)
-    if (!keyword || keyword == this.keywords.trim()) return
+    console.log('mounted: SearchKeyword: ', keyword)
+    if (!keyword) return
     this.showPopPreview = false
     this.keywords = keyword + ' '
     this.reset()
     this.doSearch(this.keywords)
   },
+  // activated() {
+  //   console.log('-------------activated: SearchKeyword')
+  //   if (this.$route.name != 'SearchKeyword') return
+  //   const keyword = (this.$route.params.keyword || '').trim()
+  //   console.log('keyword: ', keyword)
+  //   console.log('this.keywords: ', this.keywords)
+  //   if (!keyword || keyword == this.keywords.trim()) return
+  //   this.showPopPreview = false
+  //   this.keywords = keyword + ' '
+  //   this.reset()
+  //   this.doSearch(this.keywords)
+  // },
   methods: {
     reset() {
       this.curPage = 1
@@ -304,9 +335,9 @@ export default {
         return
       }
 
-      this.$router.push(`/search/${encodeURIComponent(keywords)}`)
       this.showPopPreview = false
       this.keywords = keywords + ' '
+      this.$router.push(`/search/${encodeURIComponent(keywords)}`)
       this.reset()
       this.doSearch(this.keywords)
     },
@@ -363,12 +394,20 @@ export default {
             artList = artList.filter(e => e.like > Number(match && match[0]))
           }
 
+          if (this.keywords__.includes(' R-18')) {
+            artList = artList.filter(e => e.x_restrict > 0)
+          }
+
+          if (this.keywords__.includes(' -R-18')) {
+            artList = artList.filter(e => e.x_restrict == 0)
+          }
+
           artList = artList.filter(e => {
             return !(
-              e.like < 5 ||
+              e.like < Number(store.state.appSetting.searchListMinFavNum) ||
               /恋童|ペド|幼女|スカラマシュ|散兵|雀魂|じゃんたま/.test(JSON.stringify(e.tags)) ||
-              /恋童|幼女|进群|加好友|度盘|スカラマシュ|散兵|雀魂|じゃんたま/.test(e.title) ||
-              /恋童|幼女|进群|加好友|度盘|スカラマシュ|散兵|雀魂|じゃんたま/.test(e.caption)
+              /恋童|幼女|进群|加好友|度盘|低价|スカラマシュ|散兵|雀魂|じゃんたま/.test(e.title) ||
+              /恋童|幼女|进群|加好友|度盘|低价|スカラマシュ|散兵|雀魂|じゃんたま/.test(e.caption)
             )
           })
 
@@ -417,11 +456,13 @@ export default {
     onFocus() {
       this.focus = true // 获取焦点
     },
-    async onSearch() {
+    async onSearch(searchType) {
       console.log('onSearch: ', this.keywords)
       this.focus = false
-      // document.querySelector('.app-main')?.scrollTo(0, 0)
-      this.keywords += ' '
+      let words = this.keywords
+      if (searchType == 'R18') words = words.trim() + ' R-18'
+      if (searchType == 'safe') words = words.trim() + ' -R-18'
+      this.keywords = words + ' '
       this.$router.push(`/search/${encodeURIComponent(this.keywords.trim())}`)
       this.reset()
       this.doSearch(this.keywords)
@@ -429,7 +470,6 @@ export default {
     searchTag(keywords) {
       console.log('------- searchTag: ', keywords)
       this.focus = false
-      // document.querySelector('.app-main')?.scrollTo(0, 0)
       if (this.$route.params.keyword?.trim() != keywords.trim()) {
         this.reset()
         this.search(keywords + ' ')

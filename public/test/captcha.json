@@ -22,17 +22,58 @@
   },
   {
     "q": "请找出下列图片中的男生",
-    "a": "1,2,3,4,5,6,7,8,9",
     "i": [
-      "https://pic.rmb.bdstatic.com/bjh/240511/events/194331debfd9cdf4b19492054fd8be17782.png",
-      "https://pic.rmb.bdstatic.com/bjh/240511/events/ada161ae91cddab10eead8a3fca49d791193.png",
-      "https://pic.rmb.bdstatic.com/bjh/240511/events/8a5e29356c4aaf99917996f2dc33591d1897.png",
-      "https://upload-bbs.miyoushe.com/upload/2024/05/11/190122060/770b651fb17bf7ea13aa118ed74e180b_8558008773955153782.png",
-      "https://upload-bbs.miyoushe.com/upload/2024/05/11/190122060/8f4f1947c1f296b339e7ff9d7406e009_7076621843064747881.png",
-      "https://upload-bbs.miyoushe.com/upload/2024/05/11/190122060/61803f019f5c571e852e30d83b661516_7951513638719562579.png",
-      "https://pic.rmb.bdstatic.com/bjh/240511/events/eb69fe9a421721f5452c4c499fa51b6e2182.png",
-      "https://pic.rmb.bdstatic.com/bjh/240511/events/74ab64df3e2f96c6c52047da86a458e43243.png",
-      "https://upload-bbs.miyoushe.com/upload/2024/05/11/190122060/0dd5c40996855ff59f742053cd48f6a8_6302561195160961183.png"
+      "y:https://pic.rmb.bdstatic.com/bjh/240511/events/194331debfd9cdf4b19492054fd8be17782.png",
+      "y:https://pic.rmb.bdstatic.com/bjh/240511/events/ada161ae91cddab10eead8a3fca49d791193.png",
+      "y:https://pic.rmb.bdstatic.com/bjh/240511/events/8a5e29356c4aaf99917996f2dc33591d1897.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/d8cc0e762615774f970bf48f2a67f729_8302813785035802452.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/d04807b7a58e0c615f3a2390e62d2d86_2809885275879679167.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/ae290435559f5c64aacdc152345ffa1c_6405286529319928578.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/13dc25ecb06519a7fa274747aa3dd567_7145769632459747256.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/21e98ad752a70857afb7fe8127673023_4335736537077058675.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/7828146b4a9651ab62c44cb05c5bd1a7_512378124162497454.png"
+    ]
+  },
+  {
+    "q": "请找出下列图片中的男生",
+    "i": [
+      "y:https://upload-bbs.miyoushe.com/upload/2024/05/11/190122060/770b651fb17bf7ea13aa118ed74e180b_8558008773955153782.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2024/05/11/190122060/8f4f1947c1f296b339e7ff9d7406e009_7076621843064747881.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2024/05/11/190122060/61803f019f5c571e852e30d83b661516_7951513638719562579.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/208c0a605438bd31096a8a3a37c6eaa5_6136360811792428084.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/8d78e2c07d3b60a9856354cdad2aaa60_6637121027406107245.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/173b89dce8e15d70a2bfa027d9f41fc2_2428124169881457624.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/8112505bf130c7a4e4eccf88760a5d27_3439854254830463499.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/a6faf2e836cc26d5ef0715040cdcc517_790177805139229372.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/cfa01ad44222bddaa0cef2965f4d8152_2067876926054420319.png"
+    ]
+  },
+  {
+    "q": "请找出下列图片中的男生",
+    "i": [
+      "y:https://pic.rmb.bdstatic.com/bjh/240511/events/eb69fe9a421721f5452c4c499fa51b6e2182.png",
+      "y:https://pic.rmb.bdstatic.com/bjh/240511/events/74ab64df3e2f96c6c52047da86a458e43243.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/19/190122060/6fde0fdd2e09bc66c9f95303a5843a06_6608656517781847894.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/498ef2780ce072c882c60e08ab506f4f_4945512992844244639.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/79b0b2cb1758c9b51dfc1c5c4a384089_7662602504417000189.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/be7c0bf04caaea31426495af5d77f220_5497416289748796712.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/6f70d763e8ca166e27403c8366a22ff2_2753459685681211307.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/21bc5616133ca69293d34ffc3af6ccf7_5761187244407945026.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/3c44e9d54d166f36449916b0719323eb_8162367491710165182.png"
+    ]
+  },
+  {
+    "q": "请找出下列图片中的男生",
+    "i": [
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/1f20f0c2ce5cb0f38e6de0aec7926c39_1776467108443141673.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/f2d4a822b50a778fc3a46113b373a3fc_3516709987906187026.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/cd39252287e021d073dd4f8f90c2607d_6808377821153469521.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/bc0a5312ed2a18bd3979778394adc000_3199919425463467011.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/b12e8b85e05edcbccbc3c2752a38f32c_5012266123642770806.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/68d6b62b8cdd79815cca1c9474722fd4_6472975323475936929.png",
+      "y:https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/2f1d65d26f85a8e63ed5a5d1a9967e7c_2197176435243730971.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/0f52c92e5fe5864b2a2e008e7a1d8ff8_4434310281904955744.png",
+      "https://upload-bbs.miyoushe.com/upload/2025/02/20/190122060/e3d2faf3beabeacc2e736609aee22676_8755721612514034275.png"
     ]
   },
   {

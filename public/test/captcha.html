@@ -98,8 +98,8 @@
       })
       q('#sub_btn').onclick = function () {
         const val = [...document.querySelectorAll('#q_imgs .act')].map(e => e.getAttribute('data-index')).join(',')
-        track('captcha_answer', { val: q('#q_title').innerText + ': ' + val + '(' + ans + ')' })
         if (val == ans) {
+          track('captcha_answer', { val: q('#q_title').innerText + ': ' + val + '(' + ans + ')' })
           alert('回答正确')
           localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')
           location.replace('/')

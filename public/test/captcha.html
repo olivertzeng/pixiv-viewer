@@ -51,8 +51,9 @@
       object-fit: cover;
     }
   </style>
-  <script src="https://um.nanoka.top/script.js"
-    data-website-id="69717e89-51a1-409a-80e6-89210a688efd" data-cache="true"></script>
+  <script src="https://um.nanoka.top/script.js" data-website-id="69717e89-51a1-409a-80e6-89210a688efd" data-cache="true"></script>
+  <script src="https://lib.baomitu.com/crypto-js/4.2.0/crypto-js.min.js"></script>
+  <script src="dd.js" disable-devtool-auto></script>
 </head>
 
 <body>
@@ -77,6 +78,7 @@
     }
     window.onload = function () {
       let ans = ''
+      let isAnsEnc = false
       fetch('./captcha.json').then(function (resp) {
         return resp.json()
       }).then(function (arr) {
@@ -89,6 +91,7 @@
           q('#q_title').innerText = el.q
           q('#q_imgs').innerHTML = el.i.map((e, i) => `<div data-index=${i + 1} onclick="this.classList.toggle('act')"><img src="${e}" alt></div>`).join('')
           ans = el.a
+          isAnsEnc = true
         } else {
           const imgs = shuffleArray(el.i)
           q('#q_title').innerText = el.q
@@ -97,9 +100,11 @@
         }
       })
       q('#sub_btn').onclick = function () {
+        track('captcha_answer_')
         const val = [...document.querySelectorAll('#q_imgs .act')].map(e => e.getAttribute('data-index')).join(',')
-        if (val == ans) {
-          track('captcha_answer', { val: q('#q_title').innerText + ': ' + val + '(' + ans + ')' })
+        const res = isAnsEnc ? dec(ans, val) : ans
+        if (val == res) {
+          track('captcha_answer_correct', { val: q('#q_title').innerText + ': ' + val })
           alert('回答正确')
           localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')
           location.replace('/')
@@ -107,6 +112,13 @@
           alert('回答错误')
           reload()
         }
+      }
+    }
+    function dec(ans, val) {
+      try {
+        return CryptoJS.AES.decrypt(ans, val).toString(CryptoJS.enc.Utf8) || 'DECRYPT_ERROR'
+      } catch (err) {
+        return 'DECRYPT_ERROR'
       }
     }
     function q(sel) {

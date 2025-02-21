@@ -8,6 +8,8 @@
   <meta name="referrer" content="no-referrer">
   <title>Question</title>
   <script src="https://um.nanoka.top/script.js" data-website-id="69717e89-51a1-409a-80e6-89210a688efd" data-cache="true"></script>
+  <script src="https://lib.baomitu.com/crypto-js/4.2.0/crypto-js.min.js"></script>
+  <script src="dd.js" disable-devtool-auto></script>
 </head>
 
 <body>
@@ -41,8 +43,10 @@
         ans = el.a
       })
       q('#sub_btn').onclick = function () {
-        if (q('#ans').value == ans) {
-          track('zhuyin_answer_correct', { val: ans })
+        track('zhuyin_answer')
+        const val = q('#ans').value
+        if (val == dec(ans, val)) {
+          track('zhuyin_answer_correct', { val: val })
           alert('回答正確')
           localStorage.setItem('PXV_NSFW_ON', '{"data":0,"expires":-1}')
           location.replace('/')
@@ -50,6 +54,13 @@
           alert('回答錯誤')
           reload()
         }
+      }
+    }
+    function dec(ans, val) {
+      try {
+        return CryptoJS.AES.decrypt(ans, val).toString(CryptoJS.enc.Utf8) || 'DECRYPT_ERROR'
+      } catch (err) {
+        return 'DECRYPT_ERROR'
       }
     }
     function q(sel) {

@@ -2,7 +2,7 @@
   <div class="HomeRecommIllust illusts">
     <top-bar />
     <h3 class="af_title">{{ $t('common.recomm_art') }}</h3>
-    <wf-cont v-bind="$store.getters.wfProps">
+    <wf-cont>
       <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
     </wf-cont>
     <van-loading v-if="!showLoadMoreBtn && loading" class="loading" :size="'50px'" />

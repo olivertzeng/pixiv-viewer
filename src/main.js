@@ -9,11 +9,11 @@ import './registerServiceWorker'
 
 import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import VueMasonry from 'vue-masonry-css'
 import VueMeta from 'vue-meta'
 import Vant, { Dialog, ImagePreview, Lazyload, Notify, Toast } from 'vant'
 
 import SvgIcon, { loadingSvg } from './icons'
+import VueMasonry from './components/VueMasonryCss'
 import ImageLayout from './components/ImageLayout.vue'
 import TopBar from './components/TopBar.vue'
 import Pximg from './components/DirectPximg.vue'
@@ -48,8 +48,8 @@ async function setupApp() {
   }
   Vue.use(Vant)
   Vue.use(VueAwesomeSwiper)
-  Vue.use(VueMasonry)
   Vue.use(VueMeta, { keyName: 'head' })
+  Vue.use(VueMasonry)
   Vue.use(SvgIcon)
   Vue.use(longpress)
 

@@ -1,16 +1,44 @@
 <template>
   <div class="image-layout" :class="wfClass">
-    <masonry v-if="isMasonry" v-bind="masonryProps">
-      <slot></slot>
-    </masonry>
+    <template v-if="isMasonry">
+      <true-masonry
+        v-if="wfType == 'Masonry(CSSGrid)'"
+        class="true-masonry"
+        :gap="{default:10}"
+        :cols="masonryProps.cols"
+      >
+        <slot></slot>
+      </true-masonry>
+      <flex-waterfall
+        v-else-if="wfType == 'Masonry(FlexOrder)'"
+        class="flex-waterfall"
+        align-content="center"
+        col="5"
+        col-spacing="0.13333rem"
+        :break-at="masonryProps.cols"
+        :break-by-container="false"
+      >
+        <slot></slot>
+      </flex-waterfall>
+      <masonry v-else v-bind="masonryProps">
+        <slot></slot>
+      </masonry>
+    </template>
     <div v-else class="justified-container">
       <slot></slot>
     </div>
+
+    <!-- <JustifiedGrid>
+      <slot></slot>
+    </JustifiedGrid> -->
   </div>
 </template>
 
 <script>
 import store from '@/store'
+import FlexWaterfall from './FlexWaterfall.vue'
+import TrueMasonry from './TrueMasonry'
+// import JustifiedGrid from './JustifiedGrid.vue'
 
 const { wfType, isImageFitScreen } = store.state.appSetting
 const masonryProps = {
@@ -37,6 +65,11 @@ const masonryProps = {
 }
 
 export default {
+  components: {
+    FlexWaterfall,
+    TrueMasonry,
+    // JustifiedGrid,
+  },
   props: {
     layout: {
       type: String,
@@ -51,6 +84,7 @@ export default {
   },
   computed: {
     isMasonry() {
+      if (this.wfType.includes('Masonry')) return true
       if (['Masonry', 'Grid'].includes(this.layout)) return true
       if (this.layout == 'Justified') return false
       return ['Masonry', 'Grid'].includes(this.wfType)
@@ -65,6 +99,36 @@ export default {
 </script>
 
 <style>
+.flex-waterfall .image-card {
+  width: 4.5rem;
+}
+
+.justified-grid .image-card,
+.true-masonry .image-card {
+  height: fit-content;
+  margin-bottom: 0 !important;
+}
+
+.justified-grid .image-card:not(.isOuterMeta),
+.true-masonry .image-card:not(.isOuterMeta) {
+  /* aspect-ratio: var(--w) / var(--h); */
+  /* aspect-ratio: max(min(calc(var(--w) / var(--h)), 1.6), 0.5); */
+  aspect-ratio: min(calc(var(--w) / var(--h)), 1.6);
+}
+
+@media screen and (max-width: 500px) {
+  .justified-grid .image-card:not(.isOuterMeta) ,
+  .true-masonry .image-card:not(.isOuterMeta) {
+    aspect-ratio: max(min(calc(var(--w) / var(--h)), 1.6), 0.5);
+  }
+}
+
+.justified-grid .image-card:not(.isOuterMeta) .image-card-wrapper ,
+.true-masonry .image-card:not(.isOuterMeta) .image-card-wrapper{
+  height: 100%;
+  padding-bottom: 0 !important;
+}
+
 .wf-grid .image-card-wrapper {
   padding-bottom: 100% !important;
 }
@@ -115,11 +179,11 @@ export default {
   padding-bottom: 0 !important;
 }
 
-.justified-container .image-card-wrapper::before {
+/* .justified-container .image-card-wrapper::before {
   content: '';
   display: block;
   padding-bottom: calc(var(--h) / var(--w) * 100%) !important;
-}
+} */
 
 .flexbin {
   display: flex !important;
@@ -139,6 +203,7 @@ export default {
 .flexbin .image-card {
   position: relative;
   display: block !important;
+  min-width: 200PX;
   height: 15vw !important;
   margin: 2.5px;
   padding-bottom: 0 !important;

@@ -47,7 +47,7 @@
       :error-text="$t('tips.net_err')"
       @load="getRankList"
     >
-      <wf-cont v-bind="$store.getters.wfProps">
+      <wf-cont>
         <ImageCard
           v-for="(art, i) in artList"
           :key="art.id"

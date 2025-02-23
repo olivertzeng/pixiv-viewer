@@ -200,6 +200,11 @@ export default {
       }
     },
     showUgPanelFromDlBtn() {
+      const { ugoiraDefDLFormat } = store.state.appSetting
+      if (ugoiraDefDLFormat) {
+        this.$refs.imgView.download(ugoiraDefDLFormat)
+        return
+      }
       this.ugoiraDownloadPanelShow = true
     },
     onUgoiraDownloadPanelSelect(item) {

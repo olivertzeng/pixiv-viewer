@@ -62,6 +62,7 @@
         </template>
       </van-cell>
       <van-cell center :title="$t('m9rhO-859d7Br05Hm5b54')" is-link :label="appSetting.dlFileNameTpl" @click="showDlFileNameTplDialog = true" />
+      <van-cell center :title="$t('Rq0GHiUs_LyUxDu-IhfBb')" is-link :label="appSetting.ugoiraDefDLFormat || $t('ks96nwuAms0B8wSWBWhil')" @click="ugoiraDL.show = true" />
     </van-cell-group>
 
     <van-cell-group :title="$t('7-drBPGRIz_BsYuc9ybCm')">
@@ -114,6 +115,11 @@
       <van-cell center :title="$t('2CmJxHkq8O-uA68cU90Lx')">
         <template #right-icon>
           <van-switch :value="appSetting.isImgLazyOb" size="24" @change="v => saveAppSetting('isImgLazyOb', v, true)" />
+        </template>
+      </van-cell>
+      <van-cell center :title="$t('_E9iTJP6wHVE-Qxau80YA')">
+        <template #right-icon>
+          <van-switch :value="appSetting.isImageCardBorderRadius" size="24" @change="v => saveAppSetting('isImageCardBorderRadius', v, true)" />
         </template>
       </van-cell>
       <van-cell v-if="showAnaSwitch" center title="Enable Umami Analytics">
@@ -179,6 +185,14 @@
       :description="$t('setting.img_res.ph')"
       close-on-click-action
       @select="v => saveAppSetting('imgReso', v.name, true)"
+    />
+    <van-action-sheet
+      v-model="ugoiraDL.show"
+      :actions="ugoiraDL.actions"
+      :cancel-text="$t('common.cancel')"
+      :description="$t('Rq0GHiUs_LyUxDu-IhfBb')"
+      close-on-click-action
+      @select="v => saveAppSetting('ugoiraDefDLFormat', v.name)"
     />
     <van-action-sheet
       v-model="lang.show"
@@ -319,6 +333,8 @@ export default {
           { name: 'Masonry', subname: this.$t('setting.layout.m') },
           { name: 'Grid', subname: this.$t('setting.layout.g') },
           { name: 'Justified ', subname: this.$t('setting.layout.j') },
+          { name: 'Masonry(CSSGrid)', subname: this.$t('setting.layout.m') },
+          { name: 'Masonry(FlexOrder)', subname: this.$t('setting.layout.m') },
         ],
       },
       imgRes: {
@@ -345,6 +361,18 @@ export default {
           { name: 'es', subname: 'Español' },
           { name: 'pt', subname: 'Português' },
           { name: 'el', subname: 'Ελληνικά' },
+        ],
+      },
+      ugoiraDL: {
+        show: false,
+        actions: [
+          { name: 'ZIP', subname: i18n.t('artwork.download.zip') },
+          { name: 'GIF', subname: i18n.t('artwork.download.gif') },
+          { name: 'WebM', subname: i18n.t('artwork.download.webm') },
+          { name: 'APNG', subname: i18n.t('artwork.download.webm') },
+          { name: 'MP4(Browser)', subname: i18n.t('pIghtXdU8socMNNRUn5UR') },
+          { name: 'MP4(Server)', subname: i18n.t('zuVom-C8Ss8JTEDZIhzBj') },
+          { name: 'Other', subname: i18n.t('artwork.download.mp4') },
         ],
       },
       hideApSelect: LocalStorage.get('__HIDE_AP_SEL', false),

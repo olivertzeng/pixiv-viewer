@@ -172,6 +172,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 是因为自建 API 的 CDN 缓存导致的，可以到设置里切换其他 API 实例或者登录后再使用
 
+### 提示“尚无此页”或“尚无权限浏览该作品”或“您的访问权限被限制了”
+
+此作品大概率已被作者删除或隐藏
+
 ### Cookie/SessionID 登录出错
 
 建议使用 RefreshToken 方式登录

@@ -333,8 +333,10 @@ export default {
           { name: 'Masonry', subname: this.$t('setting.layout.m') },
           { name: 'Grid', subname: this.$t('setting.layout.g') },
           { name: 'Justified ', subname: this.$t('setting.layout.j') },
-          { name: 'Masonry(CSSGrid)', subname: this.$t('setting.layout.m') },
-          { name: 'Masonry(FlexOrder)', subname: this.$t('setting.layout.m') },
+          { name: 'Masonry(CSSGrid)', subname: this.$t('setting.layout.m') + ' - ' + this.$t('setting.lab.title') },
+          { name: 'Justified(Transform)', subname: this.$t('setting.layout.j') + ' - ' + this.$t('setting.lab.title') },
+          { name: 'Masonry(FlexOrder)', subname: this.$t('setting.layout.m') + ' - ' + this.$t('setting.lab.title') },
+          { name: 'Justified(egjs)', subname: this.$t('setting.layout.j') + ' - ' + this.$t('setting.lab.title') },
         ],
       },
       imgRes: {

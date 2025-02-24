@@ -111,6 +111,11 @@ const TrueMasonry = {
     // Bind resize handler to page
     window.addEventListener('resize', this._reCalculate)
   },
+  activated() {
+    this.$nextTick(() => {
+      this._reCalculate('force')
+    })
+  },
   updated() {
     this.$nextTick(() => {
       this._reCalculate('force')

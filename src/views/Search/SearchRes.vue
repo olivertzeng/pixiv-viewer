@@ -369,6 +369,8 @@ export default {
           return
         }
         val += ' -R-18 -R18 -18+'
+      } else if (this.searchParams.mode == 'title_and_caption') {
+        val = val.replace(/ -?R-18/g, '')
       }
       if (this.usersIriTag) val += ' ' + this.usersIriTag
       const params = _.pickBy(this.searchParams, Boolean)

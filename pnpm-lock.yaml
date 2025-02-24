@@ -17,6 +17,9 @@ importers:
       axios:
         specifier: 0.29.0
         version: 0.29.0
+      better-justified-layout:
+        specifier: 1.0.0
+        version: 1.0.0
       core-js:
         specifier: 3.40.0
         version: 3.40.0
@@ -1373,6 +1376,9 @@ packages:
 
   batch@0.6.1:
     resolution: {integrity: sha512-x+VAiMRL6UPkx+kudNvxTl6hB2XNNCG2r+7wixVfIYwu/2HKRXimwQyaumLjMveWvT2Hkd/cAJw+QBMfJ/EKVw==}
+
+  better-justified-layout@1.0.0:
+    resolution: {integrity: sha512-eCzIMu6/55BJ7B/N37LYOZ2O5q3UkQx273pihu9TyfcuKyj/VDYHh1FCmPBksY6wbOFPMZYlFbTYDpb6MKGLYQ==}
 
   big.js@5.2.2:
     resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
@@ -6446,6 +6452,8 @@ snapshots:
   base64-js@1.5.1: {}
 
   batch@0.6.1: {}
+
+  better-justified-layout@1.0.0: {}
 
   big.js@5.2.2: {}
 

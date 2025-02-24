@@ -24,13 +24,15 @@
         <slot></slot>
       </masonry>
     </template>
+    <JustifiedLayout v-else-if="wfType == 'Justified(Transform)'">
+      <slot></slot>
+    </JustifiedLayout>
+    <JustifiedGrid v-else-if="wfType == 'Justified(egjs)'" class="justified-grid">
+      <slot></slot>
+    </JustifiedGrid>
     <div v-else class="justified-container">
       <slot></slot>
     </div>
-
-    <!-- <JustifiedGrid>
-      <slot></slot>
-    </JustifiedGrid> -->
   </div>
 </template>
 
@@ -38,7 +40,8 @@
 import store from '@/store'
 import FlexWaterfall from './FlexWaterfall.vue'
 import TrueMasonry from './TrueMasonry'
-// import JustifiedGrid from './JustifiedGrid.vue'
+import JustifiedGrid from './JustifiedGrid.vue'
+import JustifiedLayout from './JustifiedLayout.vue'
 
 const { wfType, isImageFitScreen } = store.state.appSetting
 const masonryProps = {
@@ -68,7 +71,8 @@ export default {
   components: {
     FlexWaterfall,
     TrueMasonry,
-    // JustifiedGrid,
+    JustifiedGrid,
+    JustifiedLayout,
   },
   props: {
     layout: {
@@ -99,17 +103,40 @@ export default {
 </script>
 
 <style>
+.image-layout > div {
+  contain: layout paint;
+}
+
+.image-layout .image-card {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
 .flex-waterfall .image-card {
   width: 4.5rem;
 }
 
 .justified-grid .image-card,
+.JustifiedLayout .image-card {
+  position: absolute !important;
+}
+
+.justified-grid .image-card-wrapper,
+.JustifiedLayout .image-card-wrapper {
+  height: 100%;
+  padding-bottom: 0 !important;
+}
+
+.justified-grid .image,
+.JustifiedLayout .image {
+  position: relative !important;
+}
+
 .true-masonry .image-card {
   height: fit-content;
   margin-bottom: 0 !important;
 }
 
-.justified-grid .image-card:not(.isOuterMeta),
 .true-masonry .image-card:not(.isOuterMeta) {
   /* aspect-ratio: var(--w) / var(--h); */
   /* aspect-ratio: max(min(calc(var(--w) / var(--h)), 1.6), 0.5); */
@@ -117,13 +144,11 @@ export default {
 }
 
 @media screen and (max-width: 500px) {
-  .justified-grid .image-card:not(.isOuterMeta) ,
   .true-masonry .image-card:not(.isOuterMeta) {
     aspect-ratio: max(min(calc(var(--w) / var(--h)), 1.6), 0.5);
   }
 }
 
-.justified-grid .image-card:not(.isOuterMeta) .image-card-wrapper ,
 .true-masonry .image-card:not(.isOuterMeta) .image-card-wrapper{
   height: 100%;
   padding-bottom: 0 !important;

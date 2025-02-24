@@ -1,7 +1,6 @@
 <template>
   <justified-grid
     ref="grid"
-    class="justified-grid"
     default-direction="end"
     :gap="10"
     :column-range="[1, 6]"

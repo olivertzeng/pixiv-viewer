@@ -134,12 +134,12 @@ import dayjs from 'dayjs'
 import api from '@/api'
 import store from '@/store'
 import { notSelfHibiApi } from '@/consts'
-import { mintVerify } from '@/utils/filter'
+import { mintVerify, BLOCK_INPUT_WORDS, BLOCK_LAST_WORD_RE, BLOCK_SEARCH_WORD_RE, BLOCK_RESULT_RE } from '@/utils/filter'
 import { i18n } from '@/i18n'
 import ImageCard from '@/components/ImageCard'
 import PopularPreview from './components/PopularPreview.vue'
 
-const BLOCK_WORDS = [/r-?18/i, /18-?r/i, /^黄?色情?图$/, /^ero$/i, /工口/, /エロ/]
+const ARTWORK_LINK_RE = /https?:\/\/.+\/artworks\/(\d+)/i
 
 export default {
   name: 'SearchRes',
@@ -164,8 +164,7 @@ export default {
       usersIriTags: [
         { text: this.$t('7PnT90lP_mZTPfL3Uwlhl'), value: '' },
         ...[30000, 20000, 10000, 7500, 5000, 1000, 500, 250, 100].map(e => {
-          const value = i18n.t('8SuotxAmYS7l1QCfLz0Yv', [e])
-          return { text: value, value }
+          return { text: i18n.t('8SuotxAmYS7l1QCfLz0Yv', [e]), value: `${e}users入り` }
         }),
       ],
       minDate: new Date('2007/09/13'),
@@ -352,7 +351,7 @@ export default {
       }
       console.log(`doSearch: ${val}`)
 
-      if (/スカラマシュ|散兵|放浪者(原神)|流浪者(原神)|雀魂|じゃんたま/i.test(val) || !(await mintVerify(val))) {
+      if (BLOCK_SEARCH_WORD_RE.test(val) || !(await mintVerify(val))) {
         this.artList = []
         this.finished = true
         this.curPage = 1
@@ -362,7 +361,7 @@ export default {
       this.setSearchHistory(val)
 
       if (!(this.$store.state.contentSetting.r18 || this.$store.state.contentSetting.r18g)) {
-        if (BLOCK_WORDS.some(e => e.test(val))) {
+        if (BLOCK_INPUT_WORDS.some(e => e.test(val))) {
           this.artList = []
           this.finished = true
           this.curPage = 1
@@ -407,9 +406,9 @@ export default {
           artList = artList.filter(e => {
             return !(
               e.like < Number(store.state.appSetting.searchListMinFavNum) ||
-              /恋童|ペド|幼女|スカラマシュ|散兵|雀魂|じゃんたま/.test(JSON.stringify(e.tags)) ||
-              /恋童|幼女|进群|加好友|度盘|低价|スカラマシュ|散兵|雀魂|じゃんたま/.test(e.title) ||
-              /恋童|幼女|进群|加好友|度盘|低价|スカラマシュ|散兵|雀魂|じゃんたま/.test(e.caption)
+              BLOCK_RESULT_RE.test(JSON.stringify(e.tags)) ||
+              BLOCK_RESULT_RE.test(e.title) ||
+              BLOCK_RESULT_RE.test(e.caption)
             )
           })
 
@@ -442,12 +441,12 @@ export default {
         this.autoCompleteTagList = []
         return
       }
-      const id = this.lastWord.match(/https?:\/\/.+\/artworks\/(\d+)/i)?.[1]
+      const id = this.lastWord.match(ARTWORK_LINK_RE)?.[1]
       if (id) {
         this.toPidPage(id)
         return
       }
-      if (/スカラマシュ|散|(^\d+$)|雀魂|じゃんたま/i.test(this.lastWord)) {
+      if (BLOCK_LAST_WORD_RE.test(this.lastWord)) {
         return
       }
       const res = await api.getTagsAutocomplete(this.lastWord)

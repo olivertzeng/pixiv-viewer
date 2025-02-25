@@ -93,7 +93,7 @@ import api from '@/api'
 import { notSelfHibiApi } from '@/consts'
 import NovelCard from '@/components/NovelCard.vue'
 import PopularPreviewNovel from './components/PopularPreviewNovel.vue'
-import { mintVerify } from '@/utils/filter'
+import { mintVerify, BLOCK_SEARCH_WORD_RE } from '@/utils/filter'
 import { i18n } from '@/i18n'
 
 export default {
@@ -238,10 +238,7 @@ export default {
       }
       console.log(`doSearch: ${val}`)
 
-      if (
-        /雀魂|じゃんたま|スカラマシュ|散兵|スカ蛍|スカ空|スカナヒ|散荧|荧散|散空|空散|枫散|散枫|草散|散草|放浪者(原神)|流浪者(原神)|阿散|阿帽/i.test(val) ||
-        !(await mintVerify(val))
-      ) {
+      if (BLOCK_SEARCH_WORD_RE.test(val) || !(await mintVerify(val))) {
         this.artList = []
         this.finished = true
         this.curPage = 1

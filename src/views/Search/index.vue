@@ -77,6 +77,7 @@
 import _ from 'lodash'
 import { mapState, mapActions } from 'vuex'
 import { notSelfHibiApi } from '@/consts'
+import { BLOCK_LAST_WORD_RE } from '@/utils/filter'
 import { i18n } from '@/i18n'
 import api from '@/api'
 import store from '@/store'
@@ -177,7 +178,7 @@ export default {
         this.toPidPage(id)
         return
       }
-      if (/スカラマシュ|散|(^\d+$)|雀魂|じゃんたま/i.test(this.lastWord)) {
+      if (BLOCK_LAST_WORD_RE.test(this.lastWord)) {
         return
       }
       const res = await api.getTagsAutocomplete(this.lastWord)

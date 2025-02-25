@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mintVerify } from '@/utils/filter'
+import { mintVerify, BLOCK_SEARCH_WORD_RE } from '@/utils/filter'
 import RecommUser from './components/RecommUser.vue'
 import { i18n } from '@/i18n'
 
@@ -48,7 +48,7 @@ export default {
   methods: {
     async onSearch() {
       const word = this.keywords.trim()
-      if (!word || /スカラマシュ|散兵|放浪者|流浪者|雀魂|じゃんたま/i.test(word) || !(await mintVerify(word))) {
+      if (!word || BLOCK_SEARCH_WORD_RE.test(word) || !(await mintVerify(word))) {
         return
       }
       this.$router.push(`/search_user/${word}`)

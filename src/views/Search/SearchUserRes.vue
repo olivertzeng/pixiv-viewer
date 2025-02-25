@@ -22,7 +22,7 @@ import TopBar from '@/components/TopBar'
 import api from '@/api'
 import _ from 'lodash'
 import ImageSlide from '@/components/ImageSlide.vue'
-import { mintVerify } from '@/utils/filter'
+import { mintVerify, BLOCK_SEARCH_WORD_RE } from '@/utils/filter'
 import { i18n } from '@/i18n'
 
 export default {
@@ -67,7 +67,7 @@ export default {
     },
     getUserList: _.throttle(async function () {
       const { word } = this.$route.params
-      if (!word || /スカラマシュ|散兵|放浪者|流浪者|雀魂|じゃんたま/i.test(word) || !(await mintVerify(word))) {
+      if (!word || BLOCK_SEARCH_WORD_RE.test(word) || !(await mintVerify(word))) {
         return
       }
       this.loading = true

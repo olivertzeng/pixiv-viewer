@@ -122,6 +122,7 @@
           <van-switch :value="appSetting.isImageCardBorderRadius" size="24" @change="v => saveAppSetting('isImageCardBorderRadius', v, true)" />
         </template>
       </van-cell>
+      <van-cell v-if="isPageTransitionSelShow" center :title="$t('Cy6qJLutMa5O3jJr8TawB')" :label="pageTransitionLabel" is-link @click="pageTransition.show = true" />
       <van-cell v-if="showAnaSwitch" center title="Enable Umami Analytics">
         <template #right-icon>
           <van-switch :value="isAnalyticsOn" size="24" @change="onAnalyticsChange" />
@@ -193,6 +194,14 @@
       :description="$t('Rq0GHiUs_LyUxDu-IhfBb')"
       close-on-click-action
       @select="v => saveAppSetting('ugoiraDefDLFormat', v.name)"
+    />
+    <van-action-sheet
+      v-model="pageTransition.show"
+      :actions="pageTransition.actions"
+      :cancel-text="$t('common.cancel')"
+      :description="$t('Cy6qJLutMa5O3jJr8TawB')"
+      close-on-click-action
+      @select="onPageTransitionChange"
     />
     <van-action-sheet
       v-model="lang.show"
@@ -377,6 +386,22 @@ export default {
           { name: 'Other', subname: i18n.t('artwork.download.mp4') },
         ],
       },
+      pageTransition: {
+        show: false,
+        actions: [
+          { name: 'none', _value: '' },
+          { name: 'ios', _value: 'f7-ios' },
+          { name: 'md', _value: 'f7-md' },
+          { name: 'circle', _value: 'f7-circle' },
+          { name: 'cover', _value: 'f7-cover' },
+          { name: 'cover-v', _value: 'f7-cover-v' },
+          { name: 'dive', _value: 'f7-dive' },
+          { name: 'fade', _value: 'f7-fade' },
+          { name: 'flip', _value: 'f7-flip' },
+          { name: 'parallax', _value: 'f7-parallax' },
+          { name: 'push', _value: 'f7-push' },
+        ],
+      },
       hideApSelect: LocalStorage.get('__HIDE_AP_SEL', false),
       isDark: !!localStorage.getItem('PXV_DARK'),
       showAutoLoadImtSwitch: i18n.locale.includes('zh'),
@@ -388,6 +413,7 @@ export default {
       dlFileNameTpl: store.state.appSetting.dlFileNameTpl,
       showAnaSwitch: false,
       isAnalyticsOn: LocalStorage.get('PXV_ANALYTICS', true),
+      isPageTransitionSelShow: Boolean(document.startViewTransition),
     }
   },
   head() {
@@ -405,6 +431,9 @@ export default {
     },
     appSetting() {
       return store.state.appSetting
+    },
+    pageTransitionLabel() {
+      return this.pageTransition.actions.find(e => e._value == store.state.appSetting.pageTransition)?.name || ''
     },
   },
   watch: {
@@ -568,6 +597,10 @@ export default {
       localStorage.setItem('PXV_DARK', val || '')
       if (val) document.body.classList.add('dark')
       else document.body.classList.remove('dark')
+    },
+    onPageTransitionChange({ _value }) {
+      this.saveAppSetting('pageTransition', _value, false)
+      setTimeout(() => location.assign('/'), 200)
     },
     async changeAutoLoadImt(val) {
       if (val) {

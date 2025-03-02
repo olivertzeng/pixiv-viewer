@@ -1,6 +1,6 @@
 <template>
   <div class="main-layout" :class="{ noImgFillScreen, 'safe-area': safeArea }">
-    <div class="app-main " :class="{ 'image-card-no-radius': imageCardNoRadius }">
+    <div class="app-main" :class="{ 'image-card-no-radius': imageCardNoRadius }">
       <keep-alive :max="10">
         <router-view />
       </keep-alive>

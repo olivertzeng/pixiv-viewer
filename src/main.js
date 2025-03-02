@@ -2,6 +2,7 @@ import 'vant/lib/index.css'
 import 'swiper/css/swiper.css'
 import '@/assets/style/base.styl'
 import '@/assets/style/theme.styl'
+import '@/assets/style/vta.css'
 
 import '@vant/touch-emulator'
 import './polyfill'
@@ -77,6 +78,9 @@ async function initLocalApi() {
 }
 
 async function initSetting() {
+  const { pageTransition } = store.state.appSetting
+  if (pageTransition) document.documentElement.classList.add(pageTransition)
+
   let flag = false
   const setting = LocalStorage.get('PXV_CNT_SHOW', {})
   const isOn = () => LocalStorage.get('PXV_NSFW_ON', null)

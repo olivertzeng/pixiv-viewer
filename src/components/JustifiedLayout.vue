@@ -28,11 +28,11 @@ export default {
 
     window.addEventListener('resize', this.calculate)
   },
-  // activated() {
-  //   this.$nextTick(() => {
-  //     this.calculate()
-  //   })
-  // },
+  activated() {
+    this.$nextTick(() => {
+      this.calculate()
+    })
+  },
   updated() {
     this.$nextTick(() => {
       this.calculate()

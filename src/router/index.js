@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import nprogress from 'nprogress'
+import store from '@/store'
 import { BASE_URL } from '@/consts'
 
 import BaseLayout from '@/layouts/BaseLayout.vue'
@@ -361,13 +362,41 @@ const router = new VueRouter({
   },
 })
 
+const noSlideRoutes = ['Home', 'HomeManga', 'HomeNovel', 'Search', 'SearchNovel', 'SearchUser', 'Rank', 'RankNovel', 'Following', 'Setting']
+function handlePageTransition(to, from) {
+  const { routeHistory } = store.state
+  if (routeHistory.length > 1 && routeHistory[routeHistory.length - 2].fullPath === to.fullPath) {
+    document.documentElement.classList.add('router-vta-back')
+    store.commit('setRouteHistory', routeHistory.slice(0, -1))
+  } else {
+    document.documentElement.classList.remove('router-vta-back')
+    store.commit('setRouteHistory', [...routeHistory, to])
+  }
+  if (noSlideRoutes.includes(from.name) && noSlideRoutes.includes(to.name)) {
+    document.documentElement.classList.add('router-vta-fade')
+  } else {
+    document.documentElement.classList.remove('router-vta-fade')
+  }
+  if (!from.name) {
+    document.documentElement.classList.add('router-vta-first')
+  } else {
+    document.documentElement.classList.remove('router-vta-first')
+  }
+}
+
+const { pageTransition } = store.state.appSetting
 router.beforeEach((to, from, next) => {
-  nprogress.start()
-  next()
+  if (pageTransition) {
+    handlePageTransition(to, from)
+    document.startViewTransition(() => next())
+  } else {
+    nprogress.start()
+    next()
+  }
 })
 
 router.afterEach((to, from) => {
-  nprogress.done()
+  if (!pageTransition) nprogress.done()
   console.log('afterEach to', to.fullPath)
   console.log('afterEach from', from.fullPath)
 })

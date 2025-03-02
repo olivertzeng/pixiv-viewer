@@ -37,6 +37,7 @@ export default new Vuex.Store({
     appNotice: null,
     /** @type {any[]|null} */
     seasonEffects: null,
+    routeHistory: [],
     appSetting: {
       wfType: getSettingDef('PXV_WF_TYPE', 'Masonry'),
       imgReso: getSettingDef('PXV_DTL_IMG_RES', isMobile ? 'Medium' : 'Large'),
@@ -58,6 +59,7 @@ export default new Vuex.Store({
       searchListMinFavNum: '5',
       isImageCardBorderRadius: true,
       ugoiraDefDLFormat: '',
+      pageTransition: '',
       ...getSettingDef('PXV_APP_SETTING', {}),
     },
   },
@@ -165,6 +167,9 @@ export default new Vuex.Store({
       const setting = { ...state.appSetting, ...obj }
       state.appSetting = setting
       LocalStorage.set('PXV_APP_SETTING', setting)
+    },
+    setRouteHistory(state, val) {
+      state.routeHistory = val
     },
   },
   actions: {

@@ -25,7 +25,7 @@
 <script>
 import { getNewIllusts } from '@/api/user'
 import ImageCard from '@/components/ImageCard'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 
 export default {
   name: 'LatestAllSite',

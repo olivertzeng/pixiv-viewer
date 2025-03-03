@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import ImageCard from '@/components/ImageCard'
 import api from '@/api'
 export default {

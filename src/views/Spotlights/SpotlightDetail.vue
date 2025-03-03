@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import TopBar from '@/components/TopBar'
 import api from '@/api'
 import SpotlightsRecom from './SpotlightsRecom.vue'

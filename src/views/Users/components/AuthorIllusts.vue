@@ -51,7 +51,7 @@
 <script>
 import ImageCard from '@/components/ImageCard'
 import api from '@/api'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { generateRandomColor, getContrastingTextColor } from '@/utils'
 
 export default {

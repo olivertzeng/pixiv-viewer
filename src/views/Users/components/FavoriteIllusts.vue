@@ -31,7 +31,7 @@
 <script>
 import ImageCard from '@/components/ImageCard'
 import api from '@/api'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 export default {
   name: 'FavoriteIllusts',
   components: {

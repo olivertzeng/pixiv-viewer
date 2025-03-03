@@ -152,7 +152,7 @@
     "mode": {
       "partial": "标签部分一致",
       "exact": "标签完全一致",
-      "title": "标题说明文"
+      "title": "标题与简介"
     },
     "date": {
       "desc": "按日期倒序",
@@ -529,5 +529,6 @@
   "_E9iTJP6wHVE-Qxau80YA": "图片卡圆角",
   "Rq0GHiUs_LyUxDu-IhfBb": "动图默认下载格式",
   "ks96nwuAms0B8wSWBWhil": "未选择",
-  "Cy6qJLutMa5O3jJr8TawB": "页面过渡效果"
+  "Cy6qJLutMa5O3jJr8TawB": "页面过渡效果",
+  "8ko0ip_aETyyaSIMQmLqR": "扩充 API 实例选择"
 }

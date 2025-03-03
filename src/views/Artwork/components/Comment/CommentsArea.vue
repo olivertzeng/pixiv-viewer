@@ -27,7 +27,7 @@
 
 <script>
 import axios from 'axios'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { mintVerify } from '@/utils/filter'
 import { PIXIV_NOW_URL } from '@/consts'
 import Comment from './Comment.vue'

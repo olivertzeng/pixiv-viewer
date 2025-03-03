@@ -57,7 +57,7 @@
 
 <script>
 import api, { imgProxy } from '@/api'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { COMMON_PROXY } from '@/consts'
 
 export default {

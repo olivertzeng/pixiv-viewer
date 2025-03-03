@@ -18,7 +18,7 @@
 <script>
 // ref: https://github.com/Tsuk1ko/vue-flex-waterfall
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 
 export default {
   name: 'FlexWaterfall',

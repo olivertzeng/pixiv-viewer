@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { mapState, mapActions } from 'vuex'
 import { notSelfHibiApi } from '@/consts'
 import { BLOCK_LAST_WORD_RE } from '@/utils/filter'

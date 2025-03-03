@@ -60,6 +60,13 @@ export default {
         : this.localSrc
     },
   },
+  watch: {
+    src() {
+      if (!this.isVLazy && this.$parent.playUgoira) {
+        this.loading = true
+      }
+    },
+  },
   mounted() {
     if (this.direct) this.setObserver()
   },

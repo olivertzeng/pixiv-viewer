@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { Dialog } from 'vant'
 import { mapMutations } from 'vuex'
 import store from '@/store'

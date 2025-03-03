@@ -17,7 +17,7 @@
 
 <script>
 import api from '@/api'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import ImageSlide from '@/components/ImageSlide.vue'
 
 export default {

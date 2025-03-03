@@ -1,5 +1,5 @@
 import { register } from 'register-service-worker'
-import { BASE_URL, isProduction } from './consts'
+import { BASE_URL, isProduction } from '../consts'
 
 if (isProduction) {
   register(`${BASE_URL}service-worker.js`, {

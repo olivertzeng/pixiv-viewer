@@ -27,9 +27,6 @@
     <JustifiedLayout v-else-if="wfType == 'Justified(Transform)'">
       <slot></slot>
     </JustifiedLayout>
-    <JustifiedGrid v-else-if="wfType == 'Justified(egjs)'" class="justified-grid">
-      <slot></slot>
-    </JustifiedGrid>
     <div v-else class="justified-container">
       <slot></slot>
     </div>
@@ -40,7 +37,6 @@
 import store from '@/store'
 import FlexWaterfall from './FlexWaterfall.vue'
 import TrueMasonry from './TrueMasonry'
-import JustifiedGrid from './JustifiedGrid.vue'
 import JustifiedLayout from './JustifiedLayout.vue'
 
 const { wfType, isImageFitScreen } = store.state.appSetting
@@ -71,7 +67,6 @@ export default {
   components: {
     FlexWaterfall,
     TrueMasonry,
-    JustifiedGrid,
     JustifiedLayout,
   },
   props: {

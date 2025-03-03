@@ -64,7 +64,7 @@
 <script>
 import dayjs from 'dayjs'
 import Nav from './components/Nav'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import api from '@/api'
 import NovelCard from '@/components/NovelCard.vue'
 import { i18n } from '@/i18n'

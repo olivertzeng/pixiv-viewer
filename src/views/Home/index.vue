@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import RankCard from './components/RankCard.vue'
 import SpotlightCard from '../Spotlights/SpotlightCard.vue'
 import DiscoveryCard from '../Discovery/DiscoveryCard.vue'

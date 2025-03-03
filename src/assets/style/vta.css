@@ -16,9 +16,11 @@
   animation: ios-page-next-to-current var(--f7-page-transition-duration) forwards;
 }
 .f7-ios.router-vta-back::view-transition-old(root) {
+  z-index: 2;
   animation: ios-page-current-to-next var(--f7-page-transition-duration) forwards;
 }
 .f7-ios.router-vta-back::view-transition-new(root) {
+  z-index: 1;
   animation: ios-page-previous-to-current var(--f7-page-transition-duration) forwards;
 }
 
@@ -172,7 +174,6 @@
 
 
 
-
 .f7-parallax::view-transition-new(root) {
   animation: f7-parallax-next-to-current var(--f7-page-parallax-transition-duration) forwards
 }
@@ -180,9 +181,11 @@
   animation: f7-parallax-current-to-prev var(--f7-page-parallax-transition-duration) forwards
 }
 .f7-parallax.router-vta-back::view-transition-old(root) {
+  z-index: 2;
   animation: f7-parallax-current-to-next var(--f7-page-parallax-transition-duration) forwards
 }
 .f7-parallax.router-vta-back::view-transition-new(root) {
+  z-index: 1;
   animation: f7-parallax-prev-to-current var(--f7-page-parallax-transition-duration) forwards
 }
 
@@ -203,11 +206,14 @@
 
 
 
+.router-vta-fade::view-transition-image-pair(root) {
+  background: inherit !important;
+}
 .router-vta-fade::view-transition-old(root) {
-  animation: f7-fade-out .2s both ease-in-out !important;
+  animation: f7-fade-out var(--f7-page-fade-transition-duration) forwards !important;
 }
 .router-vta-fade::view-transition-new(root) {
-  animation: f7-fade-in .2s both ease-in-out !important;
+  animation: f7-fade-in var(--f7-page-fade-transition-duration) forwards !important;
 }
 .router-vta-first::view-transition-group(root) {
   animation: none !important;
@@ -592,16 +598,6 @@
   }
 }
 
-@keyframes f7-parallax-current-to-next {
-  from {
-    transform: translateX(0%)
-  }
-
-  to {
-    transform: translateX(20%)
-  }
-}
-
 @keyframes f7-parallax-current-to-prev {
   from {
     transform: translateX(0%)
@@ -612,9 +608,19 @@
   }
 }
 
+@keyframes f7-parallax-current-to-next {
+  from {
+    transform: translateX(0%)
+  }
+
+  to {
+    transform: translateX(100%)
+  }
+}
+
 @keyframes f7-parallax-prev-to-current {
   from {
-    transform: translateX(-100%)
+    transform: translateX(-20%)
   }
 
   to {

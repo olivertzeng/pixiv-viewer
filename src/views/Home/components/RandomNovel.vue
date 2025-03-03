@@ -26,7 +26,7 @@
 
 <script>
 import api from '@/api'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import dayjs from 'dayjs'
 import NovelCard from '@/components/NovelCard.vue'
 import { filterHomeNovel } from '@/utils/filter'

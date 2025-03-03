@@ -1,31 +1,32 @@
-import 'vant/lib/index.css'
+import '@/lib/vant-style'
 import 'swiper/css/swiper.css'
 import '@/assets/style/base.styl'
 import '@/assets/style/theme.styl'
 import '@/assets/style/vta.css'
 
 import '@vant/touch-emulator'
-import './polyfill'
-import './registerServiceWorker'
+import '@/lib/polyfill'
+import '@/lib/registerServiceWorker'
 
 import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueMeta from 'vue-meta'
-import Vant, { Dialog, ImagePreview, Lazyload, Notify, Toast } from 'vant'
+import { Dialog, Lazyload, Notify, Toast } from 'vant'
 
-import SvgIcon, { loadingSvg } from './icons'
-import VueMasonry from './components/VueMasonryCss'
-import ImageLayout from './components/ImageLayout.vue'
-import TopBar from './components/TopBar.vue'
-import Pximg from './components/DirectPximg.vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import longpress from './directives/longpress'
-import { LocalStorage } from './utils/storage'
-import { getSelectedLang, i18n, initLocale } from './i18n'
-import { getActionMap } from './api/client/action'
-import { initBookmarkCache } from './utils/storage/siteCache'
+import setupVant from '@/lib/vant'
+import SvgIcon, { loadingSvg } from '@/icons'
+import VueMasonry from '@/components/VueMasonryCss'
+import ImageLayout from '@/components/ImageLayout.vue'
+import TopBar from '@/components/TopBar.vue'
+import Pximg from '@/components/DirectPximg.vue'
+import App from '@/App.vue'
+import router from '@/router'
+import store from '@/store'
+import longpress from '@/directives/longpress'
+import { LocalStorage } from '@/utils/storage'
+import { getSelectedLang, i18n, initLocale } from '@/i18n'
+import { getActionMap } from '@/api/client/action'
+import { initBookmarkCache } from '@/utils/storage/siteCache'
 
 setupApp()
 
@@ -37,7 +38,6 @@ async function setupApp() {
   await initLocale()
 
   Vue.use(Toast)
-  Vue.use(ImagePreview)
   if (store.state.appSetting.isImgLazy) {
     Vue.use(Lazyload, {
       observer: store.state.appSetting.isImgLazyOb,
@@ -47,7 +47,7 @@ async function setupApp() {
       preload: 1.3,
     })
   }
-  Vue.use(Vant)
+  setupVant()
   Vue.use(VueAwesomeSwiper)
   Vue.use(VueMeta, { keyName: 'head' })
   Vue.use(VueMasonry)

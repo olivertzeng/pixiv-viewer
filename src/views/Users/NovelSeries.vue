@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import TopBar from '@/components/TopBar'
 import NovelCard from '@/components/NovelCard.vue'
 import api from '@/api'

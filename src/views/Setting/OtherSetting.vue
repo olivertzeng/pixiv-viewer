@@ -75,6 +75,7 @@
       <van-cell v-if="!clientConfig.useLocalAppApi && hideApSelect" center :title="$t('setting.api.title')" is-link :label="hibiapi.value" @click="hibiapi.show = true" />
       <van-cell v-if="!hideApSelect && !appSetting.isDirectPximg" center :title="$t('setting.img_proxy.title2')" is-link :label="pximgBedLabel" @click="pximgBed_.show = true" />
       <van-cell v-if="!clientConfig.useLocalAppApi && !hideApSelect" center :title="$t('setting.api.title2')" is-link :label="hibiapiLabel" @click="hibiapi_.show = true" />
+      <van-cell center :title="$t('8ko0ip_aETyyaSIMQmLqR')" is-link :label="hibiNextUrlLabel" @click="hibiapiNext.show = true" />
       <van-cell center :title="$t('lGZGzwfWz9tW_KQey3AmQ')" :label="$t('OA8ygupG-4FcNWHtwEUG-')">
         <template #right-icon>
           <van-switch :value="appSetting.isDirectPximg" size="24" @change="setDirectPximg" />
@@ -170,6 +171,14 @@
       :description="$t('setting.other.api_proxy.sel_desc')"
       close-on-click-action
       @select="changeApiProxy"
+    />
+    <van-action-sheet
+      v-model="hibiapiNext.show"
+      :actions="hibiapiNext.actions"
+      :cancel-text="$t('common.cancel')"
+      :description="$t('8ko0ip_aETyyaSIMQmLqR')"
+      close-on-click-action
+      @select="changeHibiapiNext"
     />
     <van-action-sheet
       v-model="wfType.show"
@@ -293,7 +302,7 @@ import { Dialog } from 'vant'
 import PixivAuth from '@/api/client/pixiv-auth'
 import localDb from '@/utils/storage/localDb'
 import store from '@/store'
-import { APP_API_PROXYS, DEF_HIBIAPI_MAIN, DEF_PXIMG_MAIN, HIBIAPI_ALTS, PXIMG_PROXYS } from '@/consts'
+import { APP_API_PROXYS, DEF_HIBIAPI_MAIN, DEF_PXIMG_MAIN, HIBIAPI_ALTS, PXIMG_PROXYS, PIXIV_NEXT_URL_DEF, PIXIV_NEXT_URL_ALTS } from '@/consts'
 import { i18n } from '@/i18n'
 import { checkImgAvailable, checkUrlAvailable, copyText, downloadURL, isURL, readTextFile } from '@/utils'
 import { mintVerify } from '@/utils/filter'
@@ -336,6 +345,13 @@ export default {
           return { name, _value }
         }),
       },
+      hibiapiNext: {
+        show: false,
+        value: LocalStorage.get('PIXIV_NEXT_URL', PIXIV_NEXT_URL_DEF),
+        actions: PIXIV_NEXT_URL_ALTS.split(',').map((e, i) => {
+          return { name: `Alt ${i}`, _value: `https://${e}` }
+        }),
+      },
       wfType: {
         show: false,
         actions: [
@@ -345,7 +361,6 @@ export default {
           { name: 'Masonry(CSSGrid)', subname: this.$t('setting.layout.m') + ' - ' + this.$t('setting.lab.title') },
           { name: 'Justified(Transform)', subname: this.$t('setting.layout.j') + ' - ' + this.$t('setting.lab.title') },
           { name: 'Masonry(FlexOrder)', subname: this.$t('setting.layout.m') + ' - ' + this.$t('setting.lab.title') },
-          { name: 'Justified(egjs)', subname: this.$t('setting.layout.j') + ' - ' + this.$t('setting.lab.title') },
         ],
       },
       imgRes: {
@@ -392,7 +407,7 @@ export default {
           { name: 'none', _value: '' },
           { name: 'ios', _value: 'f7-ios' },
           { name: 'md', _value: 'f7-md' },
-          { name: 'circle', _value: 'f7-circle' },
+          // { name: 'scale', _value: 'f7-circle' },
           { name: 'cover', _value: 'f7-cover' },
           { name: 'cover-v', _value: 'f7-cover-v' },
           { name: 'dive', _value: 'f7-dive' },
@@ -428,6 +443,9 @@ export default {
     },
     apiProxyLabel() {
       return this.apiProxySel.actions.find(e => e._value == this.clientConfig.apiProxy)?.name || ''
+    },
+    hibiNextUrlLabel() {
+      return this.hibiapiNext.actions.find(e => e._value == this.hibiapiNext.value)?.name || ''
     },
     appSetting() {
       return store.state.appSetting
@@ -590,6 +608,10 @@ export default {
       SessionStorage.clear()
       await localDb.clear()
       this.saveSetting('HIBIAPI_BASE', _value)
+    },
+    async changeHibiapiNext({ _value }) {
+      this.hibiapiNext.value = _value
+      this.saveSetting('PIXIV_NEXT_URL', _value)
     },
     onDarkChange(val) {
       window.umami?.track(`set_dark_${val}`)

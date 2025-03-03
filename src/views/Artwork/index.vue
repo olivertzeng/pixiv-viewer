@@ -64,7 +64,7 @@ import { mapGetters } from 'vuex'
 import nprogress from 'nprogress'
 import api from '@/api'
 import { getCache, setCache } from '@/utils/storage/siteCache'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { i18n } from '@/i18n'
 import { copyText, isSafari } from '@/utils'
 import IconLink from '@/assets/images/share-sheet-link.png'
@@ -165,9 +165,16 @@ export default {
   methods: {
     init() {
       this.loading = true
-      const id = +this.$route.params.id
       this.artwork = {}
-      this.getArtwork(id)
+      const { id, art } = this.$route.params
+      console.log('artwork detail: ', id, art)
+      if (art) {
+        this.artwork = art
+        this.loading = false
+      }
+      this.$nextTick(() => {
+        this.getArtwork(+id)
+      })
     },
     async getArtwork(id) {
       // console.log(id);
@@ -194,9 +201,6 @@ export default {
           icon: require('@/icons/error.svg'),
           duration: 3000,
         })
-        // setTimeout(() => {
-        //   this.$router.back()
-        // }, 500)
       }
     },
     showUgPanelFromDlBtn() {

@@ -1,5 +1,5 @@
 import { Dialog } from 'vant'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import dayjs from 'dayjs'
 import store from '@/store'
 

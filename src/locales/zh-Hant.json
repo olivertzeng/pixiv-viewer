@@ -176,7 +176,7 @@
     "mode": {
       "exact": "標籤完全一致",
       "partial": "標籤部分一致",
-      "title": "標題說明文"
+      "title": "標題與簡介"
     }
   },
   "setting": {
@@ -529,5 +529,6 @@
   "_E9iTJP6wHVE-Qxau80YA": "圖片卡圓角",
   "Rq0GHiUs_LyUxDu-IhfBb": "動圖默認下載格式",
   "ks96nwuAms0B8wSWBWhil": "未選擇",
-  "Cy6qJLutMa5O3jJr8TawB": "頁面過渡效果"
+  "Cy6qJLutMa5O3jJr8TawB": "頁面過渡效果",
+  "8ko0ip_aETyyaSIMQmLqR": "擴充 API 實例選擇"
 }

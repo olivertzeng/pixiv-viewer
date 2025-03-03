@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import api from '@/api'
 import { tryURL } from '@/utils'
 import ImageCard from '@/components/ImageCard'

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { LocalStorage } from '@/utils/storage'
 
 Vue.use(Vuex)

@@ -164,7 +164,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { mapGetters } from 'vuex'
 import { ImagePreview } from 'vant'
 import api from '@/api'

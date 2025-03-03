@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { Dialog } from 'vant'
 import { PIXIV_NEXT_URL } from '@/consts'
 

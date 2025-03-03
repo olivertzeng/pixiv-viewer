@@ -54,7 +54,7 @@
           mode="all"
           :artwork="art"
           :index="i + 1"
-          @click-card="toArtwork($event)"
+          @click-card="toArtwork(art)"
         />
       </wf-cont>
     </van-list>
@@ -81,7 +81,7 @@
 import dayjs from 'dayjs'
 import ImageCard from '@/components/ImageCard'
 import Nav from './components/Nav'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import api from '@/api'
 import { i18n } from '@/i18n'
 import { isAiIllust } from '@/utils/filter'
@@ -286,11 +286,11 @@ export default {
         this.error = true
       }
     }, 1500),
-    toArtwork(id) {
+    toArtwork(art) {
       this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
         name: 'Artwork',
-        params: { id },
+        params: { id: art.id, art },
       })
     },
     showPopup() {

@@ -129,7 +129,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import dayjs from 'dayjs'
 import api from '@/api'
 import store from '@/store'

@@ -33,7 +33,7 @@
 <script>
 import ImageCard from '@/components/ImageCard'
 import api from '@/api'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import dayjs from 'dayjs'
 import { filterHomeIllust } from '@/utils/filter'
 export default {

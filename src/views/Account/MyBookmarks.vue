@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import { mapState } from 'vuex'
 import ImageCard from '@/components/ImageCard'
 import { getBookmarkIllusts } from '@/api/user'

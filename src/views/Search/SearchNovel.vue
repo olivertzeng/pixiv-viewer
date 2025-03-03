@@ -88,7 +88,7 @@
 <script>
 import TagsNovel from './components/TagsNovel'
 import { mapState, mapActions } from 'vuex'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import api from '@/api'
 import { notSelfHibiApi } from '@/consts'
 import NovelCard from '@/components/NovelCard.vue'

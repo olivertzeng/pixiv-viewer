@@ -20,7 +20,7 @@
 <script>
 import TopBar from '@/components/TopBar'
 import api from '@/api'
-import _ from 'lodash'
+import _ from '@/lib/lodash'
 import ImageSlide from '@/components/ImageSlide.vue'
 import { mintVerify, BLOCK_SEARCH_WORD_RE } from '@/utils/filter'
 import { i18n } from '@/i18n'

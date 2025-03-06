@@ -524,12 +524,12 @@
   "hqciRRXfoN19LYLh8xr4D": "API приложения (RefreshToken)",
   "8zJrQTdrphmkCMMgL9SPW": "API приложения (OAuth)",
   "3ZvAP-w7q7teBcLoqOgCc": "Сетевой API (файл «куки»)",
-  "pL1gF_vTo1c_iF5GpBIDA": "Поисковые теги (только R-18)",
-  "IxG-Y2odr_0OKUJbaqV0-": "Поисковые теги (все возрасты)",
-  "mIfQo6LqzPPlvkV0XZM4X": "Минимальный список результатов поиска с минимальными закладками",
+  "pL1gF_vTo1c_iF5GpBIDA": "Найти метки (только R-18)",
+  "IxG-Y2odr_0OKUJbaqV0-": "Найти метки (все возрасты)",
+  "mIfQo6LqzPPlvkV0XZM4X": "Фильтр мин. числа добавивших в избранное в списке результатов поиска иллюстраций",
   "_E9iTJP6wHVE-Qxau80YA": "Радиус границы карты изображения",
-  "Rq0GHiUs_LyUxDu-IhfBb": "Формат загрузки по умолчанию Ugoira",
+  "Rq0GHiUs_LyUxDu-IhfBb": "Формат скачивания угойр по умолчанию",
   "ks96nwuAms0B8wSWBWhil": "Не выбрано",
   "Cy6qJLutMa5O3jJr8TawB": "Эффект перехода страницы",
-  "8ko0ip_aETyyaSIMQmLqR": "Расширенный выбор экземпляра API"
+  "8ko0ip_aETyyaSIMQmLqR": "Расширенный выбор сервера API"
 }

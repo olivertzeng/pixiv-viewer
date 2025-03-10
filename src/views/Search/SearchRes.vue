@@ -373,9 +373,9 @@ export default {
       }
       if (this.usersIriTag) val += ' ' + this.usersIriTag
       const params = _.pickBy(this.searchParams, Boolean)
-      // if (!this.$store.state.contentSetting.ai) {
-      //   params.search_ai_type = 0
-      // }
+      if (!this.$store.state.contentSetting.ai) {
+        params.search_ai_type = 1
+      }
       this.loading = true
       const res = await api.search(val, this.curPage, params)
       if (res.status === 0) {

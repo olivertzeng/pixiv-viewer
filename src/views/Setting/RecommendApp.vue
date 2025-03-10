@@ -215,7 +215,7 @@
       title="Kikoeru (Android)"
       is-link
       label="Kikoeru(ASMR Online) android client."
-      @click="openLink('https://install.appcenter.ms/users/littleloli/apps/Kikoeru/distribution_groups/public')"
+      @click="openLink('https://github.com/loli-ball/KikoeruRelease/releases')"
     />
     <van-cell
       center

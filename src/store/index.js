@@ -67,6 +67,9 @@ export default new Vuex.Store({
     isLoggedIn(state) {
       return !!state.user
     },
+    isR18On(state) {
+      return state.contentSetting.r18 || state.contentSetting.r18g
+    },
     isCensored: state => artwork => {
       if (state.blockUids.length && state.blockUids.includes(`${artwork?.author?.id}`)) {
         return true

@@ -1,5 +1,5 @@
 <template>
-  <div class="artwork" :class="{ isSafari, isAutoLoadImt }">
+  <div class="artwork" :class="{ isSafari, isAutoLoadImt, isSimulatedMeta }">
     <TopBar />
     <div class="share_btn" @click="share">
       <Icon class="icon" name="share" />
@@ -54,19 +54,21 @@
 </template>
 
 <script>
+import nprogress from 'nprogress'
+import { mapGetters } from 'vuex'
+import { ImagePreview } from 'vant'
+import api from '@/api'
+import store from '@/store'
+import _ from '@/lib/lodash'
+import { getCache, setCache } from '@/utils/storage/siteCache'
+import { i18n } from '@/i18n'
+import { copyText, isSafari } from '@/utils'
+import { PIXIV_NEXT_URL, COMMON_PROXY } from '@/consts'
 import TopBar from '@/components/TopBar'
 import ImageView from './components/ImageView'
 import Meta from './components/Meta'
 import AuthorCard from './components/AuthorCard'
 import Related from './components/Related'
-import { ImagePreview } from 'vant'
-import { mapGetters } from 'vuex'
-import nprogress from 'nprogress'
-import api from '@/api'
-import { getCache, setCache } from '@/utils/storage/siteCache'
-import _ from '@/lib/lodash'
-import { i18n } from '@/i18n'
-import { copyText, isSafari } from '@/utils'
 import IconLink from '@/assets/images/share-sheet-link.png'
 import IconQQ from '@/assets/images/share-sheet-qq.png'
 import IconQrcode from '@/assets/images/share-sheet-qrcode.png'
@@ -76,7 +78,6 @@ import IconWechat from '@/assets/images/share-sheet-wechat.png'
 import IconWeibo from '@/assets/images/share-sheet-weibo.png'
 import IconTwitter from '@/assets/images/share-sheet-twi.png'
 import IconFacebook from '@/assets/images/share-sheet-facebook.png'
-import store from '@/store'
 
 const { isAutoLoadImt, isEnableSwipe } = store.state.appSetting
 
@@ -148,6 +149,9 @@ export default {
   },
   computed: {
     ...mapGetters(['isCensored']),
+    isSimulatedMeta() {
+      return this.artwork.width == 0
+    },
   },
   watch: {
     $route() {
@@ -168,7 +172,7 @@ export default {
       this.artwork = {}
       const { id, art } = this.$route.params
       console.log('artwork detail: ', id, art)
-      if (art) {
+      if (art && !art.images[0].o.includes('i.loli.best')) {
         this.artwork = art
         this.loading = false
       }
@@ -177,7 +181,6 @@ export default {
       })
     },
     async getArtwork(id) {
-      // console.log(id);
       const res = await api.getArtwork(id)
       if (res.status === 0) {
         this.artwork = res.data
@@ -188,6 +191,10 @@ export default {
             message: this.$t('common.content.hide'),
             icon: require('@/icons/ban-view.svg'),
           })
+        }
+
+        if (this.artwork.images[0].o.includes('common/images/limit')) {
+          this.pidRecover(id)
         }
 
         let historyList = await getCache('illusts.history', [])
@@ -201,6 +208,9 @@ export default {
           icon: require('@/icons/error.svg'),
           duration: 3000,
         })
+        if (res.msg == '尚无此页') {
+          this.pidRecover(id, true)
+        }
       }
     },
     showUgPanelFromDlBtn() {
@@ -285,6 +295,38 @@ export default {
     },
     async share() {
       this.showShare = true
+    },
+    async pidRecover(id, setFakeAuthor = false) {
+      if (!store.getters.isR18On) return
+      const res = await fetch(`${PIXIV_NEXT_URL}/api/pid-recover/${id}`)
+      if (!res.ok) return
+      const arr = await res.json()
+      console.log('--------------pidRecover arr: ', arr)
+      this.loading = false
+      this.artwork = {
+        id,
+        title: `${id}`,
+        created: arr[0].createDate,
+        author: setFakeAuthor
+          ? {
+              id: 11,
+              name: 'Unknown',
+              avatar: 'https://s.pximg.net/common/images/no_profile.png',
+            }
+          : {
+              ...this.artwork.author,
+              name: 'Unknown',
+            },
+        images: arr.map(e => ({
+          l: COMMON_PROXY + e.sampleUrl,
+          o: COMMON_PROXY + e.fileUrl,
+        })),
+        tags: arr[0].tags.map(e => ({ name: e })),
+        width: 0,
+        height: 0,
+        count: arr.length,
+        type: 'illust',
+      }
     },
   },
 }
@@ -419,4 +461,18 @@ img[src*="https://api.moedog.org/qr/?url="]
       .shrink::after
         background: linear-gradient(to top, #f5f5f5, rgba(255,255,255,0));
 
+.isSimulatedMeta
+  ::v-deep .artwork-meta
+    .tag-list
+      pointer-events none
+    .view,
+    .like,
+    .pid_link,
+    .whid span:first-child,
+    .whid span:last-child,
+    .van-button:has(.van-icon-comment-o)
+      display none
+    .date,.whid
+      display inline-flex
+      margin 0
 </style>

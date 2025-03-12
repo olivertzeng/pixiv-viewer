@@ -23,7 +23,7 @@
           :key="art.id"
           mode="all"
           :artwork="art"
-          @click-card="toArtwork($event)"
+          @click-card="toArtwork(art)"
         />
       </wf-cont>
     </van-list>
@@ -77,11 +77,11 @@ export default {
         this.error = true
       }
     }, 1500),
-    toArtwork(id) {
+    toArtwork(art) {
       this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
         name: 'Artwork',
-        params: { id },
+        params: { id: art.id, art },
       })
     },
   },

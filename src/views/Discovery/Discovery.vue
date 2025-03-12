@@ -8,7 +8,7 @@
       </div>
     </h3>
     <wf-cont layout="Grid">
-      <ImageCard v-for="art in artList" :key="art.id" mode="all" square :artwork="art" @click-card="toArtwork($event)" />
+      <ImageCard v-for="art in artList" :key="art.id" mode="all" square :artwork="art" @click-card="toArtwork(art)" />
     </wf-cont>
     <van-loading v-show="loading" class="loading" :size="'50px'" />
     <van-empty v-if="!loading && !artList.length" :description="$t('tips.no_data')" />
@@ -47,11 +47,11 @@ export default {
     this.init()
   },
   methods: {
-    toArtwork(id) {
+    toArtwork(art) {
       this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
         name: 'Artwork',
-        params: { id },
+        params: { id: art.id, art },
       })
     },
     async getArtList() {

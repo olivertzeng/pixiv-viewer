@@ -118,7 +118,7 @@
         @load="doSearch"
       >
         <wf-cont>
-          <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
+          <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork(art)" />
         </wf-cont>
       </van-list>
       <van-loading v-show="keywords.trim() && artList.length == 0 && !finished" class="loading" :size="'50px'" />
@@ -428,11 +428,11 @@ export default {
         this.error = true
       }
     }, 1000),
-    toArtwork(id) {
+    toArtwork(art) {
       this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
         name: 'Artwork',
-        params: { id },
+        params: { id: art.id, art },
       })
     },
     onSearchInput: _.debounce(async function () {

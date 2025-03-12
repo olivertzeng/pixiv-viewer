@@ -1,7 +1,7 @@
 <template>
   <div class="illusts">
     <wf-cont layout="Grid">
-      <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
+      <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork(art)" />
     </wf-cont>
     <van-empty v-if="!artList.length" :description="$t('tips.no_data')" />
   </div>
@@ -30,11 +30,11 @@ export default {
     this.getHistory()
   },
   methods: {
-    toArtwork(id) {
+    toArtwork(art) {
       this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
         name: 'Artwork',
-        params: { id },
+        params: { id: art.id, art },
       })
     },
     async getHistory() {

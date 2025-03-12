@@ -42,7 +42,7 @@
       @load="getMemberArtwork()"
     >
       <wf-cont :layout="selTag ? 'Grid' : undefined">
-        <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
+        <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork(art)" />
       </wf-cont>
     </van-list>
   </div>
@@ -219,11 +219,11 @@ export default {
         this.error = true
       }
     }, 2500),
-    toArtwork(id) {
+    toArtwork(art) {
       this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
         name: 'Artwork',
-        params: { id },
+        params: { id: art.id, art },
       })
     },
     onClick() {

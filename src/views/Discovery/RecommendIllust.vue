@@ -3,7 +3,7 @@
     <top-bar />
     <h3 class="af_title">{{ $t('common.recomm_art') }}</h3>
     <wf-cont>
-      <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork($event)" />
+      <ImageCard v-for="art in artList" :key="art.id" mode="all" :artwork="art" @click-card="toArtwork(art)" />
     </wf-cont>
     <van-loading v-if="!showLoadMoreBtn && loading" class="loading" :size="'50px'" />
     <van-empty v-if="!loading && !artList.length" :description="$t('tips.no_data')" />
@@ -58,11 +58,11 @@ export default {
     this.init()
   },
   methods: {
-    toArtwork(id) {
+    toArtwork(art) {
       this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
         name: 'Artwork',
-        params: { id },
+        params: { id: art.id, art },
       })
     },
     async loadMore() {

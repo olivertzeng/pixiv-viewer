@@ -19,7 +19,7 @@
           :key="art.id"
           class="image-card-slide"
         >
-          <ImageCard class="slide" mode="cover" :artwork="art" @click-card="toArtwork($event)" />
+          <ImageCard class="slide" mode="cover" :artwork="art" @click-card="toArtwork(art)" />
         </swiper-slide>
         <swiper-slide class="image-slide-slide">
           <ImageSlide class="slide" :images="slides">
@@ -122,11 +122,11 @@ export default {
       console.log('----------------ai arts: ', length)
       this.$emit('author-change', length >= 5)
     },
-    toArtwork(id) {
+    toArtwork(art) {
       this.setGalleryList(this.memberArtwork)
       this.$router.push({
         name: 'Artwork',
-        params: { id },
+        params: { id: art.id, art },
       })
     },
     toAuthor(id) {

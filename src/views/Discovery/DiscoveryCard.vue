@@ -9,7 +9,7 @@
     <div class="card-box">
       <swiper class="swipe-wrap" :options="swiperOption">
         <swiper-slide v-for="art in artList.slice(0, 10)" :key="art.id" class="swipe-item">
-          <ImageCard mode="meta" square :artwork="art" @click-card="toArtwork($event)" />
+          <ImageCard mode="meta" square :artwork="art" @click-card="toArtwork(art)" />
         </swiper-slide>
         <swiper-slide class="swipe-item more">
           <ImageSlide :images="slides">
@@ -96,11 +96,11 @@ export default {
         name: 'Discovery',
       })
     },
-    toArtwork(id) {
+    toArtwork(art) {
       this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({
         name: 'Artwork',
-        params: { id },
+        params: { id: art.id, art },
       })
     },
   },

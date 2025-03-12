@@ -2,6 +2,7 @@ import '@/lib/vant-style'
 import 'swiper/css/swiper.css'
 import '@/assets/style/base.styl'
 import '@/assets/style/theme.styl'
+import '@/assets/style/theme-bg.styl'
 import '@/assets/style/vta.css'
 
 import '@vant/touch-emulator'
@@ -78,8 +79,9 @@ async function initLocalApi() {
 }
 
 async function initSetting() {
-  const { pageTransition } = store.state.appSetting
+  const { pageTransition, withBodyBg } = store.state.appSetting
   if (pageTransition) document.documentElement.classList.add(pageTransition)
+  if (withBodyBg) document.documentElement.classList.add('with-body-bg')
 
   let flag = false
   const setting = LocalStorage.get('PXV_CNT_SHOW', {})

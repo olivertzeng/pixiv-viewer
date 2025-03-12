@@ -75,7 +75,6 @@
       <van-cell v-if="!clientConfig.useLocalAppApi && hideApSelect" center :title="$t('setting.api.title')" is-link :label="hibiapi.value" @click="hibiapi.show = true" />
       <van-cell v-if="!hideApSelect && !appSetting.isDirectPximg" center :title="$t('setting.img_proxy.title2')" is-link :label="pximgBedLabel" @click="pximgBed_.show = true" />
       <van-cell v-if="!clientConfig.useLocalAppApi && !hideApSelect" center :title="$t('setting.api.title2')" is-link :label="hibiapiLabel" @click="hibiapi_.show = true" />
-      <van-cell center :title="$t('8ko0ip_aETyyaSIMQmLqR')" is-link :label="hibiNextUrlLabel" @click="hibiapiNext.show = true" />
       <van-cell center :title="$t('lGZGzwfWz9tW_KQey3AmQ')" :label="$t('OA8ygupG-4FcNWHtwEUG-')">
         <template #right-icon>
           <van-switch :value="appSetting.isDirectPximg" size="24" @change="setDirectPximg" />
@@ -121,6 +120,11 @@
       <van-cell center :title="$t('_E9iTJP6wHVE-Qxau80YA')">
         <template #right-icon>
           <van-switch :value="appSetting.isImageCardBorderRadius" size="24" @change="v => saveAppSetting('isImageCardBorderRadius', v, true)" />
+        </template>
+      </van-cell>
+      <van-cell center :title="$t('Na5UTdncjCSNrFJGlrPoq')">
+        <template #right-icon>
+          <van-switch :value="appSetting.withBodyBg" size="24" @change="v => saveAppSetting('withBodyBg', v, true)" />
         </template>
       </van-cell>
       <van-cell v-if="isPageTransitionSelShow" center :title="$t('Cy6qJLutMa5O3jJr8TawB')" :label="pageTransitionLabel" is-link @click="pageTransition.show = true" />
@@ -171,14 +175,6 @@
       :description="$t('setting.other.api_proxy.sel_desc')"
       close-on-click-action
       @select="changeApiProxy"
-    />
-    <van-action-sheet
-      v-model="hibiapiNext.show"
-      :actions="hibiapiNext.actions"
-      :cancel-text="$t('common.cancel')"
-      :description="$t('8ko0ip_aETyyaSIMQmLqR')"
-      close-on-click-action
-      @select="changeHibiapiNext"
     />
     <van-action-sheet
       v-model="wfType.show"
@@ -302,7 +298,7 @@ import { Dialog } from 'vant'
 import PixivAuth from '@/api/client/pixiv-auth'
 import localDb from '@/utils/storage/localDb'
 import store from '@/store'
-import { APP_API_PROXYS, DEF_HIBIAPI_MAIN, DEF_PXIMG_MAIN, HIBIAPI_ALTS, PXIMG_PROXYS, PIXIV_NEXT_URL_DEF, PIXIV_NEXT_URL_ALTS } from '@/consts'
+import { APP_API_PROXYS, DEF_HIBIAPI_MAIN, DEF_PXIMG_MAIN, HIBIAPI_ALTS, PXIMG_PROXYS } from '@/consts'
 import { i18n } from '@/i18n'
 import { checkImgAvailable, checkUrlAvailable, copyText, downloadURL, isURL, readTextFile } from '@/utils'
 import { mintVerify } from '@/utils/filter'
@@ -343,13 +339,6 @@ export default {
         actions: HIBIAPI_ALTS.split(';').map(e => {
           const [name, _value] = e.split(',')
           return { name, _value }
-        }),
-      },
-      hibiapiNext: {
-        show: false,
-        value: LocalStorage.get('PIXIV_NEXT_URL', PIXIV_NEXT_URL_DEF),
-        actions: PIXIV_NEXT_URL_ALTS.split(',').map((e, i) => {
-          return { name: `Alt ${i}`, _value: `https://${e}` }
         }),
       },
       wfType: {
@@ -443,9 +432,6 @@ export default {
     },
     apiProxyLabel() {
       return this.apiProxySel.actions.find(e => e._value == this.clientConfig.apiProxy)?.name || ''
-    },
-    hibiNextUrlLabel() {
-      return this.hibiapiNext.actions.find(e => e._value == this.hibiapiNext.value)?.name || ''
     },
     appSetting() {
       return store.state.appSetting
@@ -608,10 +594,6 @@ export default {
       SessionStorage.clear()
       await localDb.clear()
       this.saveSetting('HIBIAPI_BASE', _value)
-    },
-    async changeHibiapiNext({ _value }) {
-      this.hibiapiNext.value = _value
-      this.saveSetting('PIXIV_NEXT_URL', _value)
     },
     onDarkChange(val) {
       window.umami?.track(`set_dark_${val}`)

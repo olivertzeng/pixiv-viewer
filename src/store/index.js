@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import _ from '@/lib/lodash'
-import { LocalStorage } from '@/utils/storage'
+import { LocalStorage, SessionStorage } from '@/utils/storage'
+import { isSafari } from '@/utils'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,7 @@ export default new Vuex.Store({
     contentSetting: getSettingDef('PXV_CNT_SHOW', {
       r18: false,
       r18g: false,
-      ai: false,
+      ai: true,
     }),
     /** @type {object|null} */
     user: null,
@@ -37,7 +38,7 @@ export default new Vuex.Store({
     appNotice: null,
     /** @type {any[]|null} */
     seasonEffects: null,
-    routeHistory: [],
+    routeHistory: SessionStorage.get('PXV_ROUTE_HISTORY', []),
     appSetting: {
       wfType: getSettingDef('PXV_WF_TYPE', 'Masonry'),
       imgReso: getSettingDef('PXV_DTL_IMG_RES', isMobile ? 'Medium' : 'Large'),
@@ -59,7 +60,8 @@ export default new Vuex.Store({
       searchListMinFavNum: '5',
       isImageCardBorderRadius: true,
       ugoiraDefDLFormat: '',
-      pageTransition: '',
+      pageTransition: isMobile && Boolean(document.startViewTransition) ? (isSafari() ? 'f7-ios' : 'f7-md') : '',
+      withBodyBg: false,
       ...getSettingDef('PXV_APP_SETTING', {}),
     },
   },
@@ -173,6 +175,7 @@ export default new Vuex.Store({
     },
     setRouteHistory(state, val) {
       state.routeHistory = val
+      SessionStorage.set('PXV_ROUTE_HISTORY', val)
     },
   },
   actions: {

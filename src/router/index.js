@@ -365,12 +365,12 @@ const router = new VueRouter({
 const noSlideRoutes = ['Home', 'HomeManga', 'HomeNovel', 'Search', 'SearchNovel', 'SearchUser', 'Rank', 'RankNovel', 'Following', 'Setting']
 function handlePageTransition(to, from) {
   const { routeHistory } = store.state
-  if (routeHistory.length > 1 && routeHistory[routeHistory.length - 2].fullPath === to.fullPath) {
+  if (routeHistory.length > 1 && routeHistory[routeHistory.length - 2] == to.fullPath) {
     document.documentElement.classList.add('router-vta-back')
     store.commit('setRouteHistory', routeHistory.slice(0, -1))
-  } else {
+  } else if (routeHistory[routeHistory.length - 1] != to.fullPath) {
     document.documentElement.classList.remove('router-vta-back')
-    store.commit('setRouteHistory', [...routeHistory, to])
+    store.commit('setRouteHistory', [...routeHistory, to.fullPath])
   }
   if (noSlideRoutes.includes(from.name) && noSlideRoutes.includes(to.name)) {
     document.documentElement.classList.add('router-vta-fade')

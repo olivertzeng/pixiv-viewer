@@ -104,6 +104,9 @@ html[lang="ja"]
 .author-card .cell .icon
   object-fit: cover
 
+.History.illusts
+  padding: 0 0.15rem 0.5rem;
+
 .setting-page
   max-width 750px
   margin 0 auto 160px
@@ -587,6 +590,9 @@ html:has(.dark)
   .search .tags .meta::after
     border-radius: 0 !important;
 
+.image-card .btn-play
+  font-size 1.2rem !important
+
 .swiper-slide .image
   transform none !important
   transition none !important
@@ -771,3 +777,13 @@ html:has(.novel_text) #immersive-translate-popup
         .content
           margin-left 0 !important
           margin-right 0 !important
+
+body.dark::before
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background: #16161a;

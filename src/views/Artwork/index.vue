@@ -175,10 +175,16 @@ export default {
       if (art && !art.images[0].o.includes('i.loli.best')) {
         this.artwork = art
         this.loading = false
+        if (window.APP_CONFIG.useLocalAppApi) {
+          this.$nextTick(() => {
+            this.getArtwork(+id)
+          })
+        }
+      } else {
+        this.$nextTick(() => {
+          this.getArtwork(+id)
+        })
       }
-      this.$nextTick(() => {
-        this.getArtwork(+id)
-      })
     },
     async getArtwork(id) {
       const res = await api.getArtwork(id)
@@ -299,6 +305,7 @@ export default {
     async pidRecover(id, setFakeAuthor = false) {
       if (!store.getters.isR18On) return
       const res = await fetch(`${PIXIV_NEXT_URL}/api/pid-recover/${id}`)
+      window.umami?.track('pid_recover', { ok: res.ok })
       if (!res.ok) return
       const arr = await res.json()
       console.log('--------------pidRecover arr: ', arr)

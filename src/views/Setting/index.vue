@@ -16,26 +16,28 @@
     >
       {{ notice.text }}
     </van-notice-bar>
-    <van-cell v-if="isLoggedIn" size="large" center is-link :to="`/u/${user.id}`">
-      <template #title>
-        <div class="user_data">
-          <Pximg :src="user.profileImg" nobg width="50" height="50" alt="" />
-          <div>
-            <div>{{ user.name }}</div>
-            <div style="color: #999">@{{ user.pixivId }}</div>
+    <div class="setting-group">
+      <van-cell v-if="isLoggedIn" size="large" center is-link :to="`/u/${user.id}`">
+        <template #title>
+          <div class="user_data">
+            <Pximg :src="user.profileImg" nobg width="50" height="50" alt="" />
+            <div>
+              <div>{{ user.name }}</div>
+              <div style="color: #999">@{{ user.pixivId }}</div>
+            </div>
           </div>
-        </div>
-      </template>
-    </van-cell>
-    <van-cell v-if="isLoggedIn" size="large" center :title="$t('user.sess.my_fav')" icon="star-o" is-link :to="`/users/${user.id}/favorites`" />
-    <van-cell v-else size="large" center :title="$t('user.sess.login')" icon="user-circle-o" is-link to="/account/login" />
-    <van-cell size="large" center :title="$t('common.history')" icon="underway-o" is-link to="/setting/history" />
-    <van-cell size="large" center :title="$t('display.title')" icon="eye-o" is-link to="/setting/contents_display" />
-    <van-cell size="large" center :title="$t('cache.title')" icon="delete-o" is-link to="/setting/clearcache" />
-    <van-cell size="large" center :title="$t('setting.other.title')" icon="setting-o" is-link to="/setting/preference" />
-    <van-cell size="large" center :title="$t('setting.down_app')" icon="apps-o" is-link @click="openDlLink" />
-    <van-cell size="large" center :title="$t('setting.recomm.title')" icon="bookmark-o" is-link to="/setting/osusume" />
-    <van-cell size="large" center :title="$t('setting.about')" icon="info-o" is-link to="/setting/about" />
+        </template>
+      </van-cell>
+      <van-cell v-if="isLoggedIn" size="large" center :title="$t('user.sess.my_fav')" icon="star-o" is-link :to="`/users/${user.id}/favorites`" />
+      <van-cell v-else size="large" center :title="$t('user.sess.login')" icon="user-circle-o" is-link to="/account/login" />
+      <van-cell size="large" center :title="$t('common.history')" icon="underway-o" is-link to="/setting/history" />
+      <van-cell size="large" center :title="$t('display.title')" icon="eye-o" is-link to="/setting/contents_display" />
+      <van-cell size="large" center :title="$t('cache.title')" icon="delete-o" is-link to="/setting/clearcache" />
+      <van-cell size="large" center :title="$t('setting.other.title')" icon="setting-o" is-link to="/setting/preference" />
+      <van-cell size="large" center :title="$t('setting.down_app')" icon="apps-o" is-link @click="openDlLink" />
+      <van-cell size="large" center :title="$t('setting.recomm.title')" icon="bookmark-o" is-link to="/setting/osusume" />
+      <van-cell size="large" center :title="$t('setting.about')" icon="info-o" is-link to="/setting/about" />
+    </div>
     <div v-if="isLoggedIn" style="width: 60%;margin: 1rem auto 0;">
       <van-button round plain block type="danger" size="small" @click="logoutApp">{{ $t('user.sess.out') }}</van-button>
     </div>

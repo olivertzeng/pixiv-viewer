@@ -36,7 +36,7 @@
       box-shadow: 0 3PX 1PX -2PX rgba(0, 0, 0, .2), 0 2PX 2PX 0 rgba(0, 0, 0, .14), 0 1PX 5PX 0 rgba(0, 0, 0, .12);
     }
   </style>
-  <script async defer="defer" src="https://um.nanoka.top/script.js" data-website-id="69717e89-51a1-409a-80e6-89210a688efd" data-cache="true"></script>
+  <script src="https://um.nanoka.top/script.js" data-website-id="69717e89-51a1-409a-80e6-89210a688efd" data-cache="true"></script>
 </head>
 
 <body>
@@ -82,7 +82,9 @@
     </p>
   </div>
   <script>
-    window.umami = window.umami || { track: () => {} }
+    function track (key, val) {
+      window.umami && window.umami.track(key, val)
+    }
     window.onload = function () {
       const images = [
         'https://upload-bbs.miyoushe.com/upload/2023/04/17/190122060/b8b72d059259260cabe9b6194373ee84_3762224610399620263.jpg',
@@ -106,7 +108,7 @@
       location.href = './test/captcha.html'
     }
     function goDownloadApp() {
-      window.umami.track('zq39i1hjru_goDownloadApp')
+      track('zq39i1hjru_goDownloadApp')
       location.href = 'https://github.com/asadahimeka/pixiv-viewer/releases'
     }
     function changeLang() {
@@ -115,7 +117,7 @@
       location.replace('/')
     }
     function closeSwitch() {
-      window.umami.track('zq39i1hjru_closeSwitch')
+      track('zq39i1hjru_closeSwitch')
       localStorage.removeItem('PXV_NSFW_ON')
       localStorage.removeItem('PXV_CNT_SHOW')
       location.replace('/')

@@ -10,7 +10,7 @@
     background: #f7f8fa;
 
   &.custom_theme body::before
-    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), var(--accent-color, #f7f8fa);
+    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9)), var(--accent-color, #f7f8fa);
 
   body.dark::before
     background: #16161a !important;
@@ -75,6 +75,18 @@
       .content
         &+.more, &::after
           display none
+    .search .com_sel_tabs
+      left 50%
+      transform translateX(-50%)
+      width fit-content
+      padding-top 0.1rem
+      backdrop-filter: none
+      background none
+    .rank .top,
+    .Home .com_sel_tabs,
+    .Following .van-tabs__nav,
+    .search .search-bar
+      background: rgba(255, 255, 255, 0.6);
 
   @media screen and (max-width: 600px)
     body:not(.dark)

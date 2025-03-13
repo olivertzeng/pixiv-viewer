@@ -32,7 +32,7 @@
     </van-swipe-cell>
     <van-divider style="margin: 0.7rem 0;" />
     <keep-alive>
-      <Related :key="artwork.id" :artwork="artwork" />
+      <Related v-show="artwork.id" :key="artwork.id" :artwork="artwork" />
     </keep-alive>
     <van-action-sheet
       v-model="ugoiraDownloadPanelShow"
@@ -179,6 +179,8 @@ export default {
           this.$nextTick(() => {
             this.getArtwork(+id)
           })
+        } else {
+          this.pushHistory(art)
         }
       } else {
         this.$nextTick(() => {
@@ -203,11 +205,7 @@ export default {
           this.pidRecover(id)
         }
 
-        let historyList = await getCache('illusts.history', [])
-        if (!Array.isArray(historyList)) historyList = []
-        if (historyList.length > 100) historyList = historyList.slice(0, 100)
-        historyList = _.uniqBy([res.data, ...historyList], 'id')
-        setCache('illusts.history', historyList)
+        this.pushHistory(res.data)
       } else {
         this.$toast({
           message: res.msg,
@@ -218,6 +216,13 @@ export default {
           this.pidRecover(id, true)
         }
       }
+    },
+    async pushHistory(art) {
+      let historyList = await getCache('illusts.history', [])
+      if (!Array.isArray(historyList)) historyList = []
+      if (historyList.length > 100) historyList = historyList.slice(0, 100)
+      historyList = _.uniqBy([art, ...historyList], 'id')
+      setCache('illusts.history', historyList)
     },
     showUgPanelFromDlBtn() {
       const { ugoiraDefDLFormat } = store.state.appSetting

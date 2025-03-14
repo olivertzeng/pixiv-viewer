@@ -37,6 +37,23 @@ export default {
 }
 </script>
 
+<style>
+.with-body-bg.custom_theme body:not(.dark) .shrink::after {
+  --color: color-mix(in srgb, var(--accent-color), white 90%);
+  background: linear-gradient(to top, var(--color), rgba(255, 255, 255, 0));
+}
+.with-body-bg.custom_theme body:not(.dark) .novel .artwork-meta .shrink::after {
+  background: linear-gradient(to top, #fff, rgba(255, 255, 255, 0));
+}
+.with-body-bg.custom_theme body:not(.dark) .image-view.shrink {
+  max-height: 95vh;
+}
+@media screen and (max-width: 600px) {
+  .with-body-bg.custom_theme body:not(.dark) .image-view.shrink{
+    max-width: 13rem;
+  }
+}
+</style>
 <style lang="stylus">
 html,body
   width 100%;

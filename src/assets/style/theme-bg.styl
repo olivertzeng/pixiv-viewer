@@ -21,6 +21,20 @@
       background: #fefefe;
     .novel .ia-cont .ia-right .artwork-meta
       box-shadow: 0 1PX 1PX -1PX rgba(0,0,0,.2), 0 1PX 1PX 0 rgba(0,0,0,.14), 0 1PX 1PX 0 rgba(0,0,0,.12)
+    #ldio-loading,
+    .van-popup,
+    .van-share-sheet > button,
+    .van-calendar,
+    .search-dropdown
+      background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9)), var(--accent-color)
+    .van-popup .van-cell,
+    .search .search_params,
+    .dropdown.search-bar-wrap .search-bar,
+    .artwork-meta .meta_btns .van-button,
+    .comments-popup .van-button
+      background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), var(--accent-color)
+    .comments-popup .van-button:hover
+      filter brightness(1.05)
 
   body:not(.dark)
     .setting-page > .af_title + .van-cell,
@@ -39,8 +53,6 @@
     .container .tips.van-collapse::after,
     .van-tabs--line .van-sticky:not(.van-sticky--fixed) .van-tabs__wrap
       border-radius: 8PX;
-    .search .search_params
-      background: #fdfdfd;
     .novel-card,
     .novel .ia-cont .ia-left .collapse-btn,
     .novel .ia-cont .ia-right .artwork-meta
@@ -86,7 +98,7 @@
     .Home .com_sel_tabs,
     .Following .van-tabs__nav,
     .search .search-bar
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.2);
 
   @media screen and (max-width: 600px)
     body:not(.dark)

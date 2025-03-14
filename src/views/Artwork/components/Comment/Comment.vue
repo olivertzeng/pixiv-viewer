@@ -80,6 +80,7 @@ export default {
       font-size 18PX
       font-weight bold
     .content
+      word-break: break-all
       white-space: pre-wrap
       margin-bottom: .3em
       font-size 16PX

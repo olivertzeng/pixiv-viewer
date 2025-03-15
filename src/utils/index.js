@@ -251,6 +251,23 @@ export function getContrastingTextColor(backgroundColor) {
   return luminance > 0.5 ? '#333' : 'white' // 浅色背景用黑字，深色背景用白字
 }
 
+export function hexToRgb(hex) {
+  // 移除 "#" 号（如果有的话）
+  hex = hex.replace(/^#/, '')
+
+  // 处理简写形式 (例如: #03F 变成 #0033FF)
+  if (hex.length === 3) {
+    hex = hex.split('').map(char => char + char).join('')
+  }
+
+  // 解析 r, g, b
+  const r = parseInt(hex.substring(0, 2), 16)
+  const g = parseInt(hex.substring(2, 4), 16)
+  const b = parseInt(hex.substring(4, 6), 16)
+
+  return `rgb(${r}, ${g}, ${b})`
+}
+
 export async function checkImgAvailable(src) {
   return new Promise((resolve, reject) => {
     let img = document.createElement('img')

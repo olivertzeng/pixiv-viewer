@@ -78,6 +78,7 @@ import IconWechat from '@/assets/images/share-sheet-wechat.png'
 import IconWeibo from '@/assets/images/share-sheet-weibo.png'
 import IconTwitter from '@/assets/images/share-sheet-twi.png'
 import IconFacebook from '@/assets/images/share-sheet-facebook.png'
+import { SessionStorage } from '@/utils/storage'
 
 const { isAutoLoadImt, isEnableSwipe } = store.state.appSetting
 
@@ -170,25 +171,25 @@ export default {
     init() {
       this.loading = true
       this.artwork = {}
-      const { id, art } = this.$route.params
+      const id = Number(this.$route.params.id)
+      let art = SessionStorage.get(`param_art_detail_${id}`)
+      if (!art) art = this.$route.params.art
       console.log('artwork detail: ', id, art)
       if (art && !art.images[0].o.includes('i.loli.best')) {
         this.artwork = art
         this.loading = false
+        SessionStorage.set(`param_art_detail_${id}`, art)
         if (window.APP_CONFIG.useLocalAppApi) {
-          this.$nextTick(() => {
-            this.getArtwork(+id)
-          })
+          this.getArtwork(+id)
         } else {
           this.pushHistory(art)
         }
       } else {
-        this.$nextTick(() => {
-          this.getArtwork(+id)
-        })
+        this.getArtwork(+id)
       }
     },
     async getArtwork(id) {
+      await this.$nextTick()
       const res = await api.getArtwork(id)
       if (res.status === 0) {
         this.artwork = res.data
@@ -218,6 +219,9 @@ export default {
       }
     },
     async pushHistory(art) {
+      await this.$nextTick()
+      this.$refs.artworkMeta?.drawMask()
+
       let historyList = await getCache('illusts.history', [])
       if (!Array.isArray(historyList)) historyList = []
       if (historyList.length > 100) historyList = historyList.slice(0, 100)

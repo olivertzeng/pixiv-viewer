@@ -228,12 +228,7 @@ export default {
     },
   },
   mounted() {
-    if (this.isAutoLoadImt || isSafari()) return
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.drawMask()
-      }, 500)
-    })
+    this.drawMask()
   },
   methods: {
     convertToK(val) {
@@ -298,8 +293,12 @@ export default {
           })
       }
     },
-    drawMask() {
+    async drawMask() {
+      if (this.isAutoLoadImt || isSafari()) return
       if (this.isNovel) return
+
+      await this.$nextTick()
+
       const canvas = this.$refs.mask
       if (!canvas) return
 

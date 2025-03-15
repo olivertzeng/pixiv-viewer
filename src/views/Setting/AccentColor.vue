@@ -9,8 +9,8 @@
     </h3>
     <div class="color-list">
       <div v-for="(c,i) in colors" :key="i" class="color-item" @click="saveActColor(c)">
-        <div class="color-bg" :style="{background:c.color}">{{ c.color }}</div>
-        <div class="color-name flex-c" :style="{color:c.color}">
+        <div class="color-bg" :style="{ background: c.color, color: getNameColor(c.color) }">{{ c.color }}</div>
+        <div class="color-name flex-c" :style="{ color: c.color }">
           <van-checkbox v-if="c.color == actColor" :value="true" checked-color="#00AA90" style="margin-right: 0.15rem" />
           <span>{{ c.name }}</span>
         </div>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { getContrastingTextColor, hexToRgb } from '@/utils'
+
 const colors = [
   { name: 'Miku', color: '#39C5BB' },
   { name: 'Teto', color: '#D93A49' },
@@ -1472,6 +1474,9 @@ export default {
       doc.style.removeProperty('--accent-color')
       localStorage.removeItem('PXV_THEME')
       localStorage.removeItem('PXV_ACT_COLOR')
+    },
+    getNameColor(hex) {
+      return getContrastingTextColor(hexToRgb(hex))
     },
   },
 }

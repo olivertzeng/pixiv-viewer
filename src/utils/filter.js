@@ -2,6 +2,7 @@ import Mint from 'mint-filter'
 import store from '@/store'
 import { getCache, setCache } from './storage/siteCache'
 import { COMMON_PROXY } from '@/consts'
+import { isBlockTagHit } from '.'
 
 const re1 = /漫画|描き方|お絵かきTIPS|manga|BL|スカラマシュ|散兵|雀魂|じゃんたま/i
 const re2 = /R-?18|恋童|ペド|幼女|萝莉|loli|小学生|BL|腐|スカラマシュ|散兵|雀魂|じゃんたま/i
@@ -29,11 +30,9 @@ export function filterCensoredIllust(artwork) {
   if (store.state.blockUids.length && store.state.blockUids.includes(`${artwork?.author?.id}`)) {
     return false
   }
-  if (store.state.blockTags.length) {
-    const tags = JSON.stringify(artwork?.tags || [])
-    if (store.state.blockTags.some(e => tags.includes(e))) {
-      return false
-    }
+
+  if (isBlockTagHit(store.state.blockTags, artwork?.tags)) {
+    return false
   }
 
   if (artwork.x_restrict == 1) {
@@ -68,11 +67,11 @@ export function isAiIllust(artwork) {
 let mint
 const presetWords = ['vpn', 'VPN', '推荐', '好用', '梯子']
 export async function mintVerify(word = '', forceCheck = false) {
-  if (!forceCheck && (store.state.contentSetting.r18 || store.state.contentSetting.r18g)) {
-    return true
-  }
   if (presetWords.some(e => word.includes(e))) {
     return false
+  }
+  if (!forceCheck && store.getters.isR18On) {
+    return true
   }
   word = word.replace(/[A-Za-z\d\s~`!@#$%^&*()_+\-=[\]{};':"\\|,./<>?]+/g, '')
   try {

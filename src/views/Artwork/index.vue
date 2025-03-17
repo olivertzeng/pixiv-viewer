@@ -175,7 +175,7 @@ export default {
       let art = SessionStorage.get(`param_art_detail_${id}`)
       if (!art) art = this.$route.params.art
       console.log('artwork detail: ', id, art)
-      if (art && !art.images[0].o.includes('i.loli.best')) {
+      if (art && art.type != 'ugoira' && !art.images[0].o.includes('i.loli.best')) {
         this.artwork = art
         this.loading = false
         SessionStorage.set(`param_art_detail_${id}`, art)

@@ -110,7 +110,7 @@ export default {
       return this.keywords.match(/(\d+)/g) || []
     },
     isR18On() {
-      return store.state.contentSetting.r18 || store.state.contentSetting.r18g
+      return store.getters.isR18On
     },
   },
   watch: {

@@ -1,20 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import _ from '@/lib/lodash'
-import { LocalStorage, SessionStorage } from '@/utils/storage'
-import { isSafari } from '@/utils'
+import { getSettingDef, LocalStorage, SessionStorage } from '@/utils/storage'
+import { isBlockTagHit, isSafari } from '@/utils'
 
 Vue.use(Vuex)
-
-/**
- * @template T
- * @param {string} key
- * @param {T} def
- * @returns {T}
- */
-function getSettingDef(key, def) {
-  return LocalStorage.get(key, def)
-}
 
 const isMobile = navigator.userAgent.includes('Mobile')
 export default new Vuex.Store({
@@ -76,11 +66,9 @@ export default new Vuex.Store({
       if (state.blockUids.length && state.blockUids.includes(`${artwork?.author?.id}`)) {
         return true
       }
-      if (state.blockTags.length) {
-        const tags = JSON.stringify(artwork?.tags || [])
-        if (state.blockTags.some(e => tags.includes(e))) {
-          return true
-        }
+
+      if (isBlockTagHit(state.blockTags, artwork?.tags)) {
+        return true
       }
 
       if (artwork.x_restrict == 1) {

@@ -24,7 +24,7 @@
 <script>
 import _ from '@/lib/lodash'
 import api from '@/api'
-import { filterRecommIllust } from '@/utils/filter'
+import { filterRecommIllust, filterCensoredIllust } from '@/utils/filter'
 import { tryURL } from '@/utils'
 import TopBar from '@/components/TopBar'
 import ImageCard from '@/components/ImageCard'
@@ -80,7 +80,7 @@ export default {
         if (res.data.length) {
           this.artList = _.uniqBy([
             ...this.artList,
-            ...res.data.filter(filterRecommIllust),
+            ...res.data.filter(filterCensoredIllust),
           ], 'id')
           this.nextUrl = res.data.nextUrl
         } else {

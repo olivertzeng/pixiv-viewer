@@ -22,12 +22,17 @@ export default {
     }
   },
   activated() {
-    this.getHistory()
+    this.init()
   },
   mounted() {
-    this.getHistory()
+    this.init()
   },
   methods: {
+    init() {
+      this.$nextTick(() => {
+        this.getHistory()
+      })
+    },
     toArtwork(id) {
       this.$router.push({
         name: 'NovelDetail',

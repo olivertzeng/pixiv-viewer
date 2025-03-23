@@ -7,9 +7,9 @@
       <van-cell center :title="$t('about.disclaimer')" is-link :label="$t('tips.click_view')" to="/setting/about/disclaimer" />
       <van-cell
         center
-        :title="$t('about.source')"
+        title="Github"
         is-link
-        label="Github:asadahimeka/pixiv-viewer"
+        :label="$t('BTQ4EAQMdeN-0ZdoU8ZsP')"
         @click="openLink('https://github.com/asadahimeka/pixiv-viewer')"
       />
       <van-cell center :title="$t('QV1uifvU3RRNg7roth-8s')" is-link :label="$t('tips.click_view')" to="/setting/about/faq" />

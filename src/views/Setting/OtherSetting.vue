@@ -30,11 +30,20 @@
           <van-switch :disabled="appSetting.isLongpressDL" :value="appSetting.isLongpressBlock" size="24" @change="v => saveAppSetting('isLongpressBlock', v, true)" />
         </template>
       </van-cell>
-      <van-cell v-if="showAutoLoadImtSwitch" center title="自动加载沉浸式翻译 SDK 并翻译" label="如已安装沉浸式翻译浏览器扩展则无需加载沉浸式翻译 SDK">
-        <template #right-icon>
-          <van-switch :value="appSetting.isAutoLoadImt" size="24" @change="changeAutoLoadImt" />
-        </template>
-      </van-cell>
+      <van-cell v-if="isPageTransitionSelShow" center :title="$t('Cy6qJLutMa5O3jJr8TawB')" :label="pageTransitionLabel" is-link @click="pageTransition.show = true" />
+    </van-cell-group>
+
+    <van-cell-group :title="$t('novel.settings.title')">
+      <van-cell center :title="$t('j1tomH0kHtIiXUQ-6NhcS')" :label="$t('UiF3Ob-tYkIolJhNVMUFM')" is-link @click="showNovelConfig" />
+      <van-cell center :title="$t('MIvoTULAIywXTtFIKsEuD')" :label="novelDlFmtLabel" is-link @click="novelDlFmt.show = true" />
+      <template v-if="showAutoLoadImtSwitch">
+        <van-cell center title="小说默认翻译服务" :label="novelTranslateLabel" is-link @click="novelTranslate.show = true" />
+        <van-cell center title="自动加载沉浸式翻译 SDK 并翻译" label="如已安装沉浸式翻译浏览器扩展则无需加载沉浸式翻译 SDK">
+          <template #right-icon>
+            <van-switch :value="appSetting.isAutoLoadImt" size="24" @change="changeAutoLoadImt" />
+          </template>
+        </van-cell>
+      </template>
     </van-cell-group>
 
     <van-cell-group :title="$t('j2tFt08r6GGMmsfbF4HAN')">
@@ -127,7 +136,6 @@
           <van-switch :value="appSetting.withBodyBg" size="24" @change="v => saveAppSetting('withBodyBg', v, true)" />
         </template>
       </van-cell>
-      <van-cell v-if="isPageTransitionSelShow" center :title="$t('Cy6qJLutMa5O3jJr8TawB')" :label="pageTransitionLabel" is-link @click="pageTransition.show = true" />
       <van-cell v-if="showAnaSwitch" center title="Enable Umami Analytics">
         <template #right-icon>
           <van-switch :value="isAnalyticsOn" size="24" @change="onAnalyticsChange" />
@@ -207,6 +215,22 @@
       :description="$t('Cy6qJLutMa5O3jJr8TawB')"
       close-on-click-action
       @select="onPageTransitionChange"
+    />
+    <van-action-sheet
+      v-model="novelDlFmt.show"
+      :actions="novelDlFmt.actions"
+      :cancel-text="$t('common.cancel')"
+      :description="$t('MIvoTULAIywXTtFIKsEuD')"
+      close-on-click-action
+      @select="e => saveAppSetting('novelDlFormat', e._value)"
+    />
+    <van-action-sheet
+      v-model="novelTranslate.show"
+      :actions="novelTranslate.actions"
+      :cancel-text="$t('common.cancel')"
+      description="小说默认翻译服务 (不可与自动加载沉浸式翻译 SDK 同时使用)"
+      close-on-click-action
+      @select="e => saveAppSetting('novelDefTranslate', e._value)"
     />
     <van-action-sheet
       v-model="lang.show"
@@ -290,6 +314,7 @@
       </div>
       <van-field v-model="dlFileNameTpl" :label="$t('498jRU7yCP-NoupL7HBFk')" label-width="3.5em" />
     </van-dialog>
+    <NovelTextConfig ref="novelConfigRef" style="left: 50%;right: unset;" />
   </div>
 </template>
 
@@ -304,9 +329,13 @@ import { checkImgAvailable, checkUrlAvailable, copyText, downloadURL, isURL, rea
 import { mintVerify } from '@/utils/filter'
 import { LocalStorage, SessionStorage } from '@/utils/storage'
 import { isFsaSupported, getMainDirHandle, setMainDirHandle } from '@/utils/fsa'
+import NovelTextConfig from '../Artwork/components/NovelTextConfig.vue'
 
 export default {
   name: 'SettingOthers',
+  components: {
+    NovelTextConfig,
+  },
   data() {
     return {
       clientConfig: { ...window.APP_CONFIG },
@@ -406,6 +435,33 @@ export default {
           { name: 'push', _value: 'f7-push' },
         ],
       },
+      pageFont: {
+        show: false,
+        fallback: '-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Source Han Sans SC, Source Han Sans CN, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol',
+        actions: [
+          { name: '默认', _value: '' },
+          { name: '霞鹜文楷 Screen', _value: 'LXGW WenKai Screen' },
+        ],
+      },
+      novelDlFmt: {
+        show: false,
+        actions: [
+          { name: 'TXT', _value: 'txt' },
+          { name: 'HTML', _value: 'html' },
+        ],
+      },
+      novelTranslate: {
+        show: false,
+        actions: [
+          { name: '未设置', _value: '' },
+          { name: 'AI 翻译(glm_4_9b)', _value: 'sc_glm' },
+          { name: 'AI 翻译(Qwen2_7B)', _value: 'sc_qwen2' },
+          { name: 'AI 翻译(DS_R1_Llama_8B)', _value: 'sc_ds_r1_llama' },
+          { name: '微软翻译', _value: 'ms' },
+          { name: '谷歌翻译', _value: 'gg' },
+          { name: '有道翻译', _value: 'yd' },
+        ],
+      },
       hideApSelect: LocalStorage.get('__HIDE_AP_SEL', false),
       isDark: !!localStorage.getItem('PXV_DARK'),
       showAutoLoadImtSwitch: i18n.locale.includes('zh'),
@@ -438,6 +494,12 @@ export default {
     },
     pageTransitionLabel() {
       return this.pageTransition.actions.find(e => e._value == store.state.appSetting.pageTransition)?.name || ''
+    },
+    novelDlFmtLabel() {
+      return this.novelDlFmt.actions.find(e => e._value == store.state.appSetting.novelDlFormat)?.name || ''
+    },
+    novelTranslateLabel() {
+      return this.novelTranslate.actions.find(e => e._value == store.state.appSetting.novelDefTranslate)?.name || ''
     },
   },
   watch: {
@@ -605,6 +667,9 @@ export default {
     onPageTransitionChange({ _value }) {
       this.saveAppSetting('pageTransition', _value, false)
       setTimeout(() => location.assign('/'), 200)
+    },
+    showNovelConfig() {
+      this.$refs.novelConfigRef?.open()
     },
     async changeAutoLoadImt(val) {
       if (val) {

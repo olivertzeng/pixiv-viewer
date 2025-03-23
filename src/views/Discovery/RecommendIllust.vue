@@ -98,7 +98,7 @@ export default {
       this.artList = []
       const res = await api.getRecommendedIllust()
       if (res.status === 0) {
-        this.artList = res.data.filter(filterRecommIllust)
+        this.artList = res.data.filter(this.showLoadMoreBtn ? filterCensoredIllust : filterRecommIllust)
         this.nextUrl = res.data.nextUrl
       } else {
         this.$toast({

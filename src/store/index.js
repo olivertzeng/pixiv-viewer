@@ -50,8 +50,10 @@ export default new Vuex.Store({
       searchListMinFavNum: '5',
       isImageCardBorderRadius: true,
       ugoiraDefDLFormat: '',
-      pageTransition: isMobile && Boolean(document.startViewTransition) ? (isSafari() ? 'f7-ios' : 'f7-md') : '',
+      pageTransition: isMobile && Boolean(document.startViewTransition) ? (isSafari() ? 'f7-ios' : 'f7-md') : 'f7-fade',
       withBodyBg: false,
+      novelDlFormat: 'txt',
+      novelDefTranslate: '',
       ...getSettingDef('PXV_APP_SETTING', {}),
     },
   },
@@ -180,4 +182,15 @@ export default new Vuex.Store({
       commit('setBlockUids', value)
     },
   },
+})
+
+export const novelTextConfig = Vue.observable({
+  size: 16,
+  height: 2,
+  font: 'inherit',
+  weight: 400,
+  direction: 'h',
+  color: '#1f1f1f',
+  bg: '#ffffff',
+  ...getSettingDef('PXV_TEXT_CONFIG', {}),
 })

@@ -22,6 +22,9 @@
       <van-collapse-item :title="$t('sJi3WO6IsK-5QD-YcWBMF')" name="99">
         {{ $t('ChCGA7Uk5be-pt_ZPtyVU') }}
       </van-collapse-item>
+      <van-collapse-item :title="$t('Nf5fGNxxxq0CSEYE4JATI')" name="10">
+        {{ $t('9fOw28j7M34o8pTBwf5C1') }}
+      </van-collapse-item>
       <van-collapse-item :title="$t('hNq6xDwKzWRVTCurKT2VB')" name="5">
         {{ $t('FKYu426sygq6j2G9o7cPa') }}
       </van-collapse-item>

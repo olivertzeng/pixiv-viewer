@@ -24,12 +24,17 @@ export default {
     }
   },
   activated() {
-    this.getHistory()
+    this.init()
   },
   mounted() {
-    this.getHistory()
+    this.init()
   },
   methods: {
+    init() {
+      this.$nextTick(() => {
+        this.getHistory()
+      })
+    },
     toArtwork(art) {
       this.$store.dispatch('setGalleryList', this.artList)
       this.$router.push({

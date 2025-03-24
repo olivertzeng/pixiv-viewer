@@ -57,10 +57,22 @@ export async function loadImtSdk(isAutoLoadImt = false) {
     document.querySelector('#immersive-translate-popup')?.shadowRoot?.appendChild(style)
     try {
       const buildinConfig = JSON.parse(localStorage.buildinConfig).buildinConfig
-      buildinConfig.translationService = 'zhipu'
+      buildinConfig.telemetry = false
+      // buildinConfig.translationService = 'bing'
+      buildinConfig.translationService = 'siliconcloud'
+      buildinConfig.translationServices.siliconcloud.APIKEY = SILICON_CLOUD_API_KEY
+      buildinConfig.translationServices.siliconcloud.assistantId = 'common'
+      buildinConfig.translationServices.siliconcloud.model = 'Qwen/Qwen2-7B-Instruct'
       localStorage.buildinConfig = JSON.stringify({ buildinConfig })
       const userConfig = JSON.parse(localStorage.userConfig).userConfig
-      userConfig.translationService = 'zhipu'
+      userConfig.telemetry = false
+      // userConfig.translationService = 'bing'
+      userConfig.translationService = 'siliconcloud'
+      userConfig.translationServices = userConfig.translationServices || {}
+      userConfig.translationServices.siliconcloud = userConfig.translationServices.siliconcloud || {}
+      userConfig.translationServices.siliconcloud.APIKEY = SILICON_CLOUD_API_KEY
+      userConfig.translationServices.siliconcloud.assistantId = 'common'
+      userConfig.translationServices.siliconcloud.model = 'Qwen/Qwen2-7B-Instruct'
       localStorage.userConfig = JSON.stringify({ userConfig })
     } catch (err) {
       console.log('err: ', err)

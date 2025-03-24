@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import _ from '@/lib/lodash'
 import { getSettingDef, LocalStorage, SessionStorage } from '@/utils/storage'
 import { isBlockTagHit, isSafari } from '@/utils'
-import { i18n } from '@/i18n'
+import { getSelectedLang } from '@/i18n'
 
 Vue.use(Vuex)
 
@@ -55,7 +55,7 @@ export default new Vuex.Store({
       withBodyBg: false,
       novelDlFormat: 'txt',
       novelDefTranslate: '',
-      pageFont: /zh-Han|ja/.test(i18n.locale) ? 'LXGW WenKai Screen' : '',
+      pageFont: /zh-Han|ja/.test(getSelectedLang()) ? 'LXGW WenKai Screen' : '',
       ...getSettingDef('PXV_APP_SETTING', {}),
     },
   },

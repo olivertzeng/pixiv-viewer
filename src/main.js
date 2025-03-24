@@ -25,6 +25,7 @@ import router from '@/router'
 import store from '@/store'
 import longpress from '@/directives/longpress'
 import { LocalStorage } from '@/utils/storage'
+import { loadCustomFont } from '@/utils/font'
 import { getSelectedLang, i18n, initLocale } from '@/i18n'
 import { getActionMap } from '@/api/client/action'
 import { initBookmarkCache } from '@/utils/storage/siteCache'
@@ -79,7 +80,8 @@ async function initLocalApi() {
 }
 
 async function initSetting() {
-  const { pageTransition, withBodyBg } = store.state.appSetting
+  const { pageTransition, withBodyBg, pageFont } = store.state.appSetting
+  if (pageFont) loadCustomFont(pageFont)
   if (pageTransition) document.documentElement.classList.add(pageTransition)
   if (withBodyBg) document.documentElement.classList.add('with-body-bg')
 

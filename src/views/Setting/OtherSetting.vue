@@ -30,6 +30,7 @@
           <van-switch :disabled="appSetting.isLongpressDL" :value="appSetting.isLongpressBlock" size="24" @change="v => saveAppSetting('isLongpressBlock', v, true)" />
         </template>
       </van-cell>
+      <van-cell center :title="$t('SLO07VkQh2wjFJJ1MLvUl')" :label="appSetting.pageFont || $t('ZfJcs8gi6ptsljzInCNpH')" is-link @click="showPageFontSel" />
       <van-cell v-if="isPageTransitionSelShow" center :title="$t('Cy6qJLutMa5O3jJr8TawB')" :label="pageTransitionLabel" is-link @click="pageTransition.show = true" />
     </van-cell-group>
 
@@ -217,6 +218,15 @@
       @select="onPageTransitionChange"
     />
     <van-action-sheet
+      v-model="pageFont.show"
+      style="font-family: Arial, Helvetica, sans-serif"
+      :actions="pageFont.actions"
+      :cancel-text="$t('common.cancel')"
+      :description="$t('SLO07VkQh2wjFJJ1MLvUl')"
+      close-on-click-action
+      @select="e => saveAppSetting('pageFont', e._value, true)"
+    />
+    <van-action-sheet
       v-model="novelDlFmt.show"
       :actions="novelDlFmt.actions"
       :cancel-text="$t('common.cancel')"
@@ -329,6 +339,7 @@ import { checkImgAvailable, checkUrlAvailable, copyText, downloadURL, isURL, rea
 import { mintVerify } from '@/utils/filter'
 import { LocalStorage, SessionStorage } from '@/utils/storage'
 import { isFsaSupported, getMainDirHandle, setMainDirHandle } from '@/utils/fsa'
+import { getPageFontModel } from '@/utils/font'
 import NovelTextConfig from '../Artwork/components/NovelTextConfig.vue'
 
 export default {
@@ -437,11 +448,7 @@ export default {
       },
       pageFont: {
         show: false,
-        fallback: '-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Source Han Sans SC, Source Han Sans CN, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol',
-        actions: [
-          { name: '默认', _value: '' },
-          { name: '霞鹜文楷 Screen', _value: 'LXGW WenKai Screen' },
-        ],
+        actions: [],
       },
       novelDlFmt: {
         show: false,
@@ -667,6 +674,11 @@ export default {
     onPageTransitionChange({ _value }) {
       this.saveAppSetting('pageTransition', _value, false)
       setTimeout(() => location.assign('/'), 200)
+    },
+    async showPageFontSel() {
+      const pageFont = await getPageFontModel()
+      pageFont.show = true
+      this.pageFont = pageFont
     },
     showNovelConfig() {
       this.$refs.novelConfigRef?.open()

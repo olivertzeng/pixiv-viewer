@@ -9,7 +9,7 @@ const cdn = {
   css: [
     // 'https://cdnjs.cloudflare.com/ajax/libs/vant/2.12.54/index.min.css',
     // 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.min.css',
-    'https://lib.baomitu.com/lxgw-wenkai-screen-webfont/1.7.0/style.min.css',
+    // 'https://lib.baomitu.com/lxgw-wenkai-screen-webfont/1.7.0/style.min.css',
   ],
   js: [
     // 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.16/vue.min.js',

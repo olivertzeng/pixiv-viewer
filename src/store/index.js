@@ -51,7 +51,7 @@ export default new Vuex.Store({
       searchListMinFavNum: '5',
       isImageCardBorderRadius: true,
       ugoiraDefDLFormat: '',
-      pageTransition: isMobile && Boolean(document.startViewTransition) ? (isSafari() ? 'f7-ios' : 'f7-md') : 'f7-fade',
+      pageTransition: isMobile && Boolean(document.startViewTransition) ? (isSafari() ? 'f7-ios' : 'f7-md') : '',
       withBodyBg: false,
       novelDlFormat: 'txt',
       novelDefTranslate: '',

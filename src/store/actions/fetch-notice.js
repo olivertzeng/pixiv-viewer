@@ -46,7 +46,7 @@ async function fetchSeasonEffects(effects) {
 
 export async function fetchNotices() {
   try {
-    const res = await fetch('https://pxve-notice.nanoka.top/anon.json')
+    const res = await fetch(`https://pxve-notice.nanoka.top/anon.json?t=${dayjs().format('YYYYMMDD')}`)
     const { notices = [], effects = [] } = await res.json()
     fetchAppNotice(notices)
     fetchSeasonEffects(effects)

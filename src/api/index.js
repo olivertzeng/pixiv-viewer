@@ -38,7 +38,7 @@ export const imgProxy = url => {
 const parseUser = data => {
   const { user, profile, workspace } = data
   const { id, account, name, comment } = user
-  const { background_image_url, birth, birth_day, gender, is_premium, is_using_custom_profile_image, job, total_follow_users, total_mypixiv_users, total_illust_bookmarks_public, total_illusts, twitter_account, twitter_url, webpage, country_code } = profile
+  const { background_image_url, birth, gender, is_premium, is_using_custom_profile_image, job, total_follow_users, total_mypixiv_users, total_illust_bookmarks_public, total_illusts, twitter_account, twitter_url, webpage, country_code } = profile
 
   return {
     id,
@@ -49,7 +49,7 @@ const parseUser = data => {
     region: profile.region,
     avatar: imgProxy(user.profile_image_urls.medium),
     bgcover: imgProxy(background_image_url || ''),
-    birth: `${birth}-${birth_day}`,
+    birth,
     gender,
     is_premium,
     is_using_custom_profile_image,
@@ -1357,7 +1357,7 @@ const api = {
         memberInfo = parseUser(res)
         try {
           if (!memberInfo.comment || !memberInfo.webpage || !memberInfo.twitter_url) {
-            const webRes = await get(`${PIXIV_NOW_URL}/users/${id}`.replace('/http', ''))
+            const webRes = await get(`${PIXIV_NOW_URL}/ajax/user/${id}?full=1`)
             memberInfo.comment = webRes?.commentHtml
             memberInfo.webpage = webRes?.webpage
             memberInfo.twitter_url = webRes?.social?.twitter?.url || ''

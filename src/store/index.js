@@ -8,6 +8,12 @@ import { getSelectedLang } from '@/i18n'
 Vue.use(Vuex)
 
 const isMobile = navigator.userAgent.includes('Mobile')
+const defPageTransition = (() => {
+  if (!document.startViewTransition) return ''
+  if (isMobile) return isSafari() ? 'f7-ios' : 'f7-md'
+  return 'f7-dive'
+})()
+
 export default new Vuex.Store({
   state: {
     /** @type {number[]} */
@@ -51,8 +57,8 @@ export default new Vuex.Store({
       searchListMinFavNum: '5',
       isImageCardBorderRadius: true,
       ugoiraDefDLFormat: '',
-      pageTransition: isMobile && Boolean(document.startViewTransition) ? (isSafari() ? 'f7-ios' : 'f7-md') : '',
-      withBodyBg: false,
+      pageTransition: defPageTransition,
+      withBodyBg: true,
       novelDlFormat: 'txt',
       novelDefTranslate: '',
       pageFont: /zh-Han|ja/.test(getSelectedLang()) ? 'LXGW WenKai Screen' : '',

@@ -182,6 +182,7 @@ This project uses [Vue I18n](https://kazupon.github.io/vue-i18n/) for translatio
 
 ### Contributors
 - [@Blueberryy](https://github.com/Blueberryy): Russian translation
+- [@olivertzeng](https://github.com/olivertzeng): Traditional Chinese translation
 
 ### Projects
 - [HibiAPI](https://github.com/mixmoe/HibiAPI)

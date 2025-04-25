@@ -200,6 +200,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Contributors
 - [@Blueberryy](https://github.com/Blueberryy): Russian translation
+- [@olivertzeng](https://github.com/olivertzeng): 繁体中文翻譯
 
 ### Projects
 - [HibiAPI](https://github.com/mixmoe/HibiAPI)：提供大部分接口支持

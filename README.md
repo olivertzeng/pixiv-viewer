@@ -3,12 +3,24 @@
 <h1 align="center">Pixiv Viewer <sup><small>Kai</small></sup></h1>
 <p align="center">Yet Another Pixiv Illust&Novel Viewer.</p>
 
-![](https://img.shields.io/github/package-json/v/asadahimeka/pixiv-viewer)
-![](https://img.shields.io/badge/license-MIT-green)
-![](https://api.netlify.com/api/v1/badges/84d224a8-1630-4f47-94c2-ffb0e6da920a/deploy-status)
-![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/vue)
-![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/dev/@vue/cli-service)
-![](https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/vant)
+<p align="center">
+<img src="https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat&logo=javascript&logoColor=%23F7DF1E" alt >
+<img src="https://img.shields.io/badge/Vue.js-%2335495e.svg?style=flat&logo=vuedotjs&logoColor=%234FC08D" alt >
+<img src="https://kwc.cocomi.eu.org/https://img.shields.io/badge/Stylus-6da13f.svg?style=flat&logo=Stylus&logoColor=white" alt >
+<img src="https://img.shields.io/badge/PWA-5A0FC8.svg?style=flat&logo=PWA&logoColor=white" alt >
+<img src="https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white" alt >
+<img src="https://img.shields.io/badge/Netlify-%2300C7B7.svg?style=flat&logo=Netlify&logoColor=white" alt >
+</p>
+
+<p align="center">
+<img src="https://img.shields.io/github/package-json/v/asadahimeka/pixiv-viewer" >
+<img src="https://img.shields.io/badge/license-MIT-green" >
+<img src="https://api.netlify.com/api/v1/badges/84d224a8-1630-4f47-94c2-ffb0e6da920a/deploy-status" >
+<img src="https://img.shields.io/github/downloads/asadahimeka/pixiv-viewer/total?logo=github" alt >
+<img src="https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/vue" >
+<img src="https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/dev/@vue/cli-service" >
+<img src="https://img.shields.io/github/package-json/dependency-version/asadahimeka/pixiv-viewer/vant" >
+</p>
 
 中文 | [English](./docs/README.en.md)
 

@@ -28,13 +28,17 @@
     .search-dropdown
       background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9)), var(--accent-color)
     .van-popup .van-cell,
-    .search .search_params,
     .dropdown.search-bar-wrap .search-bar,
     .artwork-meta .meta_btns .van-button,
-    .comments-popup .van-button
+    .comments-popup .van-button,
+    .search .search_params .van-dropdown-menu__bar
       background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), var(--accent-color)
     .comments-popup .van-button:hover
       filter brightness(1.05)
+    .rank .top .nav a
+      border 1PX solid #bbb
+      &.cur
+        border-color var(--accent-color)
 
   body:not(.dark)
     .setting-page > .af_title + .van-cell,
@@ -57,6 +61,14 @@
     .novel .ia-cont .ia-left .collapse-btn,
     .novel .ia-cont .ia-right .artwork-meta
       background: rgba(0,0,0,0.04);
+    .Home .com_sel_tabs .home-search .van-search__content,
+    .search .search-bar-wrap .van-search__content
+      background white
+      box-shadow: 0 1PX .5PX .5PX rgba(0, 0, 0, 0.1)
+    .com_sel_tabs .com_sel_tab,
+    .rank .top .com_sel_tab,
+    .search .keyword
+      box-shadow: 0 1PX .5PX .5PX rgba(0, 0, 0, 0.1)
     .home-i,
     .home-m,
     .home-n,
@@ -87,10 +99,12 @@
       .content
         &+.more, &::after
           display none
+    .search-dropdown .pid-n-uid
+      margin-top 0.13333rem
     .search .com_sel_tabs
       left 50%
       transform translateX(-50%)
-      width fit-content
+      width max-content
       padding-top 0.1rem
       backdrop-filter: none
       background none
@@ -98,7 +112,26 @@
     .Home .com_sel_tabs,
     .Following .van-tabs__nav,
     .search .search-bar
+      backdrop-filter: saturate(200%) blur(16PX);
       background: rgba(255, 255, 255, 0.2);
+    .search .search_params
+      position fixed
+      z-index 3
+      top 1.6rem
+      left 0
+      width 100%
+      .van-dropdown-menu__bar
+        background white
+      .search_param_sel
+        width max-content
+        min-width 100%
+      &+.result-list
+        padding-top 1rem
+
+  &:not(.custom_theme) body:not(.dark)
+    .search .search-dropdown,
+    .dropdown.search-bar-wrap .search-bar
+      background #f7f8fa
 
   @media screen and (max-width: 600px)
     body:not(.dark)

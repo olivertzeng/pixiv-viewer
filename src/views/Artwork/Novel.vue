@@ -101,7 +101,7 @@ import IconQQ from '@/assets/images/share-sheet-qq.png'
 import IconQrcode from '@/assets/images/share-sheet-qrcode.png'
 import IconQzone from '@/assets/images/share-sheet-qzone.png'
 import IconWeb from '@/assets/images/share-sheet-web.png'
-import IconWechat from '@/assets/images/share-sheet-wechat.png'
+// import IconWechat from '@/assets/images/share-sheet-wechat.png'
 import IconWeibo from '@/assets/images/share-sheet-weibo.png'
 import IconTwitter from '@/assets/images/share-sheet-twi.png'
 import IconFacebook from '@/assets/images/share-sheet-facebook.png'
@@ -132,7 +132,7 @@ export default {
         { name: i18n.t('artwork.share.type.weibo'), icon: IconWeibo },
         { name: i18n.t('artwork.share.type.qzone'), icon: IconQzone },
         { name: 'QQ', icon: IconQQ },
-        { name: i18n.t('artwork.share.type.wechat'), icon: IconWechat },
+        // { name: i18n.t('artwork.share.type.wechat'), icon: IconWechat },
         { name: 'Twitter', icon: IconTwitter },
         { name: 'Facebook', icon: IconFacebook },
       ],
@@ -141,11 +141,13 @@ export default {
       showPntPopover: false,
       pntActions: [
         { text: '加载沉浸式翻译 SDK', className: 'imt', key: 'imt' },
-        { text: 'AI 翻译(glm_4_9b)', className: 'sc', key: 'sc_glm' },
-        { text: 'AI 翻译(Qwen2_7B)', className: 'sc', key: 'sc_qwen2' },
-        // { text: 'AI 翻译(Qwen2.5_7B)', className: 'sc', key: 'sc_qwen2_5' },
-        { text: 'AI 翻译(DS_R1_Llama_8B)', className: 'sc', key: 'sc_ds_r1_llama' },
-        // { text: 'AI 翻译(DS_R1_Qwen_7B)', className: 'sc', key: 'sc_ds_r1_qwen' },
+        { text: 'AI 翻译(glm-4-9b)', className: 'sc', key: 'sc_glm' },
+        // { text: 'AI 翻译(GLM-4-9B-0414)', className: 'sc', key: 'sc_glm_0414' },
+        // { text: 'AI 翻译(GLM-Z1-9B-0414)', className: 'sc', key: 'sc_glm_z1' },
+        // { text: 'AI 翻译(Qwen2-7B)', className: 'sc', key: 'sc_qwen2' },
+        { text: 'AI 翻译(Qwen2.5-7B)', className: 'sc', key: 'sc_qwen2_5' },
+        // { text: 'AI 翻译(DS-R1-Llama-8B)', className: 'sc', key: 'sc_ds_r1_llama' },
+        // { text: 'AI 翻译(DS-R1-Qwen-7B)', className: 'sc', key: 'sc_ds_r1_qwen' },
         { text: '微软翻译', className: 'ms', key: 'ms' },
         { text: '谷歌翻译', className: 'gg', key: 'gg' },
         { text: '有道翻译', className: 'yd', key: 'yd' },
@@ -278,9 +280,9 @@ export default {
         () => {
           this.openUrl(`https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(location.href)}&title=${this.artwork.title}&source=${encodeURIComponent(location.href)}&desc=${encodeURIComponent(`${this.$t('artwork.share.share')} ${this.$t('artwork.share.of_art', [this.artwork.author.name])} ${this.artwork.title} - PID: ${this.artwork.id}`)}&summary=${encodeURIComponent(`${this.$t('artwork.share.share')} ${this.$t('artwork.share.of_art', [this.artwork.author.name])} ${this.artwork.title} - PID: ${this.artwork.id}`)}`)
         },
-        () => {
-          this.openUrl(`https://wechat-share.pwp.space/?url=${encodeURIComponent(location.href)}&title=${this.artwork.title}`)
-        },
+        // () => {
+        //   this.openUrl(`https://wechat-share.pwp.space/?url=${encodeURIComponent(location.href)}&title=${this.artwork.title}`)
+        // },
         () => {
           this.openUrl(`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://www.pixiv.net/novel/show.php?id=${this.artwork.id}`)}&text=${this.artwork.title}&hashtags=pixiv`)
         },
@@ -325,6 +327,8 @@ export default {
       const fns = {
         imt: () => loadImtSdk(),
         sc_glm: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'glm'),
+        sc_glm_0414: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'glm_0414'),
+        sc_glm_z1: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'glm_z1'),
         sc_qwen2: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'qwen2'),
         sc_qwen2_5: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'qwen2_5'),
         sc_ds_r1_llama: async () => this.fanyi('sc', await getNoTranslateWords(this.artwork.tags), 'ds_r1_llama'),

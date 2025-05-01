@@ -108,6 +108,8 @@ export function getNoTranslateWords(tags = []) {
 
 const aiModelMap = {
   glm: 'THUDM/glm-4-9b-chat',
+  glm_0414: 'THUDM/GLM-4-9B-0414',
+  glm_z1: 'THUDM/GLM-Z1-9B-0414',
   qwen2: 'Qwen/Qwen2-7B-Instruct',
   qwen2_5: 'Qwen/Qwen2.5-7B-Instruct',
   ds_r1_llama: 'deepseek-ai/DeepSeek-R1-Distill-Llama-8B',

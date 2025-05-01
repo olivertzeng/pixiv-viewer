@@ -424,12 +424,20 @@ export default {
         }
       }).catch(() => {})
     },
-    share() {
-      copyText(
-        `${this.userInfo.name} ${location.href}`,
-        () => this.$toast(this.$t('tips.copylink.succ')),
-        err => this.$toast(this.$t('tips.copy_err') + err)
-      )
+    async share() {
+      try {
+        await navigator.share({
+          title: 'Pixiv Viewer',
+          text: `${this.$t('8dWKEVyxLa8UjO0iuOA78')}：${this.userInfo.name}`,
+          url: `https://pixiv.pictures/u/${this.userInfo.id}`,
+        }).catch(() => {})
+      } catch (err) {
+        copyText(
+          `${this.userInfo.name} ${location.href}`,
+          () => this.$toast(this.$t('tips.copylink.succ')),
+          err => this.$toast(this.$t('tips.copy_err') + err)
+        )
+      }
     },
     toFollowedUsers() {
       this.$router.push({ name: 'Following', params: { tab: '3' } })

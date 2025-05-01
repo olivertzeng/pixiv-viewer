@@ -74,7 +74,7 @@ import IconQQ from '@/assets/images/share-sheet-qq.png'
 import IconQrcode from '@/assets/images/share-sheet-qrcode.png'
 import IconQzone from '@/assets/images/share-sheet-qzone.png'
 import IconWeb from '@/assets/images/share-sheet-web.png'
-import IconWechat from '@/assets/images/share-sheet-wechat.png'
+// import IconWechat from '@/assets/images/share-sheet-wechat.png'
 import IconWeibo from '@/assets/images/share-sheet-weibo.png'
 import IconTwitter from '@/assets/images/share-sheet-twi.png'
 import IconFacebook from '@/assets/images/share-sheet-facebook.png'
@@ -131,7 +131,7 @@ export default {
         { name: i18n.t('artwork.share.type.weibo'), icon: IconWeibo },
         { name: i18n.t('artwork.share.type.qzone'), icon: IconQzone },
         { name: 'QQ', icon: IconQQ },
-        { name: i18n.t('artwork.share.type.wechat'), icon: IconWechat },
+        // { name: i18n.t('artwork.share.type.wechat'), icon: IconWechat },
         { name: 'Twitter', icon: IconTwitter },
         { name: 'Facebook', icon: IconFacebook },
       ],
@@ -293,9 +293,9 @@ export default {
         () => {
           this.openUrl(`https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(shareUrl)}&title=${this.artwork.title}&source=${encodeURIComponent(shareUrl)}&desc=${encodeURIComponent(`${this.$t('artwork.share.share')} ${this.$t('artwork.share.of_art', [this.artwork.author.name])}「${this.artwork.title}」- PID: ${this.artwork.id}`)}&summary=${encodeURIComponent(`${this.$t('artwork.share.share')} ${this.$t('artwork.share.of_art', [this.artwork.author.name])}「${this.artwork.title}」- PID: ${this.artwork.id}`)}`)
         },
-        () => {
-          this.openUrl(`https://wechat-share.pwp.space/?url=${encodeURIComponent(shareUrl)}&title=${this.artwork.title}`)
-        },
+        // () => {
+        //   this.openUrl(`https://wechat-share.pwp.space/?url=${encodeURIComponent(shareUrl)}&title=${this.artwork.title}`)
+        // },
         () => {
           this.openUrl(`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://www.pixiv.net/artworks/${this.artwork.id}`)}&text=${this.artwork.title}&hashtags=pixiv`)
         },

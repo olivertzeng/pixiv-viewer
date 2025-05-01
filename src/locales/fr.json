@@ -184,7 +184,7 @@
     "api": {
       "desc": "Entrez l'adresse de l'instance HibiAPI ci-dessous, vous devez ajouter https://, et le chemin doit être renseigné dans la partie `/api/pixiv`",
       "desc2": "Par exemple : https://hibiapi.getloli.com/api/pixiv, le cache local sera vidé après l'enregistrement",
-      "desc3": "Les instances d'API peuvent accéder à",
+      "desc3": "Les instances de l'API peuvent être trouvées ou construites par vous-même chez GitHub",
       "desc4": "trouver ou créer le vôtre",
       "desc5": "L'adresse de l'instance d'API doit prendre en charge l'accès cross-origin (CORS)",
       "ph": "Veuillez sélectionner une instance HibiAPI (le cache local sera vidé après le changement)",
@@ -540,5 +540,8 @@
   "j1tomH0kHtIiXUQ-6NhcS": "Nouveaux paramètres de texte",
   "UiF3Ob-tYkIolJhNVMUFM": "Définir le style de lecture de texte roman",
   "SLO07VkQh2wjFJJ1MLvUl": "Police de page",
-  "FyTTJetQW2e3wVs2sOjif": "Traduction traditionnelle chinoise"
+  "FyTTJetQW2e3wVs2sOjif": "Traduction traditionnelle chinoise",
+  "sBmkLtGcrWIL7xsU-EdM9": "Jeton d'accès rafraîchissant",
+  "8dWKEVyxLa8UjO0iuOA78": "Partager les utilisateurs de Pixiv",
+  "Gry1iNTJ2wm_9FMG_JpBT": "Masquer la barre de navigation lors du défilement"
 }

@@ -224,7 +224,7 @@
     "api": {
       "desc": "Immettere l'indirizzo dell'istanza HibiAPI di seguito, è necessario aggiungere https:// e il percorso deve essere compilato nella parte `/api/pixiv`",
       "desc2": "Ad esempio: https://hibiapi.getloli.com/api/pixiv, la cache locale verrà cancellata dopo il salvataggio",
-      "desc3": "Le istanze API possono andare a",
+      "desc3": "Le istanze API possono essere trovate o costruite da solo a GitHub",
       "desc4": "trovare o costruire il tuo",
       "desc5": "L'indirizzo dell'istanza API deve supportare l'accesso cross-origin (CORS).",
       "ph": "Seleziona un'istanza HibiAPI (la cache locale verrà cancellata dopo il passaggio)",
@@ -541,5 +541,8 @@
   "j1tomH0kHtIiXUQ-6NhcS": "Nuove impostazioni di testo",
   "UiF3Ob-tYkIolJhNVMUFM": "Imposta lo stile di lettura del testo nuovo",
   "SLO07VkQh2wjFJJ1MLvUl": "FONT PAGINA",
-  "FyTTJetQW2e3wVs2sOjif": "Traduzione tradizionale cinese"
+  "FyTTJetQW2e3wVs2sOjif": "Traduzione tradizionale cinese",
+  "sBmkLtGcrWIL7xsU-EdM9": "Token di accesso rinfrescante",
+  "8dWKEVyxLa8UjO0iuOA78": "Condividi gli utenti Pixiv",
+  "Gry1iNTJ2wm_9FMG_JpBT": "Nascondi la barra di navigazione durante lo scorrimento"
 }

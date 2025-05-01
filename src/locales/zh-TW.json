@@ -184,7 +184,7 @@
     "api": {
       "desc": "在下方輸入 HibiAPI 實例地址，需要加 https://，路徑需填寫到 `/api/pixiv` 部分",
       "desc2": "例如：https://hibiapi.getloli.com/api/pixiv，儲存後會清空本地緩存",
-      "desc3": "API 實例可前往",
+      "desc3": "API 實例可前往 Github 查找或自行搭建",
       "desc4": "查找或自行搭建",
       "desc5": "API 實例地址需要支援跨域（CORS）前往",
       "ph": "請選擇 HibiAPI 實例（切換後會清空本地緩存)",
@@ -540,5 +540,8 @@
   "j1tomH0kHtIiXUQ-6NhcS": "小說文本設定",
   "UiF3Ob-tYkIolJhNVMUFM": "設定小說文本閱讀樣式",
   "SLO07VkQh2wjFJJ1MLvUl": "頁面字體",
-  "FyTTJetQW2e3wVs2sOjif": "繁體中文翻譯"
+  "FyTTJetQW2e3wVs2sOjif": "繁體中文翻譯",
+  "sBmkLtGcrWIL7xsU-EdM9": "刷新訪問令牌中",
+  "8dWKEVyxLa8UjO0iuOA78": "分享 Pixiv 使用者",
+  "Gry1iNTJ2wm_9FMG_JpBT": "滾動時隱藏導航欄"
 }

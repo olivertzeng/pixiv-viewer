@@ -184,7 +184,7 @@
     "api": {
       "desc": "以下に HibiAPI インスタンスのアドレスを入力し、https:// を追加する必要があり、「/api/pixiv」の部分にパスを入力する必要があります",
       "desc2": "例: https://hibiapi.getloli.com/api/pixiv、保存後にローカルキャッシュがクリアされます",
-      "desc3": "API インスタンスは次の場所に移動できます",
+      "desc3": "APIインスタンスは、GitHubで自分で見つけるか構築できます",
       "desc4": "独自の検索または構築",
       "desc5": "API インスタンス アドレスは、クロスオリジン (CORS) アクセスをサポートする必要があります",
       "ph": "HibiAPI インスタンスを選択してください (ローカル キャッシュは切り替え後にクリアされます)",
@@ -540,5 +540,8 @@
   "j1tomH0kHtIiXUQ-6NhcS": "小説のテキスト設定",
   "UiF3Ob-tYkIolJhNVMUFM": "小説のテキストの読み方を設定する",
   "SLO07VkQh2wjFJJ1MLvUl": "ページフォント",
-  "FyTTJetQW2e3wVs2sOjif": "繁体字中国語翻訳"
+  "FyTTJetQW2e3wVs2sOjif": "繁体字中国語翻訳",
+  "sBmkLtGcrWIL7xsU-EdM9": "リフレッシュアクセストークン",
+  "8dWKEVyxLa8UjO0iuOA78": "pixivユーザーを共有します",
+  "Gry1iNTJ2wm_9FMG_JpBT": "スクロール時にナビゲーションバーを非表示にします"
 }

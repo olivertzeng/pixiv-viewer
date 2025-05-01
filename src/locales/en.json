@@ -184,7 +184,7 @@
     "api": {
       "desc": "Enter the HibiAPI instance address below, you need to add https://, and the path needs to be filled in the `/api/pixiv` part",
       "desc2": "For example: https://hibiapi.getloli.com/api/pixiv, the local cache will be cleared after saving",
-      "desc3": "API instances can be found at",
+      "desc3": "API instances can be found or built by yourself at Github",
       "desc4": "or built your own",
       "desc5": "The API instance address needs to support cross-origin (CORS) access",
       "ph": "Please select a HibiAPI instance (the local cache will be cleared after switching)",
@@ -541,5 +541,8 @@
   "j1tomH0kHtIiXUQ-6NhcS": "Novel text settings",
   "UiF3Ob-tYkIolJhNVMUFM": "Set the reading style of the novel text",
   "SLO07VkQh2wjFJJ1MLvUl": "Page font",
-  "FyTTJetQW2e3wVs2sOjif": "Traditional Chinese translation"
+  "FyTTJetQW2e3wVs2sOjif": "Traditional Chinese translation",
+  "sBmkLtGcrWIL7xsU-EdM9": "Refreshing Access Token",
+  "8dWKEVyxLa8UjO0iuOA78": "Share Pixiv users",
+  "Gry1iNTJ2wm_9FMG_JpBT": "Hide navigation bar when scrolling"
 }

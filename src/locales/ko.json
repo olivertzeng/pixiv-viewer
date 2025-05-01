@@ -184,7 +184,7 @@
     "api": {
       "desc": "아래에 HibiAPI 인스턴스의 주소를 입력하고 https:// 를 추가해야 하며 /api/pixiv 부분에 경로를 입력해야 합니다.",
       "desc2": "예 : https://hibiapi.getloli.com/api/pixiv, 저장 후 로컬 캐시가 지워집니다.",
-      "desc3": "API 인스턴스는 다음 위치로 이동할 수 있습니다.",
+      "desc3": "API 인스턴스는 Github에서 직접 찾거나 구축 할 수 있습니다.",
       "desc4": "나만의 검색 또는 구축",
       "desc5": "API 인스턴스 주소는 교차 출처(CORS) 액세스를 지원해야 합니다.",
       "ph": "HibiAPI 인스턴스를 선택하십시오 (로컬 캐시는 전환 후 지워집니다)",
@@ -541,5 +541,8 @@
   "j1tomH0kHtIiXUQ-6NhcS": "새로운 텍스트 설정",
   "UiF3Ob-tYkIolJhNVMUFM": "새로운 텍스트 읽기 스타일을 설정하십시오",
   "SLO07VkQh2wjFJJ1MLvUl": "페이지 글꼴",
-  "FyTTJetQW2e3wVs2sOjif": "전통적인 중국어 번역"
+  "FyTTJetQW2e3wVs2sOjif": "전통적인 중국어 번역",
+  "sBmkLtGcrWIL7xsU-EdM9": "상쾌한 액세스 토큰",
+  "8dWKEVyxLa8UjO0iuOA78": "pixiv 사용자를 공유하십시오",
+  "Gry1iNTJ2wm_9FMG_JpBT": "스크롤 할 때 탐색 표시 줄을 숨 깁니다"
 }

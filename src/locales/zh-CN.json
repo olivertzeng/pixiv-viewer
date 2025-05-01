@@ -285,7 +285,7 @@
       "title3": "HibiAPI 实例地址",
       "desc": "在下方输入 HibiAPI 实例地址，需要加 https://，路径需填写到 `/api/pixiv` 部分",
       "desc2": "例如：https://hibiapi.getloli.com/api/pixiv，保存后会清空本地缓存",
-      "desc3": "API 实例可前往",
+      "desc3": "API 实例可前往 Github 查找或自行搭建",
       "desc4": "查找或自行搭建",
       "desc5": "API 实例地址需要支持跨域（CORS）访问",
       "ph": "请选择 HibiAPI 实例 (切换后会清空本地缓存)",
@@ -540,5 +540,8 @@
   "j1tomH0kHtIiXUQ-6NhcS": "小说文本设置",
   "UiF3Ob-tYkIolJhNVMUFM": "设置小说文本的阅读样式",
   "SLO07VkQh2wjFJJ1MLvUl": "页面字体",
-  "FyTTJetQW2e3wVs2sOjif": "繁体中文翻译"
+  "FyTTJetQW2e3wVs2sOjif": "繁体中文翻译",
+  "sBmkLtGcrWIL7xsU-EdM9": "刷新访问令牌中",
+  "8dWKEVyxLa8UjO0iuOA78": "分享 Pixiv 用户",
+  "Gry1iNTJ2wm_9FMG_JpBT": "滚动时隐藏导航栏"
 }

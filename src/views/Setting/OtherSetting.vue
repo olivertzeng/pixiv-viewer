@@ -10,6 +10,7 @@
           <van-switch :value="isDark" size="24" @change="onDarkChange" />
         </template>
       </van-cell>
+      <van-cell center :title="$t('SLO07VkQh2wjFJJ1MLvUl')" :label="appSetting.pageFont || $t('ZfJcs8gi6ptsljzInCNpH')" is-link @click="showPageFontSel" />
     </van-cell-group>
 
     <van-cell-group :title="$t('9X179hdP1zzapzk5Rvqx2')">
@@ -30,7 +31,6 @@
           <van-switch :disabled="appSetting.isLongpressDL" :value="appSetting.isLongpressBlock" size="24" @change="v => saveAppSetting('isLongpressBlock', v, true)" />
         </template>
       </van-cell>
-      <van-cell center :title="$t('SLO07VkQh2wjFJJ1MLvUl')" :label="appSetting.pageFont || $t('ZfJcs8gi6ptsljzInCNpH')" is-link @click="showPageFontSel" />
       <van-cell v-if="isPageTransitionSelShow" center :title="$t('Cy6qJLutMa5O3jJr8TawB')" :label="pageTransitionLabel" is-link @click="pageTransition.show = true" />
     </van-cell-group>
 
@@ -107,6 +107,11 @@
     </van-cell-group>
 
     <van-cell-group :title="$t('6oe7JPS26HGAlcjQdmHZ4')">
+      <van-cell center :title="$t('Na5UTdncjCSNrFJGlrPoq')">
+        <template #right-icon>
+          <van-switch :value="appSetting.withBodyBg" size="24" @change="v => saveAppSetting('withBodyBg', v, true)" />
+        </template>
+      </van-cell>
       <van-cell center :title="$t('qLUWER5bf4X2lE0RjKTBj')">
         <template #right-icon>
           <van-switch :value="appSetting.isUseFancybox" size="24" @change="v => saveAppSetting('isUseFancybox', v)" />
@@ -115,6 +120,11 @@
       <van-cell center :title="$t('setting.other.swipe_toggle')">
         <template #right-icon>
           <van-switch :value="appSetting.isEnableSwipe" size="24" @change="v => saveAppSetting('isEnableSwipe', v, true)" />
+        </template>
+      </van-cell>
+      <van-cell center :title="$t('Gry1iNTJ2wm_9FMG_JpBT')">
+        <template #right-icon>
+          <van-switch :value="appSetting.hideNavBarOnScroll" size="24" @change="v => saveAppSetting('hideNavBarOnScroll', v, true)" />
         </template>
       </van-cell>
       <van-cell center :title="$t('GnyWarxXoDw49xCft4IlS')">
@@ -130,11 +140,6 @@
       <van-cell center :title="$t('_E9iTJP6wHVE-Qxau80YA')">
         <template #right-icon>
           <van-switch :value="appSetting.isImageCardBorderRadius" size="24" @change="v => saveAppSetting('isImageCardBorderRadius', v, true)" />
-        </template>
-      </van-cell>
-      <van-cell center :title="$t('Na5UTdncjCSNrFJGlrPoq')">
-        <template #right-icon>
-          <van-switch :value="appSetting.withBodyBg" size="24" @change="v => saveAppSetting('withBodyBg', v, true)" />
         </template>
       </van-cell>
       <van-cell v-if="showAnaSwitch" center title="Enable Umami Analytics">
@@ -173,7 +178,7 @@
     >
       <van-cell>{{ $t('setting.api.desc') }}</van-cell>
       <van-cell>{{ $t('setting.api.desc2') }}</van-cell>
-      <van-cell>{{ $t('setting.api.desc3') }} <a href="https://github.com/mixmoe/HibiAPI">🔗Github</a> {{ $t('setting.api.desc4') }}</van-cell>
+      <van-cell>{{ $t('setting.api.desc3') }}: <a href="https://github.com/mixmoe/HibiAPI">🔗Github</a></van-cell>
       <van-cell>{{ $t('setting.api.desc5') }}</van-cell>
       <van-field v-model="hibiapi.value" :label="$t('setting.input')" label-width="3.5em" :placeholder="$t('setting.api.title3')" />
     </van-dialog>
@@ -461,9 +466,13 @@ export default {
         show: false,
         actions: [
           { name: '未设置', _value: '' },
-          { name: 'AI 翻译(glm_4_9b)', _value: 'sc_glm' },
-          { name: 'AI 翻译(Qwen2_7B)', _value: 'sc_qwen2' },
-          { name: 'AI 翻译(DS_R1_Llama_8B)', _value: 'sc_ds_r1_llama' },
+          { text: 'AI 翻译(glm-4-9b)', className: 'sc', key: 'sc_glm' },
+          { text: 'AI 翻译(GLM-4-9B-0414)', className: 'sc', key: 'sc_glm_0414' },
+          { text: 'AI 翻译(GLM-Z1-9B-0414)', className: 'sc', key: 'sc_glm_z1' },
+          { text: 'AI 翻译(Qwen2-7B)', className: 'sc', key: 'sc_qwen2' },
+          { text: 'AI 翻译(Qwen2.5-7B)', className: 'sc', key: 'sc_qwen2_5' },
+          { text: 'AI 翻译(DS-R1-Llama-8B)', className: 'sc', key: 'sc_ds_r1_llama' },
+          { text: 'AI 翻译(DS-R1-Qwen-7B)', className: 'sc', key: 'sc_ds_r1_qwen' },
           { name: '微软翻译', _value: 'ms' },
           { name: '谷歌翻译', _value: 'gg' },
           { name: '有道翻译', _value: 'yd' },

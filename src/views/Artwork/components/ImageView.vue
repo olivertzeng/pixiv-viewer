@@ -55,6 +55,7 @@
       <div v-if="ugoiraPlaying" class="btn-pause" @click="drawCanvas('pause')">
         <Icon class="pause" name="pause" scale="6" />
       </div>
+      <div v-else-if="progressShow" class="loading"></div>
       <div v-else class="btn-play" @click="playUgoira()">
         <Icon class="play" name="play" scale="6" />
       </div>
@@ -236,8 +237,8 @@ export default {
         }, {}),
       }
 
-      this.progressShow = true
       try {
+        this.progressShow = true
         const resp = await axios.get(ugoira.zip, {
           responseType: 'blob',
           timeout: 1000 * 60,
@@ -592,6 +593,17 @@ export default {
       right: 16px;
       bottom: 16px;
       color: rgba(122, 172, 208, 0.9);
+    }
+
+    .loading {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      width: 6em;
+      height: 6em;
+      background: rgba(122, 172, 208, 0.45) url('~@/icons/loading.svg');
+      background-size: 100%;
+      border-radius 50%
     }
 
     .progress-bar {

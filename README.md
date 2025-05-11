@@ -154,6 +154,12 @@ pnpm lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+## Sponsor
+
+如果你觉得这个项目对你有帮助，欢迎请我喝杯咖啡：
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sakurayumine)
+
 ## FAQ
 
 ### 自建的话如何预设图床与 API 实例

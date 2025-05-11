@@ -141,6 +141,12 @@ pnpm lint
 ### Customize Configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+## Sponsor
+
+If you find this project helpful, feel free to buy me a coffee:
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sakurayumine)
+
 ## FAQ
 
 ### How to preset the image proxy and API instance if you build it yourself?

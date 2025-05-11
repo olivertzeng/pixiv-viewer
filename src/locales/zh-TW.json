@@ -18,8 +18,8 @@
       "ugoira": {
         "tip": "請先播放動圖"
       },
-      "webm": "高畫質，兼容性差",
-      "zip": "原始序列幀歸檔文件",
+      "webm": "高畫質，支援度差",
+      "zip": "原始序列幀歸檔檔案",
       "mp4": "使用 ffmpeg.wasm 在瀏覽器轉換"
     },
     "share": {
@@ -30,7 +30,7 @@
         "copylink": "複製連結",
         "qrcode": "二維碼",
         "qzone": "QQ 空間",
-        "web": "Web 分享",
+        "web": "網路分享",
         "wechat": "微信",
         "weibo": "微博"
       }
@@ -44,12 +44,12 @@
       "first": "確定要清理{0}嗎？",
       "second": "清理後瀏覽記錄將會被刪除，且將重新從網路載入相關內容"
     },
-    "db": "持久化緩存",
-    "local": "配置項緩存",
+    "db": "持久快取",
+    "local": "配置項快取",
     "records": "{0} 條記錄",
-    "session": "運行時緩存",
+    "session": "運行時快取",
     "success_tip": "清理完成",
-    "title": "清除緩存",
+    "title": "清除快取",
     "mem": "內存佔用"
   },
   "common": {
@@ -86,7 +86,7 @@
     "ai": "顯示 AI 生成標籤",
     "ai_label": "在圖片列表中顯示「AI」標籤",
     "confirm": "確定要開啟{0}作品顯示嗎？ 請確保您的年齡已滿18歲，且未違反當地法律法規所規定的內容。",
-    "confirm_g": "請注意，開啟{0}開關可能會對您的身心健康造成不可逆的影響，如若感到不適，請立即關閉應用並尋求醫學幫助",
+    "confirm_g": "請注意，開啟{0}開關可能會對您的身心健康造成不可逆的影響，如若感到不適，請立即關閉此應用程式並尋求醫學幫助",
     "r18": "R-18 作品顯示",
     "r18_label": "包含裸露內容或性描寫",
     "r18g": "R-18G 作品顯示",
@@ -152,7 +152,7 @@
     "history": "歷史搜尋",
     "img": {
       "err": "返回結果解析失敗。",
-      "placeholder": "請選擇圖片文件"
+      "placeholder": "請選擇圖片檔"
     },
     "of_user_res": "{0}的搜尋結果",
     "placeholder": "請輸入搜尋關鍵詞",
@@ -183,11 +183,11 @@
     "about": "關於",
     "api": {
       "desc": "在下方輸入 HibiAPI 實例地址，需要加 https://，路徑需填寫到 `/api/pixiv` 部分",
-      "desc2": "例如：https://hibiapi.getloli.com/api/pixiv，儲存後會清空本地緩存",
+      "desc2": "例如：https://hibiapi.getloli.com/api/pixiv，儲存後會清空本地快取",
       "desc3": "API 實例可前往 Github 查找或自行搭建",
       "desc4": "查找或自行搭建",
       "desc5": "API 實例地址需要支援跨域（CORS）前往",
-      "ph": "請選擇 HibiAPI 實例（切換後會清空本地緩存)",
+      "ph": "請選擇 HibiAPI 實例（切換後會清空本地快取)",
       "title": "HibiAPI 實例設定",
       "title2": "HibiAPI 實例選擇",
       "title3": "HibiAPI 實例地址",
@@ -198,8 +198,8 @@
     },
     "img_proxy": {
       "desc": "在下方輸入 pixiv 圖片代理地址，不需要加 https://",
-      "desc2": "例如：i.pixiv.re，儲存後會清空本地緩存",
-      "ph": "請選擇 pixiv 圖片代理（切換後會清空本地緩存)",
+      "desc2": "例如：i.pixiv.re，儲存後會清空本地快取",
+      "ph": "請選擇 pixiv 圖片代理（切換後會清空本地快取)",
       "title": "pximg 圖片代理設定",
       "title2": "pximg 圖片代理選擇",
       "title3": "圖片代理",
@@ -245,9 +245,9 @@
         },
         "host": {
           "label": "清除後將重新通過 DoH 查詢",
-          "title": "清除直連 hosts 緩存"
+          "title": "清除直連 hosts 快取"
         },
-        "host_msg": "確認清除直連模式 hosts 緩存記錄?",
+        "host_msg": "確認清除直連模式 hosts 快取記錄?",
         "label": "是否通過域前置繞過 SNI 嗅探",
         "proxy": {
           "label": "是否通過雲服務代理本地 AppApi 請求",
@@ -263,7 +263,7 @@
       "title": "相關推薦",
       "tm": "使用者腳本"
     },
-    "down_app": "下載應用程序",
+    "down_app": "下載應用程式",
     "app_desc": "又一個 Pixiv 插畫/小說閱覽工具"
   },
   "sp": {
@@ -307,10 +307,10 @@
     "of": "的",
     "of_other_art": "{0} 的其他作品",
     "sess": {
-      "logout": "您確定要刪除會話嗎？",
+      "logout": "是否刪除會話嗎？",
       "login": "登入",
       "my_fav": "我的收藏",
-      "out": "退出"
+      "out": "登出"
     },
     "related": "相關使用者",
     "faved": "已收藏",
@@ -331,7 +331,7 @@
     "browser_tip": "請使用 Chrome/Edge 瀏覽器前往本站"
   },
   "sess": {
-    "example": "Session ID 形如（無效，演示用）：",
+    "example": "Session ID 範例（無效，演示用）：",
     "input": {
       "msg": "Session ID 格式不正確",
       "ph": "請輸入 Session ID"
@@ -340,22 +340,22 @@
     "q1": {
       "p1": "1. 前往 {0} 源站並登入",
       "p2": "2. 點擊地址欄的小鎖",
-      "p3": "3. 在彈出的界面選擇「Cookie(正在使用 0 個 Cookie)」",
+      "p3": "3. 在彈出的界面選擇「Cookie（正在使用 0 個 Cookie）」",
       "p4": "4. 展開 `pixiv.net` → `Cookie` 找到 {0} 項",
       "p5": "5. 將它的「內容」複製後填寫到這裡"
     },
     "q2": {
       "p2": "2. 按 F12 打開瀏覽器控制台",
-      "p3": "3. 點擊「存儲/storage」一欄",
-      "p4": "4. 在 cookie 列表裡找到「鍵/key」為 {0} 的一欄",
+      "p3": "3. 點擊「儲存空間/storage」一欄",
+      "p4": "4. 在 cookie 列表裡找到「名稱/key」為 {0} 的一欄",
       "p5": "5. 將它的「值/value」複製後填寫到這裡"
     },
     "que2": {
-      "p1": "我們 不會 存儲或轉讓您的個人信息以及 cookie。",
-      "p2": "不過我們建議妥善儲存您的 cookie。\n您在此處儲存的信息若被他人獲取有被盜號的風險。"
+      "p1": "我們「不會」儲存或轉讓您的個人訊息以及 cookie。",
+      "p2": "不過我們建議妥善儲存您的 cookie。\n您在此處儲存的訊息若被他人獲取有被盜號的風險。"
     },
     "ques1": "如何獲取 Pixiv Session ID ？",
-    "ques2": "Pixiv Viewer 會竊取我的個人信息嗎？",
+    "ques2": "Pixiv Viewer 會取得我的個人資訊嗎？",
     "save": "儲存",
     "succ_msg": "Session ID 認證成功",
     "title": "設定 Pixiv Cookie",
@@ -367,19 +367,19 @@
   "follow": {
     "fav": "我的收藏",
     "timeline": "動態",
-    "user": "已跟隨用户",
+    "user": "已跟隨使用者",
     "latest": "全站最新"
   },
   "login": {
     "fail_tip": "登入失敗",
-    "logout_tip": "確認退出？",
+    "logout_tip": "是否登出？",
     "o": {
       "desc1": "即將打開 Pixiv 官網進行登入，請確保可以前往 Pixiv",
       "desc2": "請確保已安裝 Redirector 瀏覽器擴充功能並匯入規則，否則將無法登入",
-      "desc3": "Redirector 安裝地址：",
+      "desc3": "Redirector 安裝網址：",
       "desc4": "點擊下載 Redirector 規則",
       "desc5": "請確保已安裝油猴瀏覽器擴充功能並安裝 HTTP Helper 使用者腳本，否則將無法請求 API",
-      "desc6": "油猴安裝地址：",
+      "desc6": "油猴安裝網址：",
       "desc7": "點擊安裝 HTTP Helper 使用者腳本"
     },
     "succ_tip": "登入成功",
@@ -410,10 +410,10 @@
   "g4JWYmBbfeweCBkRSgGNw": "直播",
   "qzuDyLgl-y1tIhY0Dc_6s": "人氣直播",
   "bJ1fo_0HLdA1bWDIic_CT": "結果僅供參考",
-  "fSITk3ygQ7rxjm0lDUoSV": "此作品有 {0}% 的可能性是由 AI 產生的。",
+  "fSITk3ygQ7rxjm0lDUoSV": "此作品有 {0}% 的機率是由 AI 產生的。",
   "Wc3yMDMSkHUhoGx22bsP8": "導入設定",
   "Bi5BpYwKhUhWcm_RueGZN": "匯出設定",
-  "psoXLFqv51j1SeKjTbnms": "應用主題色",
+  "psoXLFqv51j1SeKjTbnms": "套用主題色",
   "lGZGzwfWz9tW_KQey3AmQ": "啟用 pximg 圖片直連模式",
   "nTsgCnGYm8FSVMfe-TQSN": "確認啟用 pximg 直連模式？",
   "YeEO8hAsoM45pm_vcijKP": "pximg 直連模式需確保油猴與 HTTP Helper 腳本已安裝，且速度可能較慢、不保證穩定性。",
@@ -485,15 +485,15 @@
   "nLfTowV936VLOus1gCBwD": "見 pixiv 官方公告：",
   "oIpHR8FnQhPgVI2BizbAn": "建議用自己的賬號登入本站後再使用，並且要在官方網頁端裡面設定選擇非美國/英國的地區，最好選擇日區。",
   "sJi3WO6IsK-5QD-YcWBMF": "列表與詳情圖片不匹配或重複、搜尋結果與搜尋標籤不匹配",
-  "ChCGA7Uk5be-pt_ZPtyVU": "是因為自建 API 的 CDN 緩存導致的，可以到設定裡切換其他 API 實例或者登入後再使用",
+  "ChCGA7Uk5be-pt_ZPtyVU": "是因為自建 API 的 CDN 快取導致的，可以到設定裡切換其他 API 實例或者登入後再使用",
   "hNq6xDwKzWRVTCurKT2VB": "Cookie/SessionID 登入出錯",
   "FKYu426sygq6j2G9o7cPa": "建議使用 RefreshToken 方式登入",
   "7Qp6wS6ighxbdX6P79aH8": "Android 版本點擊下載就閃退",
-  "94IU-NPgYBjKNVa_XspuT": "到系統設定裡給予本應用存儲權限，或者下載最新版本後再進行嘗試",
+  "94IU-NPgYBjKNVa_XspuT": "到系統設定裡給予本應用程式儲存權限，或者下載最新版本後再進行嘗試",
   "3bW7wpYWQJ7UircVA8I76": "是否有 iOS App",
-  "v-ZyNlfMeisfmOU7rNkbm": "可到 Github Releases 下載，注意 iOS 安裝包（ipa 檔）未簽名，需要自行簽名側載安裝",
+  "v-ZyNlfMeisfmOU7rNkbm": "可到 Github Releases 下載，注意 iOS 安裝包（IPA 檔）尚未簽名，需要自行簽名側載安裝",
   "DZ-5sfdw6SbWNC1_QX8QR": "自建的話如何預設圖床與 API 實例",
-  "Wl1aNUtmWu3vdjH7e4VTy": "可以在項目根目錄下新建 `.env` 文件，參照 `.env.example` 的格式填入環境變量。",
+  "Wl1aNUtmWu3vdjH7e4VTy": "可以在項目根目錄下新建 `.env` 檔案，參照 `.env.example` 的格式填入環境變量。",
   "5x4Ry0IB3Zq4yjhOoYraV": "趣聞",
   "history_tab_label_user": "使用者",
   "vant_cal_title": "日曆",

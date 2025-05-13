@@ -21,7 +21,7 @@
           <van-switch :value="appSetting.isImageCardOuterMeta" size="24" @change="v => saveAppSetting('isImageCardOuterMeta', v, true)" />
         </template>
       </van-cell>
-      <van-cell center :title="$t('mR4YFHYUnr00zmzYydrMv')" :label="$t('V-KoSeNoEiNct7oZJgCcD')">
+      <van-cell v-if="!isNavSHSetShow" center :title="$t('mR4YFHYUnr00zmzYydrMv')" :label="$t('V-KoSeNoEiNct7oZJgCcD')">
         <template #right-icon>
           <van-switch :value="appSetting.isImageFitScreen" size="24" @change="v => saveAppSetting('isImageFitScreen', v, true)" />
         </template>
@@ -122,7 +122,7 @@
           <van-switch :value="appSetting.isEnableSwipe" size="24" @change="v => saveAppSetting('isEnableSwipe', v, true)" />
         </template>
       </van-cell>
-      <van-cell center :title="$t('Gry1iNTJ2wm_9FMG_JpBT')">
+      <van-cell v-if="isNavSHSetShow" center :title="$t('Gry1iNTJ2wm_9FMG_JpBT')">
         <template #right-icon>
           <van-switch :value="appSetting.hideNavBarOnScroll" size="24" @change="v => saveAppSetting('hideNavBarOnScroll', v, true)" />
         </template>
@@ -407,7 +407,7 @@ export default {
         actions: [
           { name: 'Medium', subname: this.$t('setting.img_res.m') },
           { name: 'Large', subname: this.$t('setting.img_res.l') },
-          { name: 'Original', subname: this.$t('setting.img_res.o'), disabled: true },
+          { name: 'Original', subname: this.$t('setting.img_res.o'), disabled: LocalStorage.get('PXIMG_PROXY') != 'i.pixiv.re' },
         ],
       },
       lang: {
@@ -496,6 +496,7 @@ export default {
       showAnaSwitch: false,
       isAnalyticsOn: LocalStorage.get('PXV_ANALYTICS', true),
       isPageTransitionSelShow: Boolean(document.startViewTransition),
+      isNavSHSetShow: document.documentElement.clientWidth <= 1270,
     }
   },
   head() {

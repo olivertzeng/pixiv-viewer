@@ -78,7 +78,6 @@ import _ from '@/lib/lodash'
 import { mapState, mapActions } from 'vuex'
 import { notSelfHibiApi } from '@/consts'
 import { BLOCK_LAST_WORD_RE } from '@/utils/filter'
-import { i18n } from '@/i18n'
 import api from '@/api'
 import store from '@/store'
 import Tags from './components/Tags'
@@ -101,8 +100,10 @@ export default {
       isSelfHibi: !notSelfHibiApi,
     }
   },
-  head: {
-    title: i18n.t('search.search'),
+  head() {
+    return {
+      title: this.$t('search.search'),
+    }
   },
   computed: {
     ...mapState(['searchHistory']),

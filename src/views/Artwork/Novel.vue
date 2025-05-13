@@ -309,7 +309,7 @@ export default {
         html: () => {
           const el = document.querySelector('.novel-view').cloneNode(true)
           el.querySelector('svg').remove()
-          return el.outerHTML
+          return '<meta charset="utf-8">' + el.outerHTML
         },
       }
       const ext = store.state.appSetting.novelDlFormat

@@ -21,7 +21,6 @@ import LatestNovelCard from './components/LatestNovelCard.vue'
 import NovelRankCard from './components/NovelRankCard.vue'
 import NovelRecommendCard from './components/NovelRecommendCard.vue'
 import RandomNovel from './components/RandomNovel.vue'
-import { i18n } from '@/i18n'
 
 export default {
   name: 'HomeNovel',
@@ -36,8 +35,10 @@ export default {
       isSelfHibi: !notSelfHibiApi,
     }
   },
-  head: {
-    title: i18n.t('common.novel'),
+  head() {
+    return {
+      title: this.$t('common.novel'),
+    }
   },
 }
 </script>

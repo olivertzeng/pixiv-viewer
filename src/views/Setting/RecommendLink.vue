@@ -5,21 +5,21 @@
       title="PixivNow"
       is-link
       label="https://pixiv.js.org"
-      @click="openLink('https://pixiv.js.org/')"
+      @click="openLink('https://pixiv.js.org')"
     />
     <van-cell
       center
       title="Pixivel"
       is-link
       label="https://pixivel.moe"
-      @click="openLink('https://pixivel.moe/')"
+      @click="openLink('https://pixivel.moe')"
     />
     <van-cell
       center
       title="Pixiviz"
       is-link
       label="https://pixiviz.xyz"
-      @click="openLink('https://pixiviz.xyz/')"
+      @click="openLink('https://pixiviz.xyz')"
     />
     <van-cell
       center
@@ -96,14 +96,14 @@
       title="Wotaku - The Otaku Index"
       is-link
       label="https://wotaku.moe"
-      @click="openLink('https://wotaku.moe/')"
+      @click="openLink('https://wotaku.moe')"
     />
     <van-cell
       center
       title="AnimeGarden - Anime Torrent aggregation site"
       is-link
       label="https://garden.onekuma.cn"
-      @click="openLink('https://garden.onekuma.cn/')"
+      @click="openLink('https://garden.onekuma.cn')"
     />
     <van-cell
       center
@@ -111,6 +111,13 @@
       is-link
       label="https://everythingmoe.com"
       @click="openLink('https://everythingmoe.com')"
+    />
+    <van-cell
+      center
+      title="Nekon - ≡ω≡"
+      is-link
+      label="https://nekon.app"
+      @click="openLink('https://nekon.app')"
     />
   </div>
 </template>

@@ -30,7 +30,6 @@
 <script>
 import { mintVerify, BLOCK_SEARCH_WORD_RE } from '@/utils/filter'
 import RecommUser from './components/RecommUser.vue'
-import { i18n } from '@/i18n'
 
 export default {
   name: 'SearchUser',
@@ -42,8 +41,10 @@ export default {
       keywords: '',
     }
   },
-  head: {
-    title: i18n.t('search.search_user'),
+  head() {
+    return {
+      title: this.$t('search.search_user'),
+    }
   },
   methods: {
     async onSearch() {

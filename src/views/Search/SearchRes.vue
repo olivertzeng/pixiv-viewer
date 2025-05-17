@@ -196,8 +196,10 @@ export default {
       isSelfHibi: !notSelfHibiApi,
     }
   },
-  head: {
-    title: i18n.t('search.search'),
+  head() {
+    return {
+      title: this.$t('search.search'),
+    }
   },
   computed: {
     ...mapState(['searchHistory']),

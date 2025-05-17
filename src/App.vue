@@ -18,11 +18,13 @@ export default {
   components: {
     Preload,
   },
-  head: {
-    // if no subcomponents specify a metaInfo.title, this title will be used
-    title: 'Loading',
-    // all titles will be injected into this template
-    titleTemplate: '%s | Pixiv Viewer',
+  head() {
+    return {
+      // if no subcomponents specify a metaInfo.title, this title will be used
+      title: this.$t('tips.loading'),
+      // all titles will be injected into this template
+      titleTemplate: '%s | Pixiv Viewer',
+    }
   },
   async created() {
     checkIsLogin()

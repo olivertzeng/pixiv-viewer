@@ -61,7 +61,7 @@ export default new Vuex.Store({
       withBodyBg: true,
       novelDlFormat: 'txt',
       novelDefTranslate: '',
-      pageFont: /zh-Han|ja/.test(getSelectedLang()) ? 'LXGW WenKai Screen' : '',
+      pageFont: /zh-|ja/.test(getSelectedLang()) ? 'LXGW WenKai Screen' : '',
       hideNavBarOnScroll: true,
       ...getSettingDef('PXV_APP_SETTING', {}),
     },

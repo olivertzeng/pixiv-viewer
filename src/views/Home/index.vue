@@ -68,9 +68,11 @@ export default {
       placeholder: '',
     }
   },
-  head: {
-    title: 'Pixiv Viewer - Yet Another Pixiv Illustration & Novel Viewer',
-    titleTemplate: null,
+  head() {
+    return {
+      title: `Pixiv Viewer - ${this.$t('setting.app_desc')}`,
+      titleTemplate: null,
+    }
   },
   activated() {
     this.placeholder = _.sample(this.tags)
